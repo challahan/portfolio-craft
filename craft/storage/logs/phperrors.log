@@ -1,0 +1,741 @@
+[19-Dec-2016 22:14:29 UTC] An Error occurred while handling another error:
+exception 'yii\base\InvalidConfigException' with message 'The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/AssetManager.php:211
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): yii\web\AssetManager->init()
+#1 [internal function]: yii\base\Object->__construct(Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(379): ReflectionClass->newInstanceArgs(Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(154): yii\di\Container->build('craft\\app\\web\\A...', Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('craft\\app\\web\\A...', Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/config/components/common.php(120): yii\BaseYii::createObject(Array)
+#6 [internal function]: {closure}()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(494): call_user_func_array(Object(Closure), Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(346): yii\di\Container->invoke(Object(Closure), Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/ServiceLocator.php(133): yii\BaseYii::createObject(Object(Closure))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(600): yii\di\ServiceLocator->get('assetManager')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(223): yii\base\Application->getAssetManager()
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(283): yii\web\View->getAssetManager()
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(28): yii\web\View->registerAssetBundle('craft\\app\\web\\a...', 3)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_c0375a9ab5ed3a72770009781eced7665761ad994a3e616e8837c40d7f1cccc0->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(29): craft\app\web\twig\Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(28): craft\app\web\twig\Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#34 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#42 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#43 {main}
+
+Next exception 'Twig_Error_Runtime' with message 'An exception has been thrown during the rendering of a template ("The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources") in "_layouts/base" at line 5.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php:402
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(29): craft\app\web\twig\Template->display(Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(28): craft\app\web\twig\Template->display(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#19 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#27 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#28 {main}
+Previous exception:
+exception 'craft\app\errors\DbConnectException' with message 'Database configuration errors: The database name isn’t set in your db config file.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php:702
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php(1224): craft\app\web\Application->validateDbConfigFile()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(84): craft\app\web\Application->_init()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): craft\app\web\Application->init()
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(206): yii\base\Object->__construct(Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(72): yii\base\Application->__construct(Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/bootstrap.php(235): craft\app\web\Application->__construct(Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(66): require('/Users/Chris/Do...')
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/public/index.php(19): require_once('/Users/Chris/Do...')
+#8 {main}
+$_SERVER = [
+    'HTTP_HOST' => 'chris.web',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_CONNECTION' => 'keep-alive',
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'chris.web',
+    'SERVER_ADDR' => '::1',
+    'SERVER_PORT' => '80',
+    'REMOTE_ADDR' => '::1',
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/public',
+    'SERVER_ADMIN' => 'you@example.com',
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/public/index.php',
+    'REMOTE_PORT' => '56629',
+    'GATEWAY_INTERFACE' => 'CGI/1.1',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/',
+    'SCRIPT_NAME' => '/index.php',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1482185668.8970000743865966796875,
+    'REQUEST_TIME' => 1482185668,
+    'argv' => [],
+    'argc' => 0,
+]
+[19-Dec-2016 22:15:50 UTC] An Error occurred while handling another error:
+exception 'yii\base\InvalidConfigException' with message 'The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/AssetManager.php:211
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): yii\web\AssetManager->init()
+#1 [internal function]: yii\base\Object->__construct(Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(379): ReflectionClass->newInstanceArgs(Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(154): yii\di\Container->build('craft\\app\\web\\A...', Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('craft\\app\\web\\A...', Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/config/components/common.php(120): yii\BaseYii::createObject(Array)
+#6 [internal function]: {closure}()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(494): call_user_func_array(Object(Closure), Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(346): yii\di\Container->invoke(Object(Closure), Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/ServiceLocator.php(133): yii\BaseYii::createObject(Object(Closure))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(600): yii\di\ServiceLocator->get('assetManager')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(223): yii\base\Application->getAssetManager()
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(283): yii\web\View->getAssetManager()
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/df/dfa477ffd3eacefecc3fe43ef35438dfdda67a769debc1aee048f82ab6dc5dfb.php(28): yii\web\View->registerAssetBundle('craft\\app\\web\\a...', 3)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_c0375a9ab5ed3a72770009781eced7665761ad994a3e616e8837c40d7f1cccc0->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#34 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#42 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#43 {main}
+
+Next exception 'Twig_Error_Runtime' with message 'An exception has been thrown during the rendering of a template ("The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources") in "_layouts/base" at line 5.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php:402
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#19 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#27 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#28 {main}
+Previous exception:
+exception 'craft\app\errors\DbConnectException' with message 'Database configuration errors: The database name isn’t set in your db config file.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php:702
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php(1224): craft\app\web\Application->validateDbConfigFile()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(84): craft\app\web\Application->_init()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): craft\app\web\Application->init()
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(206): yii\base\Object->__construct(Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(72): yii\base\Application->__construct(Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/bootstrap.php(235): craft\app\web\Application->__construct(Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(66): require('/Users/Chris/Do...')
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/public/index.php(19): require_once('/Users/Chris/Do...')
+#8 {main}
+$_SERVER = [
+    'HTTPS' => 'on',
+    'SSL_TLS_SNI' => 'chris.web',
+    'SSL_SERVER_S_DN_C' => 'HA',
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_S_DN_CN' => 'chris.web',
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf',
+    'SSL_SERVER_I_DN_C' => 'HA',
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_I_DN_CN' => 'chris.web',
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf',
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31',
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h',
+    'SSL_PROTOCOL' => 'TLSv1.2',
+    'SSL_SECURE_RENEG' => 'true',
+    'SSL_COMPRESS_METHOD' => 'NULL',
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384',
+    'SSL_CIPHER_EXPORT' => 'false',
+    'SSL_CIPHER_USEKEYSIZE' => '256',
+    'SSL_CIPHER_ALGKEYSIZE' => '256',
+    'SSL_CLIENT_VERIFY' => 'NONE',
+    'SSL_SERVER_M_VERSION' => '1',
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB',
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT',
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT',
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_A_KEY' => 'rsaEncryption',
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption',
+    'SSL_SESSION_ID' => 'ED1094893C48BF422D09B6AB0793F4CB29EDDABAD625B0AA7B5D52F4602D60E1',
+    'HTTP_HOST' => 'chris.web',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us',
+    'HTTP_CONNECTION' => 'keep-alive',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'chris.web',
+    'SERVER_ADDR' => '::1',
+    'SERVER_PORT' => '443',
+    'REMOTE_ADDR' => '::1',
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/public',
+    'SERVER_ADMIN' => 'you@example.com',
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/public/index.php',
+    'REMOTE_PORT' => '56669',
+    'GATEWAY_INTERFACE' => 'CGI/1.1',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/',
+    'SCRIPT_NAME' => '/index.php',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1482185750.019999980926513671875,
+    'REQUEST_TIME' => 1482185750,
+    'argv' => [],
+    'argc' => 0,
+]
+[19-Dec-2016 22:16:41 UTC] An Error occurred while handling another error:
+exception 'yii\base\InvalidConfigException' with message 'The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/AssetManager.php:211
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): yii\web\AssetManager->init()
+#1 [internal function]: yii\base\Object->__construct(Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(379): ReflectionClass->newInstanceArgs(Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(154): yii\di\Container->build('craft\\app\\web\\A...', Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('craft\\app\\web\\A...', Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/config/components/common.php(120): yii\BaseYii::createObject(Array)
+#6 [internal function]: {closure}()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(494): call_user_func_array(Object(Closure), Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(346): yii\di\Container->invoke(Object(Closure), Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/ServiceLocator.php(133): yii\BaseYii::createObject(Object(Closure))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(600): yii\di\ServiceLocator->get('assetManager')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(223): yii\base\Application->getAssetManager()
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(283): yii\web\View->getAssetManager()
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/df/dfa477ffd3eacefecc3fe43ef35438dfdda67a769debc1aee048f82ab6dc5dfb.php(28): yii\web\View->registerAssetBundle('craft\\app\\web\\a...', 3)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_c0375a9ab5ed3a72770009781eced7665761ad994a3e616e8837c40d7f1cccc0->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#34 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#42 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#43 {main}
+
+Next exception 'Twig_Error_Runtime' with message 'An exception has been thrown during the rendering of a template ("The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources") in "_layouts/base" at line 5.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php:402
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#19 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#27 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#28 {main}
+Previous exception:
+exception 'craft\app\errors\DbConnectException' with message 'Database configuration errors: The database name isn’t set in your db config file.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php:702
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php(1224): craft\app\web\Application->validateDbConfigFile()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(84): craft\app\web\Application->_init()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): craft\app\web\Application->init()
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(206): yii\base\Object->__construct(Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(72): yii\base\Application->__construct(Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/bootstrap.php(235): craft\app\web\Application->__construct(Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(66): require('/Users/Chris/Do...')
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/public/index.php(19): require_once('/Users/Chris/Do...')
+#8 {main}
+$_SERVER = [
+    'HTTPS' => 'on',
+    'SSL_TLS_SNI' => 'chris.web',
+    'SSL_SERVER_S_DN_C' => 'HA',
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_S_DN_CN' => 'chris.web',
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf',
+    'SSL_SERVER_I_DN_C' => 'HA',
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_I_DN_CN' => 'chris.web',
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf',
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31',
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h',
+    'SSL_PROTOCOL' => 'TLSv1.2',
+    'SSL_SECURE_RENEG' => 'true',
+    'SSL_COMPRESS_METHOD' => 'NULL',
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384',
+    'SSL_CIPHER_EXPORT' => 'false',
+    'SSL_CIPHER_USEKEYSIZE' => '256',
+    'SSL_CIPHER_ALGKEYSIZE' => '256',
+    'SSL_CLIENT_VERIFY' => 'NONE',
+    'SSL_SERVER_M_VERSION' => '1',
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB',
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT',
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT',
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_A_KEY' => 'rsaEncryption',
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption',
+    'SSL_SESSION_ID' => 'ED1094893C48BF422D09B6AB0793F4CB29EDDABAD625B0AA7B5D52F4602D60E1',
+    'HTTP_HOST' => 'chris.web',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us',
+    'HTTP_CACHE_CONTROL' => 'max-age=0',
+    'HTTP_CONNECTION' => 'keep-alive',
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'chris.web',
+    'SERVER_ADDR' => '::1',
+    'SERVER_PORT' => '443',
+    'REMOTE_ADDR' => '::1',
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/public',
+    'SERVER_ADMIN' => 'you@example.com',
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/public/index.php',
+    'REMOTE_PORT' => '56718',
+    'GATEWAY_INTERFACE' => 'CGI/1.1',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/',
+    'SCRIPT_NAME' => '/index.php',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1482185801.585999965667724609375,
+    'REQUEST_TIME' => 1482185801,
+    'argv' => [],
+    'argc' => 0,
+]
+[19-Dec-2016 22:16:43 UTC] An Error occurred while handling another error:
+exception 'yii\base\InvalidConfigException' with message 'The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/AssetManager.php:211
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): yii\web\AssetManager->init()
+#1 [internal function]: yii\base\Object->__construct(Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(379): ReflectionClass->newInstanceArgs(Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(154): yii\di\Container->build('craft\\app\\web\\A...', Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('craft\\app\\web\\A...', Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/config/components/common.php(120): yii\BaseYii::createObject(Array)
+#6 [internal function]: {closure}()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(494): call_user_func_array(Object(Closure), Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(346): yii\di\Container->invoke(Object(Closure), Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/ServiceLocator.php(133): yii\BaseYii::createObject(Object(Closure))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(600): yii\di\ServiceLocator->get('assetManager')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(223): yii\base\Application->getAssetManager()
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(283): yii\web\View->getAssetManager()
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/df/dfa477ffd3eacefecc3fe43ef35438dfdda67a769debc1aee048f82ab6dc5dfb.php(28): yii\web\View->registerAssetBundle('craft\\app\\web\\a...', 3)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_c0375a9ab5ed3a72770009781eced7665761ad994a3e616e8837c40d7f1cccc0->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#34 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#42 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#43 {main}
+
+Next exception 'Twig_Error_Runtime' with message 'An exception has been thrown during the rendering of a template ("The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources") in "_layouts/base" at line 5.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php:402
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#19 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#27 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#28 {main}
+Previous exception:
+exception 'craft\app\errors\DbConnectException' with message 'Database configuration errors: The database name isn’t set in your db config file.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php:702
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php(1224): craft\app\web\Application->validateDbConfigFile()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(84): craft\app\web\Application->_init()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): craft\app\web\Application->init()
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(206): yii\base\Object->__construct(Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(72): yii\base\Application->__construct(Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/bootstrap.php(235): craft\app\web\Application->__construct(Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(66): require('/Users/Chris/Do...')
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/public/index.php(19): require_once('/Users/Chris/Do...')
+#8 {main}
+$_SERVER = [
+    'HTTPS' => 'on',
+    'SSL_TLS_SNI' => 'chris.web',
+    'SSL_SERVER_S_DN_C' => 'HA',
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_S_DN_CN' => 'chris.web',
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf',
+    'SSL_SERVER_I_DN_C' => 'HA',
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_I_DN_CN' => 'chris.web',
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf',
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31',
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h',
+    'SSL_PROTOCOL' => 'TLSv1.2',
+    'SSL_SECURE_RENEG' => 'true',
+    'SSL_COMPRESS_METHOD' => 'NULL',
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384',
+    'SSL_CIPHER_EXPORT' => 'false',
+    'SSL_CIPHER_USEKEYSIZE' => '256',
+    'SSL_CIPHER_ALGKEYSIZE' => '256',
+    'SSL_CLIENT_VERIFY' => 'NONE',
+    'SSL_SERVER_M_VERSION' => '1',
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB',
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT',
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT',
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_A_KEY' => 'rsaEncryption',
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption',
+    'SSL_SESSION_ID' => 'ED1094893C48BF422D09B6AB0793F4CB29EDDABAD625B0AA7B5D52F4602D60E1',
+    'HTTP_HOST' => 'chris.web',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us',
+    'HTTP_CACHE_CONTROL' => 'max-age=0',
+    'HTTP_CONNECTION' => 'keep-alive',
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'chris.web',
+    'SERVER_ADDR' => '::1',
+    'SERVER_PORT' => '443',
+    'REMOTE_ADDR' => '::1',
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/public',
+    'SERVER_ADMIN' => 'you@example.com',
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/public/index.php',
+    'REMOTE_PORT' => '56720',
+    'GATEWAY_INTERFACE' => 'CGI/1.1',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/',
+    'SCRIPT_NAME' => '/index.php',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1482185803.2530000209808349609375,
+    'REQUEST_TIME' => 1482185803,
+    'argv' => [],
+    'argc' => 0,
+]
+[19-Dec-2016 22:18:45 UTC] An Error occurred while handling another error:
+exception 'yii\base\InvalidConfigException' with message 'The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/AssetManager.php:211
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): yii\web\AssetManager->init()
+#1 [internal function]: yii\base\Object->__construct(Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(379): ReflectionClass->newInstanceArgs(Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(154): yii\di\Container->build('craft\\app\\web\\A...', Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(344): yii\di\Container->get('craft\\app\\web\\A...', Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/config/components/common.php(120): yii\BaseYii::createObject(Array)
+#6 [internal function]: {closure}()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/Container.php(494): call_user_func_array(Object(Closure), Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/BaseYii.php(346): yii\di\Container->invoke(Object(Closure), Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/di/ServiceLocator.php(133): yii\BaseYii::createObject(Object(Closure))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(600): yii\di\ServiceLocator->get('assetManager')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(223): yii\base\Application->getAssetManager()
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/View.php(283): yii\web\View->getAssetManager()
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/df/dfa477ffd3eacefecc3fe43ef35438dfdda67a769debc1aee048f82ab6dc5dfb.php(28): yii\web\View->registerAssetBundle('craft\\app\\web\\a...', 3)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_c0375a9ab5ed3a72770009781eced7665761ad994a3e616e8837c40d7f1cccc0->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#34 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#42 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#43 {main}
+
+Next exception 'Twig_Error_Runtime' with message 'An exception has been thrown during the rendering of a template ("The directory does not exist: /Users/Chris/Documents/Repositories/portfolio-craft/public/cpresources") in "_layouts/base" at line 5.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php:402
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/03/0383f924a67cc197cb9aff0c8a0da39f1570b479e4f69207716e99de8f4b11a0.php(29): craft\app\web\twig\Template->display(Array, Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_0126d1b1d95424744f32592da5153a1cd0cf8082f276652664fbd5d5c0425ea4->doDisplay(Array, Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/3f/3f594083e75caedbe7d468ef759c0e130b49e5f5fcfeb72883f6cca2da5239bd.php(28): craft\app\web\twig\Template->display(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_a5a504ced3c0403dc2034e59f1752c27d23d799f2379d20cf7fb96ba572c19dd->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('500', Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('500', Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('500', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(188): craft\app\web\Controller->renderTemplate('500', Array)
+#19 [internal function]: craft\app\controllers\TemplatesController->actionRenderError()
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render-error', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/ErrorHandler.php(93): craft\app\web\Application->runAction('templates/rende...')
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/ErrorHandler.php(109): yii\web\ErrorHandler->renderException(Object(craft\app\errors\DbConnectException))
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/ErrorHandler.php(66): yii\base\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#27 [internal function]: craft\app\web\ErrorHandler->handleException(Object(craft\app\errors\DbConnectException))
+#28 {main}
+Previous exception:
+exception 'craft\app\errors\DbConnectException' with message 'Database configuration errors: The database name isn’t set in your db config file.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php:702
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/base/ApplicationTrait.php(1224): craft\app\web\Application->validateDbConfigFile()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(84): craft\app\web\Application->_init()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Object.php(107): craft\app\web\Application->init()
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(206): yii\base\Object->__construct(Array)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(72): yii\base\Application->__construct(Array)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/bootstrap.php(235): craft\app\web\Application->__construct(Array)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(66): require('/Users/Chris/Do...')
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/public/index.php(19): require_once('/Users/Chris/Do...')
+#8 {main}
+$_SERVER = [
+    'HTTPS' => 'on',
+    'SSL_TLS_SNI' => 'chris.web',
+    'SSL_SERVER_S_DN_C' => 'HA',
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_S_DN_CN' => 'chris.web',
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf',
+    'SSL_SERVER_I_DN_C' => 'HA',
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj',
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf',
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl',
+    'SSL_SERVER_I_DN_CN' => 'chris.web',
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf',
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31',
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h',
+    'SSL_PROTOCOL' => 'TLSv1.2',
+    'SSL_SECURE_RENEG' => 'true',
+    'SSL_COMPRESS_METHOD' => 'NULL',
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384',
+    'SSL_CIPHER_EXPORT' => 'false',
+    'SSL_CIPHER_USEKEYSIZE' => '256',
+    'SSL_CIPHER_ALGKEYSIZE' => '256',
+    'SSL_CLIENT_VERIFY' => 'NONE',
+    'SSL_SERVER_M_VERSION' => '1',
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB',
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT',
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT',
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf',
+    'SSL_SERVER_A_KEY' => 'rsaEncryption',
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption',
+    'SSL_SESSION_ID' => 'ED1094893C48BF422D09B6AB0793F4CB29EDDABAD625B0AA7B5D52F4602D60E1',
+    'HTTP_HOST' => 'chris.web',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us',
+    'HTTP_CACHE_CONTROL' => 'max-age=0',
+    'HTTP_CONNECTION' => 'keep-alive',
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'chris.web',
+    'SERVER_ADDR' => '::1',
+    'SERVER_PORT' => '443',
+    'REMOTE_ADDR' => '::1',
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/public',
+    'SERVER_ADMIN' => 'you@example.com',
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/public/index.php',
+    'REMOTE_PORT' => '56807',
+    'GATEWAY_INTERFACE' => 'CGI/1.1',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => '',
+    'REQUEST_URI' => '/',
+    'SCRIPT_NAME' => '/index.php',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1482185925.58500003814697265625,
+    'REQUEST_TIME' => 1482185925,
+    'argv' => [],
+    'argc' => 0,
+]

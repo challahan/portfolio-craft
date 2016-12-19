@@ -1,1 +1,3 @@
 /craft/config/db.php
+craft/app/
+craft/storage/

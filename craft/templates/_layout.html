@@ -13,6 +13,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
   {% include '_includes/_head.html' %}
   <body>
-    <h1>Test 2</h1>
+    {% include '_includes/_header.html' %}
+    {% block content %}
+		{% endblock %}
+    {% include '_includes/_footer.html' %}
   </body>
 </html>

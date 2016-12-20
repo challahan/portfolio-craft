@@ -8,13 +8,18 @@
  */
 
  return array(
-   'localhost' => array(
+
+   '*' => array(
+        'omitScriptNameInUrls' => true,
+    ),
+
+   'chris.web' => array(
      'devMode' => true,
-     'siteUrl' => 'chris.web',
+     'siteUrl' => 'http://chris.web',
      'environmentVariables' => array(
-       'baseUrl'  => 'http://chris.web/',
-     ),
-     'testToEmailAddress' => 'dev@email.com',
+           'basePath' => '/files/',
+           'baseUrl'  => 'http://chris.web',
+      )
    ),
 
    // Use IP address of your droplet below

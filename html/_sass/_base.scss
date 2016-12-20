@@ -1,0 +1,112 @@
+/**
+ * Reset some basic elements
+ */
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+dl, dd, ol, ul, figure {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+   margin: 0 auto;
+}
+
+main {
+    padding: 1em 1.5em;
+    max-width: 1000px;
+    margin: 0 auto;
+    @media screen and (min-width: 600px) {
+        padding: 1em 2em;
+    }
+    @media screen and (min-width: 700px) {
+        padding: 1em 3.5em;
+    }
+    @media screen and (min-width: 1000px) {
+        padding: 1em 1.5em;
+    }
+}
+
+/**
+ * Images/ Frames
+ */
+img, iframe, video {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+
+
+/**
+ * Figures
+ */
+figure > img {
+    display: block;
+}
+
+
+/**
+ * Lists
+ */
+
+li {
+    > ul,
+    > ol {
+         margin-bottom: 0;
+    }
+}
+
+
+
+/**
+ * Headings
+ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+
+
+/**
+ * Code formatting
+ */
+pre,
+code {
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    background-color: #eef;
+}
+
+code {
+    padding: 1px 5px;
+}
+
+pre {
+    padding: 8px 12px;
+    overflow-x: scroll;
+
+    > code {
+        border: 0;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+* {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/**
+ * Clearfix
+ */
+@mixin clearfix {
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}

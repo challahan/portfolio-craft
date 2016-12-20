@@ -1,0 +1,1 @@
+!function(e,a,n,t,c,s,o){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,s=a.createElement(n),o=a.getElementsByTagName(n)[0],s.async=1,s.src=t,o.parentNode.insertBefore(s,o)}(window,document,"script","//www.chrishallahan.com/analytics.js","ga"),ga("create","UA-1380129-2","auto"),ga("send","pageview");

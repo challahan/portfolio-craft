@@ -1,3 +1,17 @@
 /craft/config/db.php
 craft/app/
 craft/storage/
+critical.scssc
+_base.scssc
+_feature-block.scssc
+_footer.scssc
+_header.scssc
+_highlight.scssc
+_lists.scssc
+_navigation.scssc
+_posts.scssc
+_project.scssc
+_tables.scssc
+_typography.scssc
+_variables.scssc
+_video.scssc

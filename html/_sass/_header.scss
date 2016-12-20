@@ -1,0 +1,57 @@
+.header-wrapper {
+	background-image:
+	    linear-gradient(
+	      to right,
+	      $light-blue,
+	      $light-blue 15%,
+	      $light-blue 15%,
+	      $dark-blue 85%,
+	      $dark-blue 85%
+	    );
+}
+
+header {
+	color: white;
+	text-align: center;
+	position: relative;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding-top: .5em;
+	background-color: $dark-blue;
+	a {
+		color: white;
+		text-decoration: none;
+		text-transform: uppercase;
+		transition: .3s color ease;
+		&:hover, &:focus {
+			color: $gold;
+			h1 span {
+				color: white;
+			}
+		}
+	}
+	@media screen and (min-width:600px) {
+		text-align: left;
+		padding-bottom: .5em;
+		padding-left: 1.5em;
+		display: -webkit-flex;
+		display: flex;
+		overflow: hidden;
+	}
+}
+
+.site-logo {
+	max-width: 75px;
+	padding: 1em;
+	padding-top: .5em;
+	display: block;
+	margin: 0 auto;
+	min-height: 27px;
+	@media screen and (min-width:600px) {
+		padding-left: 0;
+		padding-top: 1em;
+		max-width: 60px;
+		margin-left: 0;
+		min-height: 60px;
+	}
+}

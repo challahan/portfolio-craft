@@ -552,3 +552,1226 @@ $_SERVER = [
     'argv' => []
     'argc' => 0
 ]
+2016-12-19 18:57:16 [::1][1][61289c57016b692b1c08836209efa595][error][craft\app\web\twig\TemplateLoaderException] exception 'craft\app\web\twig\TemplateLoaderException' with message 'Unable to find the template “_includes/_head.html” in "_layout" at line 14.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/TemplateLoader.php:141
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/TemplateLoader.php(92): craft\app\web\twig\TemplateLoader->_resolveTemplate('_includes/_head...')
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(312): craft\app\web\twig\TemplateLoader->getCacheKey('_includes/_head...')
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(378): Twig_Environment->getTemplateClass('_includes/_head...', NULL)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#21 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#31 {main}
+2016-12-19 18:57:16 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206236
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'C80485B63DFDF2402C9A02AB726B11CBC40D5BCEB3106AF45454D6E0F564EEC3'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_COOKIE' => 'UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63142'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202636.19
+    'REQUEST_TIME' => 1482202636
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:57:17 [::1][1][61289c57016b692b1c08836209efa595][error][craft\app\web\twig\TemplateLoaderException] exception 'craft\app\web\twig\TemplateLoaderException' with message 'Unable to find the template “_includes/_head.html” in "_layout" at line 14.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/TemplateLoader.php:141
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/TemplateLoader.php(92): craft\app\web\twig\TemplateLoader->_resolveTemplate('_includes/_head...')
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(312): craft\app\web\twig\TemplateLoader->getCacheKey('_includes/_head...')
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(378): Twig_Environment->getTemplateClass('_includes/_head...', NULL)
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#21 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#31 {main}
+2016-12-19 18:57:16 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206237
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63144'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202636.34
+    'REQUEST_TIME' => 1482202636
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:58:00 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unknown "strip_html" filter in "_includes/_head.html" at line 26.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php:605
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(458): Twig_ExpressionParser->getFilterNodeClass('strip_html', 26)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(443): Twig_ExpressionParser->parseFilterExpressionRaw(Object(Twig_Node_Expression_GetAttr))
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(302): Twig_ExpressionParser->parseFilterExpression(Object(Twig_Node_Expression_GetAttr))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(194): Twig_ExpressionParser->parsePostfixExpression(Object(Twig_Node_Expression_Name))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(84): Twig_ExpressionParser->parsePrimaryExpression()
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(41): Twig_ExpressionParser->getPrimary()
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(144): Twig_ExpressionParser->parseExpression()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/TokenParser/If.php(34): Twig_Parser->subparse(Array)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(187): Twig_TokenParser_If->parse(Object(Twig_Token))
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#32 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#34 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#40 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#41 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#42 {main}
+2016-12-19 18:58:00 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206280
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63162'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202680.7
+    'REQUEST_TIME' => 1482202680
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:58:49 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected token "punctuation" of value ":" ("end of print statement" expected) in "_includes/_head.html" at line 27.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/TokenStream.php:87
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(145): Twig_TokenStream->expect(4)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 18:58:49 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206329
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63179'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202729.25
+    'REQUEST_TIME' => 1482202729
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:59:05 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected token "punctuation" of value ":" ("end of print statement" expected) in "_includes/_head.html" at line 27.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/TokenStream.php:87
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(145): Twig_TokenStream->expect(4)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 18:59:05 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206345
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63192'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202745.24
+    'REQUEST_TIME' => 1482202745
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:59:18 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected token "punctuation" of value ":" ("end of print statement" expected) in "_includes/_head.html" at line 27.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/TokenStream.php:87
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(145): Twig_TokenStream->expect(4)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 18:59:17 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206358
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63203'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202757.9
+    'REQUEST_TIME' => 1482202757
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:59:30 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected token "punctuation" of value ":" ("end of print statement" expected) in "_includes/_head.html" at line 27.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/TokenStream.php:87
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(145): Twig_TokenStream->expect(4)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 18:59:30 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206370
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'B980CB1ED4AC60CB16DF90DF758DEEEA611ED49FEE964DB020CD337D221B6660'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63216'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202770.13
+    'REQUEST_TIME' => 1482202770
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 18:59:52 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unknown "prepend" filter in "_includes/_head.html" at line 28.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php:605
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(458): Twig_ExpressionParser->getFilterNodeClass('prepend', 28)
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(443): Twig_ExpressionParser->parseFilterExpressionRaw(Object(Twig_Node_Expression_Constant))
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(302): Twig_ExpressionParser->parseFilterExpression(Object(Twig_Node_Expression_Constant))
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(194): Twig_ExpressionParser->parsePostfixExpression(Object(Twig_Node_Expression_Constant))
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(84): Twig_ExpressionParser->parsePrimaryExpression()
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/ExpressionParser.php(41): Twig_ExpressionParser->getPrimary()
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(144): Twig_ExpressionParser->parseExpression()
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Parser.php(100): Twig_Parser->subparse(NULL, false)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(619): Twig_Parser->parse(Object(Twig_TokenStream))
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->parse(Object(Twig_TokenStream))
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#24 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#30 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#34 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#35 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#36 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#37 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#38 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#39 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#40 {main}
+2016-12-19 18:59:52 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206392
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '4618A9F9E8DF35E521C629AD25C3DEB76DB66433C0B90586BE3450D1B514179E'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63227'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202792.69
+    'REQUEST_TIME' => 1482202792
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 19:00:29 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected "}" in "_includes/_head.html" at line 28.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php:259
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php(216): Twig_Lexer->lexExpression()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php(115): Twig_Lexer->lexVar()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(581): Twig_Lexer->tokenize('<head>\n  <meta ...', '_includes/_head...')
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->tokenize('<head>\n  <meta ...', '_includes/_head...')
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 19:00:29 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206429
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '4618A9F9E8DF35E521C629AD25C3DEB76DB66433C0B90586BE3450D1B514179E'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63243'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202829.68
+    'REQUEST_TIME' => 1482202829
+    'argv' => []
+    'argc' => 0
+]
+2016-12-19 19:00:51 [::1][1][61289c57016b692b1c08836209efa595][error][Twig_Error_Syntax] exception 'Twig_Error_Syntax' with message 'Unexpected "}" in "_includes/_head.html" at line 28.' in /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php:259
+Stack trace:
+#0 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php(216): Twig_Lexer->lexExpression()
+#1 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Lexer.php(115): Twig_Lexer->lexVar()
+#2 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(581): Twig_Lexer->tokenize('<head>\n  <meta ...', '_includes/_head...')
+#3 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(671): Twig_Environment->tokenize('<head>\n  <meta ...', '_includes/_head...')
+#4 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(48): Twig_Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#5 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(396): craft\app\web\twig\Environment->compileSource('<head>\n  <meta ...', '_includes/_head...')
+#6 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Environment.php(29): Twig_Environment->loadTemplate('_includes/_head...', NULL)
+#7 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(286): craft\app\web\twig\Environment->loadTemplate('_includes/_head...', NULL)
+#8 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/21/2120a6d167cfaa300b93c1cbe98f83f7a68b6d1b7fdd7d6dae942a7eb87693e5.php(24): Twig_Template->loadTemplate('_includes/_head...', '_layout', 14)
+#9 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_d727b2db570878c3a099fe88c2a07d29941a935459e020a07ba925659ee398f8->doDisplay(Array, Array)
+#10 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#11 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#12 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#13 /Users/Chris/Documents/Repositories/portfolio-craft/craft/storage/runtime/compiled_templates/6a/6ae58fca4b32b1b11d00992e74ce2ebc6e7c8ffd564e7b414e91a787123575c0.php(24): craft\app\web\twig\Template->display(Array, Array)
+#14 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(387): __TwigTemplate_5671395635d2f2f706a607bd363abdfb0631f3c52adc2c280fb248c10edf3fb1->doDisplay(Array, Array)
+#15 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(54): Twig_Template->displayWithErrorHandling(Array, Array)
+#16 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(355): craft\app\web\twig\Template->displayWithErrorHandling(Array, Array)
+#17 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/twig/Template.php(35): Twig_Template->display(Array, Array)
+#18 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Template.php(366): craft\app\web\twig\Template->display(Array)
+#19 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/twig/twig/lib/Twig/Environment.php(347): Twig_Template->render(Array)
+#20 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(268): Twig_Environment->render('', Array)
+#21 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/View.php(292): craft\app\web\View->renderTemplate('', Array)
+#22 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Controller.php(101): craft\app\web\View->renderPageTemplate('', Array)
+#23 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/controllers/TemplatesController.php(54): craft\app\web\Controller->renderTemplate('', Array)
+#24 [internal function]: craft\app\controllers\TemplatesController->actionRender('', Array)
+#25 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#26 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#27 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('render', Array)
+#28 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(347): yii\base\Module->runAction('templates/rende...', Array)
+#29 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/web/Application.php(87): craft\app\web\Application->runAction('templates/rende...', Array)
+#30 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/web/Application.php(212): yii\web\Application->handleRequest(Object(craft\app\web\Request))
+#31 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/vendor/yiisoft/yii2/base/Application.php(375): craft\app\web\Application->handleRequest(Object(craft\app\web\Request))
+#32 /Users/Chris/Documents/Repositories/portfolio-craft/craft/app/index.php(67): yii\base\Application->run()
+#33 /Users/Chris/Documents/Repositories/portfolio-craft/html/index.php(19): require_once('/Users/Chris/Do...')
+#34 {main}
+2016-12-19 19:00:51 [::1][1][61289c57016b692b1c08836209efa595][info][application] $_COOKIE = [
+    '_ceg_s' => 'oigqvg'
+    '_ceg_u' => 'oigqvg'
+    'UUID' => '333cffff-7b0b-8124-2d06-741b2365a544'
+    '_ga' => 'GA1.2.1793563853.1482202629'
+    '_gat' => '1'
+    '_gat_UA-83602063-1' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_identity' => '9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_identity\";i:1;s:284:\"[\"1\",\"[\\\"oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ\\\",\\\"3288aa68-b0e3-48c9-8249-92d6731ff842\\\",\\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14\\\"]\",3600]\";}'
+    'has_js' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30_username' => 'f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a:2:{i:0;s:41:\"0bbe09ff46b1912d5066b7243992fa30_username\";i:1;s:9:\"challahan\";}'
+    'CRAFT_CSRF_TOKEN' => 'a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a:2:{i:0;s:16:\"CRAFT_CSRF_TOKEN\";i:1;s:208:\"ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|faeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB|1|$2y$13$kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a\";}'
+    'CraftSessionId' => '61289c57016b692b1c08836209efa595'
+]
+
+$_SESSION = [
+    'ad51d1dbb81154805061606d1450c842__flash' => []
+    '0bbe09ff46b1912d5066b7243992fa30__id' => '1'
+    '0bbe09ff46b1912d5066b7243992fa30__expire' => 1482206451
+]
+
+$_SERVER = [
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'chris.web'
+    'SSL_SERVER_S_DN_C' => 'HA'
+    'SSL_SERVER_S_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_S_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_S_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_S_DN_CN' => 'chris.web'
+    'SSL_SERVER_S_DN_Email' => 'kjlfdsjklf'
+    'SSL_SERVER_I_DN_C' => 'HA'
+    'SSL_SERVER_I_DN_ST' => 'fskjlflkj'
+    'SSL_SERVER_I_DN_L' => 'jfkldsjklf'
+    'SSL_SERVER_I_DN_O' => 'jklfjkldsfjkl'
+    'SSL_SERVER_I_DN_CN' => 'chris.web'
+    'SSL_SERVER_I_DN_Email' => 'kjlfdsjklf'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.2.31'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2h'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES256-GCM-SHA384'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '256'
+    'SSL_CIPHER_ALGKEYSIZE' => '256'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'E7C570E90BA217DB'
+    'SSL_SERVER_V_START' => 'Dec 19 22:15:24 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 17 22:15:24 2026 GMT'
+    'SSL_SERVER_S_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_I_DN' => '/C=HA/ST=fskjlflkj/L=jfkldsjklf/O=jklfjkldsfjkl/CN=chris.web/emailAddress=kjlfdsjklf'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '4618A9F9E8DF35E521C629AD25C3DEB76DB66433C0B90586BE3450D1B514179E'
+    'HTTP_HOST' => 'chris.web'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => '_ceg.s=oigqvg; _ceg.u=oigqvg; UUID=333cffff-7b0b-8124-2d06-741b2365a544; _ga=GA1.2.1793563853.1482202629; _gat=1; _gat_UA-83602063-1=1; 0bbe09ff46b1912d5066b7243992fa30_identity=9b8225934137899d42f1ffe6012e59177538b8e980c750e708a1cd4318010f60a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_identity%22%3Bi%3A1%3Bs%3A284%3A%22%5B%221%22%2C%22%5B%5C%22oXXQmsNopuMZkWmhTF1lNGU0UgFBVYMTVwis5yPIIC9lM-Ufq6Y0jKhfhYPvXlKX2QM8nVwXVD2zx1s26uE2_thjLGSri9y66GHJ%5C%22%2C%5C%223288aa68-b0e3-48c9-8249-92d6731ff842%5C%22%2C%5C%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_1%29+AppleWebKit%2F602.2.14+%28KHTML%2C+like+Gecko%29+Version%2F10.0.1+Safari%2F602.2.14%5C%22%5D%22%2C3600%5D%22%3B%7D; has_js=1; 0bbe09ff46b1912d5066b7243992fa30_username=f832b7a9044e728f83e29fa0603dea138e29433cc7da558fe45b9ee2e98cda62a%3A2%3A%7Bi%3A0%3Bs%3A41%3A%220bbe09ff46b1912d5066b7243992fa30_username%22%3Bi%3A1%3Bs%3A9%3A%22challahan%22%3B%7D; CRAFT_CSRF_TOKEN=a6749c5d19a8107be019af7fcbabd1aca42ff55b07aaacb4487199107bd51711a%3A2%3A%7Bi%3A0%3Bs%3A16%3A%22CRAFT_CSRF_TOKEN%22%3Bi%3A1%3Bs%3A208%3A%22ojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7Cfaeab50c55fb4c7a71ba0c1e66da0aab03627c3d56b9119c25cc4d72a7aba20aojRrM0dxsPPgxwqOWTKucwIw2RQsHR3ebDpFxyZB%7C1%7C%242y%2413%24kn77569cTqeY87dujI2HSuEfw6joCBcn1KilEZJ3oR5.I.tEW46.a%22%3B%7D; CraftSessionId=61289c57016b692b1c08836209efa595'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-us'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'chris.web'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => '/Users/Chris/Documents/Repositories/portfolio-craft/html'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/Chris/Documents/Repositories/portfolio-craft/html/index.php'
+    'REMOTE_PORT' => '63253'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1482202851.11
+    'REQUEST_TIME' => 1482202851
+    'argv' => []
+    'argc' => 0
+]

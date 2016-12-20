@@ -15,9 +15,9 @@
 
    'chris.web' => array(
      'devMode' => true,
-     'siteUrl' => 'https://chris.web',
+     'siteUrl' => 'http://chris.web',
      'environmentVariables' => array(
-           'basePath' => '/files/',
+           'basePath' => 'assets/',
            'baseUrl'  => 'http://chris.web',
       )
    ),

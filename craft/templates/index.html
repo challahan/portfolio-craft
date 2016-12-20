@@ -20,14 +20,24 @@
 {% extends "_layout" %}
 
 {% block content %}
-	<h1>{{ entry.title }}</h1>
-
-	{{ entry.body }}
-
-	<h2>Recent News</h2>
-	<ul>
-		{% for entry in craft.entries.section('news').limit(5).find() %}
-			<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-		{% endfor %}
-	</ul>
+  <section class="feature-block-container">
+    <div class="feature-block">
+      <h1>{{ header.siteTitle }}</h1>
+      <h2>{{ entry.subtitle }}</h2>
+    </div>
+  </section>
+  <main>
+    <div class="feature-headshot">
+      {% for headshot in entry.headshot %}
+      <img src="{{headshot.getUrl('headshotSmall')}}" srcset="{{headshot.getUrl}} 600w,
+        {{headshot.getUrl('headshotSmall')}} 200w" sizes="50%" alt="{{ headshot.title }}" />
+      {% endfor %}
+    </div>
+    <section class="introduction">
+	   {{ entry.body }}
+   </section>
+   <section class="highlight-container">
+     Highlights will eventually go here.
+   </section>
+  </main>
 {% endblock %}

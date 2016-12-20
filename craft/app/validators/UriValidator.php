@@ -1,44 +1,43 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\validators;
-
-use Craft;
-use yii\validators\Validator;
+namespace Craft;
 
 /**
  * Will validate that the given attribute is a valid URI.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.validators
+ * @since     1.0
  */
-class UriValidator extends Validator
+class UriValidator extends \CValidator
 {
-    // Properties
-    // =========================================================================
+	// Properties
+	// =========================================================================
 
-    /**
-     * @var string
-     */
-    public $pattern = '/^[^\s]+$/u';
+	/**
+	 * @var string
+	 */
+	public $pattern = '/^[^\s]+$/u';
 
-    // Protected Methods
-    // =========================================================================
+	// Protected Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function validateAttribute($model, $attribute)
-    {
-        $uri = $model->$attribute;
+	/**
+	 * @param $object
+	 * @param $attribute
+	 *
+	 * @return null
+	 */
+	protected function validateAttribute($object, $attribute)
+	{
+		$uri = $object->$attribute;
 
-        if ($uri && !preg_match($this->pattern, $uri)) {
-            $message = Craft::t('app', '{attribute} is not a valid URI', ['attribute' => $model->$attribute]);
-            $this->addError($model, $attribute, $message);
-        }
-    }
+		if ($uri && !preg_match($this->pattern, $uri))
+		{
+			$message = Craft::t('{attribute} is not a valid URI');
+			$this->addError($object, $attribute, $message);
+		}
+	}
 }

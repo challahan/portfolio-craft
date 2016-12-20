@@ -2,11 +2,11 @@
 {% requireAdmin %}
 
 {% extends "_layouts/cp" %}
-{% set title = "Email Settings"|t('app') %}
+{% set title = "Email Settings"|t %}
 
 {% set navItems = {
-	settings: { label: "Settings"|t('app'), url: url('settings/email') },
-	messages: { label: "Messages"|t('app'), url: url('settings/email/messages') }
+	settings: { label: "Settings"|t, url: url('settings/email') },
+	messages: { label: "Messages"|t, url: url('settings/email/messages') }
 } %}
 
 {% set docTitle = navItems[selectedNavItem].label~' - '~title %}

@@ -26,7 +26,7 @@ Craft.Dashboard = Garnish.Base.extend(
         this.addListener(this.$widgetManagerBtn, 'click', 'showWidgetManager');
 
         Garnish.$doc.ready($.proxy(function() {
-            this.$grid = $('#main').find('> .padded > .grid');
+            this.$grid = $('#main > .padded > .grid');
             this.grid = this.$grid.data('grid');
             $('#newwidgetmenubtn').data('menubtn').menu.on('optionselect', $.proxy(this, 'handleNewWidgetOptionSelect'));
         }, this));
@@ -73,12 +73,12 @@ Craft.Dashboard = Garnish.Base.extend(
                         '<form class="pane">' +
                             '<input type="hidden" name="type" value="'+type+'"/>' +
                             '<input type="hidden" name="settingsNamespace" value="'+settingsNamespace+'"/>' +
-                            '<h2>'+Craft.t('app', '{type} Settings', { type: Craft.escapeHtml($option.data('name')) })+'</h2>' +
+                            '<h2>'+Craft.t('{type} Settings', { type: Craft.escapeHtml($option.data('name')) })+'</h2>' +
                             '<div class="settings"/>' +
                             '<hr/>' +
                             '<div class="buttons clearafter">' +
-                                '<input type="submit" class="btn submit" value="'+Craft.t('app', 'Save')+'"/>' +
-                                '<div class="btn" role="button">'+Craft.t('app', 'Cancel')+'</div>' +
+                                '<input type="submit" class="btn submit" value="'+Craft.t('Save')+'"/>' +
+                                '<div class="btn" role="button">'+Craft.t('Cancel')+'</div>' +
                                 '<div class="spinner hidden"/>' +
                             '</div>' +
                         '</form>' +
@@ -121,7 +121,7 @@ Craft.Dashboard = Garnish.Base.extend(
                 type: type
             };
 
-            Craft.postActionRequest('dashboard/create-widget', data, function(response, textStatus)
+            Craft.postActionRequest('dashboard/createWidget', data, function(response, textStatus)
             {
                 if (textStatus == 'success' && response.success)
                 {
@@ -143,10 +143,10 @@ Craft.Dashboard = Garnish.Base.extend(
             var $widgets = this.$grid.find('> .item > .widget'),
                 $form = $(
                     '<form method="post" accept-charset="UTF-8">' +
-                        '<input type="hidden" name="action" value="widgets/save-widget"/>' +
+                        '<input type="hidden" name="action" value="widgets/saveWidget"/>' +
                     '</form>'
                 ).appendTo(Garnish.$bod),
-                $noWidgets = $('<p id="nowidgets"'+($widgets.length ? ' class="hidden"' : '')+'>'+Craft.t('app', 'You don’t have any widgets yet.')+'</p>').appendTo($form),
+                $noWidgets = $('<p id="nowidgets"'+($widgets.length ? ' class="hidden"' : '')+'>'+Craft.t('You don’t have any widgets yet.')+'</p>').appendTo($form),
                 $table = $('<table class="data'+(!$widgets.length ? ' hidden' : '')+'"/>').appendTo($form),
                 $tbody = $('<tbody/>').appendTo($table);
 
@@ -178,9 +178,9 @@ Craft.Dashboard = Garnish.Base.extend(
                 tableSelector: $table,
                 noObjectsSelector: $noWidgets,
                 sortable: true,
-                reorderAction: 'dashboard/reorder-user-widgets',
-                deleteAction: 'dashboard/delete-user-widget',
-                onReorderItems: $.proxy(function(ids)
+                reorderAction: 'dashboard/reorderUserWidgets',
+                deleteAction: 'dashboard/deleteUserWidget',
+                onReorderObjects: $.proxy(function(ids)
                 {
                     var lastWidget;
 
@@ -203,7 +203,7 @@ Craft.Dashboard = Garnish.Base.extend(
                     this.grid.resetItemOrder();
 
                 }, this),
-                onDeleteItem: $.proxy(function(id)
+                onDeleteObject: $.proxy(function(id)
                 {
                     var widget = this.widgets[id];
 
@@ -373,7 +373,7 @@ Craft.Widget = Garnish.Base.extend(
         e.preventDefault();
         this.$settingsSpinner.removeClass('hidden');
 
-        var action = this.$container.hasClass('new') ? 'dashboard/create-widget' : 'dashboard/save-widget-settings',
+        var action = this.$container.hasClass('new') ? 'dashboard/createWidget' : 'dashboard/saveWidgetSettings',
             data = this.$settingsForm.serialize();
 
         Craft.postActionRequest(action, data, $.proxy(function(response, textStatus)
@@ -390,7 +390,7 @@ Craft.Widget = Garnish.Base.extend(
 
                 if (response.success)
                 {
-                    Craft.cp.displayNotice(Craft.t('app', 'Widget saved.'));
+                    Craft.cp.displayNotice(Craft.t('Widget saved.'));
 
                     // Make sure the widget is still allowed to be shown, just in case
                     if (!response.info)
@@ -405,7 +405,7 @@ Craft.Widget = Garnish.Base.extend(
                 }
                 else
                 {
-                    Craft.cp.displayError(Craft.t('app', 'Couldn’t save widget.'));
+                    Craft.cp.displayError(Craft.t('Couldn’t save widget.'));
 
                     if (response.errors)
                     {
@@ -514,8 +514,8 @@ Craft.Widget = Garnish.Base.extend(
                 '<td class="widgetmanagerhud-icon">'+this.getTypeInfo('iconSvg')+'</td>' +
                 '<td>'+this.getManagerRowLabel()+'</td>' +
                 '<td class="widgetmanagerhud-col-colspan-picker thin"></td>' +
-                '<td class="widgetmanagerhud-col-move thin"><a class="move icon" title="'+Craft.t('app', 'Reorder')+'" role="button"></a></td>' +
-                '<td class="thin"><a class="delete icon" title="'+Craft.t('app', 'Delete')+'" role="button"></a></td>' +
+                '<td class="widgetmanagerhud-col-move thin"><a class="move icon" title="'+Craft.t('Reorder')+'" role="button"></a></td>' +
+                '<td class="thin"><a class="delete icon" title="'+Craft.t('Delete')+'" role="button"></a></td>' +
             '</tr>'
         );
 
@@ -617,7 +617,7 @@ Craft.WidgetColspanPicker = Garnish.Base.extend(
             }
 
             $('<a/>', {
-                title: (i == 1 ? Craft.t('app', '1 column') : Craft.t('app', '{num} columns', {num: i})),
+                title: (i == 1 ? Craft.t('1 column') : Craft.t('{num} columns', {num: i})),
                 role: 'button',
                 'class': cssClass,
                 data: {colspan: i}
@@ -663,15 +663,15 @@ Craft.WidgetColspanPicker = Garnish.Base.extend(
             colspan: newColspan
         };
 
-        Craft.postActionRequest('dashboard/change-widget-colspan', data, function(response, textStatus)
+        Craft.postActionRequest('dashboard/changeWidgetColspan', data, function(response, textStatus)
         {
             if (textStatus == 'success' && response.success)
             {
-                Craft.cp.displayNotice(Craft.t('app', 'Widget saved.'));
+                Craft.cp.displayNotice(Craft.t('Widget saved.'));
             }
             else
             {
-                Craft.cp.displayError(Craft.t('app', 'Couldn’t save widget.'));
+                Craft.cp.displayError(Craft.t('Couldn’t save widget.'));
             }
         });
     }

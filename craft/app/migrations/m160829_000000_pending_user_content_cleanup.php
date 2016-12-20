@@ -1,54 +1,42 @@
 <?php
-namespace craft\app\migrations;
-
-use Craft;
-use craft\app\db\Migration;
-use craft\app\db\Query;
-use craft\app\elements\Entry;
+namespace Craft;
 
 /**
  * The class name is the UTC timestamp in the format of mYYMMDD_HHMMSS_migrationName
  */
-class m160829_000000_pending_user_content_cleanup extends Migration
+class m160829_000000_pending_user_content_cleanup extends BaseMigration
 {
-    /**
-     * Any migration code in here is wrapped inside of a transaction.
-     *
-     * @return bool
-     */
-    public function safeUp()
-    {
-        // Find any orphaned entries.
-        $ids = (new Query())
-            ->select('el.id')
-            ->from('{{%elements}} el')
-            ->leftJoin('{{%entries}} en', 'en.id = el.id')
-            ->where(
-                ['and', 'el.type = :type', 'en.id is null'],
-                [':type' => Entry::class]
-            )
-            ->column();
+	/**
+	 * Any migration code in here is wrapped inside of a transaction.
+	 *
+	 * @return bool
+	 */
+	public function safeUp()
+	{
+		// Find any orphaned entries.
+		$ids = craft()->db->createCommand()
+			->select('el.id')
+			->from('elements el')
+			->leftJoin('entries en', 'en.id = el.id')
+			->where(
+				array('and', 'el.type = :type', 'en.id is null'),
+				array(':type' => ElementType::Entry)
+			)->queryColumn();
 
-        if ($ids) {
-            Craft::info('Found '.count($ids).' orphaned element IDs in the elements table: '.implode(', ', $ids));
+		if ($ids)
+		{
+			Craft::log('Found '.count($ids).' orphaned element IDs in the elements table: '.implode(', ', $ids), LogLevel::Info, true);
 
-            // Delete 'em
-            $this->delete('{{%elements}}', ['in', 'id', $ids]);
+			// Delete 'em
+			$this->delete('elements', array('in', 'id', $ids));
 
-            Craft::info('They have been murdered.');
-        } else {
-            Craft::info('All good here.');
-        }
+			Craft::log('They have been murdered.', LogLevel::Info, true);
+		}
+		else
+		{
+			Craft::log('All good here.', LogLevel::Info, true);
+		}
 
-        return true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function safeDown()
-    {
-        echo 'm160829_000000_pending_user_content_cleanup cannot be reverted.\n';
-        return false;
-    }
+		return true;
+	}
 }

@@ -1,23 +1,5 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\elements\Entry;
-use craft\app\helpers\Json;
-use craft\app\helpers\Url;
-use craft\app\models\EntryType;
-use craft\app\models\Section;
-use craft\app\models\Section_SiteSettings;
-use craft\app\web\Controller;
-use yii\web\BadRequestHttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The SectionsController class is a controller that handles various section and entry type related tasks such as
@@ -25,406 +7,394 @@ use yii\web\Response;
  *
  * Note that all actions in this controller require administrator access in order to execute.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class SectionsController extends Controller
+class SectionsController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        // All section actions require an admin
-        $this->requireAdmin();
-    }
-
-    /**
-     * Sections index.
-     *
-     * @param array $variables
-     *
-     * @return string The rendering result
-     */
-    public function actionIndex(array $variables = [])
-    {
-        $variables['sections'] = Craft::$app->getSections()->getAllSections();
-
-        return $this->renderTemplate('settings/sections/_index', $variables);
-    }
-
-    /**
-     * Edit a section.
-     *
-     * @param integer $sectionId The section’s id, if any.
-     * @param Section $section   The section being edited, if there were any validation errors.
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested section cannot be found
-     * @throws BadRequestHttpException if attempting to do something not allowed by the current Craft edition
-     */
-    public function actionEditSection($sectionId = null, Section $section = null)
-    {
-        $variables = [
-            'sectionId' => $sectionId,
-            'brandNewSection' => false
-        ];
-
-        if ($sectionId !== null) {
-            if ($section === null) {
-                $section = Craft::$app->getSections()->getSectionById($sectionId);
-
-                if (!$section) {
-                    throw new NotFoundHttpException('Section not found');
-                }
-            }
-
-            $variables['title'] = $section->name;
-        } else {
-            if ($section === null) {
-                $section = new Section();
-                $variables['brandNewSection'] = true;
-            }
-
-            $variables['title'] = Craft::t('app', 'Create a new section');
-        }
-
-        $types = [
-            Section::TYPE_SINGLE,
-            Section::TYPE_CHANNEL,
-            Section::TYPE_STRUCTURE
-        ];
-        $typeOptions = [];
-
-        // Get these strings to be caught by our translation util:
-        // Craft::t('app', 'Channel') Craft::t('app', 'Structure') Craft::t('app', 'Single')
-
-        foreach ($types as $type) {
-            $typeOptions[$type] = Craft::t('app', ucfirst($type));
-        }
-
-        if (!$typeOptions) {
-            throw new BadRequestHttpException('Craft Client or Pro Edition is required to create any additional sections');
-        }
-
-        if (!$section->type) {
-            $section->type = Section::TYPE_CHANNEL;
-        }
-
-        $variables['section'] = $section;
-        $variables['typeOptions'] = $typeOptions;
-
-        $variables['crumbs'] = [
-            [
-                'label' => Craft::t('app', 'Settings'),
-                'url' => Url::getUrl('settings')
-            ],
-            [
-                'label' => Craft::t('app', 'Sections'),
-                'url' => Url::getUrl('settings/sections')
-            ],
-        ];
-
-        return $this->renderTemplate('settings/sections/_edit', $variables);
-    }
-
-    /**
-     * Saves a section.
-     *
-     * @return Response|null
-     * @throws BadRequestHttpException if any invalid site IDs are specified in the request
-     */
-    public function actionSaveSection()
-    {
-        $this->requirePostRequest();
-
-        $request = Craft::$app->getRequest();
-
-        $section = new Section();
-
-        // Main section settings
-        $section->id = $request->getBodyParam('sectionId');
-        $section->name = $request->getBodyParam('name');
-        $section->handle = $request->getBodyParam('handle');
-        $section->type = $request->getBodyParam('type');
-        $section->enableVersioning = $request->getBodyParam('enableVersioning', true);
-
-        if ($section->type == Section::TYPE_STRUCTURE) {
-            $section->maxLevels = $request->getBodyParam('maxLevels');
-        }
-
-        // Site-specific settings
-        $allSiteSettings = [];
-
-        foreach (Craft::$app->getSites()->getAllSites() as $site) {
-            $postedSettings = $request->getBodyParam('sites.'.$site->handle);
-
-            // Skip disabled sites if this is a multi-site install
-            if (Craft::$app->getIsMultiSite() && empty($postedSettings['enabled'])) {
-                continue;
-            }
-
-            $siteSettings = new Section_SiteSettings();
-            $siteSettings->siteId = $site->id;
-
-            if ($section->type == Section::TYPE_SINGLE) {
-                $siteSettings->hasUrls = true;
-                $siteSettings->uriFormat = $postedSettings['singleUri'] ?: '__home__';
-                $siteSettings->template = $postedSettings['template'];
-            } else {
-                $siteSettings->hasUrls = !empty($postedSettings['uriFormat']);
-
-                if ($siteSettings->hasUrls) {
-                    $siteSettings->uriFormat = $postedSettings['uriFormat'];
-                    $siteSettings->template = $postedSettings['template'];
-                } else {
-                    $siteSettings->uriFormat = null;
-                    $siteSettings->template = null;
-                }
-
-                $siteSettings->enabledByDefault = (bool)$postedSettings['enabledByDefault'];
-            }
-
-            $allSiteSettings[$site->id] = $siteSettings;
-        }
-
-        $section->setSiteSettings($allSiteSettings);
-
-        // Save it
-        if (Craft::$app->getSections()->saveSection($section)) {
-            Craft::$app->getSession()->setNotice(Craft::t('app', 'Section saved.'));
-
-            return $this->redirectToPostedUrl($section);
-        }
-
-        Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t save section.'));
-
-        // Send the section back to the template
-        Craft::$app->getUrlManager()->setRouteParams([
-            'section' => $section
-        ]);
-
-        return null;
-    }
-
-    /**
-     * Deletes a section.
-     *
-     * @return Response
-     */
-    public function actionDeleteSection()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $sectionId = Craft::$app->getRequest()->getRequiredBodyParam('id');
-
-        Craft::$app->getSections()->deleteSectionById($sectionId);
-
-        return $this->asJson(['success' => true]);
-    }
-
-    // Entry Types
-
-    /**
-     * Entry types index
-     *
-     * @param integer $sectionId The ID of the section whose entry types we’re listing
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested section cannot be found
-     */
-    public function actionEntryTypesIndex($sectionId)
-    {
-        $section = Craft::$app->getSections()->getSectionById($sectionId);
-
-        if ($section === null) {
-            throw new NotFoundHttpException('Section not found');
-        }
-
-        $crumbs = [
-            [
-                'label' => Craft::t('app', 'Settings'),
-                'url' => Url::getUrl('settings')
-            ],
-            [
-                'label' => Craft::t('app', 'Sections'),
-                'url' => Url::getUrl('settings/sections')
-            ],
-            [
-                'label' => Craft::t('site', $section->name),
-                'url' => Url::getUrl('settings/sections/'.$section->id)
-            ],
-        ];
-
-        $title = Craft::t('app', '{section} Entry Types',
-            ['section' => Craft::t('site', $section->name)]);
-
-        return $this->renderTemplate('settings/sections/_entrytypes/index', [
-            'sectionId' => $sectionId,
-            'section' => $section,
-            'crumbs' => $crumbs,
-            'title' => $title,
-        ]);
-    }
-
-    /**
-     * Edit an entry type
-     *
-     * @param integer   $sectionId   The section’s ID.
-     * @param integer   $entryTypeId The entry type’s ID, if any.
-     * @param EntryType $entryType   The entry type being edited, if there were any validation errors.
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested section/entry type cannot be found
-     * @throws BadRequestHttpException if the requested entry type does not belong to the requested section
-     */
-    public function actionEditEntryType($sectionId, $entryTypeId = null, EntryType $entryType = null)
-    {
-        $section = Craft::$app->getSections()->getSectionById($sectionId);
-
-        if (!$section) {
-            throw new NotFoundHttpException('Section not found');
-        }
-
-        if ($entryTypeId !== null) {
-            if ($entryType === null) {
-                $entryType = Craft::$app->getSections()->getEntryTypeById($entryTypeId);
-
-                if (!$entryType) {
-                    throw new NotFoundHttpException('Entry type not found');
-                }
-
-                if ($entryType->sectionId != $section->id) {
-                    throw new BadRequestHttpException('Entry type does not belong to the requested section');
-                }
-            }
-
-            $title = $entryType->name;
-        } else {
-            if ($entryType === null) {
-                $entryType = new EntryType();
-                $entryType->sectionId = $section->id;
-            }
-
-            $title = Craft::t('app', 'Create a new {section} entry type',
-                ['section' => Craft::t('site', $section->name)]);
-        }
-
-        $crumbs = [
-            [
-                'label' => Craft::t('app', 'Settings'),
-                'url' => Url::getUrl('settings')
-            ],
-            [
-                'label' => Craft::t('app', 'Sections'),
-                'url' => Url::getUrl('settings/sections')
-            ],
-            [
-                'label' => $section->name,
-                'url' => Url::getUrl('settings/sections/'.$section->id)
-            ],
-            [
-                'label' => Craft::t('app', 'Entry Types'),
-                'url' => Url::getUrl('settings/sections/'.$sectionId.'/entrytypes')
-            ],
-        ];
-
-        return $this->renderTemplate('settings/sections/_entrytypes/edit', [
-            'sectionId' => $sectionId,
-            'section' => $section,
-            'entryTypeId' => $entryTypeId,
-            'entryType' => $entryType,
-            'title' => $title,
-            'crumbs' => $crumbs
-        ]);
-    }
-
-    /**
-     * Saves an entry type.
-     *
-     * @return Response|null
-     * @throws NotFoundHttpException if the requested entry type cannot be found
-     */
-    public function actionSaveEntryType()
-    {
-        $this->requirePostRequest();
-
-        $entryTypeId = Craft::$app->getRequest()->getBodyParam('entryTypeId');
-
-        if ($entryTypeId) {
-            $entryType = Craft::$app->getSections()->getEntryTypeById($entryTypeId);
-
-            if (!$entryType) {
-                throw new NotFoundHttpException('Entry type not found');
-            }
-        } else {
-            $entryType = new EntryType();
-        }
-
-        // Set the simple stuff
-        $entryType->sectionId = Craft::$app->getRequest()->getRequiredBodyParam('sectionId');
-        $entryType->name = Craft::$app->getRequest()->getBodyParam('name', $entryType->name);
-        $entryType->handle = Craft::$app->getRequest()->getBodyParam('handle', $entryType->handle);
-        $entryType->hasTitleField = (bool)Craft::$app->getRequest()->getBodyParam('hasTitleField', $entryType->hasTitleField);
-        $entryType->titleLabel = Craft::$app->getRequest()->getBodyParam('titleLabel', $entryType->titleLabel);
-        $entryType->titleFormat = Craft::$app->getRequest()->getBodyParam('titleFormat', $entryType->titleFormat);
-
-        // Set the field layout
-        $fieldLayout = Craft::$app->getFields()->assembleLayoutFromPost();
-        $fieldLayout->type = Entry::class;
-        $entryType->setFieldLayout($fieldLayout);
-
-        // Save it
-        if (Craft::$app->getSections()->saveEntryType($entryType)) {
-            Craft::$app->getSession()->setNotice(Craft::t('app', 'Entry type saved.'));
-
-            return $this->redirectToPostedUrl($entryType);
-        }
-
-        Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t save entry type.'));
-
-        // Send the entry type back to the template
-        Craft::$app->getUrlManager()->setRouteParams([
-            'entryType' => $entryType
-        ]);
-
-        return null;
-    }
-
-    /**
-     * Reorders entry types.
-     *
-     * @return Response
-     */
-    public function actionReorderEntryTypes()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $entryTypeIds = Json::decode(Craft::$app->getRequest()->getRequiredBodyParam('ids'));
-        Craft::$app->getSections()->reorderEntryTypes($entryTypeIds);
-
-        return $this->asJson(['success' => true]);
-    }
-
-    /**
-     * Deletes an entry type.
-     *
-     * @return Response
-     */
-    public function actionDeleteEntryType()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $entryTypeId = Craft::$app->getRequest()->getRequiredBodyParam('id');
-
-        Craft::$app->getSections()->deleteEntryTypeById($entryTypeId);
-
-        return $this->asJson(['success' => true]);
-    }
+	// Public Methods
+	// =========================================================================
+
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All section actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
+	 * Sections index.
+	 *
+	 * @param array $variables
+	 *
+	 * @return null
+	 */
+	public function actionIndex(array $variables = array())
+	{
+		$variables['sections'] = craft()->sections->getAllSections();
+		$this->renderTemplate('settings/sections/_index', $variables);
+	}
+
+	/**
+	 * Edit a section.
+	 *
+	 * @param array $variables
+	 *
+	 * @throws HttpException|Exception
+	 * @return null
+	 */
+	public function actionEditSection(array $variables = array())
+	{
+		$variables['brandNewSection'] = false;
+
+		if (!empty($variables['sectionId']))
+		{
+			if (empty($variables['section']))
+			{
+				$variables['section'] = craft()->sections->getSectionById($variables['sectionId']);
+
+				if (!$variables['section'])
+				{
+					throw new HttpException(404);
+				}
+			}
+
+			$variables['title'] = $variables['section']->name;
+		}
+		else
+		{
+			if (empty($variables['section']))
+			{
+				$variables['section'] = new SectionModel();
+				$variables['brandNewSection'] = true;
+			}
+
+			$variables['title'] = Craft::t('Create a new section');
+		}
+
+		$types = array(SectionType::Single, SectionType::Channel, SectionType::Structure);
+		$variables['typeOptions'] = array();
+
+		// Get these strings to be caught by our translation util:
+		// Craft::t("Channel") Craft::t("Structure") Craft::t("Single")
+
+		foreach ($types as $type)
+		{
+			$variables['typeOptions'][$type] = Craft::t(ucfirst($type));
+		}
+
+		if (!$variables['typeOptions'])
+		{
+			throw new Exception(Craft::t('Craft Client or Pro Edition is required to create any additional sections.'));
+		}
+
+		if (!$variables['section']->type)
+		{
+			$variables['section']->type = SectionType::Channel;
+		}
+
+		$variables['canBeHomepage'] = (
+			($variables['section']->id && $variables['section']->isHomepage()) ||
+			!craft()->sections->doesHomepageExist()
+		);
+
+		$variables['crumbs'] = array(
+			array('label' => Craft::t('Settings'), 'url' => UrlHelper::getUrl('settings')),
+			array('label' => Craft::t('Sections'), 'url' => UrlHelper::getUrl('settings/sections')),
+		);
+
+		$this->renderTemplate('settings/sections/_edit', $variables);
+	}
+
+	/**
+	 * Saves a section.
+	 *
+	 * @return null
+	 */
+	public function actionSaveSection()
+	{
+		$this->requirePostRequest();
+
+		$section = new SectionModel();
+
+		// Shared attributes
+		$section->id               = craft()->request->getPost('sectionId');
+		$section->name             = craft()->request->getPost('name');
+		$section->handle           = craft()->request->getPost('handle');
+		$section->type             = craft()->request->getPost('type');
+		$section->enableVersioning = craft()->request->getPost('enableVersioning', true);
+
+		// Type-specific attributes
+		$section->hasUrls    = (bool) craft()->request->getPost('types.'.$section->type.'.hasUrls', true);
+		$section->template   = craft()->request->getPost('types.'.$section->type.'.template');
+		$section->maxLevels  = craft()->request->getPost('types.'.$section->type.'.maxLevels');
+
+		// Locale-specific attributes
+		$locales = array();
+
+		if (craft()->isLocalized())
+		{
+			$localeIds = craft()->request->getPost('locales', array());
+		}
+		else
+		{
+			$primaryLocaleId = craft()->i18n->getPrimarySiteLocaleId();
+			$localeIds = array($primaryLocaleId);
+		}
+
+		$isHomepage = ($section->type == SectionType::Single && craft()->request->getPost('types.'.$section->type.'.homepage'));
+
+		foreach ($localeIds as $localeId)
+		{
+			if ($isHomepage)
+			{
+				$urlFormat       = '__home__';
+				$nestedUrlFormat = null;
+			}
+			else
+			{
+				$urlFormat       = craft()->request->getPost('types.'.$section->type.'.urlFormat.'.$localeId);
+				$nestedUrlFormat = craft()->request->getPost('types.'.$section->type.'.nestedUrlFormat.'.$localeId);
+			}
+
+			$locales[$localeId] = new SectionLocaleModel(array(
+				'locale'           => $localeId,
+				'enabledByDefault' => (bool) craft()->request->getPost('defaultLocaleStatuses.'.$localeId),
+				'urlFormat'        => $urlFormat,
+				'nestedUrlFormat'  => $nestedUrlFormat,
+			));
+		}
+
+		$section->setLocales($locales);
+
+		// Save it
+		if (craft()->sections->saveSection($section))
+		{
+			craft()->userSession->setNotice(Craft::t('Section saved.'));
+
+			if (isset($_POST['redirect']) && mb_strpos($_POST['redirect'], '{sectionId}') !== false)
+			{
+				craft()->deprecator->log('SectionsController::saveSection():sectionId_redirect', 'The {sectionId} token within the ‘redirect’ param on sections/saveSection requests has been deprecated. Use {id} instead.');
+				$_POST['redirect'] = str_replace('{sectionId}', '{id}', $_POST['redirect']);
+			}
+
+			$this->redirectToPostedUrl($section);
+		}
+		else
+		{
+			craft()->userSession->setError(Craft::t('Couldn’t save section.'));
+		}
+
+		// Send the section back to the template
+		craft()->urlManager->setRouteVariables(array(
+			'section' => $section
+		));
+	}
+
+	/**
+	 * Deletes a section.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteSection()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
+
+		$sectionId = craft()->request->getRequiredPost('id');
+
+		craft()->sections->deleteSectionById($sectionId);
+		$this->returnJson(array('success' => true));
+	}
+
+	// Entry Types
+
+	/**
+	 * Entry types index
+	 *
+	 * @param array $variables
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function actionEntryTypesIndex(array $variables = array())
+	{
+		if (empty($variables['sectionId']))
+		{
+			throw new HttpException(400);
+		}
+
+		$variables['section'] = craft()->sections->getSectionById($variables['sectionId']);
+
+		if (!$variables['section'])
+		{
+			throw new HttpException(404);
+		}
+
+		$variables['crumbs'] = array(
+			array('label' => Craft::t('Settings'), 'url' => UrlHelper::getUrl('settings')),
+			array('label' => Craft::t('Sections'), 'url' => UrlHelper::getUrl('settings/sections')),
+			array('label' => Craft::t($variables['section']->name), 'url' => UrlHelper::getUrl('settings/sections/'.$variables['section']->id)),
+		);
+
+		$variables['title'] = Craft::t('{section} Entry Types', array('section' => Craft::t($variables['section']->name)));
+
+		$this->renderTemplate('settings/sections/_entrytypes/index', $variables);
+	}
+
+	/**
+	 * Edit an entry type
+	 *
+	 * @param array $variables
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function actionEditEntryType(array $variables = array())
+	{
+		if (empty($variables['sectionId']))
+		{
+			throw new HttpException(400);
+		}
+
+		$variables['section'] = craft()->sections->getSectionById($variables['sectionId']);
+
+		if (!$variables['section'])
+		{
+			throw new HttpException(404);
+		}
+
+		if (!empty($variables['entryTypeId']))
+		{
+			if (empty($variables['entryType']))
+			{
+				$variables['entryType'] = craft()->sections->getEntryTypeById($variables['entryTypeId']);
+
+				if (!$variables['entryType'] || $variables['entryType']->sectionId != $variables['section']->id)
+				{
+					throw new HttpException(404);
+				}
+			}
+
+			$variables['title'] = $variables['entryType']->name;
+		}
+		else
+		{
+			if (empty($variables['entryType']))
+			{
+				$variables['entryType'] = new EntryTypeModel();
+				$variables['entryType']->sectionId = $variables['section']->id;
+			}
+
+			$variables['title'] = Craft::t('Create a new {section} entry type', array('section' => Craft::t($variables['section']->name)));
+		}
+
+		$variables['crumbs'] = array(
+			array('label' => Craft::t('Settings'), 'url' => UrlHelper::getUrl('settings')),
+			array('label' => Craft::t('Sections'), 'url' => UrlHelper::getUrl('settings/sections')),
+			array('label' => $variables['section']->name, 'url' => UrlHelper::getUrl('settings/sections/'.$variables['section']->id)),
+			array('label' => Craft::t('Entry Types'), 'url' => UrlHelper::getUrl('settings/sections/'.$variables['sectionId'].'/entrytypes')),
+		);
+
+		$this->renderTemplate('settings/sections/_entrytypes/edit', $variables);
+	}
+
+	/**
+	 * Saves an entry type.
+	 *
+	 * @throws Exception
+	 * @throws HttpException
+	 * @throws \Exception
+	 * @return null
+	 */
+	public function actionSaveEntryType()
+	{
+		$this->requirePostRequest();
+
+		$entryTypeId = craft()->request->getPost('entryTypeId');
+
+		if ($entryTypeId)
+		{
+			$entryType = craft()->sections->getEntryTypeById($entryTypeId);
+
+			if (!$entryType)
+			{
+				throw new Exception(Craft::t('No entry type exists with the ID “{id}”.', array('id' => $entryTypeId)));
+			}
+		}
+		else
+		{
+			$entryType = new EntryTypeModel();
+		}
+
+		// Set the simple stuff
+		$entryType->sectionId     = craft()->request->getRequiredPost('sectionId', $entryType->sectionId);
+		$entryType->name          = craft()->request->getPost('name', $entryType->name);
+		$entryType->handle        = craft()->request->getPost('handle', $entryType->handle);
+		$entryType->hasTitleField = (bool) craft()->request->getPost('hasTitleField', $entryType->hasTitleField);
+		$entryType->titleLabel    = craft()->request->getPost('titleLabel', $entryType->titleLabel);
+		$entryType->titleFormat   = craft()->request->getPost('titleFormat', $entryType->titleFormat);
+
+		// Set the field layout
+		$fieldLayout = craft()->fields->assembleLayoutFromPost();
+		$fieldLayout->type = ElementType::Entry;
+		$entryType->setFieldLayout($fieldLayout);
+
+		// Save it
+		if (craft()->sections->saveEntryType($entryType))
+		{
+			craft()->userSession->setNotice(Craft::t('Entry type saved.'));
+			$this->redirectToPostedUrl($entryType);
+		}
+		else
+		{
+			craft()->userSession->setError(Craft::t('Couldn’t save entry type.'));
+		}
+
+		// Send the entry type back to the template
+		craft()->urlManager->setRouteVariables(array(
+			'entryType' => $entryType
+		));
+	}
+
+	/**
+	 * Reorders entry types.
+	 *
+	 * @return null
+	 */
+	public function actionReorderEntryTypes()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
+
+		$entryTypeIds = JsonHelper::decode(craft()->request->getRequiredPost('ids'));
+		craft()->sections->reorderEntryTypes($entryTypeIds);
+
+		$this->returnJson(array('success' => true));
+	}
+
+	/**
+	 * Deletes an entry type.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteEntryType()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
+
+		$entryTypeId = craft()->request->getRequiredPost('id');
+
+		craft()->sections->deleteEntryTypeById($entryTypeId);
+		$this->returnJson(array('success' => true));
+	}
 }

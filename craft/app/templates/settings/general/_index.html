@@ -18,21 +18,43 @@
 
 
 {% block content %}
-	<input type="hidden" name="action" value="system-settings/save-general-settings">
-	{{ redirectInput('settings') }}
+	<input type="hidden" name="action" value="systemSettings/saveGeneralSettings">
+	<input type="hidden" name="redirect" value="settings">
 
 	{{ forms.lightswitchField({
 		first: true,
 		label: "System Status"|t,
-		warning: (craft.app.config.get('isSystemOn') is sameas(true) or craft.app.config.get('isSystemOn') is sameas(false) ? configWarning('isSystemOn')),
+		warning: (craft.config.isSystemOn is sameas(true) or craft.config.isSystemOn is sameas(false) ? configWarning('isSystemOn')),
 		id: 'on',
 		name: 'on',
 		on: info.on
 	}) }}
 
+	{{ forms.textField({
+		label: "Site Name"|t,
+		warning: (craft.config.siteName ? configWarning('siteName')),
+		id: 'siteName',
+		name: 'siteName',
+		value: info.siteName,
+		autofocus: true,
+		required: true,
+		errors: info.getErrors('siteName')
+	}) }}
+
+	{{ forms.textField({
+		label: "Site URL"|t,
+		warning: (craft.config.siteUrl ? configWarning('siteUrl')),
+		id: 'siteUrl',
+		class: 'ltr',
+		name: 'siteUrl',
+		value: info.siteUrl,
+		required: true,
+		errors: info.getErrors('siteUrl')
+	}) }}
+
 	{{ forms.selectField({
 		label: "Timezone"|t,
-		warning: (craft.app.config.get('timezone') ? configWarning('timezone')),
+		warning: (craft.config.timezone ? configWarning('timezone')),
 		id: 'timezone',
 		name: 'timezone',
 		value: info.timezone,
@@ -42,16 +64,16 @@
 	{% if CraftEdition >= CraftClient %}
 		<hr>
 
-		{% do craft.app.view.registerTranslations('app', [
-			"Are you sure you want to delete the logo?",
-		]) %}
+		{% includeTranslations
+			"Are you sure you want to delete the logo?"
+		%}
 
-		{% registerjsresource "lib/fileupload/jquery.ui.widget.js" %}
-		{% registerjsresource "lib/fileupload/jquery.fileupload.js" %}
-		{% registerjsresource "lib/jcrop/jquery.Jcrop.min.js" %}
-		{% registerjsresource "js/rebrand.js" %}
-		{% registercssresource "lib/jcrop/jquery.Jcrop.min.css" %}
-		{% registercssresource "css/rebrand.css" %}
+		{% includejsresource "lib/fileupload/jquery.ui.widget.js" %}
+		{% includejsresource "lib/fileupload/jquery.fileupload.js" %}
+		{% includejsresource "lib/jcrop/jquery.Jcrop.min.js" %}
+		{% includejsresource "js/rebrand.js" %}
+		{% includecssresource "lib/jcrop/jquery.Jcrop.min.css" %}
+		{% includecssresource "css/rebrand.css" %}
 
 		{{ forms.field({
 			label: "Login Page Logo"|t

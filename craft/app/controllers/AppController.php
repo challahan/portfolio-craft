@@ -1,323 +1,329 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\dates\DateInterval;
-use craft\app\enums\LicenseKeyStatus;
-use craft\app\helpers\App;
-use craft\app\helpers\Cp;
-use craft\app\helpers\DateTimeHelper;
-use craft\app\models\UpgradeInfo;
-use craft\app\models\UpgradePurchase;
-use craft\app\web\Controller;
-use yii\web\BadRequestHttpException;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The AppController class is a controller that handles various actions for Craft updates, control panel requests,
  * upgrading Craft editions and license requests.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class AppController extends Controller
+class AppController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Returns update info.
-     *
-     * @return Response
-     */
-    public function actionCheckForUpdates()
-    {
-        $this->requirePermission('performUpdates');
+	/**
+	 * Returns update info.
+	 *
+	 * @return null
+	 */
+	public function actionCheckForUpdates()
+	{
+		craft()->userSession->requirePermission('performUpdates');
 
-        $forceRefresh = (bool)Craft::$app->getRequest()->getBodyParam('forceRefresh');
-        Craft::$app->getUpdates()->getUpdates($forceRefresh);
+		$forceRefresh = (bool) craft()->request->getPost('forceRefresh');
+		craft()->updates->getUpdates($forceRefresh);
 
-        return $this->asJson([
-            'total' => Craft::$app->getUpdates()->getTotalAvailableUpdates(),
-            'critical' => Craft::$app->getUpdates()->getIsCriticalUpdateAvailable()
-        ]);
-    }
+		$this->returnJson(array(
+			'total'    => craft()->updates->getTotalAvailableUpdates(),
+			'critical' => craft()->updates->isCriticalUpdateAvailable()
+		));
+	}
 
-    /**
-     * Loads any CP alerts.
-     *
-     * @return Response
-     */
-    public function actionGetCpAlerts()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePermission('accessCp');
+	/**
+	 * Loads any CP alerts.
+	 *
+	 * @return null
+	 */
+	public function actionGetCpAlerts()
+	{
+		$this->requireAjaxRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-        $path = Craft::$app->getRequest()->getRequiredBodyParam('path');
+		$path = craft()->request->getRequiredPost('path');
 
-        // Fetch 'em and send 'em
-        $alerts = Cp::getAlerts($path, true);
+		// Fetch 'em and send 'em
+		$alerts = CpHelper::getAlerts($path, true);
+		$this->returnJson($alerts);
+	}
 
-        return $this->asJson($alerts);
-    }
+	/**
+	 * Shuns a CP alert for 24 hours.
+	 *
+	 * @return null
+	 */
+	public function actionShunCpAlert()
+	{
+		$this->requireAjaxRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-    /**
-     * Shuns a CP alert for 24 hours.
-     *
-     * @return Response
-     */
-    public function actionShunCpAlert()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePermission('accessCp');
+		$message = craft()->request->getRequiredPost('message');
+		$user = craft()->userSession->getUser();
 
-        $message = Craft::$app->getRequest()->getRequiredBodyParam('message');
-        $user = Craft::$app->getUser()->getIdentity();
+		$currentTime = DateTimeHelper::currentUTCDateTime();
+		$tomorrow = $currentTime->add(new DateInterval('P1D'));
 
-        $currentTime = DateTimeHelper::currentUTCDateTime();
-        $tomorrow = $currentTime->add(new DateInterval('P1D'));
+		if (craft()->users->shunMessageForUser($user->id, $message, $tomorrow))
+		{
+			$this->returnJson(array(
+				'success' => true
+			));
+		}
+		else
+		{
+			$this->returnErrorJson(Craft::t('An unknown error occurred.'));
+		}
+	}
 
-        if (Craft::$app->getUsers()->shunMessageForUser($user->id, $message, $tomorrow)) {
-            return $this->asJson([
-                'success' => true
-            ]);
-        } else {
-            return $this->asErrorJson(Craft::t('app', 'An unknown error occurred.'));
-        }
-    }
+	/**
+	 * Transfers the Craft license to the current domain.
+	 *
+	 * @return null
+	 */
+	public function actionTransferLicenseToCurrentDomain()
+	{
+		$this->requireAjaxRequest();
+		$this->requirePostRequest();
+		craft()->userSession->requireAdmin();
 
-    /**
-     * Transfers the Craft license to the current domain.
-     *
-     * @return Response
-     */
-    public function actionTransferLicenseToCurrentDomain()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePostRequest();
-        $this->requireAdmin();
+		$response = craft()->et->transferLicenseToCurrentDomain();
 
-        $response = Craft::$app->getEt()->transferLicenseToCurrentDomain();
+		if ($response === true)
+		{
+			$this->returnJson(array(
+				'success' => true
+			));
+		}
+		else
+		{
+			$this->returnErrorJson($response);
+		}
+	}
 
-        if ($response === true) {
-            return $this->asJson([
-                'success' => true
-            ]);
-        } else {
-            return $this->asErrorJson($response);
-        }
-    }
+	/**
+	 * Returns the edition upgrade modal.
+	 *
+	 * @return null
+	 */
+	public function actionGetUpgradeModal()
+	{
+		$this->requireAjaxRequest();
 
-    /**
-     * Returns the edition upgrade modal.
-     *
-     * @return Response
-     */
-    public function actionGetUpgradeModal()
-    {
-        $this->requireAcceptsJson();
+		// Make it so Craft Client accounts can perform the upgrade.
+		if (craft()->getEdition() == Craft::Pro)
+		{
+			craft()->userSession->requireAdmin();
+		}
 
-        // Make it so Craft Client accounts can perform the upgrade.
-        if (Craft::$app->getEdition() == Craft::Pro) {
-            $this->requireAdmin();
-        }
+		$etResponse = craft()->et->fetchUpgradeInfo();
 
-        $etResponse = Craft::$app->getEt()->fetchUpgradeInfo();
+		if (!$etResponse)
+		{
+			$this->returnErrorJson(Craft::t('Craft is unable to fetch edition info at this time.'));
+		}
 
-        if (!$etResponse) {
-            return $this->asErrorJson(Craft::t('app', 'Craft is unable to fetch edition info at this time.'));
-        }
+		// Make sure we've got a valid license key (mismatched domain is OK for these purposes)
+		if ($etResponse->licenseKeyStatus == LicenseKeyStatus::Invalid)
+		{
+			$this->returnErrorJson(Craft::t('Your license key is invalid.'));
+		}
 
-        // Make sure we've got a valid license key (mismatched domain is OK for these purposes)
-        if ($etResponse->licenseKeyStatus == LicenseKeyStatus::Invalid) {
-            return $this->asErrorJson(Craft::t('app', 'Your license key is invalid.'));
-        }
+		// Make sure they've got a valid licensed edition, just to be safe
+		if (!AppHelper::isValidEdition($etResponse->licensedEdition))
+		{
+			$this->returnErrorJson(Craft::t('Your license has an invalid Craft edition associated with it.'));
+		}
 
-        // Make sure they've got a valid licensed edition, just to be safe
-        if (!App::isValidEdition($etResponse->licensedEdition)) {
-            return $this->asErrorJson(Craft::t('app', 'Your license has an invalid Craft edition associated with it.'));
-        }
+		$editions = array();
 
-        $editions = [];
-        $formatter = Craft::$app->getFormatter();
+		foreach ($etResponse->data->editions as $edition => $info)
+		{
+			$editions[$edition]['price']          = $info['price'];
+			$editions[$edition]['formattedPrice'] = craft()->numberFormatter->formatCurrency($info['price'], 'USD', true);
 
-        /** @var UpgradeInfo $upgradeInfo */
-        $upgradeInfo = $etResponse->data;
+			if (isset($info['salePrice']) && $info['salePrice'] < $info['price'])
+			{
+				$editions[$edition]['salePrice']          = $info['salePrice'];
+				$editions[$edition]['formattedSalePrice'] = craft()->numberFormatter->formatCurrency($info['salePrice'], 'USD', true);
+			}
+			else
+			{
+				$editions[$edition]['salePrice'] = null;
+			}
+		}
 
-        foreach ($upgradeInfo->editions as $edition => $info) {
-            $editions[$edition]['price'] = $info['price'];
-            $editions[$edition]['formattedPrice'] = $formatter->asCurrency($info['price'], 'USD', [], [], true);
+		$canTestEditions = craft()->canTestEditions();
 
-            if (isset($info['salePrice']) && $info['salePrice'] < $info['price']) {
-                $editions[$edition]['salePrice'] = $info['salePrice'];
-                $editions[$edition]['formattedSalePrice'] = $formatter->asCurrency($info['salePrice'], 'USD', [], [], true);
-            } else {
-                $editions[$edition]['salePrice'] = null;
-            }
-        }
+		$modalHtml = craft()->templates->render('_upgrademodal', array(
+			'editions'        => $editions,
+			'licensedEdition' => $etResponse->licensedEdition,
+			'canTestEditions' => $canTestEditions
+		));
 
-        $canTestEditions = Craft::$app->getCanTestEditions();
+		$this->returnJson(array(
+			'success'         => true,
+			'editions'        => $editions,
+			'licensedEdition' => $etResponse->licensedEdition,
+			'canTestEditions' => $canTestEditions,
+			'modalHtml'       => $modalHtml,
+			'stripePublicKey' => $etResponse->data->stripePublicKey,
+			'countries'       => $etResponse->data->countries,
+			'states'          => $etResponse->data->states,
+		));
+	}
 
-        $modalHtml = Craft::$app->getView()->renderTemplate('_upgrademodal', [
-            'editions' => $editions,
-            'licensedEdition' => $etResponse->licensedEdition,
-            'canTestEditions' => $canTestEditions
-        ]);
+	/**
+	 * Returns the price of an upgrade with a coupon applied to it.
+	 *
+	 * @return void
+	 */
+	public function actionGetCouponPrice()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        return $this->asJson([
-            'success' => true,
-            'editions' => $editions,
-            'licensedEdition' => $etResponse->licensedEdition,
-            'canTestEditions' => $canTestEditions,
-            'modalHtml' => $modalHtml,
-            'stripePublicKey' => $upgradeInfo->stripePublicKey,
-            'countries' => $upgradeInfo->countries,
-            'states' => $upgradeInfo->states,
-        ]);
-    }
+		// Make it so Craft Client accounts can perform the upgrade.
+		if (craft()->getEdition() == Craft::Pro)
+		{
+			craft()->userSession->requireAdmin();
+		}
 
-    /**
-     * Returns the price of an upgrade with a coupon applied to it.
-     *
-     * @return Response
-     */
-    public function actionGetCouponPrice()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+		$edition = craft()->request->getRequiredPost('edition');
+		$couponCode = craft()->request->getRequiredPost('couponCode');
 
-        // Make it so Craft Client accounts can perform the upgrade.
-        if (Craft::$app->getEdition() == Craft::Pro) {
-            $this->requireAdmin();
-        }
+		$etResponse = craft()->et->fetchCouponPrice($edition, $couponCode);
 
-        $request = Craft::$app->getRequest();
-        $edition = $request->getRequiredBodyParam('edition');
-        $couponCode = $request->getRequiredBodyParam('couponCode');
+		if (!empty($etResponse->data['success']))
+		{
+			$couponPrice = $etResponse->data['couponPrice'];
+			$formattedCouponPrice = craft()->numberFormatter->formatCurrency($couponPrice, 'USD', true);
 
-        $etResponse = Craft::$app->getEt()->fetchCouponPrice($edition, $couponCode);
+			$this->returnJson(array(
+				'success' => true,
+				'couponPrice' => $couponPrice,
+				'formattedCouponPrice' => $formattedCouponPrice
+			));
+		}
+		else
+		{
+			$this->returnJson(array(
+				'success' => false
+			));
+		}
+	}
 
-        if (!empty($etResponse->data['success'])) {
-            $couponPrice = $etResponse->data['couponPrice'];
-            $formattedCouponPrice = Craft::$app->getFormatter()->asCurrency($couponPrice, 'USD', [], [], true);
+	/**
+	 * Passes along a given CC token to Elliott to purchase a Craft edition.
+	 *
+	 * @return null
+	 */
+	public function actionPurchaseUpgrade()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-            return $this->asJson([
-                'success' => true,
-                'couponPrice' => $couponPrice,
-                'formattedCouponPrice' => $formattedCouponPrice
-            ]);
-        }
+		// Make it so Craft Client accounts can perform the upgrade.
+		if (craft()->getEdition() == Craft::Pro)
+		{
+			craft()->userSession->requireAdmin();
+		}
 
-        return $this->asJson([
-            'success' => false
-        ]);
-    }
+		$model = new UpgradePurchaseModel(array(
+			'ccTokenId'        => craft()->request->getRequiredPost('ccTokenId'),
+			'expMonth'         => craft()->request->getRequiredPost('expMonth'),
+			'expYear'          => craft()->request->getRequiredPost('expYear'),
+			'edition'          => craft()->request->getRequiredPost('edition'),
+			'expectedPrice'    => craft()->request->getRequiredPost('expectedPrice'),
+			'name'             => craft()->request->getRequiredPost('name'),
+			'email'            => craft()->request->getRequiredPost('email'),
+			'businessName'     => craft()->request->getPost('businessName'),
+			'businessAddress1' => craft()->request->getPost('businessAddress1'),
+			'businessAddress2' => craft()->request->getPost('businessAddress2'),
+			'businessCity'     => craft()->request->getPost('businessCity'),
+			'businessState'    => craft()->request->getPost('businessState'),
+			'businessCountry'  => craft()->request->getPost('businessCountry'),
+			'businessZip'      => craft()->request->getPost('businessZip'),
+			'businessTaxId'    => craft()->request->getPost('businessTaxId'),
+			'purchaseNotes'    => craft()->request->getPost('purchaseNotes'),
+			'couponCode'       => craft()->request->getPost('couponCode'),
+		));
 
-    /**
-     * Passes along a given CC token to Elliott to purchase a Craft edition.
-     *
-     * @return Response
-     */
-    public function actionPurchaseUpgrade()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+		if (craft()->et->purchaseUpgrade($model))
+		{
+			$this->returnJson(array(
+				'success' => true,
+				'edition' => $model->edition
+			));
+		}
+		else
+		{
+			$this->returnJson(array(
+				'errors' => $model->getErrors()
+			));
+		}
+	}
 
-        // Make it so Craft Client accounts can perform the upgrade.
-        if (Craft::$app->getEdition() == Craft::Pro) {
-            $this->requireAdmin();
-        }
+	/**
+	 * Tries a Craft edition on for size.
+	 *
+	 * @throws Exception
+	 * @return null
+	 */
+	public function actionTestUpgrade()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
+		craft()->userSession->requireAdmin();
 
-        $request = Craft::$app->getRequest();
-        $model = new UpgradePurchase([
-            'ccTokenId' => $request->getRequiredBodyParam('ccTokenId'),
-            'expMonth' => $request->getRequiredBodyParam('expMonth'),
-            'expYear' => $request->getRequiredBodyParam('expYear'),
-            'edition' => $request->getRequiredBodyParam('edition'),
-            'expectedPrice' => $request->getRequiredBodyParam('expectedPrice'),
-            'name' => $request->getRequiredBodyParam('name'),
-            'email' => $request->getRequiredBodyParam('email'),
-            'businessName' => $request->getBodyParam('businessName'),
-            'businessAddress1' => $request->getBodyParam('businessAddress1'),
-            'businessAddress2' => $request->getBodyParam('businessAddress2'),
-            'businessCity' => $request->getBodyParam('businessCity'),
-            'businessState' => $request->getBodyParam('businessState'),
-            'businessCountry' => $request->getBodyParam('businessCountry'),
-            'businessZip' => $request->getBodyParam('businessZip'),
-            'businessTaxId' => $request->getBodyParam('businessTaxId'),
-            'purchaseNotes' => $request->getBodyParam('purchaseNotes'),
-            'couponCode' => $request->getBodyParam('couponCode'),
-        ]);
+		$edition = craft()->request->getRequiredPost('edition');
+		$licensedEdition = craft()->getLicensedEdition();
 
-        if (Craft::$app->getEt()->purchaseUpgrade($model)) {
-            return $this->asJson([
-                'success' => true,
-                'edition' => $model->edition
-            ]);
-        }
+		if ($licensedEdition === null)
+		{
+			$licensedEdition = 0;
+		}
 
-        return $this->asJson([
-            'errors' => $model->getErrors()
-        ]);
-    }
+		// If this is actually an upgrade, make sure that they are allowed to test edition upgrades
+		if ($edition > $licensedEdition && !craft()->canTestEditions())
+		{
+			throw new Exception('Tried to test an edition, but Craft isn\'t allowed to do that.');
+		}
 
-    /**
-     * Tries a Craft edition on for size.
-     *
-     * @return Response
-     * @throws BadRequestHttpException if Craft isn’t allowed to test edition upgrades
-     */
-    public function actionTestUpgrade()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-        $this->requireAdmin();
+		craft()->setEdition($edition);
 
-        $edition = Craft::$app->getRequest()->getRequiredBodyParam('edition');
-        $licensedEdition = Craft::$app->getLicensedEdition();
+		$this->returnJson(array(
+			'success' => true
+		));
+	}
 
-        if ($licensedEdition === null) {
-            $licensedEdition = 0;
-        }
+	/**
+	 * Switches Craft to the edition it's licensed for.
+	 *
+	 * @return null
+	 */
+	public function actionSwitchToLicensedEdition()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        // If this is actually an upgrade, make sure that they are allowed to test edition upgrades
-        if ($edition > $licensedEdition && !Craft::$app->getCanTestEditions()) {
-            throw new BadRequestHttpException('Craft is not permitted to test edition upgrades from this server');
-        }
+		if (craft()->hasWrongEdition())
+		{
+			$licensedEdition = craft()->getLicensedEdition();
+			$success = craft()->setEdition($licensedEdition);
+		}
+		else
+		{
+			// Just fake it
+			$success = true;
+		}
 
-        Craft::$app->setEdition($edition);
-
-        return $this->asJson([
-            'success' => true
-        ]);
-    }
-
-    /**
-     * Switches Craft to the edition it's licensed for.
-     *
-     * @return Response
-     */
-    public function actionSwitchToLicensedEdition()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        if (Craft::$app->getHasWrongEdition()) {
-            $licensedEdition = Craft::$app->getLicensedEdition();
-            $success = Craft::$app->setEdition($licensedEdition);
-        } else {
-            // Just fake it
-            $success = true;
-        }
-
-        return $this->asJson(['success' => $success]);
-    }
+		$this->returnJson(array('success' => $success));
+	}
 }

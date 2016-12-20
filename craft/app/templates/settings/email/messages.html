@@ -4,21 +4,21 @@
 {% extends "settings/email/_layout" %}
 {% set selectedNavItem = 'messages' %}
 
+{% includecssresource "css/email_messages.css" %}
+{% includejsresource "js/email_messages.js" %}
+
 {% set crumbs = [
-	{ label: "Settings"|t('app'), url: url('settings') }
+	{ label: "Settings"|t, url: url('settings') }
 ] %}
 
-{% do craft.app.view.registerTranslations('app', [
+{% includeTranslations
 	"Couldn’t save message.",
-	"Message saved.",
-]) %}
+	"Message saved."
+%}
 
 {% block content %}
-	{% registercssresource "css/email_messages.css" %}
-	{% registerjsresource "js/email_messages.js" %}
-
 	<div id="messages">
-		{% for message in craft.app.emailMessages.getAllMessages() %}
+		{% for message in craft.emailMessages.getAllMessages() %}
 			<h2>{{ message.heading }}</h2>
 			<div class="pane message" data-key="{{ message.key }}">
 				<div class="subject">{{ message.subject }}</div>

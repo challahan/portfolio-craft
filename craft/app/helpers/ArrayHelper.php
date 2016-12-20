@@ -1,170 +1,233 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\helpers;
+namespace Craft;
 
 /**
  * Class ArrayHelper
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.helpers
+ * @since     1.0
  */
-class ArrayHelper extends \yii\helpers\ArrayHelper
+class ArrayHelper
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Converts an object, an array of objects, or a comma-delimited string into an array.
-     *
-     *     ArrayHelper::toArray('one, two, three') => ['one', 'two', 'three']
-     *
-     * @param array|object|string $object     The object, array or string to be converted into an array.
-     * @param array               $properties A mapping from object class names to the properties that need to put into
-     *                                        the resulting arrays. The properties specified for each class is an array
-     *                                        of the following format:
-     *
-     * ~~~
-     * [
-     *     'app\models\Post' => [
-     *         'id',
-     *         'title',
-     *         // the key name in array result => property name
-     *         'createTime' => 'created_at',
-     *         // the key name in array result => anonymous function
-     *         'length' => function ($post) {
-     *             return strlen($post->content);
-     *         },
-     *     ],
-     * ]
-     * ~~~
-     *
-     * The result of `ArrayHelper::toArray($post, $properties)` could be like the following:
-     *
-     * ~~~
-     * [
-     *     'id' => 123,
-     *     'title' => 'test',
-     *     'createTime' => '2013-01-01 12:00AM',
-     *     'length' => 301,
-     * ]
-     * ~~~
-     * @param boolean             $recursive  Whether to recursively converts properties which are objects into arrays.
-     *
-     * @return array The array representation of the given object.
-     */
-    public static function toArray($object, $properties = [], $recursive = true)
-    {
-        if ($object === null) {
-            return [];
-        }
+	/**
+	 * Flattens a multi-dimensional array into a single-dimensional array.
+	 *
+	 * @param        $arr
+	 * @param string $prefix
+	 *
+	 * @return array
+	 */
+	public static function flattenArray($arr, $prefix = null)
+	{
+		$flattened = array();
 
-        if (is_string($object)) {
-            // Split it on the non-escaped commas
-            $object = preg_split('/(?<!\\\),/', $object);
+		foreach ($arr as $key => $value)
+		{
+			if ($prefix !== null)
+			{
+				$key = "{$prefix}[{$key}]";
+			}
 
-            // Remove any of the backslashes used to escape the commas
-            foreach ($object as $key => $val) {
-                // Remove leading/trailing whitespace
-                $val = trim($val);
+			if (is_array($value))
+			{
+				$flattened = array_merge($flattened, static::flattenArray($value, $key));
+			}
+			else
+			{
+				$flattened[$key] = $value;
+			}
+		}
 
-                // Remove any backslashes used to escape commas
-                $val = str_replace('\,', ',', $val);
+		return $flattened;
+	}
 
-                $object[$key] = $val;
-            }
+	/**
+	 * Expands a flattened array back into its original form
+	 *
+	 * @param array $arr
+	 *
+	 * @return array
+	 */
+	public static function expandArray($arr)
+	{
+		$expanded = array();
 
-            // Remove any empty elements and reset the keys
-            $object = array_merge(array_filter($object));
+		foreach ($arr as $key => $value)
+		{
+			// is this an array element?
+			if (preg_match('/^(\w+)(\[.*)/', $key, $m))
+			{
+				$key = '$expanded["'.$m[1].'"]'.preg_replace('/\[([a-zA-Z]\w*?)\]/', "[\"$1\"]", $m[2]);
+				eval($key.' = "'.addslashes($value).'";');
+			}
+			else
+			{
+				$expanded[$key] = $value;
+			}
+		}
 
-            return $object;
-        }
+		return $expanded;
+	}
 
-        return parent::toArray($object, $properties, $recursive);
-    }
+	/**
+	 * @param $settings
+	 *
+	 * @return array
+	 */
+	public static function expandSettingsArray($settings)
+	{
+		$arr = array();
 
-    /**
-     * Prepends or appends a value to an array.
-     *
-     * @param array   &$arr
-     * @param mixed   $value
-     *
-     * @param boolean $prepend
-     */
-    public static function prependOrAppend(&$arr, $value, $prepend)
-    {
-        if ($prepend) {
-            array_unshift($arr, $value);
-        } else {
-            array_push($arr, $value);
-        }
-    }
+		foreach ($settings as $setting)
+		{
+			$arr[$setting->name] = $setting->value;
+		}
 
-    /**
-     * Filters empty strings from an array.
-     *
-     * @param array $arr
-     *
-     * @return array
-     */
-    public static function filterEmptyStringsFromArray($arr)
-    {
-        return array_filter($arr,
-            ['\craft\app\helpers\ArrayHelper', '_isNotAnEmptyString']);
-    }
+		return static::expandArray($arr);
+	}
 
-    /**
-     * Returns the first key in a given array.
-     *
-     * @param array $arr
-     *
-     * @return string|integer|null The first key, whether that is a number (if the array is numerically indexed) or a string, or null if $arr isn’t an array, or is empty.
-     */
-    public static function getFirstKey($arr)
-    {
-        if (is_array($arr)) {
-            foreach ($arr as $key => $value) {
-                return $key;
-            }
-        }
+	/**
+	 * Converts a comma-delimited string into a trimmed array, ex:
+	 *
+	 *     ArrayHelper::stringToArray('one, two, three') => array('one', 'two', 'three')
+	 *
+	 * @param mixed $str The string to convert to an array
+	 *
+	 * @return array The trimmed array
+	 */
+	public static function stringToArray($str)
+	{
+		if (is_array($str))
+		{
+			return $str;
+		}
+		else if ($str instanceof \ArrayObject)
+		{
+			return (array) $str;
+		}
+		else if (empty($str))
+		{
+			return array();
+		}
+		else if (is_string($str))
+		{
+			// Split it on the non-escaped commas
+			$arr = preg_split('/(?<!\\\),/', $str);
 
-        return null;
-    }
+			// Remove any of the backslashes used to escape the commas
+			foreach ($arr as $key => $val)
+			{
+				// Remove leading/trailing whitespace
+				$val = trim($val);
 
-    /**
-     * Returns the first value in a given array.
-     *
-     * @param array $arr
-     *
-     * @return mixed|null
-     */
-    public static function getFirstValue($arr)
-    {
-        if (is_array($arr)) {
-            foreach ($arr as $value) {
-                return $value;
-            }
-        }
+				// Remove any backslashes used to escape commas
+				$val = str_replace('\,', ',', $val);
 
-        return null;
-    }
+				$arr[$key] = $val;
+			}
 
-    // Private Methods
-    // =========================================================================
+			// Remove any empty elements and reset the keys
+			$arr = array_merge(array_filter($arr));
 
-    /**
-     * The array_filter() callback function for filterEmptyStringsFromArray().
-     *
-     * @param string $val
-     *
-     * @return boolean
-     */
-    private static function _isNotAnEmptyString($val)
-    {
-        return (mb_strlen($val) != 0);
-    }
+			return $arr;
+		}
+		else
+		{
+			return array($str);
+		}
+	}
+
+	/**
+	 * Prepends or appends a value to an array.
+	 *
+	 * @param array &$arr
+	 * @param mixed $value
+	 *
+	 * @param bool  $prepend
+	 */
+	public static function prependOrAppend(&$arr, $value, $prepend)
+	{
+		if ($prepend)
+		{
+			array_unshift($arr, $value);
+		}
+		else
+		{
+			array_push($arr, $value);
+		}
+	}
+
+	/**
+	 * Filters empty strings from an array.
+	 *
+	 * @param array $arr
+	 *
+	 * @return array
+	 */
+	public static function filterEmptyStringsFromArray($arr)
+	{
+		return array_filter($arr, array('\Craft\ArrayHelper', '_isNotAnEmptyString'));
+	}
+
+	/**
+	 * Returns the first key in a given array.
+	 *
+	 * @param array $arr
+	 *
+	 * @return string|integer|null The first key, whether that is a number (if the array is numerically indexed) or a string, or null if $arr isn’t an array, or is empty.
+	 */
+	public static function getFirstKey($arr)
+	{
+		if (is_array($arr))
+		{
+			foreach ($arr as $key => $value)
+			{
+				return $key;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the first value in a given array.
+	 *
+	 * @param array $arr
+	 *
+	 * @return mixed|null
+	 */
+	public static function getFirstValue($arr)
+	{
+		if (is_array($arr))
+		{
+			foreach ($arr as $value)
+			{
+				return $value;
+			}
+		}
+
+		return null;
+	}
+
+	// Private Methods
+	// =========================================================================
+
+	/**
+	 * The array_filter() callback function for filterEmptyStringsFromArray().
+	 *
+	 * @param string $val
+	 *
+	 * @return bool
+	 */
+	private static function _isNotAnEmptyString($val)
+	{
+		return (mb_strlen($val) != 0);
+	}
 }

@@ -23,7 +23,7 @@ var Deprecator = Garnish.Base.extend(
 
 	clearAllLogs: function()
 	{
-		Craft.postActionRequest('utils/delete-all-deprecation-errors');
+		Craft.postActionRequest('utils/deleteAllDeprecationErrors');
 		this.onClearAll();
 	},
 
@@ -49,7 +49,7 @@ var Deprecator = Garnish.Base.extend(
 			logId: $(ev.currentTarget).closest('tr').data('id')
 		};
 
-		Craft.postActionRequest('utils/get-deprecation-error-traces-modal', data, $.proxy(function(response, textStatus)
+		Craft.postActionRequest('utils/getDeprecationErrorTracesModal', data, $.proxy(function(response, textStatus)
 		{
 			this.tracesModal.$container.removeClass('loading');
 
@@ -68,7 +68,7 @@ var Deprecator = Garnish.Base.extend(
 			logId: $tr.data('id')
 		};
 
-		Craft.postActionRequest('utils/delete-deprecation-error', data);
+		Craft.postActionRequest('utils/deleteDeprecationError', data);
 
 		if ($tr.siblings().length)
 		{

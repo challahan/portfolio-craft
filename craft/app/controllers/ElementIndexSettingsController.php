@@ -1,113 +1,111 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use yii\web\Response;
+namespace Craft;
 
 /**
- * The ElementIndexSettingsController class is a controller that handles various element index settings-related actions.
+ * The ElementIndexSettingsController class is a controller that handles various element index related actions.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     2.5
  */
 class ElementIndexSettingsController extends BaseElementsController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Returns all the info needed by the Customize Sources modal.
-     *
-     * @return Response
-     */
-    public function actionGetCustomizeSourcesModalData()
-    {
-        $this->requireAdmin();
+	/**
+	 * Returns all the info needed by the Customize Sources modal.
+	 */
+	public function actionGetCustomizeSourcesModalData()
+	{
+		$this->requireAdmin();
 
-        $elementType = $this->getElementType();
+		$elementType = $this->getElementType();
+		$elementTypeClass = $elementType->getClassHandle();
 
-        // Get the source info
-        $elementIndexesService = Craft::$app->getElementIndexes();
-        $sources = $elementIndexesService->getSources($elementType);
+		// Get the source info
+		$sources = craft()->elementIndexes->getSources($elementTypeClass);
 
-        foreach ($sources as &$source) {
-            if (array_key_exists('heading', $source)) {
-                continue;
-            }
+		foreach ($sources as &$source)
+		{
+			if (array_key_exists('heading', $source))
+			{
+				continue;
+			}
 
-            $tableAttributes = $elementIndexesService->getTableAttributes($elementType, $source['key']);
-            $source['tableAttributes'] = [];
+			$tableAttributes = craft()->elementIndexes->getTableAttributes($elementTypeClass, $source['key']);
+			$source['tableAttributes'] = array();
 
-            foreach ($tableAttributes as $attribute) {
-                $source['tableAttributes'][] = [
-                    $attribute[0],
-                    $attribute[1]['label']
-                ];
-            }
-        }
+			foreach ($tableAttributes as $attribute)
+			{
+				$source['tableAttributes'][] = array($attribute[0], $attribute[1]['label']);
+			}
+		}
 
-        // Get the available table attributes
-        $availableTableAttributes = [];
+		// Get the available table attributes
+		$availableTableAttributes = array();
 
-        foreach ($elementIndexesService->getAvailableTableAttributes($elementType) as $key => $labelInfo) {
-            $availableTableAttributes[] = [
-                $key,
-                Craft::t('site', $labelInfo['label'])
-            ];
-        }
+		foreach (craft()->elementIndexes->getAvailableTableAttributes($elementTypeClass) as $key => $labelInfo)
+		{
+			$availableTableAttributes[] = array($key, Craft::t($labelInfo['label']));
+		}
 
-        return $this->asJson([
-            'sources' => $sources,
-            'availableTableAttributes' => $availableTableAttributes,
-        ]);
-    }
+		$this->returnJson(array(
+			'sources' => $sources,
+			'availableTableAttributes' => $availableTableAttributes,
+		));
+	}
 
-    /**
-     * Saves the Customize Sources modal settings.
-     *
-     * @return Response
-     */
-    public function actionSaveCustomizeSourcesModalSettings()
-    {
-        $this->requireAdmin();
+	/**
+	 * Saves the Customize Sources modal settings.
+	 */
+	public function actionSaveCustomizeSourcesModalSettings()
+	{
+		$this->requireAjaxRequest();
+		$this->requireAdmin();
 
-        $elementType = $this->getElementType();
+		$elementType = $this->getElementType();
+		$elementTypeClass = $elementType->getClassHandle();
 
-        $request = Craft::$app->getRequest();
-        $sourceOrder = $request->getBodyParam('sourceOrder', []);
-        $sources = $request->getBodyParam('sources', []);
+		$sourceOrder = craft()->request->getPost('sourceOrder', array());
+		$sources = craft()->request->getPost('sources', array());
 
-        // Normalize to the way it's stored in the DB
-        foreach ($sourceOrder as $i => $source) {
-            if (isset($source['heading'])) {
-                $sourceOrder[$i] = ['heading', $source['heading']];
-            } else {
-                $sourceOrder[$i] = ['key', $source['key']];
-            }
-        }
+		// Normalize to the way it's stored in the DB
+		foreach ($sourceOrder as $i => $source)
+		{
+			if (isset($source['heading']))
+			{
+				$sourceOrder[$i] = array('heading', $source['heading']);
+			}
+			else
+			{
+				$sourceOrder[$i] = array('key', $source['key']);
+			}
+		}
 
-        // Remove the blank table attributes
-        foreach ($sources as &$source) {
-            $source['tableAttributes'] = array_filter($source['tableAttributes']);
-        }
+		// Remove the blank table attributes
+		foreach ($sources as &$source)
+		{
+			$source['tableAttributes'] = array_filter($source['tableAttributes']);
+		}
 
-        $settings = [
-            'sourceOrder' => $sourceOrder,
-            'sources' => $sources,
-        ];
+		$settings = array(
+			'sourceOrder' => $sourceOrder,
+			'sources' => $sources,
+		);
 
-        if (Craft::$app->getElementIndexes()->saveSettings($elementType, $settings)) {
-            return $this->asJson(['success' => true]);
-        }
-
-        return $this->asErrorJson(Craft::t('app', 'An unknown error occurred.'));
-    }
+		if (craft()->elementIndexes->saveSettings($elementTypeClass, $settings))
+		{
+			$this->returnJson(array('success' => true));
+		}
+		else
+		{
+			$this->returnErrorJson(Craft::t('An unknown error occurred.'));
+		}
+	}
 }

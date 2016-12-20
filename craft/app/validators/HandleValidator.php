@@ -1,102 +1,70 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\validators;
-
-use Craft;
-use craft\app\helpers\StringHelper;
-use yii\validators\Validator;
+namespace Craft;
 
 /**
- * Class HandleValidator.
+ * Class HandleValidator
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.validators
+ * @since     1.0
  */
-class HandleValidator extends Validator
+class HandleValidator extends \CValidator
 {
-    // Static
-    // =========================================================================
+	// Properties
+	// =========================================================================
 
-    /**
-     * @var array
-     */
-    public static $baseReservedWords = [
-        'id',
-        'dateCreated',
-        'dateUpdated',
-        'uid',
-        'this',
-        'true',
-        'false',
-        'y',
-        'n',
-        'yes',
-        'no',
-        'classHandle',
-        'handle',
-        'name',
-        'attributeNames',
-        'attributes',
-        'attribute',
-        'rules',
-        'attributeLabels',
-        'fields',
-        'content',
-        'rawContent',
-        'section'
-    ];
+	/**
+	 * @var string
+	 */
+	public static $handlePattern = '[a-zA-Z][a-zA-Z0-9_]*';
 
-    // Properties
-    // =========================================================================
+	/**
+	 * @var array
+	 */
+	public $reservedWords = array();
 
-    /**
-     * @var string
-     */
-    public static $handlePattern = '[a-zA-Z][a-zA-Z0-9_]*';
+	/**
+	 * @var array
+	 */
+	protected static $baseReservedWords = array('id', 'dateCreated', 'dateUpdated', 'uid', 'this', 'true', 'false', 'y', 'n', 'yes', 'no', 'classHandle', 'handle', 'name', 'attributeNames', 'attributes', 'attribute', 'rules', 'attributeLabels', 'fields', 'content', 'rawContent', 'section');
 
-    /**
-     * @var array
-     */
-    public $reservedWords = [];
+	// Protected Methods
+	// =========================================================================
 
-    // Protected Methods
-    // =========================================================================
+	/**
+	 * @param $object
+	 * @param $attribute
+	 *
+	 * @return null
+	 */
+	protected function validateAttribute($object, $attribute)
+	{
+		$handle = $object->$attribute;
 
-    /**
-     * @param $object
-     * @param $attribute
-     *
-     * @return void
-     */
-    public function validateAttribute($object, $attribute)
-    {
-        $handle = $object->$attribute;
+		// Handles are always required, so if it's blank, the required validator will catch this.
+		if ($handle)
+		{
+			$reservedWords = array_merge($this->reservedWords, static::$baseReservedWords);
+			$reservedWords = array_map(array('Craft\StringHelper', 'toLowerCase'), $reservedWords);
+			$lcHandle = StringHelper::toLowerCase($handle);
 
-        // Handles are always required, so if it's blank, the required validator will catch this.
-        if ($handle) {
-            $reservedWords = array_merge($this->reservedWords, static::$baseReservedWords);
-            $reservedWords = array_map([
-                '\craft\app\helpers\StringHelper',
-                'toLowerCase'
-            ], $reservedWords);
-            $lcHandle = StringHelper::toLowerCase($handle);
-
-            if (in_array($lcHandle, $reservedWords)) {
-                $message = Craft::t('app', '“{handle}” is a reserved word.',
-                    ['handle' => $handle]);
-                $this->addError($object, $attribute, $message);
-            } else {
-                if (!preg_match('/^'.static::$handlePattern.'$/', $handle)) {
-                    $altMessage = Craft::t('app', '“{handle}” isn’t a valid handle.', ['handle' => $handle]);
-                    $message = $this->message !== null ? $this->message : $altMessage;
-                    $this->addError($object, $attribute, $message);
-                }
-            }
-        }
-    }
+			if (in_array($lcHandle, $reservedWords))
+			{
+				$message = Craft::t('“{handle}” is a reserved word.', array('handle' => $handle));
+				$this->addError($object, $attribute, $message);
+			}
+			else
+			{
+				if (!preg_match('/^'.static::$handlePattern.'$/', $handle))
+				{
+					$altMessage = Craft::t('“{handle}” isn’t a valid handle.', array('handle' => $handle));
+					$message = $this->message !== null ? $this->message : $altMessage;
+					$this->addError($object, $attribute, $message);
+				}
+			}
+		}
+	}
 }

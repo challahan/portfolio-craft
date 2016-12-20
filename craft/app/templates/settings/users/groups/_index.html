@@ -7,27 +7,27 @@
 {% set docsUrl = 'http://craftcms.com/docs/users#user-groups' %}
 
 
-{% set groups = craft.app.userGroups.getAllGroups() %}
+{% set groups = craft.userGroups.getAllGroups %}
 
 
 {% block content %}
 	<p id="nogroups"{% if groups|length %} class="hidden"{% endif %}>
-		{{ "No groups exist yet."|t('app') }}
+		{{ "No groups exist yet."|t }}
 	</p>
 
 	{% if groups|length %}
 		<table id="groups" class="data fullwidth collapsible">
 			<thead>
-				<th scope="col">{{ "Name"|t('app') }}</th>
-				<th scope="col">{{ "Handle"|t('app') }}</th>
+				<th scope="col">{{ "Name"|t }}</th>
+				<th scope="col">{{ "Handle"|t }}</th>
 				<td class="thin"></td>
 			</thead>
 			<tbody>
 				{% for group in groups %}
-					<tr data-id="{{ group.id }}" data-name="{{ group.name|t('site') }}">
-						<th scope="row" data-title="{{ 'Name'|t('app') }}"><a href="{{ url('settings/users/groups/' ~ group.id) }}">{{ group.name|t('site') }}</a></th>
-						<td data-title="{{ 'Handle'|t('app') }}"><code>{{ group.handle }}</code></td>
-						<td class="thin"><a class="delete icon" title="{{ 'Delete'|t('app') }}" role="button"></a></td>
+					<tr data-id="{{ group.id }}" data-name="{{ group.name|t }}">
+						<th scope="row" data-title="{{ 'Name'|t }}"><a href="{{ url('settings/users/groups/' ~ group.id) }}">{{ group.name|t }}</a></th>
+						<td data-title="{{ 'Handle'|t }}"><code>{{ group.handle }}</code></td>
+						<td class="thin"><a class="delete icon" title="{{ 'Delete'|t }}" role="button"></a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -35,15 +35,15 @@
 	{% endif %}
 
 	<div class="buttons">
-		<a href="{{ url('settings/users/groups/new') }}" class="btn submit add icon">{{ "New user group"|t('app') }}</a>
+		<a href="{{ url('settings/users/groups/new') }}" class="btn submit add icon">{{ "New user group"|t }}</a>
 	</div>
 {% endblock %}
 
 
-{% registerjs %}
+{% includejs %}
 	new Craft.AdminTable({
 		tableSelector: '#groups',
-		noItemsSelector: '#nogroups',
-		deleteAction: 'user-settings/delete-group'
+		noObjectsSelector: '#nogroups',
+		deleteAction: 'userSettings/deleteGroup'
 	});
-{% endregisterjs %}
+{% endincludejs %}

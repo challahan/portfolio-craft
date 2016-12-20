@@ -4,10 +4,10 @@
 {% set sectionInput %}
 	<div class="select">
 		<select id="section" name="section">
-			<option value="*">{{ "All"|t('app') }}</option>
-			{% for section in craft.app.sections.getAllSections() %}
+			<option value="*">{{ "All"|t }}</option>
+			{% for section in craft.sections.getAllSections() %}
 				{% if section.type != 'single' %}
-					<option value="{{ section.id }}"{% if section.id == widget.section %} selected{% endif %}>{{ section.name|t('site') }}</option>
+					<option value="{{ section.id }}"{% if section.id == settings.section %} selected{% endif %}>{{ section.name|t }}</option>
 				{% endif %}
 			{% endfor %}
 		</select>
@@ -15,38 +15,38 @@
 {% endset %}
 
 {{ forms.field({
-	label: "Section"|t('app'),
-	instructions: "Which section do you want to pull recent entries from?"|t('app'),
+	label: "Section"|t,
+	instructions: "Which section do you want to pull recent entries from?"|t,
 	id: 'section',
 }, sectionInput) }}
 
-{% if craft.app.getIsMultiSite() %}
-	{% set editableSites = craft.app.sites.getEditableSites() %}
+{% if craft.isLocalized() %}
+	{% set editableLocales = craft.i18n.getEditableLocales() %}
 
-	{% if editableSites|length > 1 %}
-		{% set siteInput %}
+	{% if editableLocales|length > 1 %}
+		{% set localeInput %}
 			<div class="select">
-				<select id="site" name="site">
-					{% for site in editableSites %}
-						<option value="{{ site.id }}"{% if site.id == widget.siteId %} selected{% endif %}>{{ site.name|t('site') }}</option>
+				<select id="locale" name="locale">
+					{% for locale in editableLocales %}
+						<option value="{{ locale.id }}"{% if locale.id == settings.locale %} selected{% endif %}>{{ locale.getName() }}</option>
 					{% endfor %}
 				</select>
 			</div>
 		{% endset %}
 
 		{{ forms.field({
-			id: 'site',
-			label: "Site"|t('app')
-		}, siteInput) }}
+			id: 'locale',
+			label: "Locale"|t
+		}, localeInput) }}
 	{% endif %}
 {% endif %}
 
 
 {{ forms.textField({
-	label: "Limit"|t('app'),
+	label: "Limit"|t,
 	id: 'limit',
 	name: 'limit',
-	value: widget.limit,
+	value: settings.limit,
 	size: 2,
-	errors: widget.getErrors('limit')
+	errors: settings.getErrors('limit')
 }) }}

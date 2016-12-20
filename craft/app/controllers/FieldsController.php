@@ -1,269 +1,159 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\base\Field;
-use craft\app\base\FieldInterface;
-use craft\app\helpers\Url;
-use craft\app\models\FieldGroup;
-use craft\app\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
-use yii\web\ServerErrorHttpException;
+namespace Craft;
 
 /**
  * The FieldsController class is a controller that handles various field and field group related tasks such as saving
  * and deleting both fields and field groups.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class FieldsController extends Controller
+class FieldsController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        // All field actions require an admin
-        $this->requireAdmin();
-    }
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All field actions require an admin
+		craft()->userSession->requireAdmin();
+	}
 
-    // Groups
-    // -------------------------------------------------------------------------
+	// Groups
+	// -------------------------------------------------------------------------
 
-    /**
-     * Saves a field group.
-     *
-     * @return Response
-     */
-    public function actionSaveGroup()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+	/**
+	 * Saves a field group.
+	 *
+	 * @return null
+	 */
+	public function actionSaveGroup()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        $group = new FieldGroup();
-        $group->id = Craft::$app->getRequest()->getBodyParam('id');
-        $group->name = Craft::$app->getRequest()->getRequiredBodyParam('name');
+		$group = new FieldGroupModel();
+		$group->id = craft()->request->getPost('id');
+		$group->name = craft()->request->getRequiredPost('name');
 
-        $isNewGroup = empty($group->id);
+		$isNewGroup = empty($group->id);
 
-        if (Craft::$app->getFields()->saveGroup($group)) {
-            if ($isNewGroup) {
-                Craft::$app->getSession()->setNotice(Craft::t('app', 'Group added.'));
-            }
+		if (craft()->fields->saveGroup($group))
+		{
+			if ($isNewGroup)
+			{
+				craft()->userSession->setNotice(Craft::t('Group added.'));
+			}
 
-            return $this->asJson([
-                'success' => true,
-                'group' => $group->getAttributes(),
-            ]);
-        } else {
-            return $this->asJson([
-                'errors' => $group->getErrors(),
-            ]);
-        }
-    }
+			$this->returnJson(array(
+				'success' => true,
+				'group'   => $group->getAttributes(),
+			));
+		}
+		else
+		{
+			$this->returnJson(array(
+				'errors' => $group->getErrors(),
+			));
+		}
+	}
 
-    /**
-     * Deletes a field group.
-     *
-     * @return Response
-     */
-    public function actionDeleteGroup()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+	/**
+	 * Deletes a field group.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteGroup()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        $groupId = Craft::$app->getRequest()->getRequiredBodyParam('id');
-        $success = Craft::$app->getFields()->deleteGroupById($groupId);
+		$groupId = craft()->request->getRequiredPost('id');
+		$success = craft()->fields->deleteGroupById($groupId);
 
-        Craft::$app->getSession()->setNotice(Craft::t('app', 'Group deleted.'));
+		craft()->userSession->setNotice(Craft::t('Group deleted.'));
 
-        return $this->asJson([
-            'success' => $success,
-        ]);
-    }
+		$this->returnJson(array(
+			'success' => $success,
+		));
+	}
 
-    // Fields
-    // -------------------------------------------------------------------------
+	// Fields
+	// -------------------------------------------------------------------------
 
-    /**
-     * Edits a field.
-     *
-     * @param integer        $fieldId The field’s ID, if editing an existing field
-     * @param FieldInterface $field   The field being edited, if there were any validation errors
-     * @param integer        $groupId The default group ID that the field should be saved in
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested field/field group cannot be found
-     * @throws ServerErrorHttpException if no field groups exist
-     */
-    public function actionEditField($fieldId = null, FieldInterface $field = null, $groupId = null)
-    {
-        $this->requireAdmin();
+	/**
+	 * Saves a field.
+	 *
+	 * @return null
+	 */
+	public function actionSaveField()
+	{
+		$this->requirePostRequest();
 
-        // The field
-        // ---------------------------------------------------------------------
+		$field = new FieldModel();
 
-        if ($field === null && $fieldId !== null) {
-            $field = Craft::$app->getFields()->getFieldById($fieldId);
+		$field->id           = craft()->request->getPost('fieldId');
+		$field->groupId      = craft()->request->getRequiredPost('group');
+		$field->name         = craft()->request->getPost('name');
+		$field->handle       = craft()->request->getPost('handle');
+		$field->instructions = craft()->request->getPost('instructions');
+		$field->translatable = (bool) craft()->request->getPost('translatable');
 
-            if ($field === null) {
-                throw new NotFoundHttpException('Field not found');
-            }
-        }
+		$field->type = craft()->request->getRequiredPost('type');
 
-        if ($field === null) {
-            $field = Craft::$app->getFields()->createField(\craft\app\fields\PlainText::class);
-        }
+		$typeSettings = craft()->request->getPost('types');
+		if (isset($typeSettings[$field->type]))
+		{
+			$field->settings = $typeSettings[$field->type];
+		}
 
-        /** @var Field $field */
+		if (craft()->fields->saveField($field))
+		{
+			craft()->userSession->setNotice(Craft::t('Field saved.'));
 
-        // Field types
-        // ---------------------------------------------------------------------
+			if (isset($_POST['redirect']) && mb_strpos($_POST['redirect'], '{fieldId}') !== false)
+			{
+				craft()->deprecator->log('FieldsController::saveField():fieldId_redirect', 'The {fieldId} token within the ‘redirect’ param on fields/saveField requests has been deprecated. Use {id} instead.');
+				$_POST['redirect'] = str_replace('{fieldId}', '{id}', $_POST['redirect']);
+			}
 
-        $allFieldTypes = Craft::$app->getFields()->getAllFieldTypes();
-        $fieldTypeOptions = [];
+			$this->redirectToPostedUrl($field);
+		}
+		else
+		{
+			craft()->userSession->setError(Craft::t('Couldn’t save field.'));
+		}
 
-        foreach ($allFieldTypes as $class) {
-            if ($class === $field->getType() || $class::isSelectable()) {
-                $fieldTypeOptions[] = [
-                    'value' => $class,
-                    'label' => $class::displayName()
-                ];
-            }
-        }
+		// Send the field back to the template
+		craft()->urlManager->setRouteVariables(array(
+			'field' => $field
+		));
+	}
 
-        // Groups
-        // ---------------------------------------------------------------------
+	/**
+	 * Deletes a field.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteField()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        $allGroups = Craft::$app->getFields()->getAllGroups();
-
-        if (empty($allGroups)) {
-            throw new ServerErrorHttpException('No field groups exist');
-        }
-
-        if ($groupId === null) {
-            $groupId = ($field !== null && $field->groupId !== null) ? $field->groupId : $allGroups[0]->id;
-        }
-
-        $fieldGroup = Craft::$app->getFields()->getGroupById($groupId);
-
-        if ($fieldGroup === null) {
-            throw new NotFoundHttpException('Field group not found');
-        }
-
-        $groupOptions = [];
-
-        foreach ($allGroups as $group) {
-            $groupOptions[] = [
-                'value' => $group->id,
-                'label' => $group->name
-            ];
-        }
-
-        // Page setup + render
-        // ---------------------------------------------------------------------
-
-        $crumbs = [
-            [
-                'label' => Craft::t('app', 'Settings'),
-                'url' => Url::getUrl('settings')
-            ],
-            [
-                'label' => Craft::t('app', 'Fields'),
-                'url' => Url::getUrl('settings/fields')
-            ],
-            [
-                'label' => Craft::t('site', $fieldGroup->name),
-                'url' => Url::getUrl('settings/fields/'.$groupId)
-            ],
-        ];
-
-        if ($fieldId !== null) {
-            $title = $field->name;
-        } else {
-            $title = Craft::t('app', 'Create a new field');
-        }
-
-        return $this->renderTemplate('settings/fields/_edit', [
-            'fieldId' => $fieldId,
-            'field' => $field,
-            'fieldTypeOptions' => $fieldTypeOptions,
-            'allFieldTypes' => $allFieldTypes,
-            'groupId' => $groupId,
-            'groupOptions' => $groupOptions,
-            'crumbs' => $crumbs,
-            'title' => $title,
-            'docsUrl' => 'http://craftcms.com/docs/fields#field-layouts',
-        ]);
-    }
-
-    /**
-     * Saves a field.
-     *
-     * @return Response|null
-     */
-    public function actionSaveField()
-    {
-        $this->requirePostRequest();
-
-        $fieldsService = Craft::$app->getFields();
-        $request = Craft::$app->getRequest();
-        $type = $request->getRequiredBodyParam('type');
-
-        $field = $fieldsService->createField([
-            'type' => $type,
-            'id' => $request->getBodyParam('fieldId'),
-            'groupId' => $request->getRequiredBodyParam('group'),
-            'name' => $request->getBodyParam('name'),
-            'handle' => $request->getBodyParam('handle'),
-            'instructions' => $request->getBodyParam('instructions'),
-            'translationMethod' => $request->getBodyParam('translationMethod', Field::TRANSLATION_METHOD_NONE),
-            'translationKeyFormat' => $request->getBodyParam('translationKeyFormat'),
-            'settings' => $request->getBodyParam('types.'.$type),
-        ]);
-
-        if ($fieldsService->saveField($field)) {
-            Craft::$app->getSession()->setNotice(Craft::t('app', 'Field saved.'));
-
-            return $this->redirectToPostedUrl($field);
-        }
-
-        Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t save field.'));
-
-        // Send the field back to the template
-        Craft::$app->getUrlManager()->setRouteParams([
-            'field' => $field
-        ]);
-
-        return null;
-    }
-
-    /**
-     * Deletes a field.
-     *
-     * @return Response
-     */
-    public function actionDeleteField()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $fieldId = Craft::$app->getRequest()->getRequiredBodyParam('id');
-        $success = Craft::$app->getFields()->deleteFieldById($fieldId);
-
-        return $this->asJson(['success' => $success]);
-    }
+		$fieldId = craft()->request->getRequiredPost('id');
+		$success = craft()->fields->deleteFieldById($fieldId);
+		$this->returnJson(array('success' => $success));
+	}
 }

@@ -1,94 +1,86 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\models;
-
-use Craft;
-use craft\app\base\Field;
-use craft\app\helpers\ElementHelper;
-use craft\app\elements\Entry;
-use craft\app\elements\User;
+namespace Craft;
 
 /**
- * Class BaseEntryRevision model.
+ * Class BaseEntryRevisionModel
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.models
+ * @since     1.3
  */
-class BaseEntryRevisionModel extends Entry
+class BaseEntryRevisionModel extends EntryModel
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * @var integer The revision creator’s user ID
-     */
-    public $creatorId;
+	/**
+	 * Sets the revision content.
+	 *
+	 * @param array $content
+	 *
+	 * @return null
+	 */
+	public function setContentFromRevision($content)
+	{
+		// Swap the field IDs with handles
+		$contentByFieldHandles = array();
 
-    // Public Methods
-    // =========================================================================
+		foreach ($content as $fieldId => $value)
+		{
+			$field = craft()->fields->getFieldById($fieldId);
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        $rules = parent::rules();
-        $rules[] = [['creatorId'], 'number', 'integerOnly' => true];
+			if ($field)
+			{
+				$contentByFieldHandles[$field->handle] = $value;
+			}
+		}
 
-        return $rules;
-    }
+		// Set the values and prep them
+		$this->setContentFromPost($contentByFieldHandles);
+	}
 
-    /**
-     * Sets the revision content.
-     *
-     * @param array $content
-     *
-     * @return void
-     */
-    public function setContentFromRevision($content)
-    {
-        // Swap the field IDs with handles
-        $contentByFieldHandles = [];
+	/**
+	 * Returns the draft's creator.
+	 *
+	 * @return UserModel|null
+	 */
+	public function getCreator()
+	{
+		return craft()->users->getUserById($this->creatorId);
+	}
 
-        foreach ($content as $fieldId => $value) {
-            /** @var Field $field */
-            $field = Craft::$app->getFields()->getFieldById($fieldId);
+	/**
+	 * Returns the element's full URL.
+	 *
+	 * @return string
+	 */
+	public function getUrl()
+	{
+		if ($this->uri === null)
+		{
+			ElementHelper::setUniqueUri($this);
+		}
 
-            if ($field) {
-                $contentByFieldHandles[$field->handle] = $value;
-            }
-        }
+		return parent::getUrl();
+	}
 
-        // Set the values and prep them
-        $this->setFieldValuesFromPost($contentByFieldHandles);
-    }
+	// Protected Methods
+	// =========================================================================
 
-    /**
-     * Returns the draft's creator.
-     *
-     * @return User|null
-     */
-    public function getCreator()
-    {
-        return Craft::$app->getUsers()->getUserById($this->creatorId);
-    }
-
-    /**
-     * Returns the element's full URL.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        if ($this->uri === null) {
-            ElementHelper::setUniqueUri($this);
-        }
-
-        return parent::getUrl();
-    }
+	/**
+	 * @inheritDoc BaseModel::defineAttributes()
+	 *
+	 * @return array
+	 */
+	protected function defineAttributes()
+	{
+		return array_merge(parent::defineAttributes(), array(
+			'creatorId'   => AttributeType::Number,
+			'dateUpdated' => AttributeType::DateTime,
+			'dateCreated' => AttributeType::DateTime,
+		));
+	}
 }

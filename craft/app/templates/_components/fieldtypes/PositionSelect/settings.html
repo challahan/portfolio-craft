@@ -6,10 +6,9 @@
 			<tr>
 				<td>
 					{{ forms.lightswitch({
-						on: (option in field.options),
-						small: true,
-						name: 'options[]',
-						value: option
+						 on: (option in settings.options),
+						 small: true,
+						 name: 'options['~option~']'
 					}) }}
 				</td>
 				<td>
@@ -24,6 +23,6 @@
 {% endset %}
 
 {{ forms.field({
-	label: "Options"|t('app'),
-	instructions: "Choose which position options should be available to your field."|t('app'),
+	label: "Options"|t,
+	instructions: "Choose which position options should be available to your field."|t,
 }, input) }}

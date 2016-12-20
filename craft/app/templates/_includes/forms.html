@@ -223,7 +223,7 @@
 
 {% macro optionShortcutLabel(key, shift, alt) %}
 	{%- spaceless %}
-		{% switch craft.app.request.getClientOs() %}
+		{% switch craft.request.getClientOs() %}
 			{% case 'Mac' %}
 				<span class="shortcut">{{ (alt ? '⌥') ~ (shift ? '⇧') ~ '⌘' ~ key }}</span>
 			{% default %}

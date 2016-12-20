@@ -8,10 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'SimplePie' => array($vendorDir . '/simplepie/simplepie/library'),
-    'OpenCloud' => array($vendorDir . '/rackspace/php-opencloud/lib'),
-    'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
-    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
+    'Imagine' => array($vendorDir . '/pixelandtonic/imagine/lib'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );

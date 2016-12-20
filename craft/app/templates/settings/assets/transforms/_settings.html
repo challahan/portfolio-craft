@@ -2,12 +2,13 @@
 
 {% set docsUrl = 'http://craftcms.com/docs/image-transforms' %}
 
+{% includecssresource 'css/transforms.css' %}
 {% import "_includes/forms" as forms %}
 
 {% set crumbs = [
-	{ label: "Settings"|t('app'), url: url('settings') },
-	{ label: "Assets"|t('app'), url: url('settings/assets') },
-	{ label: "Image Transforms"|t('app'), url: url('settings/assets/transforms') }
+	{ label: "Settings"|t, url: url('settings') },
+	{ label: "Assets"|t, url: url('settings/assets') },
+	{ label: "Image Transforms"|t, url: url('settings/assets/transforms') }
 ] %}
 
 {% set fullPageForm = true %}
@@ -16,22 +17,21 @@
 
 
 {% if isNewTransform %}
-	{% set title = "Create a new image transform"|t('app') %}
+	{% set title = "Create a new image transform"|t %}
 {% else %}
-	{% set title = transform.name %}
+	{% set title = transform.name|t %}
 {% endif %}
 
 
 {% block content %}
-	{% registercssresource 'css/transforms.css' %}
-		<input type="hidden" name="action" value="asset-transforms/save-transform">
-		{{ redirectInput('settings/assets/transforms') }}
+		<input type="hidden" name="action" value="assetTransforms/saveTransform">
+		<input type="hidden" name="redirect" value="settings/assets/transforms">
 
 		{% if not isNewTransform %}<input type="hidden" name="transformId" value="{{ transform.id }}">{% endif %}
 
 		{{ forms.textField({
 			first: true,
-			label: "Name"|t('app'),
+			label: "Name"|t,
 			id: 'name',
 			name: 'name',
 			value: (transform is defined ? transform.name : null),
@@ -42,7 +42,7 @@
 		}) }}
 
         {{ forms.textField({
-	        label: "Handle"|t('app'),
+	        label: "Handle"|t,
 	        id: "handle",
 	        name: "handle",
 	        value: (transform is defined ? transform.handle : null),
@@ -55,47 +55,47 @@
         	<div id="mode">
         		<label id="mode-crop">
         			<input type="radio" name="mode" value="crop"{% if transform is not defined or transform.mode == 'crop' %} checked{% endif %}>
-        			{{ "Crop"|t('app') }}
+        			{{ "Crop"|t }}
         		</label>
 
         		<label id="mode-fit">
         			<input type="radio" name="mode" value="fit"{% if transform is defined and transform.mode == 'fit' %} checked{% endif %}>
-        			{{ "Fit"|t('app') }}
+        			{{ "Fit"|t }}
         		</label>
 
         		<label id="mode-stretch">
         			<input type="radio" name="mode" value="stretch"{% if transform is defined and transform.mode == 'stretch' %} checked{% endif %}>
-        			{{ "Stretch"|t('app') }}
+        			{{ "Stretch"|t }}
         		</label>
         	</div>
         {% endset %}
 
 		{{ forms.field({
-			label: "Mode"|t('app')
+			label: "Mode"|t
 		}, modeInput) }}
 
 		<div id="position-container"{% if transform is defined and transform.mode != 'crop' %} class="hidden"{% endif %}>
 			{{ forms.selectField({
-				label: "Default Focal Point"|t('app'),
+				label: "Crop Position"|t,
 				id: 'position',
 				name: 'position',
 				options: {
-					'top-left': "Top-Left"|t('app'),
-					'top-center': "Top-Center"|t('app'),
-					'top-right': "Top-Right"|t('app'),
-					'center-left': "Center-Left"|t('app'),
-					'center-center': "Center-Center"|t('app'),
-					'center-right': "Center-Right"|t('app'),
-					'bottom-left': "Bottom-Left"|t('app'),
-					'bottom-center': "Bottom-Center"|t('app'),
-					'bottom-right': "Bottom-Right"|t('app')
+					'top-left': "Top-Left"|t,
+					'top-center': "Top-Center"|t,
+					'top-right': "Top-Right"|t,
+					'center-left': "Center-Left"|t,
+					'center-center': "Center-Center"|t,
+					'center-right': "Center-Right"|t,
+					'bottom-left': "Bottom-Left"|t,
+					'bottom-center': "Bottom-Center"|t,
+					'bottom-right': "Bottom-Right"|t
 				},
 				value: (transform is defined and transform.mode == 'crop' ? transform.position : 'center-center')
 			}) }}
 		</div>
 
 		{{ forms.textField({
-			label: "Width"|t('app'),
+			label: "Width"|t,
 			id: "width",
 			name: "width",
 			size: 5,
@@ -105,7 +105,7 @@
 		}) }}
 
 		{{ forms.textField({
-			label: "Height"|t('app'),
+			label: "Height"|t,
 			id: "height",
 			name: "height",
 			size: 5,
@@ -139,7 +139,7 @@
         ] %}
 
         {{ forms.selectField({
-            label: "Image Format"|t('app'),
+            label: "Image Format"|t,
             id: "format",
             name: "format",
             instructions: "The image format that transformed images should use."|t,
@@ -151,7 +151,7 @@
 {% endblock %}
 
 
-{% registerjs %}
+{% includejs %}
 	{% if transform is not defined or not transform.handle %}new Craft.HandleGenerator('#name', '#handle');{% endif %}
 
 	$('#mode input').change(function()
@@ -165,4 +165,4 @@
 			$('#position-container').addClass('hidden');
 		}
 	})
-{% endregisterjs %}
+{% endincludejs %}

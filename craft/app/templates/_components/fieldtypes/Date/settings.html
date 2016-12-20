@@ -8,9 +8,9 @@
 }) }}
 
 {{ forms.selectField({
-	label: "Minute Increment"|t('app'),
+	label: "Minute Increment"|t,
 	id: 'minuteIncrement',
 	name: 'minuteIncrement',
 	options: incrementOptions,
-	value: field.minuteIncrement ? field.minuteIncrement : 30,
+	value: settings.minuteIncrement ? settings.minuteIncrement : 30,
 }) }}

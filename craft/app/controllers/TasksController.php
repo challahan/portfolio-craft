@@ -1,168 +1,166 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\helpers\Json;
-use craft\app\web\Controller;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The TasksController class is a controller that handles various task related operations such as running, checking task
  * status, re-running and deleting tasks.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     2.0
  */
-class TasksController extends Controller
+class TasksController extends BaseController
 {
-    // Properties
-    // =========================================================================
+	// Properties
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    protected $allowAnonymous = ['actionRunPendingTasks'];
+	/**
+	 * If set to false, you are required to be logged in to execute any of the given controller's actions.
+	 *
+	 * If set to true, anonymous access is allowed for all of the given controller's actions.
+	 *
+	 * If the value is an array of action names, then you must be logged in for any action method except for the ones in
+	 * the array list.
+	 *
+	 * If you have a controller that where the majority of action methods will be anonymous, but you only want require
+	 * login on a few, it's best to use {@link UserSessionService::requireLogin() craft()->userSession->requireLogin()}
+	 * in the individual methods.
+	 *
+	 * @var bool
+	 */
+	protected $allowAnonymous = array('actionRunPendingTasks');
 
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Runs any pending tasks.
-     *
-     * @return void
-     */
-    public function actionRunPendingTasks()
-    {
-        $tasksService = Craft::$app->getTasks();
+	/**
+	 * Runs any pending tasks.
+	 *
+	 * @return null
+	 */
+	public function actionRunPendingTasks()
+	{
+		// Make sure tasks aren't already running
+		if (!craft()->tasks->isTaskRunning())
+		{
+			// Is there a pending task?
+			$task = craft()->tasks->getNextPendingTask();
 
-        // Make sure tasks aren't already running
-        if (!$tasksService->getIsTaskRunning()) {
-            $task = $tasksService->getNextPendingTask();
+			if ($task)
+			{
+				// Attempt to close the connection if this is an Ajax request
+				if (craft()->request->isAjaxRequest())
+				{
+					craft()->request->close('1');
+				}
 
-            if ($task) {
-                // Attempt to close the connection if this is an Ajax request
-                if (Craft::$app->getRequest()->getIsAjax()) {
-                    $response = Craft::$app->getResponse();
-                    $response->content = '1';
-                    $response->sendAndClose();
-                }
+				// Start running tasks
+				craft()->tasks->runPendingTasks();
+			}
+		}
 
-                // Start running tasks
-                $tasksService->runPendingTasks();
-            }
-        }
+		craft()->end();
+	}
 
-        Craft::$app->end();
-    }
+	/**
+	 * Returns the completion percentage for the running task.
+	 *
+	 * @return null
+	 */
+	public function actionGetRunningTaskInfo()
+	{
+		$this->requireAjaxRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-    /**
-     * Returns the completion percentage for the running task.
-     *
-     * @return Response
-     */
-    public function actionGetRunningTaskInfo()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePermission('accessCp');
+		if ($task = craft()->tasks->getRunningTask())
+		{
+			$this->returnJson($task->getInfo());
+		}
 
-        $tasksService = Craft::$app->getTasks();
+		// No running tasks left? Check for a failed one
+		if (craft()->tasks->haveTasksFailed())
+		{
+			$this->returnJson(array('status' => 'error'));
+		}
 
-        if ($task = $tasksService->getRunningTask()) {
-            return $this->asJson([
-                'task' => $task
-            ]);
-        }
+		// Any pending tasks?
+		if ($task = craft()->tasks->getNextPendingTask())
+		{
+			$this->returnJson($task->getInfo());
+		}
 
-        // No running tasks left? Check for a failed one
-        if ($tasksService->getHaveTasksFailed()) {
-            return $this->asJson([
-                'task' => ['status' => 'error']
-            ]);
-        }
+		craft()->end();
+	}
 
-        // Any pending tasks?
-        if ($task = $tasksService->getNextPendingTask()) {
-            return $this->asJson([
-                'task' => $task
-            ]);
-        }
+	/**
+	 * Re-runs a failed task.
+	 *
+	 * @return null
+	 */
+	public function actionRerunTask()
+	{
+		$this->requireAjaxRequest();
+		$this->requirePostRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-        return $this->asJson([
-            'task' => null
-        ]);
-    }
+		$taskId = craft()->request->getRequiredPost('taskId');
+		$task = craft()->tasks->rerunTaskById($taskId);
 
-    /**
-     * Re-runs a failed task.
-     *
-     * @return Response
-     */
-    public function actionRerunTask()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePostRequest();
-        $this->requirePermission('accessCp');
+		if (!craft()->tasks->isTaskRunning())
+		{
+			JsonHelper::sendJsonHeaders();
+			craft()->request->close(JsonHelper::encode($task->getInfo()));
 
-        $taskId = Craft::$app->getRequest()->getRequiredBodyParam('taskId');
-        $task = Craft::$app->getTasks()->rerunTaskById($taskId);
+			craft()->tasks->runPendingTasks();
+		}
+		else
+		{
+			$this->returnJson($task->getInfo());
+		}
 
-        if (!Craft::$app->getTasks()->getIsTaskRunning()) {
-            Json::sendJsonHeaders();
-            $response = Craft::$app->getResponse();
-            $response->content = Json::encode($task);
-            $response->sendAndClose();
+		craft()->end();
+	}
 
-            Craft::$app->getTasks()->runPendingTasks();
-        } else {
-            return $this->asJson([
-                'task' => $task
-            ]);
-        }
+	/**
+	 * Deletes a task.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteTask()
+	{
+		$this->requireAjaxRequest();
+		$this->requirePostRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-        return $this->asJson([
-            'task' => null
-        ]);
-    }
+		$taskId = craft()->request->getRequiredPost('taskId');
+		$task = craft()->tasks->deleteTaskById($taskId);
 
-    /**
-     * Deletes a task.
-     *
-     * @return Response
-     */
-    public function actionDeleteTask()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePostRequest();
-        $this->requirePermission('accessCp');
+		craft()->end();
+	}
 
-        $taskId = Craft::$app->getRequest()->getRequiredBodyParam('taskId');
-        Craft::$app->getTasks()->deleteTaskById($taskId);
+	/**
+	 * Returns info about all the tasks.
+	 *
+	 * @return null
+	 */
+	public function actionGetTaskInfo()
+	{
+		$this->requireAjaxRequest();
+		craft()->userSession->requirePermission('accessCp');
 
-        return $this->asJson([
-            'success' => true
-        ]);
-    }
+		$tasks = craft()->tasks->getAllTasks();
+		$taskInfo = array();
 
-    /**
-     * Returns info about all the tasks.
-     *
-     * @return Response
-     */
-    public function actionGetTaskInfo()
-    {
-        $this->requireAcceptsJson();
-        $this->requirePermission('accessCp');
+		foreach ($tasks as $task)
+		{
+			$taskInfo[] = $task->getInfo();
+		}
 
-        return $this->asJson([
-            'tasks' => Craft::$app->getTasks()->getAllTasks()
-        ]);
-    }
+		$this->returnJson($taskInfo);
+	}
 }

@@ -1,82 +1,70 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\base\ElementInterface;
-use craft\app\errors\InvalidTypeException;
-use craft\app\services\Elements;
-use craft\app\web\Controller;
-use yii\web\BadRequestHttpException;
-use yii\web\ForbiddenHttpException;
+namespace Craft;
 
 /**
- * The BaseElementsController class provides some common methods for [[ElementsController]] and [[ElementIndexesController]].
+ * The BaseElementsController class provides some common methods for {@link ElementsController} and {@link ElementIndexController}.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     2.3
  */
-abstract class BaseElementsController extends Controller
+abstract class BaseElementsController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Initializes the application component.
-     *
-     * @return void
-     * @throws ForbiddenHttpException if this is not a Control Panel request
-     */
-    public function init()
-    {
-        // Element controllers only support JSON responses
-        $this->requireAcceptsJson();
+	/**
+	 * Initializes the application component.
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// Element controllers only support JSON responses
+		$this->requireAjaxRequest();
 
-        // Element controllers are only available to the Control Panel
-        if (!Craft::$app->getRequest()->getIsCpRequest()) {
-            throw new ForbiddenHttpException('Action only available from the Control Panel');
-        }
-    }
+		// Element controllers are only available to the Control Panel
+		if (!craft()->request->isCpRequest())
+		{
+			throw new HttpException(403);
+		}
+	}
 
-    // Protected Methods
-    // =========================================================================
+	// Protected Methods
+	// =========================================================================
 
-    /**
-     * Returns the posted element type class.
-     *
-     * @return ElementInterface
-     * @throws BadRequestHttpException if the requested element type is invalid
-     */
-    protected function getElementType()
-    {
-        $class = Craft::$app->getRequest()->getRequiredParam('elementType');
+	/**
+	 * Returns the element type based on the posted element type class.
+	 *
+	 * @throws Exception
+	 * @return BaseElementType
+	 */
+	protected function getElementType()
+	{
+		$class = craft()->request->getRequiredParam('elementType');
+		$elementType = craft()->elements->getElementType($class);
 
-        // TODO: should probably move the code inside try{} to a helper method
-        try {
-            if (!is_subclass_of($class, ElementInterface::class)) {
-                throw new InvalidTypeException($class, ElementInterface::class);
-            }
-        } catch (InvalidTypeException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
+		if (!$elementType)
+		{
+			throw new Exception(Craft::t('No element type exists with the class “{class}”', array('class' => $class)));
+		}
 
-        return $class;
-    }
+		return $elementType;
+	}
 
-    /**
-     * Returns the context that this controller is being called in.
-     *
-     * @return string
-     */
-    protected function getContext()
-    {
-        return Craft::$app->getRequest()->getParam('context');
-    }
+	/**
+	 * Returns the context that this controller is being called in.
+	 *
+	 * @return string
+	 */
+	protected function getContext()
+	{
+		return craft()->request->getParam('context');
+	}
 }

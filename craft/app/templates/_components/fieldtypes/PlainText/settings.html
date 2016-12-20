@@ -2,40 +2,40 @@
 
 
 {{ forms.textField({
-	label: "Placeholder Text"|t('app'),
-    instructions: "The text that will be shown if the field doesn’t have a value."|t('app'),
+	label: "Placeholder Text"|t,
+    instructions: "The text that will be shown if the field doesn’t have a value."|t,
 	id: 'placeholder',
 	name: 'placeholder',
-	value: field.placeholder,
+	value: settings.placeholder,
 	translatable: true,
-	errors: field.getErrors('placeholder')
+	errors: settings.getErrors('placeholder')
 }) }}
 
 {{ forms.textField({
-	label: "Max Length"|t('app'),
-	instructions: "The maximum length of characters the field is allowed to have."|t('app'),
+	label: "Max Length"|t,
+	instructions: "The maximum length of characters the field is allowed to have."|t,
 	id: 'maxLength',
 	name: 'maxLength',
-	value: field.maxLength,
+	value: settings.maxLength,
 	size: 3,
-	errors: field.getErrors('maxLength')
+	errors: settings.getErrors('maxLength')
 }) }}
 
 {{ forms.checkboxField({
-	label: "Allow line breaks"|t('app'),
+	label: "Allow line breaks"|t,
 	name: 'multiline',
-	checked: field.multiline,
+	checked: settings.multiline,
 	toggle: 'initialRowsContainer'
 }) }}
 
 
-<div id="initialRowsContainer" class="nested-fields{% if not field.multiline %} hidden{% endif %}">
+<div id="initialRowsContainer" class="nested-fields{% if not settings.multiline %} hidden{% endif %}">
 	{{ forms.textField({
-		label: "Initial Rows"|t('app'),
+		label: "Initial Rows"|t,
 		id: 'initialRows',
 		name: 'initialRows',
-		value: field.initialRows,
+		value: settings.initialRows,
 		size: 3,
-		errors: field.getErrors('initialRows')
+		errors: settings.getErrors('initialRows')
 	}) }}
 </div>

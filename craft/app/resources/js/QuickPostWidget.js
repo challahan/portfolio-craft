@@ -64,7 +64,7 @@ Craft.QuickPostWidget = Garnish.Base.extend(
 		var formData = Garnish.getPostData(this.$form),
 			data = $.extend({ enabled: 1 }, formData, this.params);
 
-		Craft.postActionRequest('entries/save-entry', data, $.proxy(function(response, textStatus)
+		Craft.postActionRequest('entries/saveEntry', data, $.proxy(function(response, textStatus)
 		{
 			this.loading = false;
 			this.$spinner.addClass('hidden');
@@ -78,12 +78,12 @@ Craft.QuickPostWidget = Garnish.Base.extend(
 			{
 				if (response.success)
 				{
-					Craft.cp.displayNotice(Craft.t('app', 'Entry saved.'));
+					Craft.cp.displayNotice(Craft.t('Entry saved.'));
 					callback(response);
 				}
 				else
 				{
-					Craft.cp.displayError(Craft.t('app', 'Couldn’t save entry.'));
+					Craft.cp.displayError(Craft.t('Couldn’t save entry.'));
 
 					if (response.errors)
 					{
@@ -94,10 +94,6 @@ Craft.QuickPostWidget = Garnish.Base.extend(
 
 						for (var attribute in response.errors)
 						{
-							if (!response.errors.hasOwnProperty(attribute)) {
-								continue;
-							}
-
 							for (var i = 0; i < response.errors[attribute].length; i++)
 							{
 								var error = response.errors[attribute][i];

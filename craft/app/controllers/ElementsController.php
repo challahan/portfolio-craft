@@ -1,365 +1,364 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\base\Element;
-use craft\app\base\ElementInterface;
-use craft\app\elements\Category;
-use craft\app\errors\InvalidTypeException;
-use craft\app\helpers\ArrayHelper;
-use craft\app\helpers\ElementHelper;
-use craft\app\helpers\StringHelper;
-use craft\app\services\Elements;
-use yii\web\BadRequestHttpException;
-use yii\web\ForbiddenHttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The ElementsController class is a controller that handles various element related actions including retrieving and
  * saving element and their corresponding HTML.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
 class ElementsController extends BaseElementsController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Renders and returns the body of an ElementSelectorModal.
-     *
-     * @return Response
-     */
-    public function actionGetModalBody()
-    {
-        $sourceKeys = Craft::$app->getRequest()->getParam('sources');
-        $elementType = $this->getElementType();
-        $context = $this->getContext();
+	/**
+	 * Renders and returns the body of an ElementSelectorModal.
+	 *
+	 * @return null
+	 */
+	public function actionGetModalBody()
+	{
+		$sourceKeys = craft()->request->getParam('sources');
+		$elementType = $this->getElementType();
+		$context = $this->getContext();
 
-        if (is_array($sourceKeys)) {
-            $sources = [];
+		$showLocaleMenu = craft()->request->getParam('showLocaleMenu', 'auto');
 
-            foreach ($sourceKeys as $key) {
-                $source = $elementType::getSourceByKey($key, $context);
+		if ($showLocaleMenu !== 'auto') {
+			$showLocaleMenu = (bool) $showLocaleMenu;
+		}
 
-                if ($source) {
-                    $sources[$key] = $source;
-                }
-            }
-        } else {
-            $sources = Craft::$app->getElementIndexes()->getSources($elementType);
-        }
+		if (is_array($sourceKeys))
+		{
+			$sources = array();
 
-        if (!empty($sources) && count($sources) === 1) {
-            $firstSource = ArrayHelper::getFirstValue($sources);
-            $showSidebar = !empty($firstSource['nested']);
-        } else {
-            $showSidebar = !empty($sources);
-        }
+			foreach ($sourceKeys as $key)
+			{
+				$source = $elementType->getSource($key, $context);
 
-        return $this->asJson([
-            'html' => $this->getView()->renderTemplate('_elements/modalbody', [
-                'context' => $context,
-                'elementType' => $elementType,
-                'sources' => $sources,
-                'showSidebar' => $showSidebar,
-            ])
-        ]);
-    }
+				if ($source)
+				{
+					$sources[$key] = $source;
+				}
+			}
+		}
+		else
+		{
+			$sources = craft()->elementIndexes->getSources($elementType->getClassHandle(), $context);
+		}
 
-    /**
-     * Returns the HTML for an element editor HUD.
-     *
-     * @return Response
-     * @throws NotFoundHttpException if the requested element cannot be found
-     * @throws ForbiddenHttpException if the user is not permitted to edit the requested element
-     */
-    public function actionGetEditorHtml()
-    {
-        /*$elementId = Craft::$app->getRequest()->getRequiredBodyParam('elementId');
-        $siteId = Craft::$app->getRequest()->getBodyParam('siteId');
-        $elementType = Craft::$app->getElements()->getElementTypeById($elementId);
-        $element = Craft::$app->getElements()->getElementById($elementId, $elementType, $siteId);
+		$source = ArrayHelper::getFirstValue($sources);
 
-        if (!$element) {
-            throw new NotFoundHttpException('Element could not be found');
-        }
+		$this->renderTemplate('_elements/modalbody', array(
+			'context'     => $context,
+			'elementType' => $elementType,
+			'sources'     => $sources,
+			'showSidebar' => (count($sources) > 1 || ($sources && !empty($source['nested']))),
+			'showLocaleMenu' => $showLocaleMenu,
+		));
+	}
 
-        if (!$element->getIsEditable()) {
-            throw new ForbiddenHttpException('User is not permitted to edit this element');
-        }*/
+	/**
+	 * Returns the HTML for an element editor HUD.
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function actionGetEditorHtml()
+	{
+		$element = $this->_getEditorElement();
+		$includeLocales = (bool) craft()->request->getPost('includeLocales', false);
 
-        $element = $this->_getEditorElement();
-        $includeSites = (bool)Craft::$app->getRequest()->getBodyParam('includeSites', false);
+		return $this->_returnEditorHtml($element, $includeLocales);
+	}
 
-        return $this->_getEditorHtmlResponse($element, $includeSites);
-    }
+	/**
+	 * Saves an element.
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function actionSaveElement()
+	{
+		$element = $this->_getEditorElement();
+		$namespace = craft()->request->getRequiredPost('namespace');
+		$params = craft()->request->getPost($namespace);
 
-    /**
-     * Saves an element.
-     *
-     * @return Response
-     * @throws NotFoundHttpException if the requested element cannot be found
-     * @throws ForbiddenHttpException if the user is not permitted to edit the requested element
-     */
-    public function actionSaveElement()
-    {
-        /** @var Element $element */
-        $element = $this->_getEditorElement();
-        $namespace = Craft::$app->getRequest()->getRequiredBodyParam('namespace');
-        $params = Craft::$app->getRequest()->getBodyParam($namespace);
+		if (isset($params['title']))
+		{
+			$element->getContent()->title = $params['title'];
+			unset($params['title']);
+		}
 
-        if (isset($params['title'])) {
-            $element->title = $params['title'];
-            unset($params['title']);
-        }
+		if (isset($params['fields']))
+		{
+			$fields = $params['fields'];
+			$element->setContentFromPost($fields);
+			unset($params['fields']);
+		}
 
-        if (isset($params['fields'])) {
-            $fields = $params['fields'];
-            $element->setFieldValuesFromPost($fields);
-            unset($params['fields']);
-        }
+		// Either way, at least tell the element where its content comes from
+		$element->setContentPostLocation($namespace.'.fields');
 
-        // Either way, at least tell the element where its content comes from
-        $element->setContentPostLocation($namespace.'.fields');
+		// Now save it
+		$elementType = craft()->elements->getElementType($element->elementType);
 
-        // Now save it
-        if ($element::saveElement($element, $params)) {
-            $response = [
-                'success' => true,
-                'id' => $element->id,
-                'siteId' => $element->siteId,
-                'newTitle' => (string)$element,
-                'cpEditUrl' => $element->getCpEditUrl(),
-            ];
+		if ($elementType->saveElement($element, $params))
+		{
+			$response = array(
+				'success'   => true,
+				'id'        => $element->id,
+				'locale'    => $element->locale,
+				'newTitle'  => (string) $element,
+				'cpEditUrl' => $element->getCpEditUrl(),
+			);
 
-            // Should we be including table attributes too?
-            $sourceKey = Craft::$app->getRequest()->getBodyParam('includeTableAttributesForSource');
+			// Should we be including table attributes too?
+			$sourceKey = craft()->request->getPost('includeTableAttributesForSource');
 
-            if ($sourceKey) {
-                $attributes = Craft::$app->getElementIndexes()->getTableAttributes($element->className(), $sourceKey);
+			if ($sourceKey)
+			{
+				$attributes = craft()->elementIndexes->getTableAttributes($elementType->getClassHandle(), $sourceKey);
 
-                // Drop the first one
-                array_shift($attributes);
+				// Drop the first one
+				array_shift($attributes);
 
-                foreach ($attributes as $attribute) {
-                    $response['tableAttributes'][$attribute[0]] = $element->getTableAttributeHtml($element, $attribute[0]);
-                }
-            }
+				foreach ($attributes as $attribute)
+				{
+					$response['tableAttributes'][$attribute[0]] = $elementType->getTableAttributeHtml($element, $attribute[0]);
+				}
+			}
 
-            return $this->asJson($response);
-        }
+			$this->returnJson($response);
+		}
+		else
+		{
+			$this->_returnEditorHtml($element, false);
+		}
+	}
 
-        return $this->_getEditorHtmlResponse($element, false);
-    }
+	/**
+	 * Returns the HTML for a Categories field input, based on a given list of selected category IDs.
+	 *
+	 * @return null
+	 */
+	public function actionGetCategoriesInputHtml()
+	{
+		$categoryIds = craft()->request->getParam('categoryIds', array());
 
-    /**
-     * Returns the HTML for a Categories field input, based on a given list of selected category IDs.
-     *
-     * @return Response
-     */
-    public function actionGetCategoriesInputHtml()
-    {
-        $request = Craft::$app->getRequest();
-        $categoryIds = $request->getParam('categoryIds', []);
+		// Fill in the gaps
+		$categoryIds = craft()->categories->fillGapsInCategoryIds($categoryIds);
 
-        // Fill in the gaps
-        $categoryIds = Craft::$app->getCategories()->fillGapsInCategoryIds($categoryIds);
+		if ($categoryIds)
+		{
+			$criteria = craft()->elements->getCriteria(ElementType::Category);
+			$criteria->id = $categoryIds;
+			$criteria->locale = craft()->request->getParam('locale');
+			$criteria->status = null;
+			$criteria->localeEnabled = null;
+			$criteria->limit = craft()->request->getParam('limit');
+			$categories = $criteria->find();
+		}
+		else
+		{
+			$categories = array();
+		}
 
-        if ($categoryIds) {
-            $categories = Category::find()
-                ->id($categoryIds)
-                ->siteId($request->getParam('siteId'))
-                ->status(null)
-                ->enabledForSite(false)
-                ->limit($request->getParam('limit'))
-                ->all();
-        } else {
-            $categories = [];
-        }
+		$html = craft()->templates->render('_components/fieldtypes/Categories/input', array(
+			'elements'       => $categories,
+			'id'             => craft()->request->getParam('id'),
+			'name'           => craft()->request->getParam('name'),
+			'selectionLabel' => craft()->request->getParam('selectionLabel'),
+		));
 
-        $html = Craft::$app->getView()->renderTemplate('_components/fieldtypes/Categories/input',
-            [
-                'elements' => $categories,
-                'id' => $request->getParam('id'),
-                'name' => $request->getParam('name'),
-                'selectionLabel' => $request->getParam('selectionLabel'),
-            ]);
+		$this->returnJson(array(
+			'html' => $html,
+		));
+	}
 
-        return $this->asJson([
-            'html' => $html,
-        ]);
-    }
+	// Private Methods
+	// =========================================================================
 
-    // Private Methods
-    // =========================================================================
+	/**
+	 * Returns the element that is currently being edited.
+	 *
+	 * @throws HttpException
+	 * @return BaseElementModel
+	 */
+	private function _getEditorElement()
+	{
+		$elementId = craft()->request->getPost('elementId');
+		$localeId = craft()->request->getPost('locale', craft()->language);
 
-    /**
-     * Returns the element that is currently being edited.
-     *
-     * @return ElementInterface
-     * @throws BadRequestHttpException
-     * @throws ForbiddenHttpException
-     */
-    private function _getEditorElement()
-    {
-        $request = Craft::$app->getRequest();
-        $elementsService = Craft::$app->getElements();
+		// Determine the element type
+		$elementTypeClass = craft()->request->getPost('elementType');
 
-        $elementId = $request->getBodyParam('elementId');
-        $siteId = $request->getBodyParam('siteId') ?: Craft::$app->getSites()->currentSite->id;
+		if ($elementTypeClass === null && $elementId !== null)
+		{
+			$elementTypeClass = craft()->elements->getElementTypeById($elementId);
+		}
 
-        // Determine the element type
-        $elementType = $request->getBodyParam('elementType');
+		if ($elementTypeClass === null)
+		{
+			throw new HttpException(400, Craft::t('POST param “{name}” doesn’t exist.', array('name' => 'elementType')));
+		}
 
-        if ($elementType === null && $elementId !== null) {
-            $elementType = $elementsService->getElementTypeById($elementId);
-        }
+		// Make sure it's a valid element type
+		$elementType = craft()->elements->getElementType($elementTypeClass);
 
-        if ($elementType === null) {
-            throw new BadRequestHttpException('Request missing required body param');
-        }
+		if (!$elementType)
+		{
+			throw new HttpException(404);
+		}
 
-        // Make sure it's a valid element type
-        // TODO: should probably move the code inside try{} to a helper method
-        try {
-            if (!is_subclass_of($elementType, ElementInterface::class)) {
-                throw new InvalidTypeException($elementType, ElementInterface::class);
-            }
-        } catch (InvalidTypeException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
+		// Instantiate the element
+		if ($elementId !== null)
+		{
+			$element = craft()->elements->getElementById($elementId, $elementTypeClass, $localeId);
+		}
+		else
+		{
+			$element = $elementType->populateElementModel(array());
+		}
 
-        // Instantiate the element
-        if ($elementId !== null) {
-            $element = $elementsService->getElementById($elementId, $elementType, $siteId);
+		if (!$element)
+		{
+			throw new HttpException(404);
+		}
 
-            if (!$element) {
-                throw new BadRequestHttpException('No element exists with the ID '.$elementId);
-            }
-        } else {
-            $element = $elementType::create([]);
-        }
+		// Make sure the user is allowed to edit this locale
+		if (craft()->isLocalized() && $elementType->isLocalized() && !craft()->userSession->checkPermission('editLocale:'.$element->locale))
+		{
+			// Find the first locale the user does have permission to edit
+			$elementLocaleIds = array();
+			$newLocaleId = null;
 
-        /** @var Element $element */
-        // Make sure the user is allowed to edit this site
-        $userService = Craft::$app->getUser();
-        if (Craft::$app->getIsMultiSite() && $elementType->isLocalized() && !$userService->checkPermission('editSite:'.$element->siteId)) {
-            // Find the first site the user does have permission to edit
-            $elementSiteIds = [];
-            $newSiteId = null;
+			foreach ($element->getLocales() as $key => $value)
+			{
+				$elementLocaleIds[] = (is_numeric($key) && is_string($value)) ? $value : $key;
+			}
 
-            foreach (ElementHelper::getSupportedSitesForElement($element) as $siteInfo) {
-                $elementSiteIds[] = $siteInfo['siteId'];
-            }
+			foreach (craft()->i18n->getSiteLocaleIds() as $siteLocaleId)
+			{
+				if (in_array($siteLocaleId, $elementLocaleIds) && craft()->userSession->checkPermission('editLocale:'.$siteLocaleId))
+				{
+					$newLocaleId = $siteLocaleId;
+					break;
+				}
+			}
 
-            foreach (Craft::$app->getSites()->getAllSiteIds() as $siteId) {
-                if (in_array($siteId, $elementSiteIds) && $userService->checkPermission('editSite:'.$siteId)) {
-                    $newSiteId = $siteId;
-                    break;
-                }
-            }
+			if ($newLocaleId === null)
+			{
+				// Couldn't find an editable locale supported by the element
+				throw new HttpException(403);
+			}
 
-            if ($newSiteId === null) {
-                // Couldn't find an editable site supported by the element
-                throw new ForbiddenHttpException('The user doesn’t have permission to edit this element');
-            }
+			// Apply the new locale
+			$localeId = $newLocaleId;
 
-            // Apply the new site
-            $siteId = $newSiteId;
+			if ($elementId !== null)
+			{
+				$element = craft()->elements->getElementById($elementId, $elementTypeClass, $localeId);
+			}
+			else
+			{
+				$element->locale = $localeId;
+			}
+		}
 
-            if ($elementId !== null) {
-                $element = $elementsService->getElementById($elementId, $elementType, $siteId);
-            } else {
-                $element->siteId = $siteId;
-            }
-        }
+		// Populate it with any posted attributes
+		$attributes = craft()->request->getPost('attributes', array());
+		$attributes['locale'] = $localeId;
 
-        // Populate it with any posted attributes
-        $attributes = $request->getBodyParam('attributes', []);
-        $attributes['siteId'] = $siteId;
+		if ($attributes)
+		{
+			$element->setAttributes($attributes);
+		}
 
-        if ($attributes) {
-            $element->setAttributes($attributes);
-        }
+		// Make sure it's editable
+		// (ElementHelper::isElementEditable() is overkill here since we've already verified the user can edit the element's locale)
+		if (!$element->isEditable())
+		{
+			throw new HttpException(403);
+		}
 
-        // Make sure it's editable
-        // (ElementHelper::isElementEditable() is overkill here since we've already verified the user can edit the element's site)
-        if (!$element->getIsEditable()) {
-            throw new ForbiddenHttpException('The user doesn’t have permission to edit this element');
-        }
+		return $element;
+	}
 
-        return $element;
-    }
+	/**
+	 * Returns the editor HTML for a given element.
+	 *
+	 * @param BaseElementModel $element
+	 * @param bool             $includeLocales
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	private function _returnEditorHtml(BaseElementModel $element, $includeLocales)
+	{
+		$localeIds = ElementHelper::getEditableLocaleIdsForElement($element);
 
-    /**
-     * Returns the editor HTML response for a given element.
-     *
-     * @param ElementInterface $element
-     * @param boolean          $includeSites
-     *
-     * @return Response
-     * @throws ForbiddenHttpException if the user is not permitted to edit content in any of the sites supported by this element
-     */
-    private function _getEditorHtmlResponse(ElementInterface $element, $includeSites)
-    {
-        /** @var Element $element */
-        $siteIds = ElementHelper::getEditableSiteIdsForElement($element);
+		if (!$localeIds)
+		{
+			throw new HttpException(403);
+		}
 
-        if (!$siteIds) {
-            throw new ForbiddenHttpException('User not permitted to edit content in any of the sites supported by this element');
-        }
+		if ($includeLocales)
+		{
+			if (count($localeIds) > 1)
+			{
+				$response['locales'] = array();
 
-        if ($includeSites) {
-            if (count($siteIds) > 1) {
-                $response['siteIds'] = [];
+				foreach ($localeIds as $localeId)
+				{
+					$locale = craft()->i18n->getLocaleById($localeId);
 
-                foreach ($siteIds as $siteId) {
-                    $site = Craft::$app->getSites()->getSiteById($siteId);
+					$response['locales'][] = array(
+						'id'   => $localeId,
+						'name' => $locale->getName()
+					);
+				}
+			}
+			else
+			{
+				$response['locales'] = null;
+			}
+		}
 
-                    $response['sites'][] = [
-                        'id' => $siteId,
-                        'name' => Craft::t('site', $site->name),
-                    ];
-                }
-            } else {
-                $response['sites'] = null;
-            }
-        }
+		$response['locale'] = $element->locale;
 
-        $response['siteId'] = $element->siteId;
+		$elementType = craft()->elements->getElementType($element->elementType);
 
-        $namespace = 'editor_'.StringHelper::randomString(10);
-        Craft::$app->getView()->setNamespace($namespace);
+		$namespace = 'editor_'.StringHelper::randomString(10);
+		craft()->templates->setNamespace($namespace);
 
-        $response['html'] = '<input type="hidden" name="namespace" value="'.$namespace.'">';
+		$response['html'] = '<input type="hidden" name="namespace" value="'.$namespace.'">';
 
-        if ($element->id) {
-            $response['html'] .= '<input type="hidden" name="elementId" value="'.$element->id.'">';
-        }
+		if ($element->id)
+		{
+			$response['html'] .= '<input type="hidden" name="elementId" value="'.$element->id.'">';
+		}
 
-        if ($element->siteId) {
-            $response['html'] .= '<input type="hidden" name="siteId" value="'.$element->siteId.'">';
-        }
+		if ($element->locale)
+		{
+			$response['html'] .= '<input type="hidden" name="locale" value="'.$element->locale.'">';
+		}
 
-        $response['html'] .= '<div class="meta">'.
-            Craft::$app->getView()->namespaceInputs($element::getEditorHtml($element)).
-            '</div>';
+		$response['html'] .= '<div class="meta">' .
+			craft()->templates->namespaceInputs($elementType->getEditorHtml($element)) .
+			'</div>';
 
-        $view = Craft::$app->getView();
-        $response['headHtml'] = $view->getHeadHtml();
-        $response['footHtml'] = $view->getBodyHtml();
+		$response['headHtml'] = craft()->templates->getHeadHtml();
+		$response['footHtml'] = craft()->templates->getFootHtml();
 
-        return $this->asJson($response);
-    }
+		$this->returnJson($response);
+	}
 }

@@ -4,11 +4,11 @@
 
 <form method="post" accept-charset="UTF-8">
 	<input type="hidden" name="fieldsLocation" value="{{ fieldNamespace }}">
-	{{ csrfInput() }}
+	{{ getCsrfInput() }}
 
 	{% if section.type != 'single' and entryType.hasTitleField %}
 		{{ forms.textField({
-			label: entryType.titleLabel|t('app'),
+			label: entryType.titleLabel|t,
 			id: 'title',
 			name: 'title',
 			required: true,
@@ -18,9 +18,9 @@
 
 	{% namespace fieldNamespace %}
 		{% for field in entryType.getFieldLayout().getFields() %}
-			{% if field.required or field.id in widget.fields %}
+			{% if field.required or field.fieldId in settings.fields %}
 				{% include "_includes/field" with {
-					field: field,
+					field: field.getField(),
 					required: field.required,
 					entry: null
 				} only %}
@@ -30,12 +30,12 @@
 
 	<div class="buttons">
 		<div class="btngroup">
-			<input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+			<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
 
 			<div class="btn submit menubtn"></div>
 			<div class="menu">
 				<ul>
-					<li><a class="save-and-continue-editing">{{ "Save and continue editing"|t('app') }}</a></li>
+					<li><a class="save-and-continue-editing">{{ "Save and continue editing"|t }}</a></li>
 				</ul>
 			</div>
 		</div>

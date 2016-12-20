@@ -1,12 +1,12 @@
 {% requireEdition CraftClient %}
 
-{% do craft.app.view.registerTranslations('app', [
-	"Select All",
-    "Deselect All",
-]) %}
+{% includeTranslations
+    "Select All",
+    "Deselect All"
+%}
 
-{% registerjsresource 'js/UserPermissions.js' %}
-{% registercssresource 'css/user-permissions.css' %}
+{% includejsresource 'js/UserPermissions.js' %}
+{% includecssresource 'css/user-permissions.css' %}
 
 {% macro permissionList(context, permissions, id, disabled) %}
 	{% from "_includes/forms" import checkbox %}
@@ -19,8 +19,8 @@
 				{% set checked = true %}
 			{% else %}
 				{% if context.userOrGroup is not empty %}
-					{% if context.userOrGroup.hasErrors() %}
-						{% set checked = permissionName in craft.app.request.getBodyParam('permissions', []) %}
+					{% if context.userOrGroup.hasErrors %}
+						{% set checked = permissionName in craft.request.getPost('permissions', []) %}
 					{% elseif CraftEdition == CraftClient and not context.userOrGroup.id %}
 						{% set checked = true %}
 					{% else %}
@@ -50,7 +50,7 @@
 {% endmacro %}
 
 
-{% for category, catPermissions in craft.app.userPermissions.getAllPermissions() %}
+{% for category, catPermissions in craft.userPermissions.getAllPermissions() %}
 	<div class="user-permissions">
 		<h3>{{ category }}</h3>
 		<div class="select-all"></div>

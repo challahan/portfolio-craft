@@ -1,99 +1,101 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\web\Controller;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The RoutesController class is a controller that handles various route related tasks such as saving, deleting and
  * re-ordering routes in the control panel.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class RoutesController extends Controller
+class RoutesController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        // All route actions require an admin
-        $this->requireAdmin();
-    }
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All route actions require an admin
+		craft()->userSession->requireAdmin();
+	}
 
-    /**
-     * Saves a new or existing route.
-     *
-     * @return Response
-     */
-    public function actionSaveRoute()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+	/**
+	 * Saves a new or existing route.
+	 *
+	 * @return null
+	 */
+	public function actionSaveRoute()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        $uriParts = Craft::$app->getRequest()->getRequiredBodyParam('uriParts');
-        $template = Craft::$app->getRequest()->getRequiredBodyParam('template');
-        $siteId = Craft::$app->getRequest()->getBodyParam('siteId');
-        $routeId = Craft::$app->getRequest()->getBodyParam('routeId');
+		$urlParts = craft()->request->getRequiredPost('url');
+		$template = craft()->request->getRequiredPost('template');
+		$routeId  = craft()->request->getPost('routeId');
+		$locale   = craft()->request->getPost('locale');
 
-        if ($siteId === '') {
-            $siteId = null;
-        }
+		if ($locale === '')
+		{
+			$locale = null;
+		}
 
-        $routeRecord = Craft::$app->getRoutes()->saveRoute($uriParts, $template, $siteId, $routeId);
+		$routeRecord = craft()->routes->saveRoute($urlParts, $template, $routeId, $locale);
 
-        if ($routeRecord->hasErrors()) {
-            return $this->asJson(['errors' => $routeRecord->getErrors()]);
-        }
+		if ($routeRecord->hasErrors())
+		{
+			$this->returnJson(array('errors' => $routeRecord->getErrors()));
+		}
+		else
+		{
+			$this->returnJson(array(
+				'success' => true,
+				'routeId' => $routeRecord->id,
+				'locale'  => $routeRecord->locale
+			));
+		}
+	}
 
-        return $this->asJson([
-            'success' => true,
-            'routeId' => $routeRecord->id,
-            'siteId' => $routeRecord->siteId
-        ]);
-    }
+	/**
+	 * Deletes a route.
+	 *
+	 * @return null
+	 */
+	public function actionDeleteRoute()
+	{
+		$this->requirePostRequest();
 
-    /**
-     * Deletes a route.
-     *
-     * @return Response
-     */
-    public function actionDeleteRoute()
-    {
-        $this->requirePostRequest();
+		$routeId = craft()->request->getRequiredPost('routeId');
+		craft()->routes->deleteRouteById($routeId);
 
-        $routeId = Craft::$app->getRequest()->getRequiredBodyParam('routeId');
-        Craft::$app->getRoutes()->deleteRouteById($routeId);
+		$this->returnJson(array('success' => true));
+	}
 
-        return $this->asJson(['success' => true]);
-    }
+	/**
+	 * Updates the route order.
+	 *
+	 * @return null
+	 */
+	public function actionUpdateRouteOrder()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-    /**
-     * Updates the route order.
-     *
-     * @return Response
-     */
-    public function actionUpdateRouteOrder()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
+		$routeIds = craft()->request->getRequiredPost('routeIds');
+		craft()->routes->updateRouteOrder($routeIds);
 
-        $routeIds = Craft::$app->getRequest()->getRequiredBodyParam('routeIds');
-        Craft::$app->getRoutes()->updateRouteOrder($routeIds);
+		$this->returnJson(array('success' => true));
+	}
 
-        return $this->asJson(['success' => true]);
-    }
 }

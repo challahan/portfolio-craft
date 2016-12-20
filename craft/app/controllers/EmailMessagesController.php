@@ -1,86 +1,69 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
+namespace Craft;
 
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\models\RebrandEmail;
-use craft\app\web\Controller;
-use yii\web\Response;
-
-Craft::$app->requireEdition(Craft::Client);
+craft()->requireEdition(Craft::Client);
 
 /**
  * The EmailMessagesController class is a controller that handles various email message tasks such as saving email
  * messages.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class EmailMessagesController extends Controller
+class EmailMessagesController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        // All email message actions require an admin
-        $this->requireAdmin();
-    }
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All email message actions require an admin
+		craft()->userSession->requireAdmin();
+	}
 
-    /**
-     * Returns the HTML for an email message modal.
-     *
-     * @return Response
-     */
-    public function actionGetMessageModal()
-    {
-        $this->requireAcceptsJson();
+	/**
+	 * Saves an email message.
+	 *
+	 * @return null
+	 */
+	public function actionSaveMessage()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-        $request = Craft::$app->getRequest();
-        $key = $request->getRequiredBodyParam('key');
-        $siteId = $request->getBodyParam('siteId');
-        $message = Craft::$app->getEmailMessages()->getMessage($key, $siteId);
+		$message = new RebrandEmailModel();
+		$message->key = craft()->request->getRequiredPost('key');
+		$message->subject = craft()->request->getRequiredPost('subject');
+		$message->body = craft()->request->getRequiredPost('body');
 
-        return $this->renderTemplate('settings/email/_message_modal', [
-            'message' => $message,
-        ]);
-    }
+		if (craft()->isLocalized())
+		{
+			$message->locale = craft()->request->getPost('locale');
+		}
+		else
+		{
+			$message->locale = craft()->language;
+		}
 
-    /**
-     * Saves an email message.
-     *
-     * @return Response
-     */
-    public function actionSaveMessage()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $message = new RebrandEmail();
-        $message->key = Craft::$app->getRequest()->getRequiredBodyParam('key');
-        $message->subject = Craft::$app->getRequest()->getRequiredBodyParam('subject');
-        $message->body = Craft::$app->getRequest()->getRequiredBodyParam('body');
-
-        if (Craft::$app->getIsMultiSite()) {
-            $message->siteId = Craft::$app->getRequest()->getBodyParam('siteId');
-        } else {
-            $message->siteId = Craft::$app->getSites()->getPrimarySite()->id;
-        }
-
-        if (Craft::$app->getEmailMessages()->saveMessage($message)) {
-            return $this->asJson(['success' => true]);
-        }
-
-        return $this->asErrorJson(Craft::t('app', 'There was a problem saving your message.'));
-    }
+		if (craft()->emailMessages->saveMessage($message))
+		{
+			$this->returnJson(array('success' => true));
+		}
+		else
+		{
+			$this->returnErrorJson(Craft::t('There was a problem saving your message.'));
+		}
+	}
 }

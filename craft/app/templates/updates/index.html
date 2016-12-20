@@ -1,12 +1,12 @@
 {% requirePermission 'performUpdates' %}
 
 {% extends "_layouts/cp" %}
-{% set title = "Updates"|t('app') %}
-
-{% do craft.app.view.registerTranslations('app', [
+{% set title = "Updates"|t %}
+{% includecssresource "css/updates.css" %}
+{% includejsresource "js/updates.js" %}
+{% includeTranslations
 	"You’ve got updates!",
 	"You’re all up-to-date!",
-	"build {build}",
 	"Critical",
 	"Update",
 	"Download",
@@ -21,8 +21,8 @@
 	"Added",
 	"Improved",
 	"Fixed",
-	"Download",
-]) %}
+	"Download"
+%}
 
 
 {% block pageHeader %}
@@ -30,9 +30,6 @@
 
 
 {% block main %}
-	{% registercssresource "css/updates.css" %}
-	{% registerjsresource "js/updates.js" %}
-
 	<div id="graphic" class="spinner big"></div>
-	<div id="status">{{ "Checking for updates…"|t('app') }}</div>
+	<div id="status">{{ "Checking for updates…"|t }}</div>
 {% endblock %}

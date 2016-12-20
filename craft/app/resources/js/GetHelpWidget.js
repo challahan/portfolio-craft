@@ -56,7 +56,7 @@
 			this.$spinner.removeClass('hidden');
 
 			this.$form.attr('target', iframeName);
-			this.$form.attr('action', Craft.getActionUrl('dashboard/send-support-request'));
+			this.$form.attr('action', Craft.getActionUrl('dashboard/sendSupportRequest'));
 
 			this.$form.submit();
 		},
@@ -81,10 +81,6 @@
 
 				for (var attribute in response.errors)
 				{
-					if (!response.errors.hasOwnProperty(attribute)) {
-						continue;
-					}
-
 					for (var i = 0; i < response.errors[attribute].length; i++)
 					{
 						var error = response.errors[attribute][i];
@@ -95,7 +91,7 @@
 
 			if (response.success)
 			{
-				Craft.cp.displayNotice(Craft.t('app', 'Message sent successfully.'));
+				Craft.cp.displayNotice(Craft.t('Message sent successfully.'));
 				this.$message.val('');
 				this.$attachAdditionalFile.val('');
 			}

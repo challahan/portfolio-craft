@@ -16,13 +16,13 @@ Craft.Tool = Garnish.Base.extend(
 	loadingActions: null,
 	queue: null,
 
-	init: function(triggerId, toolClass, optionsHtml, buttonLabel)
+	init: function(toolClass, optionsHtml, buttonLabel)
 	{
 		this.toolClass = toolClass;
 		this.optionsHtml = optionsHtml;
 		this.buttonLabel = buttonLabel;
 
-		this.$trigger = $('#'+triggerId);
+		this.$trigger = $('#tool-'+toolClass);
 
 		this.addListener(this.$trigger, 'click', 'showHUD');
 	},
@@ -117,8 +117,8 @@ Craft.Tool = Garnish.Base.extend(
 			$body = $('<div class="body"/>').appendTo($modal).html(data.confirm),
 			$footer = $('<footer class="footer"/>').appendTo($modal),
 			$buttons = $('<div class="buttons right"/>').appendTo($footer),
-			$cancelBtn = $('<div class="btn">'+Craft.t('app', 'Cancel')+'</div>').appendTo($buttons),
-			$okBtn = $('<input type="submit" class="btn submit" value="'+Craft.t('app', 'OK')+'"/>').appendTo($buttons);
+			$cancelBtn = $('<div class="btn">'+Craft.t('Cancel')+'</div>').appendTo($buttons),
+			$okBtn = $('<input type="submit" class="btn submit" value="'+Craft.t('OK')+'"/>').appendTo($buttons);
 
 		Craft.initUiElements($body);
 
@@ -152,7 +152,7 @@ Craft.Tool = Garnish.Base.extend(
 			params: params
 		};
 
-		Craft.postActionRequest('tools/perform-action', data, $.proxy(this, 'onActionResponse'), {
+		Craft.postActionRequest('tools/performAction', data, $.proxy(this, 'onActionResponse'), {
 			complete: $.noop
 		});
 	},
@@ -201,7 +201,7 @@ Craft.Tool = Garnish.Base.extend(
 			{
 				if (response && response.backupFile)
 				{
-					var $iframe = $('<iframe/>', {'src' : Craft.getActionUrl('tools/download-backup-file', {'filename':response.backupFile}) }).hide();
+					var $iframe = $('<iframe/>', {'src' : Craft.getActionUrl('tools/downloadBackupFile', {'fileName':response.backupFile}) }).hide();
 					this.$form.append($iframe);
 				}
 

@@ -1,6 +1,5 @@
 /*!
- * element-resize-detector 1.1.6
- * Copyright (c) 2016 Lucas Wiener
+ * element-resize-detector 1.1.1
  * https://github.com/wnr/element-resize-detector
  * Licensed under MIT
  */
@@ -454,7 +453,6 @@ module.exports = function(options) {
     var reporter        = options.reporter;
     var batchProcessor  = options.batchProcessor;
     var getState        = options.stateHandler.getState;
-    var hasState        = options.stateHandler.hasState;
     var idHandler       = options.idHandler;
 
     if (!batchProcessor) {
@@ -479,10 +477,10 @@ module.exports = function(options) {
         var height = 500;
 
         var child = document.createElement("div");
-        child.style.cssText = "position: absolute; width: " + width*2 + "px; height: " + height*2 + "px; visibility: hidden; margin: 0; padding: 0;";
+        child.style.cssText = "position: absolute; width: " + width*2 + "px; height: " + height*2 + "px; visibility: hidden;";
 
         var container = document.createElement("div");
-        container.style.cssText = "position: absolute; width: " + width + "px; height: " + height + "px; overflow: scroll; visibility: none; top: " + -width*3 + "px; left: " + -height*3 + "px; visibility: hidden; margin: 0; padding: 0;";
+        container.style.cssText = "position: absolute; width: " + width + "px; height: " + height + "px; overflow: scroll; visibility: none; top: " + -width*3 + "px; left: " + -height*3 + "px; visibility: hidden;";
 
         container.appendChild(child);
 
@@ -619,11 +617,6 @@ module.exports = function(options) {
 
         function storeStyle() {
             debug("storeStyle invoked.");
-            if (!getState(element)) {
-                debug("Aborting because element has been uninstalled");
-                return;
-            }
-
             var style = getStyle();
             getState(element).style = style;
         }
@@ -698,7 +691,7 @@ module.exports = function(options) {
             if (!container) {
                 container                   = document.createElement("div");
                 container.className         = detectionContainerClass;
-                container.style.cssText     = "visibility: hidden; display: inline; width: 0px; height: 0px; z-index: -1; overflow: hidden; margin: 0; padding: 0;";
+                container.style.cssText     = "visibility: hidden; display: inline; width: 0px; height: 0px; z-index: -1; overflow: hidden;";
                 getState(element).container = container;
                 addAnimationClass(container);
                 element.appendChild(container);
@@ -740,7 +733,7 @@ module.exports = function(options) {
                 }
             }
 
-            function getLeftTopBottomRightCssText(left, top, bottom, right) {
+            function getTopBottomBottomRightCssText(left, top, bottom, right) {
                 left = (!left ? "0" : (left + "px"));
                 top = (!top ? "0" : (top + "px"));
                 bottom = (!bottom ? "0" : (bottom + "px"));
@@ -750,11 +743,6 @@ module.exports = function(options) {
             }
 
             debug("Injecting elements");
-
-            if (!getState(element)) {
-                debug("Aborting because element has been uninstalled");
-                return;
-            }
 
             alterPositionStyles();
 
@@ -775,7 +763,7 @@ module.exports = function(options) {
             var scrollbarWidth          = scrollbarSizes.width;
             var scrollbarHeight         = scrollbarSizes.height;
             var containerContainerStyle = "position: absolute; overflow: hidden; z-index: -1; visibility: hidden; width: 100%; height: 100%; left: 0px; top: 0px;";
-            var containerStyle          = "position: absolute; overflow: hidden; z-index: -1; visibility: hidden; " + getLeftTopBottomRightCssText(-(1 + scrollbarWidth), -(1 + scrollbarHeight), -scrollbarHeight, -scrollbarWidth);
+            var containerStyle          = "position: absolute; overflow: hidden; z-index: -1; visibility: hidden; " + getTopBottomBottomRightCssText(-(1 + scrollbarWidth), -(1 + scrollbarHeight), -scrollbarHeight, -scrollbarWidth);
             var expandStyle             = "position: absolute; overflow: scroll; z-index: -1; visibility: hidden; width: 100%; height: 100%;";
             var shrinkStyle             = "position: absolute; overflow: scroll; z-index: -1; visibility: hidden; width: 100%; height: 100%;";
             var expandChildStyle        = "position: absolute; left: 0; top: 0;";
@@ -787,10 +775,6 @@ module.exports = function(options) {
             var expandChild             = document.createElement("div");
             var shrink                  = document.createElement("div");
             var shrinkChild             = document.createElement("div");
-
-            // Some browsers choke on the resize system being rtl, so force it to ltr. https://github.com/wnr/element-resize-detector/issues/56
-            // However, dir should not be set on the top level container as it alters the dimensions of the target element in some browsers.
-            containerContainer.dir              = "ltr";
 
             containerContainer.style.cssText    = containerContainerStyle;
             containerContainer.className        = detectionContainerClass;
@@ -818,6 +802,8 @@ module.exports = function(options) {
         }
 
         function registerListenersAndPositionElements() {
+            debug("registerListenersAndPositionElements invoked.");
+
             function updateChildSizes(element, width, height) {
                 var expandChild             = getExpandChildElement(element);
                 var expandWidth             = getExpandWidth(width);
@@ -927,13 +913,6 @@ module.exports = function(options) {
                 }
             }
 
-            debug("registerListenersAndPositionElements invoked.");
-
-            if (!getState(element)) {
-                debug("Aborting because element has been uninstalled");
-                return;
-            }
-
             getState(element).onRendered = handleRender;
             getState(element).onExpand = handleScroll;
             getState(element).onShrink = handleScroll;
@@ -944,11 +923,6 @@ module.exports = function(options) {
 
         function finalizeDomMutation() {
             debug("finalizeDomMutation invoked.");
-
-            if (!getState(element)) {
-                debug("Aborting because element has been uninstalled");
-                return;
-            }
 
             var style = getState(element).style;
             storeCurrentSize(element, style.width, style.height);
@@ -990,20 +964,10 @@ module.exports = function(options) {
     }
 
     function uninstall(element) {
+        //TODO: This should also delete the added state object of the element.
         var state = getState(element);
-
-        if (!state) {
-            // Uninstall has been called on a non-erd element.
-            return;
-        }
-
-        if (state.busy) {
-            // Uninstall has been called while the element is being prepared.
-            // Right between the sync code and async batch.
-            return;
-        }
-
         element.removeChild(state.container);
+        delete state.container;
     }
 
     return {
@@ -1029,26 +993,6 @@ var stateHandler            = require("./state-handler");
 //Detection strategies.
 var objectStrategyMaker     = require("./detection-strategy/object.js");
 var scrollStrategyMaker     = require("./detection-strategy/scroll.js");
-
-function isCollection(obj) {
-    return Array.isArray(obj) || obj.length !== undefined;
-}
-
-function toArray(collection) {
-    if (!Array.isArray(collection)) {
-        var array = [];
-        forEach(collection, function (obj) {
-            array.push(obj);
-        });
-        return array;
-    } else {
-        return collection;
-    }
-}
-
-function isElement(obj) {
-    return obj && obj.nodeType === 1;
-}
 
 /**
  * @typedef idHandler
@@ -1080,16 +1024,9 @@ module.exports = function(options) {
     options = options || {};
 
     //idHandler is currently not an option to the listenTo function, so it should not be added to globalOptions.
-    var idHandler;
+    var idHandler = options.idHandler;
 
-    if (options.idHandler) {
-        // To maintain compatability with idHandler.get(element, readonly), make sure to wrap the given idHandler
-        // so that readonly flag always is true when it's used here. This may be removed next major version bump.
-        idHandler = {
-            get: function (element) { options.idHandler.get(element, true); },
-            set: options.idHandler.set
-        };
-    } else {
+    if(!idHandler) {
         var idGenerator = idGeneratorMaker();
         var defaultIdHandler = idHandlerMaker({
             idGenerator: idGenerator,
@@ -1152,7 +1089,7 @@ module.exports = function(options) {
     //Also, same elements can occur in the elements list in the listenTo function.
     //With this map, the ready callbacks can be synchronized between the calls
     //so that the ready callback can always be called when an element is ready - even if
-    //it wasn't installed from the function itself.
+    //it wasn't installed from the function intself.
     var onReadyCallbacks = {};
 
     /**
@@ -1176,6 +1113,26 @@ module.exports = function(options) {
             if(callOnAdd) {
                 listener(element);
             }
+        }
+
+        function isCollection(obj) {
+            return Array.isArray(obj) || obj.length !== undefined;
+        }
+
+        function toArray(collection) {
+            if (!Array.isArray(collection)) {
+                var array = [];
+                forEach(elements, function (element) {
+                    array.push(element);
+                });
+                return array;
+            } else {
+                return collection;
+            }
+        }
+
+        function isElement(obj) {
+            return obj && obj.nodeType === 1;
         }
 
         //Options object may be omitted.
@@ -1211,11 +1168,6 @@ module.exports = function(options) {
         var debug = getOption(options, "debug", globalOptions.debug);
 
         forEach(elements, function attachListenerToElement(element) {
-            if (!stateHandler.getState(element)) {
-                stateHandler.initState(element);
-                idHandler.set(element);
-            }
-
             var id = idHandler.get(element);
 
             debug && reporter.log("Attaching listener to element", id, element);
@@ -1245,38 +1197,32 @@ module.exports = function(options) {
                 return detectionStrategy.makeDetectable({ debug: debug }, element, function onElementDetectable(element) {
                     debug && reporter.log(id, "onElementDetectable");
 
-                    if (stateHandler.getState(element)) {
-                        elementUtils.markAsDetectable(element);
-                        elementUtils.markBusy(element, false);
-                        detectionStrategy.addListener(element, onResizeCallback);
-                        addListener(callOnAdd, element, listener);
+                    elementUtils.markAsDetectable(element);
+                    elementUtils.markBusy(element, false);
+                    detectionStrategy.addListener(element, onResizeCallback);
+                    addListener(callOnAdd, element, listener);
 
-                        // Since the element size might have changed since the call to "listenTo", we need to check for this change,
-                        // so that a resize event may be emitted.
-                        // Having the startSize object is optional (since it does not make sense in some cases such as unrendered elements), so check for its existance before.
-                        if (stateHandler.getState(element).startSize) {
-                            var width = element.offsetWidth;
-                            var height = element.offsetHeight;
-                            if (stateHandler.getState(element).startSize.width !== width || stateHandler.getState(element).startSize.height !== height) {
-                                onResizeCallback(element);
-                            }
+                    // Since the element size might have changed since the call to "listenTo", we need to check for this change,
+                    // so that a resize event may be emitted.
+                    // Having the startSize object is optional (since it does not make sense in some cases such as unrendered elements), so check for its existance before.
+                    if (stateHandler.getState(element).startSize) {
+                        var width = element.offsetWidth;
+                        var height = element.offsetHeight;
+                        if (stateHandler.getState(element).startSize.width !== width || stateHandler.getState(element).startSize.height !== height) {
+                            onResizeCallback(element);
                         }
-
-                        if(onReadyCallbacks[id]) {
-                            forEach(onReadyCallbacks[id], function(callback) {
-                                callback();
-                            });
-                        }
-                    } else {
-                        // The element has been unisntalled before being detectable.
-                        debug && reporter.log(id, "Element uninstalled before being detectable.");
                     }
-
-                    delete onReadyCallbacks[id];
 
                     elementsReady++;
                     if(elementsReady === elements.length) {
                         onReadyCallback();
+                    }
+
+                    if(onReadyCallbacks[id]) {
+                        forEach(onReadyCallbacks[id], function(callback) {
+                            callback();
+                        });
+                        delete onReadyCallbacks[id];
                     }
                 });
             }
@@ -1293,27 +1239,10 @@ module.exports = function(options) {
         }
     }
 
-    function uninstall(elements) {
-        if(!elements) {
-            return reporter.error("At least one element is required.");
-        }
-
-        if (isElement(elements)) {
-            // A single element has been passed in.
-            elements = [elements];
-        } else if (isCollection(elements)) {
-            // Convert collection to array for plugins.
-            // TODO: May want to check so that all the elements in the collection are valid elements.
-            elements = toArray(elements);
-        } else {
-            return reporter.error("Invalid arguments. Must be a DOM element or a collection of DOM elements.");
-        }
-
-        forEach(elements, function (element) {
-            eventListenerHandler.removeAllListeners(element);
-            detectionStrategy.uninstall(element);
-            stateHandler.cleanState(element);
-        });
+    function uninstall(element) {
+      eventListenerHandler.removeAllListeners(element);
+      detectionStrategy.uninstall(element);
+      stateHandler.cleanState(element);
     }
 
     return {
@@ -1347,8 +1276,7 @@ module.exports = function(options) {
      * @returns {boolean} True or false depending on if the element is detectable or not.
      */
     function isDetectable(element) {
-        var state = getState(element);
-        return state && !!state.isDetectable;
+        return !!getState(element).isDetectable;
     }
 
     /**
@@ -1416,44 +1344,39 @@ module.exports = function(options) {
     var getState        = options.stateHandler.getState;
 
     /**
-     * Gets the resize detector id of the element.
+     * Gets the resize detector id of the element. If the element does not have an id, one will be assigned to the element.
      * @public
      * @param {element} element The target element to get the id of.
-     * @returns {string|number|null} The id of the element. Null if it has no id.
+     * @param {boolean?} readonly An id will not be assigned to the element if the readonly parameter is true. Default is false.
+     * @returns {string|number} The id of the element.
      */
-    function getId(element) {
-        var state = getState(element);
-
-        if (state && state.id !== undefined) {
-            return state.id;
+    function getId(element, readonly) {
+        if(!readonly && !hasId(element)) {
+            setId(element);
         }
 
-        return null;
+        return getState(element).id;
     }
 
-    /**
-     * Sets the resize detector id of the element. Requires the element to have a resize detector state initialized.
-     * @public
-     * @param {element} element The target element to set the id of.
-     * @returns {string|number|null} The id of the element.
-     */
     function setId(element) {
-        var state = getState(element);
-
-        if (!state) {
-            throw new Error("setId required the element to have a resize detection state.");
-        }
-
         var id = idGenerator.generate();
 
-        state.id = id;
+        getState(element).id = id;
 
         return id;
     }
 
+    function hasId(element) {
+        return getState(element).id !== undefined;
+    }
+
+    function removeId(element) {
+        delete getState(element).id;
+    }
+
     return {
         get: getId,
-        set: setId
+        remove: removeId
     };
 };
 
@@ -1568,7 +1491,7 @@ function initState(element) {
 }
 
 function getState(element) {
-    return element[prop];
+    return element[prop] || initState(element);
 }
 
 function cleanState(element) {

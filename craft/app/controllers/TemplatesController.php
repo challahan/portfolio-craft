@@ -1,20 +1,5 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\helpers\App;
-use craft\app\helpers\Template;
-use craft\app\web\Controller;
-use ErrorException;
-use yii\web\HttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\ServerErrorHttpException;
+namespace Craft;
 
 /**
  * The TemplatesController class is a controller that handles various template rendering related tasks for both the
@@ -22,169 +7,209 @@ use yii\web\ServerErrorHttpException;
  *
  * Note that all actions in the controller are open to do not require an authenticated Craft session in order to execute.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
-class TemplatesController extends Controller
+class TemplatesController extends BaseController
 {
-    // Properties
-    // =========================================================================
+	// Properties
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public $allowAnonymous = true;
+	/**
+	 * If set to false, you are required to be logged in to execute any of the given controller's actions.
+	 *
+	 * If set to true, anonymous access is allowed for all of the given controller's actions.
+	 *
+	 * If the value is an array of action names, then you must be logged in for any action method except for the ones in
+	 * the array list.
+	 *
+	 * If you have a controller that where the majority of action methods will be anonymous, but you only want require
+	 * login on a few, it's best to use {@link UserSessionService::requireLogin() craft()->userSession->requireLogin()}
+	 * in the individual methods.
+	 *
+	 * @var bool
+	 */
+	public $allowAnonymous = true;
 
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * Renders a template.
-     *
-     * @param       $template
-     * @param array $variables
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested template cannot be found
-     */
-    public function actionRender($template, array $variables = [])
-    {
-        // Does that template exist?
-        if (Craft::$app->getView()->doesTemplateExist($template)) {
-            return $this->renderTemplate($template, $variables);
-        }
+	/**
+	 * Renders a template.
+	 *
+	 * @param       $template
+	 * @param array $variables
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function actionRender($template, array $variables = array())
+	{
+		// Does that template exist?
+		if (craft()->templates->doesTemplateExist($template))
+		{
+			$this->renderTemplate($template, $variables);
+		}
+		else
+		{
+			throw new HttpException(404);
+		}
+	}
 
-        throw new NotFoundHttpException('Template not found');
-    }
+	/**
+	 * Shows the 'offline' template.
+	 *
+	 * @return null
+	 */
+	public function actionOffline()
+	{
+		// If this is a site request, make sure the offline template exists
+		if (craft()->request->isSiteRequest() && !craft()->templates->doesTemplateExist('offline'))
+		{
+			craft()->templates->setTemplateMode(TemplateMode::CP);
+		}
 
-    /**
-     * Shows the 'offline' template.
-     *
-     * @return string The rendering result
-     */
-    public function actionOffline()
-    {
-        // If this is a site request, make sure the offline template exists
-        $view = Craft::$app->getView();
-        if (Craft::$app->getRequest()->getIsSiteRequest() && !$view->doesTemplateExist('offline')) {
-            $view->setTemplateMode($view::TEMPLATE_MODE_CP);
-        }
+		// Output the offline template
+		$this->renderTemplate('offline');
+	}
 
-        // Output the offline template
-        return $this->renderTemplate('offline');
-    }
+	/**
+	 * Renders the Manual Update notification template.
+	 *
+	 * @return null
+	 */
+	public function actionManualUpdateNotification()
+	{
+		$this->renderTemplate('_special/dbupdate');
+	}
 
-    /**
-     * Renders the Manual Update notification template.
-     *
-     * @return string The rendering result
-     */
-    public function actionManualUpdateNotification()
-    {
-        return $this->renderTemplate('_special/dbupdate');
-    }
+	/**
+	 * Renders the Manual Update template.
+	 *
+	 * @return null
+	 */
+	public function actionManualUpdate()
+	{
+		$this->renderTemplate('updates/_go', array(
+			'handle' => craft()->request->getSegment(2)
+		));
+	}
 
-    /**
-     * Renders the Manual Update template.
-     *
-     * @return string The rendering result
-     */
-    public function actionManualUpdate()
-    {
-        return $this->renderTemplate('updates/_go', [
-            'handle' => Craft::$app->getRequest()->getSegment(2)
-        ]);
-    }
+	/**
+	 * @throws Exception
+	 * @return null
+	 */
+	public function actionRequirementsCheck()
+	{
+		// Run the requirements checker
+		$reqCheck = new RequirementsChecker();
+		$reqCheck->run();
 
-    /**
-     * @return string The rendering result
-     * @throws ServerErrorHttpException if it's an Ajax request and the server doesn’t meet Craft’s requirements
-     */
-    public function actionRequirementsCheck()
-    {
-        require_once(Craft::$app->getPath()->getAppPath().'/requirements/RequirementsChecker.php');
+		if ($reqCheck->getResult() == InstallStatus::Failed)
+		{
+			// Coming from Updater.php
+			if (craft()->request->isAjaxRequest())
+			{
+				$message = '<br /><br />';
 
-        // Run the requirements checker
-        $reqCheck = new \RequirementsChecker();
-        $reqCheck->checkCraft();
+				foreach ($reqCheck->getRequirements() as $req)
+				{
+					if ($req->result == 'failed')
+					{
+						$message .= $req->notes.'<br />';
+					}
+				}
 
-        if ($reqCheck->result['summary']['errors'] > 0) {
-            // Coming from Updater.php
-            if (Craft::$app->getRequest()->getAcceptsJson()) {
-                $message = '<br /><br />';
+				throw new Exception(Craft::t('The update can’t be installed :( {message}', array('message' => $message)));
+			}
+			else
+			{
+				$this->renderTemplate('_special/cantrun', array('reqCheck' => $reqCheck));
+				craft()->end();
+			}
+		}
+		else
+		{
+			// Cache the app path.
+			craft()->cache->set('appPath', craft()->path->getAppPath());
+		}
+	}
 
-                foreach ($reqCheck->getResult()['requirements'] as $req) {
-                    if ($req['failed'] === true) {
-                        $message .= $req['memo'].'<br />';
-                    }
-                }
+	/**
+	 * Renders an error template.
+	 *
+	 * @throws \Exception
+	 * @return null
+	 */
+	public function actionRenderError()
+	{
+		$error = craft()->errorHandler->getError();
+		$code = (string) $error['code'];
 
-                throw new ServerErrorHttpException(Craft::t('app', 'The update can’t be installed :( {message}', ['message' => $message]));
-            } else {
-                return $this->renderTemplate('_special/cantrun',
-                    ['reqCheck' => $reqCheck]);
-            }
-        } else {
-            // Cache the app path.
-            Craft::$app->getCache()->set('appPath', Craft::$app->getPath()->getAppPath());
-        }
+		if (craft()->request->isSiteRequest())
+		{
+			$prefix = craft()->config->get('errorTemplatePrefix');
 
-        return null;
-    }
+			if (craft()->templates->doesTemplateExist($prefix.$code))
+			{
+				$template = $prefix.$code;
+			}
+			else if ($code == 503 && craft()->templates->doesTemplateExist($prefix.'offline'))
+			{
+				$template = $prefix.'offline';
+			}
+			else if (craft()->templates->doesTemplateExist($prefix.'error'))
+			{
+				$template = $prefix.'error';
+			}
+		}
 
-    /**
-     * Renders an error template.
-     *
-     * @return string
-     */
-    public function actionRenderError()
-    {
-        /** @var $errorHandler \yii\web\ErrorHandler */
-        $errorHandler = Craft::$app->getErrorHandler();
-        $exception = $errorHandler->exception;
+		if (!isset($template))
+		{
+			craft()->templates->setTemplateMode(TemplateMode::CP);
 
-        if ($exception instanceof HttpException && $exception->statusCode) {
-            $statusCode = (string)$exception->statusCode;
-        } else {
-            $statusCode = '500';
-        }
+			if (craft()->templates->doesTemplateExist($code))
+			{
+				$template = $code;
+			}
+			else
+			{
+				$template = 'error';
+			}
+		}
 
-        if (Craft::$app->getRequest()->getIsSiteRequest()) {
-            $prefix = Craft::$app->getConfig()->get('errorTemplatePrefix');
+		try
+		{
+			$variables = array_merge($error);
 
-            if (Craft::$app->getView()->doesTemplateExist($prefix.$statusCode)) {
-                $template = $prefix.$statusCode;
-            } else if ($statusCode == 503 && Craft::$app->getView()->doesTemplateExist($prefix.'offline')) {
-                $template = $prefix.'offline';
-            } else if (Craft::$app->getView()->doesTemplateExist($prefix.'error')) {
-                $template = $prefix.'error';
-            }
-        }
+			// Escape any inner-word underscores, which Markdown mistakes for italics
+			// TODO: This won't be necessary in 3.0 thanks to Parsedown
+			$variables['message'] = preg_replace('/(?<=[a-zA-Z])_(?=[a-zA-Z])/', '\_', $variables['message']);
 
-        if (!isset($template)) {
-            $view = Craft::$app->getView();
-            $view->setTemplateMode($view::TEMPLATE_MODE_CP);
+			// If this is a PHP error and html_errors (http://php.net/manual/en/errorfunc.configuration.php#ini.html-errors)
+			// is enabled, then allow the HTML not get encoded
+			if (strncmp($variables['type'], 'PHP ', 4) === 0 && AppHelper::getPhpConfigValueAsBool('html_errors'))
+			{
+				$variables['message'] = TemplateHelper::getRaw($variables['message']);
+			}
 
-            if ($view->doesTemplateExist($statusCode)) {
-                $template = $statusCode;
-            } else {
-                $template = 'error';
-            }
-        }
-
-        $variables = array_merge([
-            'message' => $exception->getMessage(),
-            'code' => $exception->getCode(),
-            'file' => $exception->getFile(),
-            'line' => $exception->getLine(),
-        ], get_object_vars($exception));
-
-        // If this is a PHP error and html_errors (http://php.net/manual/en/errorfunc.configuration.php#ini.html-errors)
-        // is enabled, then allow the HTML not get encoded
-        if ($exception instanceof ErrorException && App::getPhpConfigValueAsBool('html_errors')) {
-            $variables['message'] = Template::getRaw($variables['message']);
-        }
-
-        return $this->renderTemplate($template, $variables);
-    }
+			$this->renderTemplate($template, $variables);
+		}
+		catch (\Exception $e)
+		{
+			if (YII_DEBUG)
+			{
+				throw $e;
+			}
+			else
+			{
+				// Just output the error message
+				echo str_replace(array('“', '”', '‘', '’'), array('"', '"', '\'', '\''), $e->getMessage());
+			}
+		}
+	}
 }

@@ -1,13 +1,14 @@
 {% extends "_layouts/cp" %}
 
-{% set elementInstance = craft.app.elements.createElement(elementType) %}
+{% set elementTypeClass = elementType %}
+{% set elementType = craft.elements.getElementType(elementTypeClass) %}
 {% set context = 'index' %}
 
-{% if not elementInstance %}
+{% if not elementType %}
 	{% exit 404 %}
 {% endif %}
 
-{% set sources = craft.app.elementIndexes.getSources(elementType, 'index') %}
+{% set sources = craft.elementIndexes.getSources(elementTypeClass, 'index') %}
 {% set customizableSources = (sources is not empty and context == 'index' and currentUser.admin) %}
 
 {% block sidebar %}
@@ -32,11 +33,11 @@
 
 
 {% block initJs %}
-	Craft.elementIndex = Craft.createElementIndex('{{ elementType|e("js") }}', $('#main'), {
+	Craft.elementIndex = Craft.createElementIndex('{{ elementTypeClass }}', $('#main'), {
 		context:        '{{ context }}',
-		storageKey:     'elementindex.{{ elementType }}',
-		criteria:       { enabledForSite: null }
+		storageKey:     'elementindex.{{ elementTypeClass }}',
+		criteria:       { localeEnabled: null }
 	});
 {% endblock %}
 
-{% registerjs block('initJs') %}
+{% includejs block('initJs') %}

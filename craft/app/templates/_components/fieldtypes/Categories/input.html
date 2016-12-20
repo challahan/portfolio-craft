@@ -22,11 +22,11 @@
 </div>
 
 {% if jsClass is defined %}
-	{% registerjs %}
+	{% includejs %}
 		new {{ jsClass }}({
 			id: "{{ id   | namespaceInputId   | e('js') }}",
 			name: "{{ name | namespaceInputName | e('js') }}",
-			elementType: "{{ elementType|e('js') }}",
+			elementType: "{{ elementType.getClassHandle()|e('js') }}",
 			sources: {{ sources|json_encode|raw }},
 			criteria: {{ criteria|json_encode|raw }},
 			sourceElementId: {{ sourceElementId ?: 'null' }},
@@ -34,5 +34,5 @@
 			modalStorageKey: "{{ storageKey|e('js') }}",
 			selectionLabel: "{{ selectionLabel|e('js') }}"
 		});
-	{% endregisterjs %}
+	{% endincludejs %}
 {% endif %}

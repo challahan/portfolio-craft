@@ -1,19 +1,23 @@
 {% requireAdmin %}
 
 {% extends "_layouts/cp" %}
-{% set title = "Routes"|t('app') %}
+{% set title = "Routes"|t %}
+
+{% includecssresource "css/routes.css" %}
+{% includejsresource "js/routes.js" %}
+
 
 {% set extraPageHeaderHtml %}
 	<div class="buttons right">
-		<div id="add-route-btn" class="btn submit add icon">{{ "New route"|t('app') }}</div>
+		<div id="add-route-btn" class="btn submit add icon">{{ "New route"|t }}</div>
 	</div>
 {% endset %}
 
 {% set crumbs = [
-	{ label: "Settings"|t('app'), url: url('settings') }
+	{ label: "Settings"|t, url: url('settings') }
 ] %}
 
-{% do craft.app.view.registerTranslations('app', [
+{% includeTranslations
 	"Global",
 	"New route order saved.",
 	"Couldn’t save new route order.",
@@ -25,8 +29,8 @@
 	"Route Saved.",
 	"Couldn’t save route.",
 	"Are you sure you want to delete this route?",
-	"Route deleted.",
-]) %}
+	"Route deleted."
+%}
 
 {% set docsUrl = 'http://craftcms.com/docs/routing' %}
 
@@ -35,22 +39,19 @@
 
 
 {% block content %}
-	{% registercssresource "css/routes.css" %}
-	{% registerjsresource "js/routes.js" %}
-
 	<p id="noroutes"{% if routes %} class="hidden"{% endif %}>
-		{{ "No routes exist yet."|t('app') }}
+		{{ "No routes exist yet."|t }}
 	</p>
 
 	<div id="routes">
 		{% for route in routes %}
-			<div class="route" data-id="{{ route.id }}"{% if route.siteId %} data-site-id="{{ route.siteId }}"{% endif %}>
-				<div class="uri-container">
+			<div class="route" data-id="{{ route.id }}"{% if route.locale %} data-locale="{{ route.locale }}"{% endif %}>
+				<div class="url-container">
 					{%- spaceless %}
-						{% if craft.app.getIsMultiSite() %}
-							<span class="site">{{ route.siteId ? craft.app.sites.getSiteById(route.siteId).name|t('site') : "Global"|t('app') }}</span>
+						{% if craft.isLocalized() %}
+							<span class="locale">{{ route.locale ?: "Global"|t }}</span>
 						{% endif %}
-						<span class="uri">{{ route.uriDisplayHtml|raw }}</span>
+						<span class="url">{{ route.urlDisplayHtml|raw }}</span>
 					{% endspaceless -%}
 				</div>
 				<div class="template">{{ route.template }}</div>
@@ -60,11 +61,15 @@
 {% endblock %}
 
 
-{% registerjs %}
+{% includejs %}
 	Craft.routes.tokens = {
 		{% for name, pattern in tokens %}
 			{% if not loop.first %},{% endif %}
 			"{{ name|e('js') }}": "{{ pattern|e('js') }}"
 		{% endfor %}
 	};
-{% endregisterjs %}
+
+	{% if craft.isLocalized() %}
+		Craft.routes.locales = {{ craft.i18n.getSiteLocaleIds()|json_encode|raw }};
+	{% endif %}
+{% endincludejs %}

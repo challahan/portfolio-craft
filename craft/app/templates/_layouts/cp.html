@@ -1,6 +1,7 @@
 {% extends "_layouts/basecp" %}
 
-{% do craft.app.view.registerTranslations('app', [
+{% includecssresource "css/cp.css" first %}
+{% includeTranslations
 	"(blank)",
 	"1 update available",
 	"Actions",
@@ -96,53 +97,45 @@
 	"Your session will expire in {time}.",
 	"{ctrl}C to copy.",
 	"{num} updates available",
-	"“{name}” deleted.",
-]) %}
+	"“{name}” deleted."
+%}
 
-{% set task = craft.app.tasks.getRunningTask() %}
+
+{% set task = craft.tasks.getRunningTask() %}
 {% if task %}
-	{% registerjs %}
-		Craft.cp.setRunningTaskInfo('~task.getInfo()|json_encode|raw~');
-		Craft.cp.trackTaskProgress();
-	{% endregisterjs %}
-{% elseif craft.app.tasks.areTasksPending() %}
-	{% registerjs %}
-		Craft.cp.runPendingTasks();
-	{% endregisterjs %}
-{% elseif craft.app.tasks.getHaveTasksFailed() %}
-	{% registerjs %}
-		Craft.cp.setRunningTaskInfo({ status: "error" });
-	{% endregisterjs %}
+	{% includejs 'Craft.cp.setRunningTaskInfo('~task.getInfo()|json_encode|raw~');' %}
+	{% includejs 'Craft.cp.trackTaskProgress();' %}
+{% elseif craft.tasks.areTasksPending() %}
+	{% includejs 'Craft.cp.runPendingTasks();' %}
+{% elseif craft.tasks.haveTasksFailed() %}
+	{% includejs 'Craft.cp.setRunningTaskInfo({ status: "error" });' %}
 {% endif %}
 
 
-{% set forceConfirmUnload = craft.app.session.hasFlash('error') %}
+{% set forceConfirmUnload = craft.session.hasFlash('error') %}
 {% set fullPageForm = (fullPageForm is defined and fullPageForm) %}
 
 {% if fullPageForm and extraPageHeaderHtml is not defined %}
 	{% set extraPageHeaderHtml %}
 		{%- spaceless %}
 			{% block saveButton %}
-				<input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+				<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
 			{% endblock %}
 		{% endspaceless -%}
 	{% endset %}
 {% endif %}
 
 
-{% set forceConfirmUnload = craft.app.session.hasFlash('error') %}
-
-
 {% block body %}
 	<header id="global-sidebar">
 
-		{% if currentUser.admin and craft.app.config.get('devMode') %}
-			<div id="devmode" title="{{ 'Craft CMS is running in Dev Mode.'|t('app') }}"></div>
+		{% if currentUser.admin and craft.config.devMode %}
+			<div id="devmode" title="{{ 'Craft CMS is running in Dev Mode.'|t }}"></div>
 		{% endif %}
 
 		<div class="topbar">
 
-			<a class="site-name{% if CraftEdition >= CraftClient and craft.rebrand.isIconUploaded %} has-icon{% endif %}" href="{{ siteUrl }}" title="{{ 'Site Homepage'|t('app') }}" target="_blank">
+			<a class="site-name{% if CraftEdition >= CraftClient and craft.rebrand.isIconUploaded %} has-icon{% endif %}" href="{{ siteUrl }}" title="{{ 'Site Homepage'|t }}" target="_blank">
 
 				{% if CraftEdition >= CraftClient %}
 					{% if craft.rebrand.isIconUploaded %}
@@ -152,28 +145,26 @@
 					{% endif %}
 				{% endif %}
 
-				<h2>{{ siteName|t('site') }}</h2>
+				<h2>{{ siteName|t }}</h2>
 			</a>
 
 			{% if currentUser.can('performUpdates') %}
-				{% if craft.app.updates.getIsUpdateInfoCached() %}
-					{% set totalUpdates = craft.app.updates.getTotalAvailableUpdates() %}
+				{% if craft.app.isUpdateInfoCached() %}
+					{% set totalUpdates = craft.app.getTotalAvailableUpdates() %}
 					{% if totalUpdates %}
 						{% if totalUpdates == 1 %}
-							{% set updateText = "1 update available"|t('app') %}
+							{% set updateText = "1 update available"|t %}
 						{% else %}
-							{% set updateText = "{num} updates available"|t('app', { num: totalUpdates }) %}
+							{% set updateText = "{num} updates available"|t({ num: totalUpdates }) %}
 						{% endif %}
-						<a class="updates{% if craft.app.updates.getIsCriticalUpdateAvailable() %} critical{% endif %}" href="{{ url('updates') }}" title="{{ updateText }}">
+						<a class="updates{% if craft.app.isCriticalUpdateAvailable() %} critical{% endif %}" href="{{ url('updates') }}" title="{{ updateText }}">
 							<span data-icon="newstamp">
 								<span>{{ totalUpdates }}</span>
 							</span>
 						</a>
 					{% endif %}
 				{% else %}
-					{% registerjs %}
-						Craft.cp.checkForUpdates();
-					{% endregisterjs %}
+					{% includejs 'Craft.cp.checkForUpdates();' %}
 				{% endif %}
 			{% endif %}
 		</div>
@@ -224,30 +215,27 @@
 
 					</li>
 				{% endfor %}
-
-				{#
-				#}
 			</ul>
 		</nav>
 
 		<div class="bottombar">
-			<a id="account-info" class="menubtn" title="{{ 'My Account'|t('app') }}" role="button" data-menu-anchor="#account-menu-anchor">
+			<a id="account-info" class="menubtn" title="{{ 'My Account'|t }}" role="button" data-menu-anchor="#account-menu-anchor">
 				<div id="user-photo" class="photo-container">
 					<img width="32" sizes="32px" srcset="{{ currentUser.getThumbUrl(32) }} 32w, {{ currentUser.getThumbUrl(64) }} 64w" alt="{{ currentUser.getName() }}">
 				</div>
 				<div class="username">
 					{{ currentUser.name }}
-					{% if currentUser.admin %}<div class="light">{{ 'admin'|t('app') }}</div>{% endif %}
+					{% if currentUser.admin %}<div class="light">{{ 'admin'|t }}</div>{% endif %}
 				</div>
 				<div id="account-menu-anchor"></div>
 			</a>
 			<div class="menu" data-align="left">
 				<ul>
-					<li><a href="{{ url('myaccount') }}">{{ "My Account"|t('app') }}</a></li>
+					<li><a href="{{ url('myaccount') }}">{{ "My Account"|t }}</a></li>
 					{% if CraftEdition == CraftClient and currentUser.admin %}
-						<li><a href="{{ url('clientaccount') }}">{{ "Client’s Account"|t('app') }}</a></li>
+						<li><a href="{{ url('clientaccount') }}">{{ "Client’s Account"|t }}</a></li>
 					{% endif %}
-					<li><a href="{{ logoutUrl }}">{{ "Sign out"|t('app') }}</a></li>
+					<li><a href="{{ logoutUrl }}">{{ "Sign out"|t }}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -255,8 +243,8 @@
 	</header>
 
 	{% if fullPageForm %}
-		<form id="container" method="post" accept-charset="UTF-8" data-saveshortcut{% if saveShortcutRedirect is defined %} data-saveshortcut-redirect="{{ saveShortcutRedirect|hash }}"{% endif %} data-confirm-unload>
-			{{ csrfInput() }}
+		<form id="container" method="post" accept-charset="UTF-8" data-saveshortcut{% if saveShortcutRedirect is defined %} data-saveshortcut-redirect="{{ saveShortcutRedirect }}"{% endif %} data-confirm-unload>
+			{{ getCsrfInput() }}
 	{% else %}
 		<div id="container">
 	{% endif %}
@@ -264,7 +252,7 @@
 		<div id="notifications-wrapper">
 			<div id="notifications">
 				{% for type in ['notice', 'error'] %}
-					{% set message = craft.app.session.getFlash(type) %}
+					{% set message = craft.session.getFlash(type) %}
 					{% if message %}
 						<div class="notification {{ type }}">{{ message }}</div>
 					{% endif %}
@@ -282,9 +270,7 @@
 				</ul>
 			{% endif %}
 		{% else %}
-			{% registerjs %}
-				Craft.cp.fetchAlerts();
-			{% endregisterjs %}
+			{% includejs 'Craft.cp.fetchAlerts();' %}
 		{% endif %}
 
 		<div class="topbar">
@@ -359,21 +345,22 @@
 
 		{% if docsUrl is defined and docsUrl is not empty %}
 			<div id="help-footer">
-				<a id="help" class="help" title="{{ 'Help'|t('app') }}" href="{{ docsUrl }}" target="_blank"></a>
+				<a id="help" class="help" title="{{ 'Help'|t }}" href="{{ docsUrl }}" target="_blank"></a>
 			</div>
 		{% endif %}
 
 		<div id="footer">
+
 			{%- spaceless %}
-				{% set canUpgradeEdition = craft.app.getCanUpgradeEdition() %}
+				{% set canUpgradeEdition = craft.app.canUpgradeEdition() %}
 				{% set licensedEdition = craft.app.getLicensedEdition() %}
 				{% set isTrial = licensedEdition is not sameas(null) and licensedEdition is not sameas(CraftEdition) %}
 
-				<div id="edition" {% if canUpgradeEdition %}class="hot" title="{{ 'Manage your Craft CMS edition'|t('app') }}"{% else %}class="edition"{% endif %}>
+				<div id="edition" {% if canUpgradeEdition %}class="hot" title="{{ 'Manage your Craft CMS edition'|t }}"{% else %}class="edition"{% endif %}>
 					<div id="edition-logo">
 						<div class="edition-name">{{ craft.app.getEditionName() }}</div>
 						{% if isTrial %}
-							<div class="edition-trial">{{ "Trial"|t('app') }}</div>
+							<div class="edition-trial">{{ "Trial"|t }}</div>
 						{% endif %}
 					</div>
 					{% if canUpgradeEdition %}
@@ -383,14 +370,13 @@
 			{% endspaceless -%}
 
 			<ul>
-				<li>Craft CMS {{ craft.app.version }}.{{ craft.app.build }}</li>
-				<li>{{ craft.app.releaseDate|date('short') }}</li>
+				<li>Craft CMS {{ craft.app.getVersion() }}</li>
 				<li>© Pixel &amp; Tonic</li>
 				{% if currentUser.can('performUpdates') %}
-					<li><a id="footer-updates" href="{{ url('updates') }}">{{ craft.app.updates.getIsUpdateInfoCached() and totalUpdates is defined and totalUpdates ? updateText : "Check for updates"|t('app') }}</a></li>
+					<li><a id="footer-updates" href="{{ url('updates') }}">{{ craft.app.isUpdateInfoCached() and totalUpdates is defined and totalUpdates ? updateText : "Check for updates"|t }}</a></li>
 				{% endif %}
 				{% if currentUser.admin %}
-					<li><a href="{{ url('utils/serverinfo') }}">{{ "Server Info"|t('app') }}</a></li>
+					<li><a href="{{ url('utils/serverinfo') }}">{{ "Server Info"|t }}</a></li>
 				{% endif %}
 			</ul>
 		</div>

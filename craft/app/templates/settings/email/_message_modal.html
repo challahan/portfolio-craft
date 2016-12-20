@@ -2,17 +2,20 @@
 {% requireAdmin %}
 
 {% import "_includes/forms" as forms %}
+{% set key = craft.request.getPost('key') %}
+{% set localeId = craft.request.getPost('locale') %}
+{% set message = craft.emailMessages.getMessage(key, localeId) %}
 
 
 <header class="header">
-	<h1 class="left">{{ "Edit Message"|t('app') }}</h1>
+	<h1 class="left">{{ "Edit Message"|t }}</h1>
 
-	{% if craft.app.getIsMultiSite() %}
+	{% if craft.isLocalized() %}
 		<ul class="right">
-			<li class="select site">
+			<li class="select locale">
 				<select>
-					{% for site in craft.app.sites.getAllSites() %}
-						<option value="{{ site.id }}" {% if site.id == message.siteId %}selected{% endif %}>{{ site.name|t('site') }}</option>
+					{% for locale in craft.i18n.getSiteLocales() %}
+						<option value="{{ locale.id }}" {% if locale.id == message.locale %}selected{% endif %}>{{ locale.name }}</option>
 					{% endfor %}
 				</select>
 			</li>
@@ -22,7 +25,7 @@
 
 <div class="body">
 	{{ forms.textField({
-		label: "Subject"|t('app'),
+		label: "Subject"|t,
 		id: 'message-subject',
 		class: 'message-subject',
 		value: message.subject,
@@ -30,7 +33,7 @@
 	}) }}
 
 	{{ forms.textareaField({
-		label: "Body"|t('app'),
+		label: "Body"|t,
 		id: 'message-body',
 		class: 'message-body',
 		value: message.body,
@@ -40,7 +43,7 @@
 
 <footer class="footer">
 	<div class="buttons right">
-		<input type="button" class="btn cancel" value="{{ 'Cancel'|t('app') }}">
-		<input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+		<input type="button" class="btn cancel" value="{{ 'Cancel'|t }}">
+		<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
 	</div>
 </footer>

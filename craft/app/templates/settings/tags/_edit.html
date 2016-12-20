@@ -6,16 +6,16 @@
 {% import "_includes/forms" as forms %}
 
 {% block content %}
-	<input type="hidden" name="action" value="tags/save-tag-group">
-	{{ redirectInput('settings/tags') }}
+	<input type="hidden" name="action" value="tags/saveTagGroup">
+	<input type="hidden" name="redirect" value="settings/tags">
 
 	{% if tagGroup.id %}<input type="hidden" name="tagGroupId" value="{{ tagGroup.id }}">{% endif %}
 
 	<div id="taggroup-settings">
 		{{ forms.textField({
 			first: true,
-			label: "Name"|t('app'),
-			instructions: "What this tag group will be called in the CP."|t('app'),
+			label: "Name"|t,
+			instructions: "What this tag group will be called in the CP."|t,
 			id: 'name',
 			name: 'name',
 			value: tagGroup.name,
@@ -26,8 +26,8 @@
 		}) }}
 
 		{{ forms.textField({
-			label: "Handle"|t('app'),
-			instructions: "How you’ll refer to this tag group in the templates."|t('app'),
+			label: "Handle"|t,
+			instructions: "How you’ll refer to this tag group in the templates."|t,
 			id: 'handle',
 			class: 'code',
 			name: 'handle',
@@ -47,7 +47,7 @@
 
 
 {% if not tagGroup.handle %}
-	{% registerjs %}
+	{% includejs %}
 		new Craft.HandleGenerator('#name', '#handle');
-	{% endregisterjs %}
+	{% endincludejs %}
 {% endif %}

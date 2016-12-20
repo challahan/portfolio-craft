@@ -6,16 +6,16 @@
 {% set fullPageForm = true %}
 
 {% set crumbs = [
-	{ label: "Settings"|t('app'), url: url('settings') },
-	{ label: "Users"|t('app'), url: url('settings/users') },
-	{ label: "User Groups"|t('app'), url: url('settings/users') }
+	{ label: "Settings"|t, url: url('settings') },
+	{ label: "Users"|t, url: url('settings/users') },
+	{ label: "User Groups"|t, url: url('settings/users') }
 ] %}
 
 {% set docsUrl = 'http://craftcms.com/docs/users#user-groups' %}
 
 
 {% if group is not defined and groupId is defined %}
-	{% set group = craft.app.userGroups.getGroupById(groupId) %}
+	{% set group = craft.userGroups.getGroupById(groupId) %}
 	{% if not group %}{% exit 404 %}{% endif %}
 {% endif %}
 
@@ -24,21 +24,21 @@
 
 
 {% if isNewGroup %}
-	{% set title = "Create a new user group"|t('app') %}
+	{% set title = "Create a new user group"|t %}
 {% else %}
-	{% set title = group.name %}
+	{% set title = group.name|t %}
 {% endif %}
 
 
 {% block content %}
-	<input type="hidden" name="action" value="user-settings/save-group">
-	{{ redirectInput('settings/users') }}
+	<input type="hidden" name="action" value="userSettings/saveGroup">
+	<input type="hidden" name="redirect" value="settings/users">
 
 	{% if not isNewGroup %}<input type="hidden" name="groupId" value="{{ group.id }}">{% endif %}
 
 	{{ forms.textField({
 		first: true,
-		label: "Name"|t('app'),
+		label: "Name"|t,
 		id: 'name',
 		name: 'name',
 		value: (group is defined ? group.name : null),
@@ -49,7 +49,7 @@
 	}) }}
 
 	{{ forms.textField({
-		label: "Handle"|t('app'),
+		label: "Handle"|t,
 		id: 'handle',
 		name: 'handle',
 		class: 'code',
@@ -60,14 +60,15 @@
 
 	<hr>
 
-	<h2>{{ "Permissions"|t('app') }}</h2>
+	<h2>{{ "Permissions"|t }}</h2>
 
 	<div id="permissions">
 		{% include "_includes/permissions" with { userOrGroup: (group is defined ? group : null) } only %}
 	</div>
 {% endblock %}
 
-{% registerjs %}
+
+{% includejs %}
 	{% if group is not defined or not group.handle %}
 		new Craft.HandleGenerator('#name', '#handle');
 	{% endif %}
@@ -77,4 +78,4 @@
 			'#permissions input[type="checkbox"]:not(:checked)'
 		]);
 	{% endif %}
-{% endregisterjs %}
+{% endincludejs %}

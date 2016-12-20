@@ -3,7 +3,7 @@
 
 {%- set showAllOption  = (showAllOption is defined ? showAllOption : true) %}
 {%- if showAllOption %}
-	{%- set allLabel = (allLabel is defined ? allLabel : "All"|t('app')) %}
+	{%- set allLabel = (allLabel is defined ? allLabel : "All"|t) %}
 	{%- set allValue = (allValue is defined ? allValue : '*') %}
 	{%- set allChecked = (values is empty or values == allValue) %}
 {%- endif %}
@@ -18,7 +18,7 @@
 				name:      (name is defined ? name : null),
 				value:     allValue,
 				checked:   allChecked,
-				autofocus: (autofocus is defined and autofocus and not craft.app.request.isMobileBrowser(true))
+				autofocus: (autofocus is defined and autofocus and not craft.request.isMobileBrowser(true))
 			} only %}
 		</div>
 	{%- endif %}

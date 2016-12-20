@@ -1,16 +1,16 @@
 {% import "_includes/forms" as forms %}
 {% set meta = meta is defined ? meta : false %}
 
-{% if not craft.app.config.get('useEmailAsUsername') %}
+{% if not craft.config.useEmailAsUsername %}
 	{{ forms.textField({
 		first: true,
-		label: "Username"|t('app'),
+		label: "Username"|t,
 		id: 'username',
 		name: 'username',
 		value: (account is defined ? account.username : null),
 		autofocus: true,
-		required: (isNewAccount or (currentUser.admin or account.getIsCurrent()) ? true : false),
-		disabled: (isNewAccount or (currentUser.admin or account.getIsCurrent()) ? false : true),
+		required: (isNewAccount or (currentUser.admin or account.isCurrent()) ? true : false),
+		disabled: (isNewAccount or (currentUser.admin or account.isCurrent()) ? false : true),
 		errors: (account is defined ? account.getErrors('username') : null)
 	}) }}
 {% endif %}
@@ -20,19 +20,19 @@
 	<div class="item" data-colspan="1">
 {% endif %}
 		{{ forms.textField({
-			label: "First Name"|t('app'),
+			label: "First Name"|t,
 			id: 'firstName',
 			name: 'firstName',
 			value: (account is defined ? account.firstName : null),
 			errors: (account is defined ? account.getErrors('firstName') : null),
-			autofocus: craft.app.config.get('useEmailAsUsername')
+			autofocus: craft.config.useEmailAsUsername
 		}) }}
 {% if not meta %}
 	</div>
 	<div class="item" data-colspan="1">
 {% endif %}
 		{{ forms.textField({
-			label: "Last Name"|t('app'),
+			label: "Last Name"|t,
 			id: 'lastName',
 			name: 'lastName',
 			value: (account is defined ? account.lastName : null),

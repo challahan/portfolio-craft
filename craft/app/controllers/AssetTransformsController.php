@@ -1,164 +1,156 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\helpers\Image;
-use craft\app\models\AssetTransform;
-use craft\app\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+namespace Craft;
 
 /**
  * The AssetTransformsController class is a controller that handles various actions related to asset transformations,
  * such as creating, editing and deleting transforms.
  *
- * Note that all actions in the controller require an authenticated Craft session via [[Controller::allowAnonymous]].
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://craftcms.com/license Craft License Agreement
+ * @see        http://craftcms.com
+ * @package    craft.app.controllers
+ * @since      1.0
+ * @deprecated This class will have several breaking changes in Craft 3.0.
  */
-class AssetTransformsController extends Controller
+class AssetTransformsController extends BaseController
 {
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        // All asset transform actions require an admin
-        $this->requireAdmin();
-    }
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All asset transform actions require an admin
+		craft()->userSession->requireAdmin();
+	}
 
-    /**
-     * Shows the asset transform list.
-     *
-     * @return string The rendering result
-     */
-    public function actionTransformIndex()
-    {
-        $variables['transforms'] = Craft::$app->getAssetTransforms()->getAllTransforms();
-        $variables['transformModes'] = AssetTransform::getTransformModes();
+	/**
+	 * Shows the asset transform list.
+	 */
+	public function actionTransformIndex()
+	{
+		$variables['transforms'] = craft()->assetTransforms->getAllTransforms();
+		$variables['transformModes'] = AssetTransformModel::getTransformModes();
 
-        return $this->renderTemplate('settings/assets/transforms/_index', $variables);
-    }
+		$this->renderTemplate('settings/assets/transforms/_index', $variables);
+	}
 
-    /**
-     * Edit an asset transform.
-     *
-     * @param string         $transformHandle The transform’s handle, if any.
-     * @param AssetTransform $transform       The transform being edited, if there were any validation errors.
-     *
-     * @return string The rendering result
-     * @throws NotFoundHttpException if the requested transform cannot be found
-     */
-    public function actionEditTransform($transformHandle = null, AssetTransform $transform = null)
-    {
-        if ($transform === null) {
-            if ($transformHandle !== null) {
-                $transform = Craft::$app->getAssetTransforms()->getTransformByHandle($transformHandle);
+	/**
+	 * Edit an asset transform.
+	 *
+	 * @param array $variables
+	 *
+	 * @throws HttpException
+	 */
+	public function actionEditTransform(array $variables = array())
+	{
+		if (empty($variables['transform']))
+		{
+			if (!empty($variables['handle']))
+			{
+				$variables['transform'] = craft()->assetTransforms->getTransformByHandle($variables['handle']);
+				if (!$variables['transform'])
+				{
+					throw new HttpException(404);
+				}
+			}
+			else
+			{
+				$variables['transform'] = new AssetTransformModel();
+			}
+		}
 
-                if (!$transform) {
-                    throw new NotFoundHttpException('Transform not found');
-                }
-            } else {
-                $transform = new AssetTransform();
-            }
-        }
+		$this->renderTemplate('settings/assets/transforms/_settings', $variables);
+	}
 
-        return $this->renderTemplate('settings/assets/transforms/_settings', [
-            'handle' => $transformHandle,
-            'transform' => $transform
-        ]);
-    }
+	/**
+	 * Saves an asset source.
+	 */
+	public function actionSaveTransform()
+	{
+		$this->requirePostRequest();
 
-    /**
-     * Saves an asset transform.
-     *
-     * @return Response|null
-     */
-    public function actionSaveTransform()
-    {
-        $this->requirePostRequest();
+		$transform = new AssetTransformModel();
+		$transform->id = craft()->request->getPost('transformId');
+		$transform->name = craft()->request->getPost('name');
+		$transform->handle = craft()->request->getPost('handle');
+		$transform->width = craft()->request->getPost('width');
+		$transform->height = craft()->request->getPost('height');
+		$transform->mode = craft()->request->getPost('mode');
+		$transform->position = craft()->request->getPost('position');
+		$transform->quality = craft()->request->getPost('quality');
+		$transform->format = craft()->request->getPost('format');
 
-        $transform = new AssetTransform();
-        $request = Craft::$app->getRequest();
-        $transform->id = $request->getBodyParam('transformId');
-        $transform->name = $request->getBodyParam('name');
-        $transform->handle = $request->getBodyParam('handle');
-        $transform->width = $request->getBodyParam('width');
-        $transform->height = $request->getBodyParam('height');
-        $transform->mode = $request->getBodyParam('mode');
-        $transform->position = $request->getBodyParam('position');
-        $transform->quality = $request->getBodyParam('quality');
-        $transform->format = $request->getBodyParam('format');
+		if (empty($transform->format))
+		{
+			$transform->format = null;
+		}
 
-        if (empty($transform->format)) {
-            $transform->format = null;
-        }
+		$errors = false;
 
-        $errors = false;
+		if (empty($transform->width) && empty($transform->height))
+		{
+			craft()->userSession->setError(Craft::t('You must set at least one of the dimensions.'));
+			$errors = true;
+		}
 
-        $session = Craft::$app->getSession();
-        if (empty($transform->width) && empty($transform->height)) {
-            $session->setError(Craft::t('app', 'You must set at least one of the dimensions.'));
-            $errors = true;
-        }
+		if (!empty($transform->quality) && (!is_numeric($transform->quality) || $transform->quality > 100 || $transform->quality < 1))
+		{
+			craft()->userSession->setError(Craft::t('Quality must be a number between 1 and 100 (included).'));
+			$errors = true;
+		}
 
-        if (!empty($transform->quality) && (!is_numeric($transform->quality) || $transform->quality > 100 || $transform->quality < 1)) {
-            $session->setError(Craft::t('app', 'Quality must be a number between 1 and 100 (included).'));
-            $errors = true;
-        }
+		if (empty($transform->quality))
+		{
+			$transform->quality = null;
+		}
 
-        if (empty($transform->quality)) {
-            $transform->quality = null;
-        }
+		if (!empty($transform->format) && !in_array($transform->format, ImageHelper::getWebSafeFormats()))
+		{
+			craft()->userSession->setError(Craft::t('That is not an allowed format.'));
+			$errors = true;
+		}
 
-        if (!empty($transform->format) && !in_array($transform->format, Image::getWebSafeFormats())) {
-            $session->setError(Craft::t('app', 'That is not an allowed format.'));
-            $errors = true;
-        }
+		if (!$errors)
+		{
+			// Did it save?
+			if (craft()->assetTransforms->saveTransform($transform))
+			{
+				craft()->userSession->setNotice(Craft::t('Transform saved.'));
+				$this->redirectToPostedUrl($transform);
+			}
+			else
+			{
+				craft()->userSession->setError(Craft::t('Couldn’t save source.'));
+			}
+		}
 
-        if (!$errors) {
-            // Did it save?
-            if (Craft::$app->getAssetTransforms()->saveTransform($transform)) {
-                $session->setNotice(Craft::t('app', 'Transform saved.'));
+		// Send the transform back to the template
+		craft()->urlManager->setRouteVariables(array(
+			'transform' => $transform
+		));
+	}
 
-                return $this->redirectToPostedUrl($transform);
-            }
+	/**
+	 * Deletes an asset transform.
+	 */
+	public function actionDeleteTransform()
+	{
+		$this->requirePostRequest();
+		$this->requireAjaxRequest();
 
-            $session->setError(Craft::t('app', 'Couldn’t save transform.'));
-        }
+		$transformId = craft()->request->getRequiredPost('id');
 
-        // Send the transform back to the template
-        Craft::$app->getUrlManager()->setRouteParams([
-            'transform' => $transform
-        ]);
+		craft()->assetTransforms->deleteTransform($transformId);
 
-        return null;
-    }
-
-    /**
-     * Deletes an asset transform.
-     *
-     * @return Response
-     */
-    public function actionDeleteTransform()
-    {
-        $this->requirePostRequest();
-        $this->requireAcceptsJson();
-
-        $transformId = Craft::$app->getRequest()->getRequiredBodyParam('id');
-
-        Craft::$app->getAssetTransforms()->deleteTransform($transformId);
-
-        return $this->asJson(['success' => true]);
-    }
+		$this->returnJson(array('success' => true));
+	}
 }

@@ -1,11 +1,10 @@
 {% extends "_layouts/cp" %}
-{% set title = "Settings"|t('app') %}
+{% set title = "Settings"|t %}
 
+{% includecssresource 'css/settings.css' %}
+{% includejsresource 'js/settings.js' %}
 
 {% block content %}
-	{% registercssresource 'css/settings.css' %}
-	{% registerjsresource 'js/settings.js' %}
-
 	{% for category, items in craft.cp.settings(80) %}
 		<h2>{{ category }}</h2>
 
@@ -27,15 +26,12 @@
 		<hr>
 	{% endfor %}
 
-	<h2>{{ "Tools"|t('app') }}</h2>
+	<h2>{{ "Tools"|t }}</h2>
 
 	<ul class="icons">
 		{% for tool in tools %}
-			{% set triggerId = 'tool-'~tool.className()|id %}
-			<li><a id="{{ triggerId }}" data-icon="{{ tool.iconValue() }}">{{ tool.displayName() }}</a></li>
-			{% registerjs %}
-				new Craft.Tool('{{ triggerId|e("js") }}', '{{ tool.className()|e("js") }}', {{ tool.optionsHtml()|json_encode|raw }}, '{{ tool.buttonLabel()|e("js") }}');
-			{% endregisterjs %}
+			<li><a id="tool-{{ tool.getClassHandle() }}" data-icon="{{ tool.getIconValue() }}">{{ tool.getName() }}</a></li>
+			{% includejs 'new Craft.Tool("'~tool.getClassHandle()~'", '~tool.getOptionsHtml()|json_encode~', "'~tool.getButtonLabel()~'");' %}
 		{% endfor %}
 	</ul>
 {% endblock %}

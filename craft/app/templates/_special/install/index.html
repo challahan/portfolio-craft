@@ -1,18 +1,17 @@
 {% extends "_layouts/basecp" %}
-{% set title = "Install Craft CMS"|t('app') %}
+{% set title = "Install Craft CMS"|t %}
+{% includecssresource "css/install.css" %}
+{% includejsresource "js/install.js" %}
 
-{% do craft.app.view.registerTranslations('app', [
+{% includeTranslations
 	"All done!",
-	"Go to {app}",
-]) %}
+	"Go to {app}"
+%}
 
 {% block body %}
-	{% registercssresource "css/install.css" %}
-	{% registerjsresource "js/install.js" %}
-
 	<div id="bg"></div>
 	<div class="beginbtncontainer">
-		<div id="beginbtn" class="btn big submit">{{ "Begin"|t('app') }}</div>
+		<div id="beginbtn" class="btn big submit">{{ "Begin"|t }}</div>
 	</div>
 
 	{% include "_special/install/account" %}

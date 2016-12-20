@@ -53,7 +53,7 @@ Craft.Installer = Garnish.Base.extend(
 	{
 		event.preventDefault();
 
-		var inputs = ['siteName', 'siteUrl', 'siteLanguage'];
+		var inputs = ['siteName', 'siteUrl'];
 		this.validate('site', inputs, $.proxy(this, 'showInstallScreen'));
 	},
 
@@ -61,7 +61,7 @@ Craft.Installer = Garnish.Base.extend(
 	{
 		this.showScreen(3, $.proxy(function()
 		{
-			var inputs = ['username', 'email', 'password', 'siteName', 'siteUrl', 'siteLanguage'];
+			var inputs = ['username', 'email', 'password', 'siteName', 'siteUrl', 'locale'];
 
 			var data = {};
 
@@ -84,10 +84,10 @@ Craft.Installer = Garnish.Base.extend(
 	{
 		if (textStatus == 'success' && response.success)
 		{
-			this.$currentScreen.find('h1:first').text(Craft.t('app', 'All done!'));
+			this.$currentScreen.find('h1:first').text(Craft.t('All done!'));
 
 			var $buttons = $('<div class="buttons"/>'),
-				$go = $('<div class="btn big submit">'+Craft.t('app', 'Go to Craft CMS')+'</div>').appendTo($buttons);
+				$go = $('<div class="btn big submit">'+Craft.t('Go to Craft CMS')+'</div>').appendTo($buttons);
 
 			$('#spinner').replaceWith($buttons);
 
@@ -159,7 +159,7 @@ Craft.Installer = Garnish.Base.extend(
 		var $submitBtn = this['$'+what+'SubmitBtn'];
 		$submitBtn.addClass('sel loading');
 
-		var action = 'install/validate-'+what;
+		var action = 'install/validate'+Craft.uppercaseFirst(what);
 
 		var data = {};
 		for (var i = 0; i < inputs.length; i++)
@@ -184,10 +184,6 @@ Craft.Installer = Garnish.Base.extend(
 				{
 					for (var input in response.errors)
 					{
-						if (!response.errors.hasOwnProperty(input)) {
-							continue;
-						}
-
 						var errors = response.errors[input],
 							$input = $('#'+input),
 							$field = $input.closest('.field'),

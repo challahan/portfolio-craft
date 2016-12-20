@@ -24,7 +24,7 @@
 {% set jsSettings = {
 	id: id|namespaceInputId,
 	name: name|namespaceInputName,
-	elementType: elementType,
+	elementType: elementType.getClassHandle(),
 	sources: sources,
 	criteria: criteria,
 	sourceElementId: sourceElementId,
@@ -34,6 +34,6 @@
 	fieldId: fieldId
 } %}
 
-{% registerjs %}
+{% includejs %}
 	new {{ jsClass }}({{ jsSettings|json_encode|raw }});
-{% endregisterjs %}
+{% endincludejs %}

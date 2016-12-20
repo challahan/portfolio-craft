@@ -1,80 +1,83 @@
 <?php
-/**
- * @link      https://craftcms.com/
- * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.com/license
- */
-
-namespace craft\app\controllers;
-
-use Craft;
-use craft\app\elements\Entry;
-use craft\app\models\EntryDraft;
-use craft\app\models\Section;
-use craft\app\web\Controller;
+namespace Craft;
 
 /**
- * BaseEntriesController is a base class that any entry-related controllers, such as [[EntriesController]] and
- * [[EntryRevisionsController]], extend to share common functionality.
+ * BaseController is a base class that any entry related controllers, such as {@link EntriesController} and
+ * {@link EntryRevisionsController} extend to share common functionality.
  *
- * It extends [[Controller]], overwriting specific methods as required.
+ * It extend's Yii's {@link \CController} overwriting specific methods as required.
  *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://craftcms.com/license Craft License Agreement
+ * @see       http://craftcms.com
+ * @package   craft.app.controllers
+ * @since     2.1
  */
-abstract class BaseEntriesController extends Controller
+abstract class BaseEntriesController extends BaseController
 {
-    // Protected Methods
-    // =========================================================================
+	// Protected Methods
+	// =========================================================================
 
-    /**
-     * Enforces all Edit Entry permissions.
-     *
-     * @param Entry $entry
-     *
-     * @return void
-     */
-    protected function enforceEditEntryPermissions(Entry $entry)
-    {
-        $userSessionService = Craft::$app->getUser();
-        $permissionSuffix = ':'.$entry->sectionId;
+	/**
+	 * Enforces all Edit Entry permissions.
+	 *
+	 * @param EntryModel $entry
+	 *
+	 * @return null
+	 */
+	protected function enforceEditEntryPermissions(EntryModel $entry)
+	{
+		$userSessionService = craft()->userSession;
+		$permissionSuffix = ':'.$entry->sectionId;
 
-        if (Craft::$app->getIsMultiSite()) {
-            // Make sure they have access to this site
-            $this->requirePermission('editSite:'.$entry->siteId);
-        }
+		if (craft()->isLocalized())
+		{
+			// Make sure they have access to this locale
+			$userSessionService->requirePermission('editLocale:'.$entry->locale);
+		}
 
-        // Make sure the user is allowed to edit entries in this section
-        $this->requirePermission('editEntries'.$permissionSuffix);
+		// Make sure the user is allowed to edit entries in this section
+		$userSessionService->requirePermission('editEntries'.$permissionSuffix);
 
-        // Is it a new entry?
-        if (!$entry->id) {
-            // Make sure they have permission to create new entries in this section
-            $this->requirePermission('createEntries'.$permissionSuffix);
-        } else {
-            switch ($entry::className()) {
-                case Entry::class: {
-                    // If it's another user's entry (and it's not a Single), make sure they have permission to edit those
-                    if (
-                        $entry->authorId != $userSessionService->getIdentity()->id &&
-                        $entry->getSection()->type != Section::TYPE_SINGLE
-                    ) {
-                        $this->requirePermission('editPeerEntries'.$permissionSuffix);
-                    }
+		// Is it a new entry?
+		if (!$entry->id)
+		{
+			// Make sure they have permission to create new entries in this section
+			$userSessionService->requirePermission('createEntries'.$permissionSuffix);
+		}
+		else
+		{
+			switch ($entry->getClassHandle())
+			{
+				case 'Entry':
+				{
+					// If it's another user's entry (and it's not a Single), make sure they have permission to edit those
+					if (
+						$entry->authorId != $userSessionService->getUser()->id &&
+						$entry->getSection()->type != SectionType::Single
+					)
+					{
+						$userSessionService->requirePermission('editPeerEntries'.$permissionSuffix);
+					}
 
-                    break;
-                }
+					break;
+				}
 
-                case EntryDraft::class: {
-                    // If it's another user's draft, make sure they have permission to edit those
-                    /** @var EntryDraft $entry */
-                    if ($entry->creatorId != $userSessionService->getIdentity()->id) {
-                        $this->requirePermission('editPeerEntryDrafts'.$permissionSuffix);
-                    }
+				case 'EntryDraft':
+				{
+					// If it's another user's draft, make sure they have permission to edit those
+					if (
+						$entry->getClassHandle() == 'EntryDraft' &&
+						$entry->creatorId != $userSessionService->getUser()->id
+					)
+					{
+						$userSessionService->requirePermission('editPeerEntryDrafts'.$permissionSuffix);
+					}
 
-                    break;
-                }
-            }
-        }
-    }
+					break;
+				}
+			}
+		}
+	}
 }

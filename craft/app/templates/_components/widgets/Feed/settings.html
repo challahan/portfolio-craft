@@ -2,30 +2,30 @@
 
 
 {{ forms.textField({
-	label: "URL"|t('app'),
+	label: "URL"|t,
 	id: 'url',
 	name: 'url',
-	value: widget.url,
+	value: settings.url,
 	required: true,
-	errors: widget.getErrors('url')
+	errors: settings.getErrors('url')
 }) }}
 
 
 {{ forms.textField({
-	label: "Title"|t('app'),
+	label: "Title"|t,
 	id: 'title',
 	name: 'title',
-	value: widget.title,
+	value: settings.title,
 	required: true,
-	errors: widget.getErrors('title')
+	errors: settings.getErrors('title')
 }) }}
 
 
 {{ forms.textField({
-	label: "Limit"|t('app'),
+	label: "Limit"|t,
 	id: 'limit',
 	name: 'limit',
-	value: widget.limit,
+	value: settings.limit,
 	size: 2,
-	errors: widget.getErrors('limit')
+	errors: settings.getErrors('limit')
 }) }}

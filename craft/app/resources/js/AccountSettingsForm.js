@@ -12,12 +12,10 @@ Craft.AccountSettingsForm = Garnish.Base.extend(
 	confirmDeleteModal: null,
 	$deleteBtn: null,
 
-	init: function(userId, isCurrent, settings)
+	init: function(userId, isCurrent)
 	{
 		this.userId = userId;
 		this.isCurrent = isCurrent;
-
-		this.setSettings(settings, Craft.AccountSettingsForm.defaults);
 
 		this.$copyPasswordResetUrlBtn = $('#copy-passwordreset-url');
 		this.$actionSpinner = $('#action-spinner');
@@ -41,13 +39,13 @@ Craft.AccountSettingsForm = Garnish.Base.extend(
 			userId: this.userId
 		};
 
-		Craft.postActionRequest('users/get-password-reset-url', data, $.proxy(function(response, textStatus)
+		Craft.postActionRequest('users/getPasswordResetUrl', data, $.proxy(function(response, textStatus)
 		{
 			this.$actionSpinner.addClass('hidden');
 
 			if (textStatus == 'success')
 			{
-				var message = Craft.t('app', '{ctrl}C to copy.', {
+				var message = Craft.t('{ctrl}C to copy.', {
 					ctrl: (navigator.appVersion.indexOf('Mac') ? '⌘' : 'Ctrl-')
 				});
 
@@ -60,19 +58,12 @@ Craft.AccountSettingsForm = Garnish.Base.extend(
 	{
 		if (!this.confirmDeleteModal)
 		{
-			this.confirmDeleteModal = new Craft.DeleteUserModal(this.userId, {
-				redirect: this.settings.deleteModalRedirect
-			});
+			this.confirmDeleteModal = new Craft.DeleteUserModal(this.userId);
 		}
 		else
 		{
 			this.confirmDeleteModal.show();
 		}
-	}
-},
-{
-	defaults: {
-		deleteModalRedirect: null
 	}
 });
 

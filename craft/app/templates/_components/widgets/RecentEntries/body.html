@@ -6,7 +6,7 @@
 					<td>
 						<a href="{{ entry.getCpEditUrl() }}">{{ entry.title }}</a>
 						<span class="light">
-							{{ entry.dateCreated|timestamp('short') }}
+							{{ entry.dateCreated.uiTimestamp() }}
 							{%- if CraftEdition >= CraftClient and entry.author %}, {{ entry.author.username }}{% endif -%}
 						</span>
 					</td>
@@ -14,6 +14,6 @@
 			{% endfor %}
 		</table>
 	{% else %}
-		<p>{{ "No entries exist yet."|t('app') }}</p>
+		<p>{{ "No entries exist yet."|t }}</p>
 	{% endif %}
 </div>

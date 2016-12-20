@@ -27,7 +27,7 @@
      'siteUrl' => 'https://challahan.com/',
      'environmentVariables' => array(
        'basePath' => 'assets/',
-       'baseUrl'  => 'https://challahan.com/',
+       'baseUrl'  => 'https://challahan.com',
      )
    )
  );

@@ -15,7 +15,7 @@
 
    'chris.web' => array(
      'devMode' => true,
-     'siteUrl' => 'http://chris.web',
+     'siteUrl' => 'https://chris.web',
      'environmentVariables' => array(
            'basePath' => '/files/',
            'baseUrl'  => 'http://chris.web',
@@ -24,10 +24,10 @@
 
    // Use IP address of your droplet below
    '138.197.37.103' => array(
-     'siteUrl' => 'http://challahan.com/',
+     'siteUrl' => 'https://challahan.com/',
      'environmentVariables' => array(
        'basePath' => '/var/www/html/',
-       'baseUrl'  => 'http://challahan.com/',
+       'baseUrl'  => 'https://challahan.com/',
      )
    )
  );

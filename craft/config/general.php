@@ -26,7 +26,7 @@
    '138.197.37.103' => array(
      'siteUrl' => 'https://challahan.com/',
      'environmentVariables' => array(
-       'basePath' => 'var/www/html/',
+       'basePath' => 'assets/',
        'baseUrl'  => 'https://challahan.com/',
      )
    )

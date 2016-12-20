@@ -10,7 +10,7 @@
  return array(
    'localhost' => array(
      'devMode' => true,
-     'siteUrl' => 'http://chris.web/',
+     'siteUrl' => 'chris.web',
      'environmentVariables' => array(
        'baseUrl'  => 'http://chris.web/',
      ),

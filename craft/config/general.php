@@ -24,10 +24,10 @@
 
    // Use IP address of your droplet below
    '138.197.37.103' => array(
-     'siteUrl' => 'http://138.197.37.103/',
+     'siteUrl' => 'http://challahan.com/',
      'environmentVariables' => array(
        'basePath' => '/var/www/html/',
-       'baseUrl'  => 'http://138.197.37.103/',
+       'baseUrl'  => 'http://challahan.com/',
      )
    )
  );

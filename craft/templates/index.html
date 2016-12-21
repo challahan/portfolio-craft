@@ -20,6 +20,7 @@
 {% extends "_layout" %}
 
 {% block content %}
+{% cache globally %}
   <section class="feature-block-container">
     <div class="feature-block">
       <h1>{{ header.siteTitle }}</h1>
@@ -79,4 +80,5 @@
   	</div>
    </section>
   </main>
+{% endcache %}
 {% endblock %}

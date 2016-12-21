@@ -16,11 +16,10 @@
  # https://craftcms.com/docs/routing
  #}
 
-{% extends "_layout" %}
+{% extends "_page" %}
 {% set title = "404" %}
+{% block title %}404: Page Not Found{% endblock %}
 
-{% block content %}
-	<h1>Page not found</h1>
-
-	<p>What’s worse, a hilarious 404 page can’t be found either.</p>
+{% block pagecontent %}
+	<p>Sorry - this page must have been removed.  Try going <a href="{{siteUrl}}">back home</a>.</p>
 {% endblock %}

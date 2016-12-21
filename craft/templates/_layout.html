@@ -13,6 +13,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
   {% include '_includes/_head.html' %}
   <body>
+    <!-- Helper code for the Admin toolbar, only shown when logged in -->
+    {% if entry is defined %}
+      {% set config = {
+        entry: entry,
+      } %}
+      {{ craft.adminbar.bar(config) }}
+    {% endif %}
     {% include '_includes/_header.html' %}
     {% block content %}
 		{% endblock %}

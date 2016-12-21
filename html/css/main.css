@@ -242,11 +242,11 @@ header {
       margin-left: 0;
       min-height: 60px; } }
 
-nav {
+header nav {
   background-color: #006d92;
   padding-top: .5em;
   font-family: "Roboto Condensed", "HelveticaNeue-CondensedBold", "Arial Narrow", sans-serif; }
-  nav ul {
+  header nav ul {
     display: -webkit-flex;
     display: flex;
     -webkit-justify-content: space-between;
@@ -255,28 +255,28 @@ nav {
     width: 80%;
     max-width: 300px;
     margin: 0 auto; }
-  nav a {
+  header nav a {
     color: white;
     text-decoration: none;
     transition: .3s color ease;
     font-size: .8em; }
-    nav a:hover, nav a:focus {
+    header nav a:hover, header nav a:focus {
       color: #ffe874; }
-  nav li {
+  header nav li {
     -webkit-flex-direction: row;
     flex-direction: row;
     text-align: center;
     border-bottom: none;
     padding-bottom: 10px; }
-    nav li.active a {
+    header nav li.active a {
       color: #ffe874; }
-    nav li:hover {
+    header nav li:hover a {
       border-bottom: 5px solid #a9c986;
       transition: border-bottom-width 0.5s;
       padding-bottom: 5px; }
 
 @media screen and (min-width: 600px) {
-  nav {
+  header nav {
     background-color: #024f69;
     position: absolute;
     width: 80%;
@@ -285,13 +285,13 @@ nav {
     right: 0px;
     font-size: 1.3em;
     max-width: 550px; }
-    nav ul {
+    header nav ul {
       max-width: inherit; } }
 @media screen and (min-width: 1000px) {
-  nav {
+  header nav {
     margin-right: 0;
     transition: .3s all ease; }
-    nav a {
+    header nav a {
       font-size: .9em; } }
 .highlight {
   position: relative;

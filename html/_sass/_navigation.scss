@@ -1,4 +1,4 @@
-nav {
+header nav {
 	background-color: $light-blue;
 	padding-top: .5em;
 	font-family: $sans-serif-condensed;
@@ -30,7 +30,7 @@ nav {
 		&.active a {
 			color: $light-yellow;
 		}
-		&:hover {
+		&:hover a {
 			border-bottom: 5px solid $green;
 			transition: border-bottom-width 0.5s;
 			padding-bottom: 5px;
@@ -39,7 +39,7 @@ nav {
 }
 
 @media screen and (min-width: 600px) {
-	nav {
+	header nav {
 		background-color: $dark-blue;
 		position: absolute;
 		width: 80%;
@@ -55,7 +55,7 @@ nav {
 }
 
 @media screen and (min-width: 1000px) {
-	nav {
+	header nav {
 		margin-right: 0;
 		transition: .3s all ease;
 		a {

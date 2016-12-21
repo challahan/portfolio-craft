@@ -8,5 +8,10 @@
 
   {% block title %}{{entry.title}}{% endblock %}
   {% block pagecontent %}
+  <article role="article" class="post-content">
+    {% if entry.introduction %}
+      <div class="introduction">{{entry.introduction}}</div>
+    {% endif %}
     {{entry.body}}
+  </article>
   {% endblock %}

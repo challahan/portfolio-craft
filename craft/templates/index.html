@@ -54,15 +54,25 @@
     {% set projects = craft.entries.section('project').limit(2) %}
 		{% for project in projects %}
 			<div class="project">
-  				<a href="{{ project.url }}">
+          <figure class="project-image">
             {% if project.featureImage %}
               {% for image in project.featureImage %}
+              <a href="{{ project.url }}">
                 <img src="{{ image.getUrl }}" alt="{{ image.title }}" />
+              </a>
               {% endfor %}
             {% endif %}
-  				<h4>{{ project.title }}</h4>
-  				<p>Project Type</p>
-  				</a>
+          </figure>
+          <figcaption class="project-info">
+            <a href="{{ project.url }}">
+      				<h4>{{ project.title }}</h4>
+              {% if project.projectType | length %}
+                {% for category in project.projectType %}
+                  <p>{{ category.title }}</p>
+                {% endfor %}
+              {% endif %}
+            </a>
+          </figure>
   			</div>
   		{% endfor %}
   		<a class="button" href="{{ siteUrl }}work">More Projects</a>

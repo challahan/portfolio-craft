@@ -65,14 +65,19 @@ p {
 }
 
 .introduction {
-	font-size: 1.1em;
-	line-height: 1.6;
 	padding-bottom: 1.5em;
 	border-bottom: 1px solid rgba($gray, .25);
 	margin-bottom: 2.5em;
+	font-size: 1.1em;
+	p {
+		line-height: 1.6;
+		margin-bottom: 0;
+	}
 	@media screen and (min-width: 700px) {
 		font-size: 1.3em;
-		line-height: 1.7;
+		p {
+			line-height: 1.7;
+		}
 	}
 	@media screen and (min-width: 1000px) {
 		font-size: 1.5em;

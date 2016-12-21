@@ -9,7 +9,7 @@ nav {
 		justify-content: space-between;
 		list-style-type: none;
 		width: 80%;
-		max-width: 275px;
+		max-width: 300px;
 		margin: 0 auto;
 	}
 	a {
@@ -46,10 +46,10 @@ nav {
 		padding-top: .85em;
 		padding-bottom: 1.6em;
 		right: 0px;
-		max-width: 550px;
 		font-size: 1.3em;
+		max-width: 550px;
 		ul {
-			max-width: 400px;
+			max-width: inherit;
 		}
 	}
 }

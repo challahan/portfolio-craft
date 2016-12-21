@@ -107,8 +107,10 @@ footer {
 	padding-bottom: 1em;
 }
 
-p.footer-bottom__legal {
-	line-height: .5;
+.footer-bottom__legal {
+	p {
+		line-height: 1.5;
+	}
 	a {
 		text-transform: none;
 	}

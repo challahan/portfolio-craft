@@ -28278,6 +28278,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/html\/scripts\/analytics.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/html\/scripts\/analytics.js",
+		"outputAbbreviatedPath": "\/html\/scripts\/min\/analytics-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/html\/scripts\/loadcss.js": {
 		"fileType": 64,
 		"ignore": 0,

@@ -1,0 +1,29 @@
+{#
+
+ Project Index Template
+
+#}
+
+{% extends "_page" %}
+
+  {% block title %}Work{% endblock %}
+  {% set posts = craft.entries.section('project').limit(null) %}
+  {% block pagecontent %}
+  <div class="post">
+      <article role="article" class="post-content">
+        <ul class="blog-posts">
+          {% for post in posts %}
+              <li class="highlight highlight--blog">
+                <a href="{{ post.url }}">
+                  <h4>{{ post.title }}</h4>
+                  <span class="post-date">{{ post.postDate | date("M d, Y") }}</span>
+                  {% if post.author %}<span class="post-author">By {{ post.author.fullName }}</span>{% endif %}
+                  <p>{{ post.summary }}</p>
+                </a>
+                <a class="read-more-link" href="{{ post.url }}">Continue Reading</a>
+              </li>
+          {% endfor %}
+          </ul>
+        </article>
+  </div>
+  {% endblock %}

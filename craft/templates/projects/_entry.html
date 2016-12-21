@@ -1,0 +1,32 @@
+{#
+
+  Project Template
+
+#}
+
+{% extends "_post" %}
+
+{% block title %}{{ entry.title }}{% endblock %}
+{% block date %}{{ entry.postDate | date("M d, Y") }}{%endblock %}
+{% block author %}{{ entry.author.fullName }}{% endblock author %}
+{% block pagecontent %}
+  <main class="blog-post">
+    {% if entry.featureImage %}
+      {% for image in entry.featureImage %}
+      <div class="post-thumb-large">
+      	<img src="{{ image.getUrl }}" alt="{{ image.title }}" />
+      </div>
+      {% endfor %}
+    {% endif %}
+    <article role="article" class="post-content">
+      {% for block in entry.postBody %}
+          {% if block.type == "text" %}
+              {{ block.bodytext }}
+          {% endif %}
+      {% endfor %}
+    </article>
+    {% if entry.relatedUrl %}
+      <a class="button" href="{{ entry.relatedUrl }}">View the Project</a>
+    {% endif %}
+  </main>
+{% endblock %}

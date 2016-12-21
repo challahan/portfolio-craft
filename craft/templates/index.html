@@ -37,7 +37,36 @@
 	   {{ entry.body }}
    </section>
    <section class="highlight-container">
-     Highlights will eventually go here.
+     <div class="highlight highlight-writing">
+    		<h3>Writing &amp; Talks</h3>
+        {% set posts = craft.entries.section('blog').limit(1) %}
+    		{% for post in posts %}
+    			<a href="{{ post.url }}">
+    			<h4>{{ post.title }}</h4>
+    			<p>{{ post.summary }}</p>
+          </a>
+    			<a class="read-more-link" href="{{ post.url }}">Continue Reading</a>
+    		{% endfor %}
+    		<a class="button" href="{{ siteUrl }}blog">More Writing</a>
+    	</div>
+      <div class="highlight highlight-projects">
+		<h3>Projects</h3>
+    {% set projects = craft.entries.section('project').limit(2) %}
+		{% for project in projects %}
+			<div class="project">
+  				<a href="{{ project.url }}">
+            {% if project.featureImage %}
+              {% for image in project.featureImage %}
+                <img src="{{ image.getUrl }}" alt="{{ image.title }}" />
+              {% endfor %}
+            {% endif %}
+  				<h4>{{ project.title }}</h4>
+  				<p>Project Type</p>
+  				</a>
+  			</div>
+  		{% endfor %}
+  		<a class="button" href="{{ siteUrl }}work">More Projects</a>
+  	</div>
    </section>
   </main>
 {% endblock %}

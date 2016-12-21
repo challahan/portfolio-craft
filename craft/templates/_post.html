@@ -1,0 +1,20 @@
+{#
+
+  Post Template
+
+#}
+
+{% extends "_layout" %}
+  {% block content %}
+  <section class="feature-block-container feature-block-container--page">
+    <div class="feature-block feature-block--page">
+    <a href="{{siteUrl}}blog">See All Posts</a>
+      <h1 class="post-title">{% block title %}{% endblock %}</h1>
+      <p class="post-meta">
+      <span class="post-date">{% block date %}{% endblock date %}</span>
+      <span class="post-author">{% block author %}{% endblock author %}</span></p>
+    </div>
+  </section>
+  {% block pagecontent %}
+  {% endblock %}
+{% endblock content %}

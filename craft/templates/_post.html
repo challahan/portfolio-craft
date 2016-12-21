@@ -8,7 +8,7 @@
   {% block content %}
   <section class="feature-block-container feature-block-container--page">
     <div class="feature-block feature-block--page">
-    <a href="{{siteUrl}}blog">See All Posts</a>
+    {% block more %}<a href="{{siteUrl}}blog">See More</a>{% endblock more %}
       <h1 class="post-title">{% block title %}{% endblock %}</h1>
       <p class="post-meta">
       <span class="post-date">{% block date %}{% endblock date %}</span>

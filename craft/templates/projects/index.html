@@ -11,16 +11,18 @@
   {% block pagecontent %}
   <div class="post">
       <article role="article" class="post-content">
-        <ul class="blog-posts">
+        <div class="introduction">{{entry.introduction}}</div>
+        <ul class="project-posts">
           {% for post in posts %}
-              <li class="highlight highlight--blog">
+              <li class="highlight">
                 <a href="{{ post.url }}">
+                  <figure class="project-thumb">
+                    {% for image in post.featureImage %}
+            				    <img src="{{ image.getUrl }}" />
+                    {% endfor %}
+            			</figure>
                   <h4>{{ post.title }}</h4>
-                  <span class="post-date">{{ post.postDate | date("M d, Y") }}</span>
-                  {% if post.author %}<span class="post-author">By {{ post.author.fullName }}</span>{% endif %}
-                  <p>{{ post.summary }}</p>
                 </a>
-                <a class="read-more-link" href="{{ post.url }}">Continue Reading</a>
               </li>
           {% endfor %}
           </ul>

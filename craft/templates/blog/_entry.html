@@ -23,6 +23,8 @@
       {% for block in entry.postBody %}
           {% if block.type == "text" %}
               {{ block.bodytext }}
+          {% elseif block.type =="video" %}
+              {{ block.videoUrl|videoEmbed }}
           {% endif %}
       {% endfor %}
     </article>

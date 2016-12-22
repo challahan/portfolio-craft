@@ -108,7 +108,7 @@ h2 {
   @media screen and (min-width: 1030px) {
     h2 {
       margin-left: 0;
-      font-size: 3em; } }
+      font-size: 2.9em; } }
 
 h3 {
   font-family: "Roboto Condensed", "HelveticaNeue-CondensedBold", "Arial Narrow", sans-serif;
@@ -716,4 +716,6 @@ table tbody tr {
   border-bottom: 1px solid #cacaca; }
 
 iframe {
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  max-width: 500px;
+  min-height: 300px; }

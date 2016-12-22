@@ -27187,6 +27187,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/craft\/storage\/runtime\/compiled_templates\/10\/10c474c53cceeb699da93a7e709b037495ab8dfb8f6cfbd9a2ec38b02a770cd2.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/10\/10c474c53cceeb699da93a7e709b037495ab8dfb8f6cfbd9a2ec38b02a770cd2.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/craft\/storage\/runtime\/compiled_templates\/11\/11657f1226c44a2251c2b126c7dcf5ea5cbad7738d356150210fed72b1910859.php": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -27255,6 +27264,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/19\/19b4e05170b04edcbb4687e0ffa3140417ca8475ce419e895a0860381f51bae0.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/craft\/storage\/runtime\/compiled_templates\/1a\/1a2b321e962200527f1420044fc3e066c5a32eb424b5703c5a4911425817cb6b.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/1a\/1a2b321e962200527f1420044fc3e066c5a32eb424b5703c5a4911425817cb6b.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -27345,6 +27363,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/21\/21a429a02ca6cf0532eaeaef4fa1caaf2dd1dcf50797aa87736ee13486a1a7c9.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/craft\/storage\/runtime\/compiled_templates\/22\/22acc44b3b14118588faf5b1ba7728fbde5fad1e8586a6abf537286bde7bf70e.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/22\/22acc44b3b14118588faf5b1ba7728fbde5fad1e8586a6abf537286bde7bf70e.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -27700,6 +27727,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/craft\/storage\/runtime\/compiled_templates\/4b\/4b4707e133ca825e8f4c611502e53f5fb608a1be96813d1c972cda03120acbea.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/4b\/4b4707e133ca825e8f4c611502e53f5fb608a1be96813d1c972cda03120acbea.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/craft\/storage\/runtime\/compiled_templates\/4c\/4c7364eda276ed83892dee61128fa1d70e0806d6dd25d9376604e9b94f8619f6.php": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -27988,11 +28024,29 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/craft\/storage\/runtime\/compiled_templates\/6c\/6c9f977a092aebfe708ba585d6762d7dc997e3f0bfdfbc57a9956bebf57a89ae.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/6c\/6c9f977a092aebfe708ba585d6762d7dc997e3f0bfdfbc57a9956bebf57a89ae.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/craft\/storage\/runtime\/compiled_templates\/6d\/6d5fe48a55f4993bf39757957d9ca9748bc4c73e210ab40790c4c5b88db83346.php": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/6d\/6d5fe48a55f4993bf39757957d9ca9748bc4c73e210ab40790c4c5b88db83346.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/craft\/storage\/runtime\/compiled_templates\/71\/717e70b35672502237b83abe1ebf7e18129ff3b9e4cd1652324a16ecaae4a373.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/71\/717e70b35672502237b83abe1ebf7e18129ff3b9e4cd1652324a16ecaae4a373.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -28267,6 +28321,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/craft\/storage\/runtime\/compiled_templates\/9f\/9f4cf91be421e62c2ccb666b0c4d6393c7b9aec1f3d8023e5812d4b81f13a5c3.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/9f\/9f4cf91be421e62c2ccb666b0c4d6393c7b9aec1f3d8023e5812d4b81f13a5c3.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/craft\/storage\/runtime\/compiled_templates\/a0\/a04c3f2f7276f5c25e6049d4da158a91fbb4b8aff02bec620e1d44d52c4f6a7e.php": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -28447,6 +28510,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/craft\/storage\/runtime\/compiled_templates\/bc\/bc12490d7d2fe6e76e35a6b56e91a0c49dc540a78b967ef5c31ab6edc3c33f6a.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/bc\/bc12490d7d2fe6e76e35a6b56e91a0c49dc540a78b967ef5c31ab6edc3c33f6a.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/craft\/storage\/runtime\/compiled_templates\/bc\/bc46e3d15453f1a8967f361665119542561e7be5be45f22453c73268c31fb1a9.php": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -28461,6 +28533,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/bd\/bd7b8be282b134d6981495741ee58259e6218aeaca68bb8d5a6f3dc2a26e0bc4.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/craft\/storage\/runtime\/compiled_templates\/be\/be105b371939d6287d7b3c4de88920e669f51ed29a401b7fef7824f1b9de11c3.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/be\/be105b371939d6287d7b3c4de88920e669f51ed29a401b7fef7824f1b9de11c3.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -28785,6 +28866,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/fc\/fcd9e97d25ec113d52012522e9b3524d784cb78b8dd6d58e51708cb34c06984a.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/craft\/storage\/runtime\/compiled_templates\/fc\/fcf073277d0df9b9f5e144dd8a39a892c98b584e28632a649c8a57f8cd51cb2e.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/craft\/storage\/runtime\/compiled_templates\/fc\/fcf073277d0df9b9f5e144dd8a39a892c98b584e28632a649c8a57f8cd51cb2e.php",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -29199,6 +29289,28 @@
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"useLibsass": 0
+		},
+	"\/html\/assets\/global\/_postLarge\/annual-report-2015.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 33306,
+		"inputAbbreviatedPath": "\/html\/assets\/global\/_postLarge\/annual-report-2015.jpg",
+		"outputAbbreviatedPath": "\/html\/assets\/global\/_postLarge\/annual-report-2015.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/html\/assets\/global\/_postThumb\/annual-report-2015.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 5060,
+		"inputAbbreviatedPath": "\/html\/assets\/global\/_postThumb\/annual-report-2015.jpg",
+		"outputAbbreviatedPath": "\/html\/assets\/global\/_postThumb\/annual-report-2015.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		},
 	"\/html\/assets\/global\/annual-report-2015.jpg": {
 		"fileType": 16384,

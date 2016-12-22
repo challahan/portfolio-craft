@@ -18,7 +18,7 @@
                 <a href="{{ post.url }}">
                   <figure class="project-thumb">
                     {% for image in post.featureImage %}
-            				    <img src="{{ image.getUrl }}" />
+            				    <img src="{{ image.getUrl('postLarge') }}" />
                     {% endfor %}
             			</figure>
                   <h4>{{ post.title }}</h4>

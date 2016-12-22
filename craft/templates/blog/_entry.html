@@ -15,7 +15,7 @@
     {% if entry.featureImage %}
       {% for image in entry.featureImage %}
       <div class="post-thumb-large">
-      	<img src="{{ image.getUrl }}" alt="{{ image.title }}" />
+      	<img src="{{ image.getUrl('postLarge') }}" alt="{{ image.title }}" />
       </div>
       {% endfor %}
     {% endif %}

@@ -59,7 +59,7 @@
             {% if project.featureImage %}
               {% for image in project.featureImage %}
               <a href="{{ project.url }}">
-                <img src="{{ image.getUrl }}" alt="{{ image.title }}" />
+                <img src="{{ image.getUrl('postThumb') }}" alt="{{ image.title }}" />
               </a>
               {% endfor %}
             {% endif %}

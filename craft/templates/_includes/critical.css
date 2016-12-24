@@ -199,7 +199,8 @@ hr {
   font-size: .85em; }
 
 .header-wrapper {
-  background-image: linear-gradient(to right, #006d92, #006d92 15%, #006d92 15%, #024f69 85%, #024f69 85%); }
+  background-image: linear-gradient(to right, #006d92, #006d92 15%, #006d92 15%, #024f69 85%, #024f69 85%);
+  transition: all ease-in-out .5s; }
 
 header {
   color: white;
@@ -241,6 +242,13 @@ header {
       max-width: 60px;
       margin-left: 0;
       min-height: 60px; } }
+
+.main-nav-scrolled {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  opacity: .98; }
 
 header nav {
   background-color: #006d92;

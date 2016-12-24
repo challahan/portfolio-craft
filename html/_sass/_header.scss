@@ -8,6 +8,7 @@
 	      $dark-blue 85%,
 	      $dark-blue 85%
 	    );
+	transition: all ease-in-out .5s;
 }
 
 header {
@@ -54,4 +55,14 @@ header {
 		margin-left: 0;
 		min-height: 60px;
 	}
+}
+
+// Sticky Navigation //
+
+.main-nav-scrolled {
+  position: fixed;
+  width: 100%;
+  top: 0;
+	z-index: 100;
+	opacity: .98;
 }

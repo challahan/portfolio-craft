@@ -58,7 +58,7 @@
           <figure class="project-image">
             {% if project.featureImage %}
               {% for image in project.featureImage %}
-              {% set transformedImage = craft.imager.transformImage(image, { width: 150, height: 90 }) %}
+              {% set transformedImage = craft.imager.transformImage(image, { width: 125, height: 76 }) %}
 
               <a href="{{ project.url }}">
                 <img src="{{ transformedImage.url }}" alt="{{ image.title }}">

@@ -49,7 +49,7 @@ return array(
   'jpegoptimEnabled' => true,
   'jpegoptimPath' => '/usr/bin/jpegoptim',
   'jpegoptimOptionString' => '-s',
-  'jpegtranEnabled' => false,
+  'jpegtranEnabled' => true,
   'jpegtranPath' => '/usr/bin/jpegtran',
   'jpegtranOptionString' => '-optimize -copy none',
   'mozjpegEnabled' => false,

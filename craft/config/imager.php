@@ -24,7 +24,7 @@ return array(
   'cacheEnabled' => true,
   'cacheDuration' => 1209600, // 14 days
   'cacheDurationRemoteFiles' => 1209600, // 14 days
-  'jpegQuality' => 80,
+  'jpegQuality' => 70,
   'pngCompressionLevel' => 2,
   'webpQuality' => 80,
   'webpImagickOptions' => array(), // additional options you want to pass to Imagick via '$instance->setOption('webp:option', 'value')'.

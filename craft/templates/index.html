@@ -58,8 +58,10 @@
           <figure class="project-image">
             {% if project.featureImage %}
               {% for image in project.featureImage %}
+              {% set transformedImage = craft.imager.transformImage(image, { width: 150, height: 90 }) %}
+
               <a href="{{ project.url }}">
-                <img src="{{ image.getUrl('postThumb') }}" alt="{{ image.title }}" />
+                <img src="{{ transformedImage.url }}" alt="{{ image.title }}">
               </a>
               {% endfor %}
             {% endif %}

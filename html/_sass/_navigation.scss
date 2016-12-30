@@ -29,6 +29,8 @@ header nav {
 		padding-bottom: 10px;
 		&.active a {
 			color: $light-yellow;
+			border-bottom: 5px solid $green;
+			padding-bottom: 5px;
 		}
 		&:hover a {
 			border-bottom: 5px solid $green;

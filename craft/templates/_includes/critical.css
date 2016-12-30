@@ -277,7 +277,9 @@ header nav {
     border-bottom: none;
     padding-bottom: 10px; }
     header nav li.active a {
-      color: #ffe874; }
+      color: #ffe874;
+      border-bottom: 5px solid #a9c986;
+      padding-bottom: 5px; }
     header nav li:hover a {
       border-bottom: 5px solid #a9c986;
       transition: border-bottom-width 0.5s;

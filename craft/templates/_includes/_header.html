@@ -1,18 +1,18 @@
-{% cache globally %}<div class="header-wrapper">
+<div class="header-wrapper">
 <header class="site-header">
 	  <a href="{{ siteUrl }}" class="site-logo">
 			{% for logo in header.siteLogo %}
 	    	<img src="{{ logo.getUrl }}" alt="logo.title" />
 			{% endfor %}
 	  </a>
+	{% import "_includes/_macros.html" as macros %}
 	<nav>
 	  <ul>
-	    <li><a href="{{ siteUrl }}blog">Writing &amp; Talks</a></li>
-	    <li><a href="{{ siteUrl }}work">Work</a></li>
-	    <li><a href="{{ siteUrl }}about">About</a></li>
-	    <li><a href="{{ siteUrl }}contact">Contact Me</a></li>
+	    <li class="{{ macros.is_active('blog') }}"><a href="{{ siteUrl }}blog">Writing &amp; Talks</a></li>
+	    <li class="{{ macros.is_active('work') }}"><a href="{{ siteUrl }}work">Work</a></li>
+	    <li class="{{ macros.is_active('about') }}"><a href="{{ siteUrl }}about">About</a></li>
+	    <li class="{{ macros.is_active('contact') }}"><a href="{{ siteUrl }}contact">Contact Me</a></li>
 	  </ul>
 	</nav>
 </header>
 </div>
-{% endcache %}

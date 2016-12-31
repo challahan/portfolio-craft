@@ -13,7 +13,7 @@
 }
 
 .project-image {
-	width: 30%;
+	width: 50%;
 	height: auto;
 	margin-right: 1em;
 	margin-bottom:1em;
@@ -27,7 +27,10 @@
 .project-info {
 	width: 69%;
 	h4 {
-		margin-top: .25em;
+		margin-top: 0;
+		@media screen and (min-width: 900px) {
+			margin-top: .25em;
+		}
 	}
 }
 

@@ -24,10 +24,10 @@
 
    // Use IP address of your droplet below
    '138.197.37.103' => array(
-     'siteUrl' => 'https://chrishallahan.com/',
+     'siteUrl' => 'http://chrishallahan.com/',
      'environmentVariables' => array(
        'basePath' => 'assets/',
-       'baseUrl'  => 'https://chrishallahan.com',
+       'baseUrl'  => 'http://chrishallahan.com',
      )
    )
  );

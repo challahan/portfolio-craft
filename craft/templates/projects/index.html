@@ -12,6 +12,7 @@
   <div class="post">
       <article role="article" class="post-content">
         <div class="introduction">{{entry.introduction}}</div>
+        {% cache globally %}
         <ul class="project-posts">
           {% for post in posts %}
               <li class="highlight">
@@ -26,6 +27,7 @@
               </li>
           {% endfor %}
           </ul>
+        {% endcache %}
         </article>
   </div>
   {% endblock %}

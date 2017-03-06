@@ -167,17 +167,17 @@
     },
     {
         "name": "lsolesen/pel",
-        "version": "0.9.4.1",
-        "version_normalized": "0.9.4.1",
+        "version": "0.9.4.2",
+        "version_normalized": "0.9.4.2",
         "source": {
             "type": "git",
             "url": "https://github.com/pixelandtonic/pel.git",
-            "reference": "054b8220207c571df3a6882b895e19c1674fdbf2"
+            "reference": "997acac523a62753da50450d2d2944ccef12b083"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pixelandtonic/pel/zipball/054b8220207c571df3a6882b895e19c1674fdbf2",
-            "reference": "054b8220207c571df3a6882b895e19c1674fdbf2",
+            "url": "https://api.github.com/repos/pixelandtonic/pel/zipball/997acac523a62753da50450d2d2944ccef12b083",
+            "reference": "997acac523a62753da50450d2d2944ccef12b083",
             "shasum": ""
         },
         "require": {
@@ -187,7 +187,7 @@
             "lastcraft/simpletest": ">=1.1",
             "squizlabs/php_codesniffer": "2.*"
         },
-        "time": "2016-07-18 21:40:02",
+        "time": "2016-12-30 22:03:09",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -219,7 +219,7 @@
             "image"
         ],
         "support": {
-            "source": "https://github.com/pixelandtonic/pel/tree/0.9.4.1"
+            "source": "https://github.com/pixelandtonic/pel/tree/0.9.4.2"
         }
     },
     {
@@ -513,18 +513,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/pixelandtonic/yii.git",
-            "reference": "8d3256255fc7a1d453cb8d3537408604da738d89"
+            "reference": "3b0c867e107663bff6d089c13f0ee5d40728a482"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/8d3256255fc7a1d453cb8d3537408604da738d89",
-            "reference": "8d3256255fc7a1d453cb8d3537408604da738d89",
+            "url": "https://api.github.com/repos/pixelandtonic/yii/zipball/3b0c867e107663bff6d089c13f0ee5d40728a482",
+            "reference": "3b0c867e107663bff6d089c13f0ee5d40728a482",
             "shasum": ""
         },
         "require": {
             "php": ">=5.1.0"
         },
-        "time": "2016-11-07 20:53:59",
+        "time": "2016-12-30 21:43:47",
         "bin": [
             "framework/yiic"
         ],

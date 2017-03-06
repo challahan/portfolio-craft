@@ -1,0 +1,37 @@
+{% extends "_layout-resume" %}
+{% block content %}
+      <header>
+        <h5 class="letter-title">Cover Letter</h5>
+        <section class="header__subheader">
+          <h1 class="resume__name">{{ entry.firstName }} <span class="resume__name__last">{{ entry.lastName }}</span></h1>
+          <div class="resume__contact">
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Phone</dt>
+              <dd class="resume__contact-header__description">{{ entry.phoneNumber }}</dd>
+            </dl>
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Email</dt>
+              <dd class="resume__contact-header__description">{{ entry.emailAddress }}</dd>
+            </dl>
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Portfolio</dt>
+              <dd class="resume__contact-header__description">{{ entry.website }}</dd>
+            </dl>
+          </div>
+        </section>
+      </header>
+      <main>
+        <section class="business__address">
+          {% for category in entry.businessName %}
+            {{ category.title }}
+          {% endfor %}
+        </section>
+        {{ entry.businessAddress }}
+        {{ entry.coverLetterText }}
+        {{ entry.closingText }}
+        {% for signature in entry.closingSignature %}
+          <img class="letter-signature" src="{{ signature.url}}" alt="{{ signature.title}}" />
+        {% endfor %}
+        {{ entry.firstName }} {{entry.lastName}}
+      </main>
+{% endblock %}

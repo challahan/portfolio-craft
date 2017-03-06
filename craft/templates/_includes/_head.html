@@ -19,7 +19,9 @@
   <link rel="icon" type="image/png" href="{{siteUrl}}/favicon/android-chrome-192x192.png" sizes="192x192">
   <link rel="icon" type="image/png" href="{{siteUrl}}/favicon/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/png" href="{{siteUrl}}/favicon/favicon-16x16.png" sizes="16x16">
-  <meta http-equiv="Content-Security-Policy" content="default-src www.youtube.com; script-src 'self' https://chrishallahan.com www.chrishallahan.com www.challahan.com challahan.com chris.web chrishallahan.com www.google-analytics.com ajax.googleapis.com; connect-src 'self'; img-src 'self' chrishallahan.com https://chrishallahan.com www.google-analytics.com; style-src 'self' https://chrishallahan.com fonts.googleapis.com 'unsafe-inline'; font-src 'self' fonts.gstatic.com;">
+  {% if not craft.config.devMode %}
+  <meta http-equiv="Content-Security-Policy" content="default-src chris.web www.youtube.com; script-src 'self' https://chrishallahan.com www.chrishallahan.com www.challahan.com challahan.com chris.web chrishallahan.com www.google-analytics.com ajax.googleapis.com; connect-src 'self'; img-src 'self' chrishallahan.com https://chrishallahan.com www.google-analytics.com; style-src 'self' https://chrishallahan.com fonts.googleapis.com 'unsafe-inline'; font-src 'self' fonts.gstatic.com;">
+  {% endif %}
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="msapplication-TileImage" content="{{siteUrl}}/favicon/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
@@ -32,5 +34,5 @@
       {% include '_includes/critical.css' %}
   </style>
   <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
-  <noscript><link href="{{ siteUrl }}/css/main.css" rel="stylesheet"></noscript>
+  <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
 </head>

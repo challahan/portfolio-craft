@@ -1,0 +1,256 @@
+@import "variables";
+@import "base";
+@import "typography";
+
+header {
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 1em;
+  @media screen and (min-width: 600px) {
+    text-align: left;
+    max-width: 800px;
+    padding: 1em;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header__subheader {
+    border-top: 2px solid $gray;
+    text-align: left;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.resume__logo {
+  padding: 1em;
+  max-width: 55px;
+  @media screen and (min-width: 600px) {
+    padding-left: 0;
+  }
+}
+
+.resume__name {
+  font-size: 2.4em;
+  font-weight: 700;
+  border-top: 4px solid $gray;
+  padding-top: .5em;
+  @media screen and (min-width: 600px) {
+    width: 45%;
+    font-size: 2.6em;
+    margin-bottom: 0;
+  }
+}
+
+.resume__contact {
+  @media screen and (min-width: 600px) {
+    width: 45%;
+    padding-top: 1em;
+  }
+}
+
+.resume__name__last {
+  color: $gray;
+}
+
+.resume__contact-header {
+  margin-bottom: .5em;
+}
+
+.resume__contact-header__label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: .8em;
+  display: inline;
+  color: $gray;
+  &:after {
+    content:":";
+  }
+}
+
+.date {
+  font-style: normal;
+  font-size: .9em;
+  margin-top: 1.1em;
+  letter-spacing: 1px;
+  color: lighten($gray,10%);
+  display: block;
+  border-bottom: 2px solid lighten($gray,30%);
+  margin-bottom: .75em;
+  padding-bottom: .6em;
+  text-transform: uppercase;
+  font-family: $sans-serif-condensed;
+}
+
+.section__education p {
+  line-height: 1.3;
+}
+
+.resume-section {
+  margin-bottom: 2.5em;
+  margin-top: 1em;
+  &:before {
+    content:"";
+    width: 30px;
+    height: 6px;
+    background-color: $dark-blue;
+    display: block;
+    margin-bottom: 1.25em;
+  }
+}
+
+.resume__introduction {
+  font-size: 1.05em;
+}
+
+.resume__contact-header__description {
+  display: inline;
+  font-size: .9em;
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 1em;
+  padding: 1em 0;
+  max-width: 800px;
+  @media screen and (min-width: 600px) {
+    padding: 1em;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.letter-title {
+  text-transform: uppercase;
+  color: gray;
+  text-align: right;
+  font-size: 1.5em;
+  margin-bottom: .5em;
+  font-weight: bold;
+  width: 45%;
+  margin-left: auto;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: .5em;
+  margin-top: 0em;
+}
+
+h3 {
+  margin:0;
+  padding: 0;
+  font-size: 1.1em;
+  text-transform: none;
+  font-family: $sans-serif;
+  @media screen and (min-width: 600px) {
+    display: inline;
+  }
+}
+
+.business__address {
+    &:before {
+      content:"";
+      width: 30px;
+      height: 6px;
+      background-color: $dark-blue;
+      display: block;
+      margin-bottom: 1.25em;
+    }
+}
+
+.location {
+  font-size: 1em;
+  color: $light-blue;
+  margin-top: .25em;
+  line-height: 1.2;
+  font-weight: bold;
+  @media screen and (min-width: 600px) {
+    display: inline;
+    &:before {
+      content: "/";
+      margin-right: 1em;
+      margin-left: 1em;
+      display: inline-block;
+    }
+  }
+}
+
+p, li {
+  font-size: .95em;
+  line-height: 1.3;
+  font-weight: 300;
+}
+
+main ul {
+  list-style-type: none;
+  @media screen and (min-width: 600px) {
+    columns: 2 50px;
+    break-inside: avoid-column;
+  }
+}
+
+main li {
+  margin-bottom: 1em;
+  break-inside: avoid-column;
+  display: inline-block;
+}
+
+.section__experience__block {
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+  margin-top:1em;
+}
+
+.resume__contact-footer {
+  margin-bottom: 1em;
+}
+
+.resume__contact-footer__description {
+  display: inline;
+  font-size: .95em;
+}
+
+.resume__contact-footer__label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: .8em;
+  display: inline;
+  color: white;
+  margin-bottom: .75em;
+  &:after {
+    content:":";
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .section__education__block__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .section__education__block {
+    width: 45%;
+  }
+}
+
+.letter-signature {
+  width: 200px;
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+footer {
+  background-color: $dark-blue;
+  margin: 0 auto;
+  padding: .5em 3em .5em 3em;
+  color: white;
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
+}

@@ -17,5 +17,9 @@
     {% block content %}
 		{% endblock %}
     {% include '_includes/_footer.html' %}
+    {% if craft.config.devMode %}
+  <!-- Live Reload - For local environment only -->
+  <script src="//localhost:35729/livereload.js"></script>
+  {% endif %}
   </body>
 </html>

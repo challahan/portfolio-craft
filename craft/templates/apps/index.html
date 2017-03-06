@@ -1,0 +1,19 @@
+{#
+
+ Resume Listing Page
+
+#}
+
+{% extends "_page" %}
+{% block title %}Resume List{% endblock %}
+{% set resumes = craft.entries.section('apps').limit(null) %}
+{% block pagecontent %}
+    <ul>
+    {% for resume in resumes %}
+      {% for category in resume.businessName %}
+        {% set business = category.title %}
+      <li><a href="{{ resume.url }}">{{ resume.postDate }}: {{ resume.title }} ({{business}})</a></li>
+    {% endfor %}
+    {% endfor %}
+    </ul>
+{% endblock %}

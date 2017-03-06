@@ -1,7 +1,7 @@
 // Load Google Fonts
 
 WebFontConfig = {
-    google: { families: [ 'Roboto+Condensed:400', 'Roboto:300,700' ] }
+    google: { families: [ 'Roboto+Condensed:400,700', 'Roboto:300,700' ] }
   };
   (function() {
     var wf = document.createElement('script');
@@ -59,4 +59,4 @@ WebFontConfig = {
     w.loadCSS = loadCSS;
   }
 }( typeof global !== "undefined" ? global : this ));
-loadCSS( "/css/main.css" );
+loadCSS( "/css/style.css" );

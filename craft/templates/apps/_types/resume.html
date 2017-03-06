@@ -1,0 +1,67 @@
+{% extends "_layout-resume" %}
+{% block content %}
+      <header>
+        <section class="header__subheader">
+          <h1 class="resume__name">{{ entry.firstName }} <span class="resume__name__last">{{ entry.lastName }}</span></h1>
+          <div class="resume__contact">
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Phone</dt>
+              <dd class="resume__contact-header__description">{{ entry.phoneNumber }}</dd>
+            </dl>
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Email</dt>
+              <dd class="resume__contact-header__description">{{ entry.emailAddress }}</dd>
+            </dl>
+            <dl class="resume__contact-header">
+              <dt class="resume__contact-header__label">Portfolio</dt>
+              <dd class="resume__contact-header__description">{{ entry.website }}</dd>
+            </dl>
+          </div>
+        </section>
+      </header>
+      <main>
+        <section class="resume-section section__philosophy">
+        <h2>Philosophy</h2>
+        <div class="resume__introduction">{{ entry.philosophyGoal }}</div>
+        </section>
+        <section class="resume-section section__education">
+        <h2>Education</h2>
+        <div class="section__education__block__container">
+        {% for block in entry.education %}
+          {% if block.type == "degreeInfo" %}
+                <div class="section__education__block">
+                  <em class="date">{{ block.graduationMonthYear }}</em>
+                  <h3>{{ block.degreeName }}</h3>
+                  <p class="location">{{ block.schoolName }}</p>
+                </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+        </section>
+        <section class="resume-section section__experience">
+        <h2>Experience</h2>
+          {% for block in entry.position %}
+            {% if block.type == "positionInformation" %}
+                <em class="date">{{ block.positionMonthYear }}</em>
+                <h3>{{ block.jobTitle }}</h3>
+                <p class="location">{{ block.company }}</p>
+            {% elseif block.type == "positionDescription" %}
+            <div class="section__experience__block">
+            <ul>
+              {% for row in block.description %}
+                <li>{{ row.bulletPoint }}</li>
+              {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+      </section>
+      </main>
+      <footer>
+        <section class="resume__logo__container">
+          {% for image in header.siteLogo %}
+            <img class="resume__logo" src="{{image.url}}" alt="image.title" />
+          {% endfor %}
+        </section>
+      </footer>
+{% endblock %}

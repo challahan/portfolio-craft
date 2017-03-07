@@ -26,11 +26,8 @@ header {
 }
 
 .resume__logo {
-  padding: 1em;
-  max-width: 55px;
-  @media screen and (min-width: 600px) {
-    padding-left: 0;
-  }
+  padding: 1em 0;
+  width: 50px;
 }
 
 .resume__name {
@@ -49,6 +46,7 @@ header {
   @media screen and (min-width: 600px) {
     width: 45%;
     padding-top: 1em;
+    text-align: right;
   }
 }
 
@@ -57,6 +55,7 @@ header {
 }
 
 .resume__contact-header {
+  margin-top: .5em;
   margin-bottom: .5em;
 }
 
@@ -74,11 +73,10 @@ header {
 .date {
   font-style: normal;
   font-size: .9em;
-  margin-top: 1.1em;
   letter-spacing: 1px;
   color: lighten($gray,10%);
   display: block;
-  border-bottom: 2px solid lighten($gray,30%);
+  //border-bottom: 2px solid lighten($gray,30%);
   margin-bottom: .75em;
   padding-bottom: .6em;
   text-transform: uppercase;
@@ -90,15 +88,15 @@ header {
 }
 
 .resume-section {
-  margin-bottom: 2.5em;
-  margin-top: 1em;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
   &:before {
     content:"";
     width: 30px;
     height: 6px;
     background-color: $dark-blue;
     display: block;
-    margin-bottom: 1.25em;
+    margin-bottom: 2em;
   }
 }
 
@@ -115,10 +113,9 @@ main {
   width: 90%;
   margin: 0 auto;
   margin-top: 1em;
-  padding: 1em 0;
+  padding: 1em 0 0 1em;
   max-width: 800px;
   @media screen and (min-width: 600px) {
-    padding: 1em;
     margin-top: 0;
     padding-top: 0;
   }
@@ -127,17 +124,20 @@ main {
 .letter-title {
   text-transform: uppercase;
   color: gray;
-  text-align: right;
+  text-align: center;
   font-size: 1.5em;
   margin-bottom: .5em;
   font-weight: bold;
-  width: 45%;
+  width: 100%;
   margin-left: auto;
+  @media screen and (min-width: 600px) {
+    text-align: right;
+  }
 }
 
 h2 {
   font-size: 1.5em;
-  margin-bottom: .5em;
+  margin-bottom: 1em;
   margin-top: 0em;
 }
 
@@ -153,6 +153,15 @@ h3 {
 }
 
 .business__address {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  display: block;
+  line-height: 1.5;
+  font-weight: normal;
+  p {
+    font-weight: normal;
+    line-height: 1.5em;
+  }
     &:before {
       content:"";
       width: 30px;
@@ -189,7 +198,9 @@ p, li {
 main ul {
   list-style-type: none;
   @media screen and (min-width: 600px) {
-    columns: 2 50px;
+    columns: 2;
+    column-width:50px;
+    column-gap:80px;
     break-inside: avoid-column;
   }
 }
@@ -238,6 +249,13 @@ main li {
   }
 }
 
+.cover-letter {
+  max-width: 90%;
+  p {
+    font-size: 1.05em;
+  }
+}
+
 .letter-signature {
   width: 200px;
   display: block;
@@ -245,12 +263,19 @@ main li {
   margin-bottom: 1em;
 }
 
+.closing-name, .closing-line {
+  font-size: 1.05em;
+}
+
 footer {
-  background-color: $dark-blue;
-  margin: 0 auto;
-  padding: .5em 3em .5em 3em;
-  color: white;
-  text-align: center;
   max-width: 800px;
   width: 90%;
+  margin: 0 auto;
+}
+
+.footer-container {
+  margin: 1em;
+  color: white;
+  padding-bottom: 1.5em;
+  border-top: 2px solid $gray;
 }

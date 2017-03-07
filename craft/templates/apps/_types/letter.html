@@ -6,15 +6,15 @@
           <h1 class="resume__name">{{ entry.firstName }} <span class="resume__name__last">{{ entry.lastName }}</span></h1>
           <div class="resume__contact">
             <dl class="resume__contact-header">
-              <dt class="resume__contact-header__label">Phone</dt>
+              <dt class="resume__contact-header__label">P</dt>
               <dd class="resume__contact-header__description">{{ entry.phoneNumber }}</dd>
             </dl>
             <dl class="resume__contact-header">
-              <dt class="resume__contact-header__label">Email</dt>
+              <dt class="resume__contact-header__label">E</dt>
               <dd class="resume__contact-header__description">{{ entry.emailAddress }}</dd>
             </dl>
             <dl class="resume__contact-header">
-              <dt class="resume__contact-header__label">Portfolio</dt>
+              <dt class="resume__contact-header__label">W</dt>
               <dd class="resume__contact-header__description">{{ entry.website }}</dd>
             </dl>
           </div>
@@ -23,15 +23,22 @@
       <main>
         <section class="business__address">
           {% for category in entry.businessName %}
-            {{ category.title }}
+          {{ category.title }}
           {% endfor %}
+          {{ entry.businessAddress }}
         </section>
-        {{ entry.businessAddress }}
-        {{ entry.coverLetterText }}
-        {{ entry.closingText }}
+        <section class="cover-letter">{{ entry.coverLetterText }}</section>
+        <p class="closing-line">{{ entry.closingText }}</p>
         {% for signature in entry.closingSignature %}
           <img class="letter-signature" src="{{ signature.url}}" alt="{{ signature.title}}" />
         {% endfor %}
-        {{ entry.firstName }} {{entry.lastName}}
+        <p class="closing-name">{{ entry.firstName }} {{entry.lastName}}</p>
       </main>
+      <footer>
+          <section class="footer-container">
+          {% for image in entry.resumeLogo %}
+            <img class="resume__logo" src="{{image.url}}" alt="image.title" />
+          {% endfor %}
+          </section>
+      </footer>
 {% endblock %}

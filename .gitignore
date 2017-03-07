@@ -21,3 +21,6 @@ annual-report-2015.jpg
 annual-report-2015_7594429569106400fe95b7593f40bb0c.jpg
 node_modules
 .sass-cache
+/html/assets/feature
+/html/imager
+.DS_Store

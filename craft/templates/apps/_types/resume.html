@@ -43,18 +43,19 @@
           {% for block in entry.position %}
             {% if block.type == "positionInformation" %}
                 <em class="date">{{ block.positionMonthYear }}</em>
-                <h3>{{ block.jobTitle }}</h3>
-                <p class="location">{{ block.company }}</p>
-            {% elseif block.type == "positionDescription" %}
-            <div class="section__experience__block">
-            <ul>
-              {% for row in block.description %}
-                <li>{{ row.bulletPoint }}</li>
-              {% endfor %}
-              </ul>
-            </div>
-            {% endif %}
+                  <h3>{{ block.jobTitle }}</h3>
+                  <p class="location">{{ block.company }}</p>
+                  {% elseif block.type == "positionDescription" %}
+                  <div class="section__experience__block {% if loop.index == 2 %}first{% endif %}">
+                  <ul>
+                    {% for row in block.description %}
+                      <li>{{ row.bulletPoint }}</li>
+                    {% endfor %}
+                    </ul>
+                  </div>
+                  {% endif %}
         {% endfor %}
+
       </section>
       </main>
       <footer>

@@ -249,7 +249,9 @@ main li {
 
 .section__experience__block.first {
   page-break-after: always;
-  border-bottom: none;
+  @media print {
+    border-bottom: none;
+  }
 }
 
 .section__experience__block {

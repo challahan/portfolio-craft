@@ -28,8 +28,10 @@ class RetourPlugin extends BasePlugin
 
         craft()->onException = function(\CExceptionEvent $event)
         {
-            if (($event->exception instanceof \CHttpException) && ($event->exception->statusCode == 404))
+            if ((($event->exception instanceof \CHttpException) && ($event->exception->statusCode == 404))  ||
+                (($event->exception->getPrevious() instanceof \CHttpException) && ($event->exception->getPrevious()->statusCode == 404)))
             {
+                RetourPlugin::log("A 404 exception occurred", LogLevel::Info, false);
                 if (craft()->request->isSiteRequest() && !craft()->request->isLivePreview())
                 {
 
@@ -37,6 +39,7 @@ class RetourPlugin extends BasePlugin
 
                     $url = urldecode(craft()->request->getRequestUri());
                     $noQueryUrl = UrlHelper::stripQueryString($url);
+                    RetourPlugin::log("404 URL: ". $url, LogLevel::Info, false);
 
 /* -- Redirect if we find a match, otherwise let Craft handle it */
 
@@ -103,7 +106,7 @@ class RetourPlugin extends BasePlugin
         craft()->on('entries.onBeforeSaveEntry', function(Event $e)
         {
             $this->originalUris = array();
-            if(!$e->params['isNewEntry'])
+            if(!$e->params['isNewEntry'] && craft()->config->get("createUriChangeRedirects", "retour"))
             {
                 $entry = $e->params['entry'];
 
@@ -117,7 +120,7 @@ class RetourPlugin extends BasePlugin
 
         craft()->on('entries.onSaveEntry', function(Event $e)
         {
-            if (!$e->params['isNewEntry'])
+            if (!$e->params['isNewEntry'] && craft()->config->get("createUriChangeRedirects", "retour"))
             {
                 $entry = $e->params['entry'];
                 $newUris = craft()->retour->getLocalizedUris($entry);
@@ -195,7 +198,7 @@ class RetourPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '1.0.17';
+        return '1.0.19';
     }
 
     /**
@@ -264,7 +267,8 @@ class RetourPlugin extends BasePlugin
 
 /* -- Show our "Welcome to Retour" message */
 
-        craft()->request->redirect(UrlHelper::getCpUrl('retour/welcome'));
+        if (!craft()->isConsole())
+            craft()->request->redirect(UrlHelper::getCpUrl('retour/welcome'));
     }
 
     /**

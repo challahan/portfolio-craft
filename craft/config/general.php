@@ -11,6 +11,7 @@
 
    '*' => array(
         'omitScriptNameInUrls' => true,
+        'loginPath' => 'admin',
     ),
 
    'chris.web' => array(

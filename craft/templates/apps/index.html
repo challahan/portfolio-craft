@@ -8,6 +8,7 @@
 {% block title %}Resume List{% endblock %}
 {% set resumes = craft.entries.section('apps').limit(null) %}
 {% block pagecontent %}
+    {% requireLogin %}
     <ul>
     {% for resume in resumes %}
       {% for category in resume.businessName %}

@@ -19,13 +19,17 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 
 var  mn = $(".header-wrapper");
     mns = "main-nav-scrolled";
+    bns = "body-nav-scrolled";
+    body = $("body");
     hdr = $('.feature-block-container').height();
     hnav = $('.header-wrapper').height();
 
 $(window).scroll(function() {
-  if( $(this).scrollTop() > (hdr+hnav-200) ) {
+  if( $(this).scrollTop() > (hnav) ) {
     mn.addClass(mns);
+    body.addClass(bns);
   } else {
     mn.removeClass(mns);
+    body.removeClass(bns);
   }
 });

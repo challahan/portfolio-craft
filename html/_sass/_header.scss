@@ -59,10 +59,34 @@ header {
 
 // Sticky Navigation //
 
+@keyframes drop {
+	from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .main-nav-scrolled {
   position: fixed;
   width: 100%;
   top: 0;
 	z-index: 100;
 	opacity: .98;
+	animation-name: drop;
+	animation-duration: .7s;
+  animation-fill-mode: both;
+	transition: 1s ease-in-out;
+}
+
+
+
+.body-nav-scrolled {
+	margin-top: 100px;
+	@media screen and (min-width:600px) {
+		margin-top: 80px;
+	}
 }

@@ -11,23 +11,50 @@
   {% block pagecontent %}
   <div class="post">
       <article role="article" class="post-content">
-        <div class="introduction">{{entry.introduction}}</div>
+        <!--<div class="introduction">{{entry.introduction}}</div>-->
         {% cache globally %}
-        <ul class="project-posts">
+        <nav class="filter">
+        		<ul>
+              {% set categories = craft.categories.group('projectType') %}
+              <li><a class="filter-current" href="#">All</a></li>
+              {% for category in categories %}
+        			<li><a href="{{category.url}}">{{ category.title }}</a></li>
+              {% endfor %}
+        		</ul>
+        </nav>
+        <section class="work-list">
+        <ul class="project-posts-grid">
           {% for post in posts %}
-              <li class="highlight">
-                <a href="{{ post.url }}">
-                  <figure class="project-thumb">
-                    {% for image in post.featureImage %}
-            				    <img src="{{ image.getUrl('postLarge') }}" />
-                    {% endfor %}
-            			</figure>
-                  <h4>{{ post.title }}</h4>
-                </a>
-              </li>
+          <li>
+            <h2><a href="{{post.url}}">{{post.title}}</a></h2>
+            {% if post.projectType | length %}
+            {% set categories = post.projectType %}
+              {% for category in categories %}
+                <a href="{{category.url}}" class="work-category work-category-{{category.slug}}">{{category.title}}</a>
+              {% endfor %}
+            {% endif %}
+            <p>{{post.shortDescription}}</p>
+            <!-- I actually have a definition list nested inside of my main list item here.  This holds my work statistics -->
+            <dl class="work-stats">
+              <dt>Completed:</dt>
+              <dd>{{post.postDate}}</dd>
+            </dl>
+                {% if post.skills | length %}
+                <dl class="work-stats">
+                <dt>Skills:</dt>
+                <dd>
+                  {% set categories = post.skills %}
+                  {% for category in categories %}
+                    {{ category.title}} /
+                  {% endfor %}
+                </dd>
+                </dl>
+                {% endif %}
+          </li>
           {% endfor %}
           </ul>
         {% endcache %}
+        </section>
         </article>
   </div>
   {% endblock %}

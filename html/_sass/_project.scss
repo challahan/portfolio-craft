@@ -201,32 +201,39 @@ a.filter-current {
 	margin-right: .5em;
 	transition: .3s background-color ease-in-out;
 	&:hover {
-		background-color: lighten(black,10%);
+		background-color: $gray;
 	}
 }
 
-.work-category-ux, .work-category-visual-communication {
-	background-color: $green;
+.work-category-advertising {
+	background-color: darken($green,10%);
 	&:hover {
-		background-color: lighten(#83b151,10%);
+		background-color: $green;
+	}
+}
+
+.work-user-experience-design {
+	background-color: $light-blue;
+	&:hover {
+		background-color: lighten($light-blue,5%);
 	}
 }
 
 .work-category-project-management {
 	background-color: $dark-blue;
 	&:hover {
-		background-color: lighten(navy,10%);
+		background-color: lighten($dark-blue,10%);
 	}
 }
 
 .work-category-website {
 	background-color: $gray;
 	&:hover {
-		background-color: lighten(gray,10%);
+		background-color: lighten($gray,10%);
 	}
 }
 
-.work-category-teaching {
+.work-category-course {
 	background-color: purple;
 	&:hover {
 		background-color: lighten(purple,10%);

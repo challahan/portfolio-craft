@@ -13,7 +13,10 @@ footer {
 		margin-bottom: .25em;
 		padding-top: 0;
 		@media screen and (min-width: 700px) {
-			font-size: 2.5em;
+			font-size: 2em;
+		}
+		@media screen and (min-width: 1000px) {
+			font-size: 2.2em;
 		}
 	}
 	a {
@@ -89,7 +92,7 @@ footer {
 		margin-top: 1em;
 	}
 	li {
-		padding-bottom: 2em;
+		padding-bottom: 1em;
 	}
 	a {
 		text-decoration: none;

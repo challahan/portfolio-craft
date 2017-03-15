@@ -1,0 +1,14 @@
+<div class="filter__container">
+  <nav class="filter">
+      <ul>
+        {% set categories = craft.categories.group('projectType') %}
+        {% if category is defined %}
+          {% set catname = category.title %}
+        {% endif %}
+        <li><a {% if entry is defined %}class="filter-current"{% endif %} href="/work">All</a></li>
+        {% for category in categories %}
+        <li><a {% if catname is defined %}{% if catname == category.title %}class="filter-current"{% endif %}{% endif %} href="{{category.url}}">{{ category.title }}</a></li>
+        {% endfor %}
+      </ul>
+  </nav>
+</div>

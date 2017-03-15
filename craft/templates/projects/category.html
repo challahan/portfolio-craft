@@ -1,20 +1,20 @@
 {#
 
- Project Index Template
+ Project Category Template
 
 #}
 
 {% extends "_page" %}
 
-  {% block title %}Work{% endblock %}
-  {% paginate craft.entries.section('project').limit(12) as pageInfo, pageEntries %}
+  {% block title %}Work: {{category.title}}{% endblock %}
+  {% paginate craft.entries.section('project').limit(12).relatedTo(category) as pageInfo, pageEntries %}
   {% block filter %}
     {% include '_includes/_filter.html' %}
   {% endblock %}
   {% block pagecontent %}
   <div class="post">
       <article role="article" class="post-content">
-        {% include '_includes/_project-list.html' %}
+          {% include '_includes/_project-list.html' %}
         </article>
   </div>
   {% endblock %}

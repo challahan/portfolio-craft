@@ -33,3 +33,11 @@ $(window).scroll(function() {
     body.removeClass(bns);
   }
 });
+
+// Call the Priority Plugin //
+
+var nav = priorityNav.init({
+                breakPoint: 300,
+                mainNavWrapper: 'nav.filter',
+                throttleDelay: '50'
+            });

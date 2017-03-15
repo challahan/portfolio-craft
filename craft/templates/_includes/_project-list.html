@@ -1,0 +1,35 @@
+<section class="work-list">
+  <ul class="project-posts-grid">
+    {% for post in pageEntries %}
+    <li>
+      <h2><a href="{{post.url}}">{{post.title}}</a></h2>
+      {% if post.projectType | length %}
+      {% set categories = post.projectType %}
+        {% for category in categories %}
+          <a href="{{category.url}}" class="work-category work-category-{{category.slug}}">{{category.title}}</a>
+        {% endfor %}
+      {% endif %}
+      <p>{{post.shortDescription}}</p>
+      <!-- I actually have a definition list nested inside of my main list item here.  This holds my work statistics -->
+      <dl class="work-stats">
+        <dt>Completed:</dt>
+        <dd>{{post.postDate|date("F Y")}}</dd>
+      </dl>
+          {% if post.skills | length %}
+          <dl class="work-stats">
+          <dt>Skills:</dt>
+          <dd>
+            {% set categories = post.skills %}
+            {% for category in categories %}
+              <span class="work-stats__item">{{ category.title}}</span>
+            {% endfor %}
+          </dd>
+          </dl>
+          {% endif %}
+          <a class="read-more-link" href="{{ post.url }}">Project Details</a>
+    </li>
+    {% endfor %}
+    </ul>
+    {% if pageInfo.prevUrl %}<a class="button button__left" href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
+    {% if pageInfo.nextUrl %}<a class="button button__right" href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
+  </section>

@@ -5,6 +5,8 @@
   		<h1 class="post-title">{% block title %}{% endblock %}</h1>
   	</div>
   </section>
+  {% block filter %}
+  {% endblock %}
   <main role="main">
     {% block pagecontent %}
     {% endblock pagecontent %}

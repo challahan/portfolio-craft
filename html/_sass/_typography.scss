@@ -53,10 +53,16 @@ h4 {
 	color: $light-blue;
 	margin-bottom: .5em;
 	margin-top: 1.5em;
+	transition: .3s color ease-in-out;
 	@media screen and (min-width: 900px) {
 		font-size: 1.3rem;
 		margin-bottom: .7em;
 	}
+}
+
+a:hover h4 {
+	color: darken($light-blue,10%);
+	text-decoration: underline;
 }
 
 p {

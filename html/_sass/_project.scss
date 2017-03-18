@@ -149,8 +149,11 @@ a.filter-current {
 	.work-list li {
 		margin-bottom: 2em;
 		width: inherit;
-		flex: 0 0 30%;
+		flex: 0 0 31%;
 		margin-right: 2.9%;
+	}
+	.work-list li:nth-child(3n-6) {
+		margin-right: 0;
 	}
 }
 
@@ -303,7 +306,7 @@ a.filter-current {
 	content: '';
 	top: -6px;
 	left: 1rem;
-	@media screen and (min-width: 300px) {
+	@media screen and (min-width: 450px) {
 		right: 2rem;
 		left: inherit;
 	}
@@ -315,8 +318,9 @@ a.filter-current {
 }
 
 .priority-nav__dropdown {
-  top: 4rem;
-	right: 10%;
+	top: 3.5rem;
+	right: inherit;
+	left: 0;
 	margin: 0;
 	width: inherit;
 	list-style-type: none;
@@ -330,8 +334,9 @@ a.filter-current {
 	transform: rotateX(-30deg);
 	opacity: 0;
 
-	@media screen and (min-width: 300px) {
+	@media screen and (min-width: 450px) {
 		right: 5%;
+		left: inherit;
 	}
 	a {
 		color: white;

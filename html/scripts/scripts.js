@@ -37,7 +37,8 @@ $(window).scroll(function() {
 // Call the Priority Plugin //
 
 var nav = priorityNav.init({
-                breakPoint: 300,
+                breakPoint: 450,
+                navDropdownBreakpointLabel: "Filter",
                 mainNavWrapper: 'nav.filter',
                 throttleDelay: '50'
             });

@@ -42,3 +42,10 @@ var nav = priorityNav.init({
                 mainNavWrapper: 'nav.filter',
                 throttleDelay: '50'
             });
+
+// Call the Lightbox Plugin //
+
+lightGallery(document.getElementById('lightgallery'), {
+    preload: 2,
+    speed: 400
+});

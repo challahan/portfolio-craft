@@ -7,27 +7,61 @@
 {% extends "_post" %}
 
 {% block title %}{{ entry.title }}{% endblock %}
-{% block date %}{{ entry.postDate | date("M d, Y") }}{%endblock %}
-{% block author %}{{ entry.author.fullName }}{% endblock author %}
 {% block more %}<a href="{{siteUrl}}work">See More Work</a>{% endblock more %}
 {% block pagecontent %}
-  <main class="blog-post">
-    {% if entry.featureImage %}
-      {% for image in entry.featureImage %}
-      <div class="post-thumb-large">
-      	<img src="{{ image.getUrl('postLarge') }}" alt="{{ image.title }}" />
-      </div>
-      {% endfor %}
-    {% endif %}
-    <article role="article" class="post-content">
+  <main class="project-post">
+    <aside class="project-aside">
+      {% if entry.featureImage %}
+      <div class="project-thumb-large" id="lightgallery">
+        {% for image in entry.featureImage %}
+          {% if loop.first %}
+          <a href="{{ image.getUrl('full') }}" class="project-thumb-large__first">
+        	   <img src="{{ image.getUrl('postLarge') }}" alt="{{ image.title }}" />
+          </a>
+          {% else %}
+            <a href="{{ image.getUrl('full') }}" class="project-thumb-large__thumb">
+          	   <img src="{{ image.getUrl('postThumb') }}" alt="{{ image.title }}" />
+            </a>
+          {% endif %}
+        {% endfor %}
+        </div>
+      {% endif %}
+      <dl class="work-stats">
+        <dt>Completed:</dt>
+        <dd>{{entry.postDate|date("F Y")}}</dd>
+      </dl>
+      {% if entry.projectType | length %}
+      {% set categories = entry.projectType %}
+      <dl class="work-stats">
+      <dt>Category:</dt>
+        <dd>
+        {% for category in categories %}
+          <span class="work-stats__item">{{category.title}}</span>
+        {% endfor %}
+        </dd>
+        </dl>
+      {% endif %}
+      {% if entry.skills | length %}
+          <dl class="work-stats">
+          <dt>Skills:</dt>
+          <dd>
+            {% set categories = entry.skills %}
+            {% for category in categories %}
+              <span class="work-stats__item">{{ category.title}}</span>
+            {% endfor %}
+          </dd>
+          </dl>
+      {% endif %}
+      {% if entry.relatedUrl %}
+        <a class="button" href="{{ entry.relatedUrl }}">View the Project</a>
+      {% endif %}
+    </aside>
+    <article role="article" class="project-post-content">
       {% for block in entry.postBody %}
           {% if block.type == "text" %}
               {{ block.bodytext }}
           {% endif %}
       {% endfor %}
     </article>
-    {% if entry.relatedUrl %}
-      <a class="button" href="{{ entry.relatedUrl }}">View the Project</a>
-    {% endif %}
   </main>
 {% endblock %}

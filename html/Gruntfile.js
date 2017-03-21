@@ -11,20 +11,45 @@ module.exports = function(grunt) {
         },
         files: {
         'css/style.css': '_sass/main.scss',
-        'css/resume.css': '_sass/resume.scss'
+        'css/resume.css': '_sass/resume.scss',
+        '../craft/templates/_includes/critical-home.css': '../craft/templates/_includes/critical-home.css',
+        '../craft/templates/_includes/critical-work.css': '../craft/templates/_includes/critical-work.css',
+        '../craft/templates/_includes/critical-project.css': '../craft/templates/_includes/critical-project.css'
         }
       }
     },
     criticalcss: {
-      custom: {
+      home: {
         options: {
           url: "http://chris.web",
                 width: 1200,
                 height: 900,
-                outputfile: "css/critical.css",
+                outputfile: "../craft/templates/_includes/critical-home.css",
                 filename: "css/style.css", // Using path.resolve( path.join( ... ) ) is a good idea here
                 buffer: 800*1024,
-                ignoreConsole: false
+                ignoreConsole: true
+        }
+      },
+      projects: {
+        options: {
+          url: "http://chris.web/work",
+                width: 1200,
+                height: 900,
+                outputfile: "../craft/templates/_includes/critical-work.css",
+                filename: "css/style.css", // Using path.resolve( path.join( ... ) ) is a good idea here
+                buffer: 800*1024,
+                ignoreConsole: true
+        }
+      },
+      projectsingle: {
+        options: {
+          url: "http://chris.web/projects/new-project-test",
+                width: 1200,
+                height: 900,
+                outputfile: "../craft/templates/_includes/critical-project.css",
+                filename: "css/style.css", // Using path.resolve( path.join( ... ) ) is a good idea here
+                buffer: 800*1024,
+                ignoreConsole: true
         }
       }
     },

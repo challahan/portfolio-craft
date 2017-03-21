@@ -30,9 +30,20 @@
   {% endcache %}
   <!-- Render SEO Metatags -->
   {% hook 'seomaticRender' %}
-  <style type="text/css">
-      {% include '_includes/critical.css' %}
-  </style>
+      {% block critical %}
+      <style type="text/css">
+        {% if entry.section.handle == 'work' %}
+          /* Critical CSS for Work */
+          {% include '_includes/critical-work.css' %}
+        {% elseif entry.section.handle == 'project' %}
+          /* Critical CSS for Projects */
+          {% include '_includes/critical-project.css' %}
+        {% else %}
+          /* Critical CSS for Home */
+          {% include '_includes/critical-home.css' %}
+        {% endif %}
+      </style>
+      {% endblock %}
   <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
   <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
 </head>

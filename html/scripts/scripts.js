@@ -36,16 +36,20 @@ $(window).scroll(function() {
 
 // Call the Priority Plugin //
 
-var nav = priorityNav.init({
-                breakPoint: 450,
-                navDropdownBreakpointLabel: "Filter",
-                mainNavWrapper: 'nav.filter',
-                throttleDelay: '50'
-            });
+$(window).on('load', function (){
+  var nav = priorityNav.init({
+                  breakPoint: 450,
+                  navDropdownBreakpointLabel: "Filter",
+                  mainNavWrapper: 'nav.filter',
+                  throttleDelay: '50'
+              });
+});
 
 // Call the Lightbox Plugin //
 
-lightGallery(document.getElementById('lightgallery'), {
-    preload: 2,
-    speed: 400
-});
+$(window).on('load', function (){
+  lightGallery(document.getElementById('lightgallery'), {
+      preload: 2,
+      speed: 400
+  });
+});  

@@ -175,9 +175,9 @@ hr {
     color: rgba($gray,.2);
     position: absolute;
     top: -60px;
-    font-size: 3em;
+    font-size: 2.75em;
     z-index: -1;
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 1000px) {
       top: -30px;
 			left: -75px;
 

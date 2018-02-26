@@ -1,5 +1,5 @@
 /craft/config/db.php
-craft/app/
+craft/app/*
 craft/storage/
 critical.scssc
 _base.scssc
@@ -24,3 +24,7 @@ node_modules
 /html/assets/feature
 /html/imager
 .DS_Store
+/craft/config/license.key
+/html/assets/global/_postLarge
+/html/assets/global/23915998_10106387156095014_2730882247010842481_n.jpg
+/html/package-lock.json

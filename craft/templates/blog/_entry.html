@@ -25,6 +25,25 @@
               {{ block.bodytext }}
           {% elseif block.type =="video" %}
               {{ block.videoUrl|videoEmbed }}
+          {% elseif block.type == "image" %}
+              <figure class="article__figure">
+              {% set image = block.image.first() %}
+              {% if image %}
+                  <div class="article__image article__media">
+                    <img src="{{ image.getUrl('postLarge') }}" alt="{{ image.title }}" />
+                  </div>
+              {% endif %}
+              {% if block.imageCaption %}
+                  <figcaption class="article__caption">{{ block.imageCaption }}</figcaption>
+              {% endif %}
+              </figure>
+          {% elseif block.type == "pullQuote" %}
+          <div class="article-container">
+              <blockquote class="article__quote">
+                  <span class="article__quote__text">{{ block.quoteText }}</span>
+                  <cite class="article__quote__author">– {{ block.quoteAuthor }}</cite>
+              </blockquote>
+          </div>
           {% endif %}
       {% endfor %}
     </article>

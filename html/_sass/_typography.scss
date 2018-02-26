@@ -141,3 +141,55 @@ hr {
 .credits {
 	font-size: .85em;
 }
+
+.article-container {
+	display: block;
+	text-align: center;
+}
+
+.article__quote {
+  margin: 0;
+  padding: 0;
+  margin-top: 3.5em;
+  margin-bottom: 3em;
+  display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	max-width: 900px;
+  @media screen and (min-width: 700px) {
+    font-size: 120%;
+    margin-top: 3em;
+  }
+}
+
+.article__quote__text {
+  color: $light-blue;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  &:before {
+    content: "“";
+    color: rgba($gray,.2);
+    position: absolute;
+    top: -60px;
+    font-size: 3em;
+    z-index: -1;
+    @media screen and (min-width: 800px) {
+      top: -30px;
+			left: -75px;
+
+    }
+  }
+}
+
+.article__quote__author {
+  display: block;
+  font-style: normal;
+	font-size: .8em;
+  margin-top: 1em;
+	text-transform: uppercase;
+	font-weight: bold;
+}

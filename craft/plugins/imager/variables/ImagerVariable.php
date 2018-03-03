@@ -31,25 +31,13 @@ class ImagerVariable
      * Takes an array of Imager_ImageModel (or anything else that supports getUrl() and getWidth())
      * and returns a srcset string
      *
-     * todo : Implement support for other descriptors
-     *
      * @param Array $images
      * @param string $descriptor
      * @return string
      */
     public function srcset($images, $descriptor = 'w')
     {
-        $r = '';
-        $widths = array();
-
-        foreach ($images as $image) {
-            if (!isset($widths[$image->getWidth()])) {
-                $r .= $image->getUrl() . ' ' . $image->getWidth() . 'w, ';
-                $widths[$image->getWidth()] = true;
-            }
-        }
-
-        return substr($r, 0, strlen($r) - 2);
+        return craft()->imager->srcset($images, $descriptor);
     }
 
     /**
@@ -57,9 +45,9 @@ class ImagerVariable
      * 
      * @return string
      */
-    public function base64Pixel($width = 1, $height = 1)
+    public function base64Pixel($width = 1, $height = 1, $color = 'transparent')
     {
-        return "data:image/svg+xml;charset=utf-8," . rawurlencode("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 $width $height'/>");
+        return "data:image/svg+xml;charset=utf-8," . rawurlencode("<svg xmlns='http://www.w3.org/2000/svg' width='$width' height='$height' style='background:$color'/>");
     }
 
     /**
@@ -127,5 +115,24 @@ class ImagerVariable
      */
     public function clientSupportsWebp() {
         return strpos(craft()->request->getAcceptTypes(), 'image/webp') !== false;
+    }
+
+    /**
+     * Checks if asset is animated (only gif support atm)
+     * 
+     * @param $asset
+     * @return bool
+     */
+    public function isAnimated($asset) {
+        return craft()->imager->isAnimated($asset);
+    }
+
+    /**
+     * Checks for webp support in image driver
+     * 
+     * @return bool
+     */
+    public function imgixEnabled() {
+        return craft()->config->get('imgixEnabled', 'imager');
     }
 }

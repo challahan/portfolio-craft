@@ -42,9 +42,11 @@ return array(
   'hashFilename' => 'postfix', // true, false, or 'postfix' (meaning only the generated part of the filename is hashed)
   'hashPath' => false, 
   'hashRemoteUrl' => false, // true, false, or 'host' (meaning only the host part of the url is hashed) 
+  'useRemoteUrlQueryString' => false,
   'instanceReuseEnabled' => false,
   'noop' => false,
   'suppressExceptions' => false,
+  'convertToRGB' => false, // Should images be converted to RGB?
     
   'fillTransforms' => false,
   'fillAttribute' => 'width', // this could be any attribute that is numeric
@@ -71,14 +73,26 @@ return array(
   'tinyPngEnabled' => false,
   'tinyPngApiKey' => '',
   'optimizeType' => 'task',
+  'skipExecutableExistCheck' => false,
   'logOptimizations' => false,
+    
+  'imgixEnabled' => false,
+  'imgixDomains' => null, // array of sources, ie array('your-source.imgix.net')
+  'imgixUseHttps' => true,
+  'imgixSignKey' => '', // this is also called `security token`, and you'll find it in your Imgix source details page
+  'imgixSourceIsWebProxy' => false,
+  'imgixUseCloudSourcePath' => true,
+  'imgixShardStrategy' => 'cycle', // 'cycle' or 'crc'
+  'imgixGetExternalImageDimensions' => true, // false disables download of external images, but makes the model less accurate 
+  'imgixDefaultParams' => null, // an array of default values that will be used for all imgix transforms (ie array('auto'=>'compress,format'))
   
   'awsEnabled' => false,
   'awsAccessKey' => '',
   'awsSecretAccessKey' => '',
   'awsBucket' => '',
   'awsFolder' => '',
-  'awsCacheDuration' => 1209600, // 14 days
+  'awsCacheDuration' => 1209600, // 14 days for optimized files or when optimization is disabled
+  'awsCacheDurationNonOptimized' => 300, // 5 minutes for the non-optimized file when any optimization is enabled
   'awsRequestHeaders' => array(),
   'awsStorageType' => 'standard', // 'standard' or 'rrs' (reduced redundancy storage),
 
@@ -87,7 +101,8 @@ return array(
   'gcsSecretAccessKey' => '',
   'gcsBucket' => '',
   'gcsFolder' => '',
-  'gcsCacheDuration' => 1209600, // 14 days
+  'gcsCacheDuration' => 1209600, // 14 days for optimized files or when optimization is disabled
+  'gcsCacheDurationNonOptimized' => 300, // 5 minutes for the non-optimized file when any optimization is enabled
 
   'cloudfrontInvalidateEnabled' => false,
   'cloudfrontDistributionId' => '',

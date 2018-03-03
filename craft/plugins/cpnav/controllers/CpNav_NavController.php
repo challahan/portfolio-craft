@@ -74,20 +74,19 @@ class CpNav_NavController extends BaseController
             $nav->manualNav = true;
         }
 
-        $criteria = craft()->elements->getCriteria(ElementType::Asset);
-        $criteria->id = false;
-        $criteria->status = null;
-        $criteria->localeEnabled = null;
-
-        if ($nav->customIcon) {
-            $criteria->id = array('7');
-        }
-
         $variables = array(
             'nav' => $nav,
             'sources' => craft()->assetSources->getAllSources(),
-            'elements' => $criteria,
         );
+
+        if ($nav->customIcon) {
+            $criteria = craft()->elements->getCriteria(ElementType::Asset);
+            $criteria->id = $nav->customIcon;
+            $criteria->status = null;
+            $criteria->localeEnabled = null;
+
+            $variables['icons'] = $criteria->find();
+        }
 
         $template = craft()->request->getPost('template', 'cpnav/_includes/navigation-hud');
 
@@ -116,7 +115,13 @@ class CpNav_NavController extends BaseController
 
         craft()->cpNav_nav->save($nav);
 
-        $this->returnJson(array('success' => true, 'nav' => $nav));
+        $errors = $nav->getAllErrors();
+
+        if (!$errors) {
+            $this->returnJson(array('success' => true, 'nav' => $nav));
+        } else {
+            $this->returnJson(array('error' => $errors[0]));
+        }
     }
 
     public function actionNew()
@@ -147,9 +152,15 @@ class CpNav_NavController extends BaseController
 
         craft()->cpNav_nav->save($nav);
 
-        $navs = craft()->cpNav_nav->getByLayoutId($layoutId);
+        $errors = $nav->getAllErrors();
 
-        $this->returnJson(array('success' => true, 'navs' => $navs));
+        if (!$errors) {
+            $navs = craft()->cpNav_nav->getByLayoutId($layoutId);
+
+            $this->returnJson(array('success' => true, 'navs' => $navs));
+        } else {
+            $this->returnJson(array('error' => $errors[0]));
+        }
     }
 
     public function actionDelete()

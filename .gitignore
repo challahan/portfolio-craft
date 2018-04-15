@@ -31,3 +31,4 @@ node_modules
 /html/assets/global/23915998_10106387156095014_2730882247010842481_n.jpg
 /html/package-lock.json
 /html/cpresources
+/craft/storage/logs/web.log

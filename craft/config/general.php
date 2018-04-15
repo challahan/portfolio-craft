@@ -18,7 +18,7 @@
      'devMode' => true,
      'siteUrl' => 'http://chris.web',
      'environmentVariables' => array(
-           'basePath' => 'assets/',
+           'basePath' => '',
            'baseUrl'  => 'http://chris.web',
       )
    ),

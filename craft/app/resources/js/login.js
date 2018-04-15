@@ -20,7 +20,7 @@ var LoginForm = Garnish.Base.extend(
 
 	init: function()
 	{
-		this.$form = $('#login-form'),
+		this.$form = $('#login-form');
 		this.$loginNameInput = $('#loginName');
 		this.$loginFields = $('#login-fields');
 		this.$passwordPaneItem = this.$loginFields.children();
@@ -80,7 +80,7 @@ var LoginForm = Garnish.Base.extend(
 		this.passwordInputInterval = setInterval($.proxy(this, 'validate'), 250);
 
 		this.addListener(this.$sslIcon, 'click', function() {
-			this.$submitBtn.click();
+			this.$submitBtn.trigger('click');
 		});
 	},
 
@@ -211,7 +211,7 @@ var LoginForm = Garnish.Base.extend(
 
 		if (!Garnish.isMobileBrowser())
 		{
-			this.$loginNameInput.focus();
+			this.$loginNameInput.trigger('focus');
 		}
 
 		if (this.$error)

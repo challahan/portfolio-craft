@@ -64,120 +64,80 @@ class UpdateController extends BaseController
 			}
 		}
 
+		$v3Plugins = array();
+		try
+		{
+			$localInfo = array();
+
+			foreach (craft()->plugins->getPlugins() as $plugin)
+			{
+				$localInfo['plugins'][] = $plugin->getClassHandle();
+			}
+
+			// Look for any remote asset source types
+			$remoteSourceTypes = array();
+			foreach (craft()->assetSources->getAllSources() as $source) {
+				if (in_array($source->type, array('GoogleCloud', 'Rackspace', 'S3'))) {
+					$remoteSourceTypes[$source->type] = true;
+				}
+			}
+			if (!empty($remoteSourceTypes))
+			{
+				$localInfo['assetSourceTypes'] = array_keys($remoteSourceTypes);
+			}
+
+			if (!empty($localInfo))
+			{
+				$client = new \Guzzle\Http\Client();
+				$response = $client->post('https://api.craftcms.com/v1/available-plugins')
+					->setBody(JsonHelper::encode($localInfo), 'application/json')
+					->send();
+
+				if ($response->isSuccessful())
+				{
+					$v3Plugins = JsonHelper::decode((string)$response->getBody());
+					$names = array();
+
+					foreach ($v3Plugins as $handle => &$info)
+					{
+						if ($plugin = craft()->plugins->getPlugin($handle))
+						{
+							$info += array(
+								'name' => $plugin->getName(),
+								'iconUrl' => craft()->plugins->getPluginIconUrl($handle),
+								'developerName' => $plugin->getDeveloper(),
+								'developerUrl' => $plugin->getDeveloperUrl(),
+                            );
+						}
+
+						if (array_key_exists('price', $info)) {
+							$info['formattedPrice'] = $info['price'] ? craft()->numberFormatter->formatCurrency($info['price'], $info['currency'], true) : 'Free';
+						}
+						$info['status'] = StringHelper::parseMarkdownLine($info['status']);
+						$info['status'] = str_replace('<a ', '<a target="_blank" ', $info['status']);
+
+						$names[] = $info['name'];
+					}
+
+					array_multisort($names, $v3Plugins);
+				}
+			}
+		}
+		catch (\Exception $e)
+		{
+		}
+
 		if ($updates)
 		{
 			$response = $updates->getAttributes();
 			$response['allowAutoUpdates'] = craft()->config->allowAutoUpdates();
+			$response['v3Plugins'] = array_values($v3Plugins);
 
 			$this->returnJson($response);
 		}
 		else
 		{
 			$this->returnErrorJson(Craft::t('Could not fetch available updates at this time.'));
-		}
-	}
-
-	/**
-	 * Returns the update info JSON.
-	 *
-	 * @return null
-	 */
-	public function actionGetUpdates()
-	{
-		craft()->userSession->requirePermission('performUpdates');
-
-		$this->requireAjaxRequest();
-
-		$handle = craft()->request->getRequiredPost('handle');
-
-		$return = array();
-		$updateInfo = craft()->updates->getUpdates();
-
-		if (!$updateInfo)
-		{
-			$this->returnErrorJson(Craft::t('There was a problem getting the latest update information.'));
-		}
-
-		try
-		{
-			switch ($handle)
-			{
-				case 'all':
-				{
-					// Craft first.
-					$return[] = array(
-						'handle' => 'Craft',
-						'name' => 'Craft',
-						'version' => $updateInfo->app->latestVersion,
-						'critical' => $updateInfo->app->criticalUpdateAvailable,
-						'releaseDate' => $updateInfo->app->latestDate->getTimestamp(),
-					);
-
-					// Plugins
-					if ($updateInfo->plugins !== null)
-					{
-						foreach ($updateInfo->plugins as $plugin)
-						{
-							if ($plugin->status == PluginUpdateStatus::UpdateAvailable && count($plugin->releases) > 0)
-							{
-								$return[] = array(
-									'handle' => $plugin->class,
-									'name' => $plugin->displayName,
-									'version' => $plugin->latestVersion,
-									'critical' => $plugin->criticalUpdateAvailable,
-									'releaseDate' => $plugin->latestDate->getTimestamp(),
-								);
-							}
-						}
-					}
-
-					break;
-				}
-
-				case 'craft':
-				{
-					$return[] = array(
-						'handle' => 'Craft',
-						'name' => 'Craft',
-						'version' => $updateInfo->app->latestVersion,
-						'critical' => $updateInfo->app->criticalUpdateAvailable,
-						'releaseDate' => $updateInfo->app->latestDate->getTimestamp(),
-					);
-					break;
-				}
-
-				// We assume it's a plugin handle.
-				default:
-				{
-					if (!empty($updateInfo->plugins))
-					{
-						if (isset($updateInfo->plugins[$handle]) && $updateInfo->plugins[$handle]->status == PluginUpdateStatus::UpdateAvailable && count($updateInfo->plugins[$handle]->releases) > 0)
-						{
-							$return[] = array(
-								'handle' => $updateInfo->plugins[$handle]->handle,
-								'name' => $updateInfo->plugins[$handle]->displayName,
-								'version' => $updateInfo->plugins[$handle]->latestVersion,
-								'critical' => $updateInfo->plugins[$handle]->criticalUpdateAvailable,
-								'releaseDate' => $updateInfo->plugins[$handle]->latestDate->getTimestamp(),
-							);
-						}
-						else
-						{
-							$this->returnErrorJson(Craft::t("Could not find any update information for the plugin with handle “{handle}”.", array('handle' => $handle)));
-						}
-					}
-					else
-					{
-						$this->returnErrorJson(Craft::t("Could not find any update information for the plugin with handle “{handle}”.", array('handle' => $handle)));
-					}
-				}
-			}
-
-			$this->returnJson(array('success' => true, 'updateInfo' => $return));
-		}
-		catch (\Exception $e)
-		{
-			$this->returnErrorJson($e->getMessage());
 		}
 	}
 
@@ -548,18 +508,11 @@ class UpdateController extends BaseController
 	 */
 	private function _getFixedHandle($data)
 	{
-		if (!isset($data['handle']))
+		if ($handle = craft()->security->validateData($data['handle']))
 		{
-			return 'craft';
+			return $handle;
 		}
-		else
-		{
-			if ($handle = craft()->security->validateData($data['handle']))
-			{
-				return $handle;
-			}
 
-			throw new Exception('Could not validate update handle.');
-		}
+		throw new Exception('Could not validate update handle.');
 	}
 }

@@ -42,6 +42,8 @@ Craft.MatrixInput = Garnish.Base.extend(
 		this.$addBlockBtnGroupBtns = this.$addBlockBtnGroup.children('.btn');
 		this.$addBlockMenuBtn = this.$addBlockBtnContainer.children('.menubtn');
 
+        this.$container.data('matrix', this);
+
 		this.setNewBlockBtn();
 
 		this.blockTypesByHandle = {};
@@ -229,7 +231,7 @@ Craft.MatrixInput = Garnish.Base.extend(
 		var id = 'new'+this.totalNewBlocks;
 
 		var html =
-			'<div class="matrixblock" data-id="'+id+'">' +
+			'<div class="matrixblock" data-id="'+id+'" data-type="'+type+'">' +
 				'<input type="hidden" name="'+this.inputNamePrefix+'['+id+'][type]" value="'+type+'"/>' +
 				'<input type="hidden" name="'+this.inputNamePrefix+'['+id+'][enabled]" value="1"/>' +
 				'<div class="titlebar">' +
@@ -248,6 +250,10 @@ Craft.MatrixInput = Garnish.Base.extend(
 							'<li class="hidden"><a data-icon="enabled" data-action="enable">'+Craft.t('Enable')+'</a></li>' +
 						'</ul>' +
 						'<hr class="padded"/>' +
+						'<ul class="padded">' +
+							'<li><a data-icon="remove" data-action="delete">'+Craft.t('Delete')+'</a></li>' +
+						'</ul>' +
+						'<hr class="padded"/>' +
 						'<ul class="padded">';
 
 		for (var i = 0; i < this.blockTypes.length; i++)
@@ -257,10 +263,6 @@ Craft.MatrixInput = Garnish.Base.extend(
 		}
 
 		html +=
-						'</ul>' +
-						'<hr class="padded"/>' +
-						'<ul class="padded">' +
-							'<li><a data-icon="remove" data-action="delete">'+Craft.t('Delete')+'</a></li>' +
 						'</ul>' +
 					'</div>' +
 					'<a class="move icon" title="'+Craft.t('Reorder')+'" role="button"></a> ' +

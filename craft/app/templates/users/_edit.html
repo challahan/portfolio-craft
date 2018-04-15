@@ -12,41 +12,12 @@
 	"Are you sure you want to delete this photo?"
 %}
 
-{% includejsresource "lib/fileupload/jquery.ui.widget.js" %}
 {% includejsresource "lib/fileupload/jquery.fileupload.js" %}
 {% includejsresource "lib/jcrop/jquery.Jcrop.min.js" %}
 {% includejsresource "js/profile.js" %}
 {% includecssresource "lib/jcrop/jquery.Jcrop.min.css" %}
 {% includecssresource "css/profile.css" %}
 
-
-{% set photoInput %}
-	{% include 'users/_userphoto' with {account: account} only %}
-{% endset %}
-
-{% set saveUserButtons %}
-
-	<div class="buttons">
-		{% if not currentUser.can('registerUsers') or CraftEdition != CraftPro %}
-			<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
-		{% else %}
-			<div class="btngroup">
-				<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
-				<div class="btn submit menubtn"></div>
-				<div class="menu">
-					<ul>
-						<li><a class="formsubmit" data-redirect="users/{id}">
-							{{ forms.optionShortcutLabel('S') }}
-							{{ "Save and continue editing"|t }}
-						</a></li>
-						<li><a class="formsubmit" data-redirect="users/new">{{ "Save and add another"|t }}</a></li>
-					</ul>
-				</div>
-			</div>
-		{% endif %}
-	</div>
-
-{% endset %}
 
 {% set requireEmailVerification = craft.systemSettings.users.requireEmailVerification %}
 
@@ -71,6 +42,14 @@
 
 				<div id="account">
 					{% include "users/_accountfields" %}
+
+					{% if not isNewAccount %}
+						{{ forms.field({
+							label: "Photo"|t
+						}, include('users/_userphoto', {account: account}, with_context = false)) }}
+					{% endif %}
+
+					<hr>
 
 					{% if isNewAccount %}
 
@@ -153,53 +132,40 @@
 							value: account.weekStartDay
 						}) }}
 					{% endif %}
-
-					{{ saveUserButtons }}
 				</div>
 
-				{% if not isNewAccount or CraftEdition == CraftPro %}
-					<div id="profile" class="hidden">
-						{% if not isNewAccount %}
-							{{ forms.field({
-								label: "Photo"|t
-							}, photoInput) }}
-
-							<hr>
-						{% endif %}
-
-						{% if CraftEdition == CraftPro %}
+				{% if CraftEdition == CraftPro %}
+					{% for tab in account.getFieldLayout().getTabs() %}
+						<div id="tab{{ loop.index }}" class="hidden">
 							{% include "_includes/fields" with {
-								fields: craft.fields.getLayoutByType('User').getFields(),
+								fields: tab.getFields(),
 								element: account
 							} only %}
-
-							{{ saveUserButtons }}
-
-						{% endif %}
-					</div>
+						</div>
+					{% endfor %}
 				{% endif %}
 
-				{% if CraftEdition >= CraftClient and currentUser.can('assignUserPermissions') %}
+				{% if CraftEdition >= CraftClient and (currentUser.can('assignUserGroups') or currentUser.can('assignUserPermissions')) %}
 					<div id="perms" class="hidden">
 
-						{% if CraftEdition == CraftPro %}
+						{% if CraftEdition == CraftPro and currentUser.can('assignUserGroups') %}
 							<h2>{{ "User Groups"|t }}</h2>
 
-							{% set allGroups = craft.userGroups.getAllGroups() %}
-							{% set userGroups = account.getGroups('id') %}
+							{% set assignableGroups = craft.userGroups.getAssignableGroups(account) %}
+							{% set currentGroupIds = account.getGroups('id')|keys %}
 
 							{% set userGroupsInput %}
 								<input type="hidden" name="groups" value="">
 
-								{% if allGroups %}
+								{% if assignableGroups %}
 									<ul>
-										{% for group in allGroups %}
+										{% for group in assignableGroups %}
 											<li>
 												{{ forms.checkbox({
 													label: group.name|t|e,
 													name: 'groups[]',
 													value: group.id,
-													checked: (group.id in userGroups|keys)
+													checked: (group.id in currentGroupIds)
 												}) }}
 											</li>
 										{% endfor %}
@@ -217,31 +183,50 @@
 							<hr>
 						{% endif %}
 
-						<h2>{{ "Permissions"|t }}</h2>
+						{% if currentUser.can('assignUserPermissions') %}
+							<h2>{{ "Permissions"|t }}</h2>
 
-						{% if currentUser.admin and CraftEdition == CraftPro %}
-							{{ forms.checkboxField({
-								label: '<strong>' ~ "Admin"|t ~ '</strong>',
-								name: 'admin',
-								id: 'admin',
-								checked: account.admin,
-								reverseToggle: 'permissions'
-							}) }}
+							{% if currentUser.admin and CraftEdition == CraftPro %}
+								{{ forms.checkboxField({
+									label: '<strong>' ~ "Admin"|t ~ '</strong>',
+									name: 'admin',
+									id: 'admin',
+									checked: account.admin,
+									reverseToggle: 'permissions'
+								}) }}
+							{% endif %}
+
+							<input type="hidden" name="permissions" value="">
+
+							<div id="permissions" class="field{% if account.admin %} hidden{% endif %}">
+								{% include "_includes/permissions" with {
+									userOrGroup: (account.admin ? null : account),
+									groupPermissions: craft.userPermissions.getGroupPermissionsByUserId(account.id)
+								} only %}
+							</div>
 						{% endif %}
-
-						<input type="hidden" name="permissions" value="">
-
-						<div id="permissions" class="field{% if account.admin %} hidden{% endif %}">
-							{% include "_includes/permissions" with {
-								userOrGroup: (account.admin ? null : account),
-								groupPermissions: craft.userPermissions.getGroupPermissionsByUserId(account.id)
-							} only %}
-						</div>
-
-						{{ saveUserButtons }}
-
 					</div>
 				{% endif %}
+
+				<div class="buttons">
+                    {% if not currentUser.can('registerUsers') or CraftEdition != CraftPro %}
+						<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+                    {% else %}
+						<div class="btngroup">
+							<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+							<div class="btn submit menubtn"></div>
+							<div class="menu">
+								<ul>
+									<li><a class="formsubmit" data-redirect="users/{id}">
+                                            {{ forms.optionShortcutLabel('S') }}
+                                            {{ "Save and continue editing"|t }}
+										</a></li>
+									<li><a class="formsubmit" data-redirect="users/new">{{ "Save and add another"|t }}</a></li>
+								</ul>
+							</div>
+						</div>
+                    {% endif %}
+				</div>
 			</form>
 		</div><!--/item-->
 
@@ -276,10 +261,10 @@
 						</div>
 					</div>
 
-					{% if account.status == 'locked' and craft.config.cooldownDuration %}
+					{% if account.status == 'locked' and craft.config.cooldownDuration and account.remainingCooldownTime %}
 						<div class="data">
 							<h5 class="heading">{{ "Cooldown Time Remaining"|t }}</h5>
-							<p class="value">{{ account.remainingCooldownTime.humanDuration }}</p>
+							<p class="value">{{ account.remainingCooldownTime.humanDuration() }}</p>
 						</div>
 					{% endif %}
 

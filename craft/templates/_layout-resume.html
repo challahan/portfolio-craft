@@ -34,13 +34,6 @@
   <!-- Render SEO Metatags -->
   {% hook 'seomaticRender' %}
 </head>
-  <!-- Helper code for the Admin toolbar, only shown when logged in -->
-  {% if entry is defined %}
-  	{% set config = {
-  		entry: entry,
-  	} %}
-  	{{ craft.adminbar.bar(config) }}
-  {% endif %}
   <body>
     {% block content %}
 		{% endblock %}

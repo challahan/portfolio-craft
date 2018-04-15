@@ -25,6 +25,9 @@ node_modules
 /html/imager
 .DS_Store
 /craft/config/license.key
+/html/assets/global/
+/html/assets/headshot/
 /html/assets/global/_postLarge
 /html/assets/global/23915998_10106387156095014_2730882247010842481_n.jpg
 /html/package-lock.json
+/html/cpresources

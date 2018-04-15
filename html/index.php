@@ -4,16 +4,12 @@
 $craftPath = '../craft';
 
 // Do not edit below this line
-$path = rtrim($craftPath, '/').'/app/index.php';
+defined('CRAFT_BASE_PATH') || define('CRAFT_BASE_PATH', realpath($craftPath));
 
-if (!is_file($path))
-{
-	if (function_exists('http_response_code'))
-	{
-		http_response_code(503);
-	}
-
-	exit('Could not find your craft/ folder. Please ensure that <strong><code>$craftPath</code></strong> is set correctly in '.__FILE__);
+if (!is_dir(CRAFT_BASE_PATH.'/vendor')) {
+  exit('Could not find your vendor/ folder. Please ensure that <strong><code>$craftPath</code></strong> is set correctly in '.__FILE__);
 }
 
-require_once $path;
+require_once CRAFT_BASE_PATH.'/vendor/autoload.php';
+$app = require CRAFT_BASE_PATH.'/vendor/craftcms/cms/bootstrap/web.php';
+$app->run();

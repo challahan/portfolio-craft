@@ -24,7 +24,7 @@
           {% if block.type == "text" %}
               {{ block.bodytext }}
           {% elseif block.type =="video" %}
-              {{ block.videoUrl|videoEmbed }}
+              <iframe width="100%" height="auto" src="{{ block.videoUrl }}" frameborder="0" allowfullscreen></iframe>
           {% elseif block.type == "image" %}
               <figure class="article__figure">
               {% set image = block.image.first() %}

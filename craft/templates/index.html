@@ -30,7 +30,7 @@
   <main>
     <div class="feature-headshot">
       {% for headshot in entry.headshot %}
-      <img src="{{headshot.getUrl('headshotSmall')}}" srcset="{{headshot.getUrl}} 600w,
+      <img src="{{headshot.getUrl('headshotSmall')}}" srcset="{{headshot.getUrl('headshotSmall')}} 600w,
         {{headshot.getUrl('headshotSmall')}} 200w" sizes="50%" alt="{{ headshot.title }}" />
       {% endfor %}
     </div>

@@ -21,7 +21,6 @@ return array(
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'wbrowar\\adminbar\\' => array($vendorDir . '/wbrowar/adminbar/src'),
-    'nystudio107\\seomatic\\' => array($vendorDir . '/nystudio107/craft-seomatic/src'),
     'mikestecker\\videoembedder\\' => array($vendorDir . '/mikestecker/craft-videoembedder/src'),
     'mikehaertl\\shellcommand\\' => array($vendorDir . '/mikehaertl/php-shellcommand/src'),
     'enshrined\\svgSanitize\\' => array($vendorDir . '/enshrined/svg-sanitize/src'),

@@ -66,36 +66,4 @@ return array (
     'hasCpSettings' => false,
     'hasCpSection' => false,
   ),
-  'nystudio107/craft-seomatic' => 
-  array (
-    'class' => 'nystudio107\\seomatic\\Seomatic',
-    'basePath' => $vendorDir . '/nystudio107/craft-seomatic/src',
-    'handle' => 'seomatic',
-    'aliases' => 
-    array (
-      '@nystudio107/seomatic' => $vendorDir . '/nystudio107/craft-seomatic/src',
-    ),
-    'name' => 'SEOmatic',
-    'version' => '3.0.0-beta.22',
-    'description' => 'SEOmatic facilitates modern SEO best practices & implementation for Craft CMS 3. It is a turnkey SEO system that is comprehensive, powerful, and flexible.',
-    'developer' => 'nystudio107',
-    'developerUrl' => 'https://nystudio107.com',
-    'changelogUrl' => 'https://raw.githubusercontent.com/nystudio107/craft-seomatic/v3/CHANGELOG.md',
-    'hasCpSettings' => true,
-    'hasCpSection' => true,
-    'components' => 
-    array (
-      'frontendTemplates' => 'nystudio107\\seomatic\\services\\FrontendTemplates',
-      'helper' => 'nystudio107\\seomatic\\services\\Helper',
-      'jsonLd' => 'nystudio107\\seomatic\\services\\JsonLd',
-      'link' => 'nystudio107\\seomatic\\services\\Link',
-      'metaBundles' => 'nystudio107\\seomatic\\services\\MetaBundles',
-      'metaContainers' => 'nystudio107\\seomatic\\services\\MetaContainers',
-      'redirects' => 'nystudio107\\seomatic\\services\\Redirects',
-      'script' => 'nystudio107\\seomatic\\services\\Script',
-      'sitemaps' => 'nystudio107\\seomatic\\services\\Sitemaps',
-      'tag' => 'nystudio107\\seomatic\\services\\Tag',
-      'title' => 'nystudio107\\seomatic\\services\\Title',
-    ),
-  ),
 );

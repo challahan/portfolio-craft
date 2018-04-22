@@ -302,12 +302,12 @@
     },
     {
         "name": "craftcms/cms",
-        "version": "3.0.2",
-        "version_normalized": "3.0.2.0",
+        "version": "3.0.3.1",
+        "version_normalized": "3.0.3.1",
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/craftcms/cms/zipball/8de55f65dfaeef07038578a3aa441729af7aeb49",
-            "reference": "8de55f65dfaeef07038578a3aa441729af7aeb49",
+            "url": "https://api.github.com/repos/craftcms/cms/zipball/6855a5f1c83205f1506aeb5a610964c58e67ca87",
+            "reference": "6855a5f1c83205f1506aeb5a610964c58e67ca87",
             "shasum": ""
         },
         "require": {
@@ -348,18 +348,12 @@
             "bower-asset/punycode": "1.3.*",
             "bower-asset/yii2-pjax": "~2.0.1"
         },
-        "require-dev": {
-            "codeception/codeception": "~2.3.3",
-            "codeception/mockery-module": "~0.2.2",
-            "codeception/specify": "~0.4.6",
-            "codeception/verify": "~0.3.3"
-        },
         "suggest": {
             "ext-iconv": "Adds support for more character encodings than PHP’s built-in mb_convert_encoding() function, which Craft will take advantage of when converting strings to UTF-8.",
             "ext-imagick": "Adds support for more image processing formats and options.",
             "ext-intl": "Adds rich internationalization support."
         },
-        "time": "2018-04-10T17:44:29+00:00",
+        "time": "2018-04-18T13:58:37+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -367,7 +361,6 @@
                 "craft\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "proprietary"
         ],
@@ -377,7 +370,15 @@
             "cms",
             "craftcms",
             "yii2"
-        ]
+        ],
+        "support": {
+            "email": "support@craftcms.com",
+            "issues": "https://github.com/craftcms/cms/issues?state=open",
+            "forum": "https://craftcms.stackexchange.com/",
+            "source": "https://github.com/craftcms/cms",
+            "docs": "https://github.com/craftcms/docs",
+            "rss": "https://github.com/craftcms/cms/releases.atom"
+        }
     },
     {
         "name": "craftcms/oauth2-craftid",
@@ -991,12 +992,12 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "6.3.2",
-        "version_normalized": "6.3.2.0",
+        "version": "6.3.3",
+        "version_normalized": "6.3.3.0",
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/68d0ea14d5a3f42a20e87632a5f84931e2709c90",
-            "reference": "68d0ea14d5a3f42a20e87632a5f84931e2709c90",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
+            "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
             "shasum": ""
         },
         "require": {
@@ -1004,15 +1005,10 @@
             "guzzlehttp/psr7": "^1.4",
             "php": ">=5.5"
         },
-        "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4",
-            "psr/log": "^1.0"
-        },
         "suggest": {
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2018-03-26T16:33:04+00:00",
+        "time": "2018-04-22T15:46:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1028,7 +1024,6 @@
                 "GuzzleHttp\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],

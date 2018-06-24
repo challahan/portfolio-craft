@@ -28,11 +28,11 @@
         }
     ],
     "autoload": {
-        "psr-4": { "yii\\swiftmailer\\": "" }
+        "psr-4": { "yii\\swiftmailer\\": "src" }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     }
 }

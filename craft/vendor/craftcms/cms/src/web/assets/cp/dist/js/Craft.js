@@ -1,4 +1,4 @@
-/*!   - 2018-04-17 */
+/*!   - 2018-06-18 */
 (function($){
 
 /** global: Craft */
@@ -7,137 +7,6 @@
 $.extend(Craft,
     {
         navHeight: 48,
-
-        /**
-         * Map of high-ASCII codes to their low-ASCII characters.
-         *
-         * @var object
-         */
-        asciiCharMap: {
-            'a': [
-                'à', 'á', 'ả', 'ã', 'ạ', 'ă', 'ắ', 'ằ', 'ẳ', 'ẵ', 'ặ', 'â', 'ấ', 'ầ', 'ẩ', 'ẫ', 'ậ',
-                'ä', 'ā', 'ą', 'å', 'α', 'ά', 'ἀ', 'ἁ', 'ἂ', 'ἃ', 'ἄ', 'ἅ', 'ἆ', 'ἇ', 'ᾀ', 'ᾁ', 'ᾂ',
-                'ᾃ', 'ᾄ', 'ᾅ', 'ᾆ', 'ᾇ', 'ὰ', 'ά', 'ᾰ', 'ᾱ', 'ᾲ', 'ᾳ', 'ᾴ', 'ᾶ', 'ᾷ', 'а', 'أ'
-            ],
-            'b': ['б', 'β', 'Ъ', 'Ь', 'ب'],
-            'c': ['ç', 'ć', 'č', 'ĉ', 'ċ'],
-            'd': ['ď', 'ð', 'đ', 'ƌ', 'ȡ', 'ɖ', 'ɗ', 'ᵭ', 'ᶁ', 'ᶑ', 'д', 'δ', 'د', 'ض'],
-            'e': [
-                'é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ', 'ệ', 'ë', 'ē', 'ę', 'ě', 'ĕ', 'ė',
-                'ε', 'έ', 'ἐ', 'ἑ', 'ἒ', 'ἓ', 'ἔ', 'ἕ', 'ὲ', 'έ', 'е', 'ё', 'э', 'є', 'ə'
-            ],
-            'f': ['ф', 'φ', 'ف'],
-            'g': ['ĝ', 'ğ', 'ġ', 'ģ', 'г', 'ґ', 'γ', 'ج'],
-            'h': ['ĥ', 'ħ', 'η', 'ή', 'ح', 'ه'],
-            'i': [
-                'í', 'ì', 'ỉ', 'ĩ', 'ị', 'î', 'ï', 'ī', 'ĭ', 'į', 'ı', 'ι', 'ί', 'ϊ', 'ΐ', 'ἰ', 'ἱ',
-                'ἲ', 'ἳ', 'ἴ', 'ἵ', 'ἶ', 'ἷ', 'ὶ', 'ί', 'ῐ', 'ῑ', 'ῒ', 'ΐ', 'ῖ', 'ῗ', 'і', 'ї', 'и'
-            ],
-            'j': ['ĵ', 'ј', 'Ј'],
-            'k': ['ķ', 'ĸ', 'к', 'κ', 'Ķ', 'ق', 'ك'],
-            'l': ['ł', 'ľ', 'ĺ', 'ļ', 'ŀ', 'л', 'λ', 'ل'],
-            'm': ['м', 'μ', 'م'],
-            'n': ['ñ', 'ń', 'ň', 'ņ', 'ŉ', 'ŋ', 'ν', 'н', 'ن'],
-            'o': [
-                'ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ', 'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ',
-                'ø', 'ō', 'ő', 'ŏ', 'ο', 'ὀ', 'ὁ', 'ὂ', 'ὃ', 'ὄ', 'ὅ', 'ὸ', 'ό', 'ö', 'о', 'و', 'θ'
-            ],
-            'p': ['п', 'π'],
-            'r': ['ŕ', 'ř', 'ŗ', 'р', 'ρ', 'ر'],
-            's': ['ś', 'š', 'ş', 'с', 'σ', 'ș', 'ς', 'س', 'ص'],
-            't': ['ť', 'ţ', 'т', 'τ', 'ț', 'ت', 'ط'],
-            'u': [
-                'ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ', 'ự', 'ü', 'û', 'ū', 'ů', 'ű', 'ŭ',
-                'ų', 'µ', 'у'
-            ],
-            'v': ['в'],
-            'w': ['ŵ', 'ω', 'ώ'],
-            'x': ['χ'],
-            'y': ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ', 'ÿ', 'ŷ', 'й', 'ы', 'υ', 'ϋ', 'ύ', 'ΰ', 'ي'],
-            'z': ['ź', 'ž', 'ż', 'з', 'ζ', 'ز'],
-            'aa': ['ع'],
-            'ae': ['æ'],
-            'ch': ['ч'],
-            'dj': ['ђ', 'đ'],
-            'dz': ['џ'],
-            'gh': ['غ'],
-            'kh': ['х', 'خ'],
-            'lj': ['љ'],
-            'nj': ['њ'],
-            'oe': ['œ'],
-            'ps': ['ψ'],
-            'sh': ['ш'],
-            'shch': ['щ'],
-            'ss': ['ß'],
-            'th': ['þ', 'ث', 'ذ', 'ظ'],
-            'ts': ['ц'],
-            'ya': ['я'],
-            'yu': ['ю'],
-            'zh': ['ж'],
-            '(c)': ['©'],
-            'A': [
-                'Á', 'À', 'Ả', 'Ã', 'Ạ', 'Ă', 'Ắ', 'Ằ', 'Ẳ', 'Ẵ', 'Ặ', 'Â', 'Ấ', 'Ầ', 'Ẩ', 'Ẫ',
-                'Ậ', 'Ä', 'Å', 'Ā', 'Ą', 'Α', 'Ά', 'Ἀ', 'Ἁ', 'Ἂ', 'Ἃ', 'Ἄ', 'Ἅ', 'Ἆ', 'Ἇ', 'ᾈ',
-                'ᾉ', 'ᾊ', 'ᾋ', 'ᾌ', 'ᾍ', 'ᾎ', 'ᾏ', 'Ᾰ', 'Ᾱ', 'Ὰ', 'Ά', 'ᾼ', 'А'
-            ],
-            'B': ['Б', 'Β'],
-            'C': ['Ć', 'Č', 'Ĉ', 'Ċ'],
-            'D': ['Ď', 'Ð', 'Đ', 'Ɖ', 'Ɗ', 'Ƌ', 'ᴅ', 'ᴆ', 'Д', 'Δ'],
-            'E': [
-                'É', 'È', 'Ẻ', 'Ẽ', 'Ẹ', 'Ê', 'Ế', 'Ề', 'Ể', 'Ễ', 'Ệ', 'Ë', 'Ē', 'Ę', 'Ě', 'Ĕ',
-                'Ė', 'Ε', 'Έ', 'Ἐ', 'Ἑ', 'Ἒ', 'Ἓ', 'Ἔ', 'Ἕ', 'Έ', 'Ὲ', 'Е', 'Ё', 'Э', 'Є', 'Ə'
-            ],
-            'F': ['Ф', 'Φ'],
-            'G': ['Ğ', 'Ġ', 'Ģ', 'Г', 'Ґ', 'Γ'],
-            'H': ['Η', 'Ή'],
-            'I': [
-                'Í', 'Ì', 'Ỉ', 'Ĩ', 'Ị', 'Î', 'Ï', 'Ī', 'Ĭ', 'Į', 'İ', 'Ι', 'Ί', 'Ϊ', 'Ἰ', 'Ἱ',
-                'Ἳ', 'Ἴ', 'Ἵ', 'Ἶ', 'Ἷ', 'Ῐ', 'Ῑ', 'Ὶ', 'Ί', 'И', 'І', 'Ї'
-            ],
-            'K': ['К', 'Κ'],
-            'L': ['Ĺ', 'Ł', 'Л', 'Λ', 'Ļ'],
-            'M': ['М', 'Μ'],
-            'N': ['Ń', 'Ñ', 'Ň', 'Ņ', 'Ŋ', 'Н', 'Ν'],
-            'O': [
-                'Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ', 'Ô', 'Ố', 'Ồ', 'Ổ', 'Ỗ', 'Ộ', 'Ơ', 'Ớ', 'Ờ', 'Ở', 'Ỡ',
-                'Ợ', 'Ö', 'Ø', 'Ō', 'Ő', 'Ŏ', 'Ο', 'Ό', 'Ὀ', 'Ὁ', 'Ὂ', 'Ὃ', 'Ὄ', 'Ὅ', 'Ὸ', 'Ό',
-                'О', 'Θ', 'Ө'
-            ],
-            'P': ['П', 'Π'],
-            'R': ['Ř', 'Ŕ', 'Р', 'Ρ'],
-            'S': ['Ş', 'Ŝ', 'Ș', 'Š', 'Ś', 'С', 'Σ'],
-            'T': ['Ť', 'Ţ', 'Ŧ', 'Ț', 'Т', 'Τ'],
-            'U': [
-                'Ú', 'Ù', 'Ủ', 'Ũ', 'Ụ', 'Ư', 'Ứ', 'Ừ', 'Ử', 'Ữ', 'Ự', 'Û', 'Ü', 'Ū', 'Ů', 'Ű',
-                'Ŭ', 'Ų', 'У'
-            ],
-            'V': ['В'],
-            'W': ['Ω', 'Ώ'],
-            'X': ['Χ'],
-            'Y': ['Ý', 'Ỳ', 'Ỷ', 'Ỹ', 'Ỵ', 'Ÿ', 'Ῠ', 'Ῡ', 'Ὺ', 'Ύ', 'Ы', 'Й', 'Υ', 'Ϋ'],
-            'Z': ['Ź', 'Ž', 'Ż', 'З', 'Ζ'],
-            'AE': ['Æ'],
-            'CH': ['Ч'],
-            'DJ': ['Ђ'],
-            'DZ': ['Џ'],
-            'KH': ['Х'],
-            'LJ': ['Љ'],
-            'NJ': ['Њ'],
-            'PS': ['Ψ'],
-            'SH': ['Ш'],
-            'SHCH': ['Щ'],
-            'SS': ['ẞ'],
-            'TH': ['Þ'],
-            'TS': ['Ц'],
-            'YA': ['Я'],
-            'YU': ['Ю'],
-            'ZH': ['Ж'],
-            ' ': [
-                "\xC2\xA0", "\xE2\x80\x80", "\xE2\x80\x81", "\xE2\x80\x82", "\xE2\x80\x83", "\xE2\x80\x84",
-                "\xE2\x80\x85", "\xE2\x80\x86", "\xE2\x80\x87", "\xE2\x80\x88", "\xE2\x80\x89", "\xE2\x80\x8A",
-                "\xE2\x80\xAF", "\xE2\x81\x9F", "\xE3\x80\x80"
-            ]
-        },
 
         /**
          * Get a translated message.
@@ -471,7 +340,10 @@ $.extend(Craft,
                 data = {};
             }
 
-            var headers = {};
+            var headers = {
+                'X-Registered-Asset-Bundles': Object.keys(Craft.registeredAssetBundles).join(','),
+                'X-Registered-Js-Files': Object.keys(Craft.registeredJsFiles).join(',')
+            };
 
             if (Craft.csrfTokenValue && Craft.csrfTokenName) {
                 headers['X-CSRF-Token'] = Craft.csrfTokenValue;
@@ -938,25 +810,11 @@ $.extend(Craft,
          */
         asciiString: function(str) {
             var asciiStr = '';
+            var char;
 
-            for (var stringCounter = 0; stringCounter < str.length; stringCounter++) {
-                var asciiCode = str.charCodeAt(stringCounter);
-                var char = str.charAt(stringCounter);
-
-                if (asciiCode >= 32 && asciiCode < 128) {
-                    asciiStr += char;
-                }
-                else {
-                    for (var property in Craft.asciiCharMap) {
-                        if (Craft.asciiCharMap.hasOwnProperty(property)) {
-                            for (var searchCounter = 0; searchCounter < Craft.asciiCharMap[property].length; searchCounter++) {
-                                if (Craft.asciiCharMap[property][searchCounter] === char) {
-                                    asciiStr += property;
-                                }
-                            }
-                        }
-                    }
-                }
+            for (var i = 0; i < str.length; i++) {
+                char = str.charAt(i);
+                asciiStr += Craft.asciiCharMap[char] || char;
             }
 
             return asciiStr;
@@ -2021,6 +1879,8 @@ Craft.BaseElementIndex = Garnish.Base.extend(
             }
             else if (this.settings.criteria && this.settings.criteria.siteId) {
                 this._setSite(this.settings.criteria.siteId);
+            } else {
+                this._setSite(Craft.siteId);
             }
 
             // Initialize the search input
@@ -7831,9 +7691,10 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
                         folderId = this._getFolderIdFromSourceKey($a.data('key')),
                         $source = this._getSourceByFolderId(folderId);
 
-                    // Make sure it's not already in the target folder
+                    // Make sure it's not already in the target folder and use this single folder Id.
                     if (this._getFolderIdFromSourceKey(this._getParentSource($source).data('key')) != targetFolderId) {
                         folderIds.push(folderId);
+                        break;
                     }
                 }
 
@@ -8747,6 +8608,10 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
         },
 
         _positionProgressBar: function() {
+            if (!this.progressBar) {
+                this.progressBar = new Craft.ProgressBar(this.$main, true);
+            }
+
             var $container = $(),
                 scrollTop = 0,
                 offset = 0;
@@ -8754,8 +8619,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
             if (this.settings.context === 'index') {
                 $container = this.progressBar.$progressBar.closest('#content');
                 scrollTop = Garnish.$win.scrollTop();
-            }
-            else {
+            } else {
                 $container = this.progressBar.$progressBar.closest('.main');
                 scrollTop = this.$main.scrollTop();
             }
@@ -8766,8 +8630,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
             if ($container.height() > windowHeight) {
                 offset = (windowHeight / 2) - 6 + diff;
-            }
-            else {
+            } else {
                 offset = ($container.height() / 2) - 6;
             }
 
@@ -12709,7 +12572,7 @@ Craft.EditableTable = Garnish.Base.extend(
             }
 
             if (this.settings.minRows && this.rowCount < this.settings.minRows) {
-                for (var i = 1; i < this.settings.minRows; i++) {
+                for (var i = this.rowCount; i < this.settings.minRows; i++) {
                     this.addRow()
                 }
             }
@@ -12747,10 +12610,7 @@ Craft.EditableTable = Garnish.Base.extend(
             }
         },
         updateAddRowButton: function() {
-            if (
-                (this.settings.maxRows && this.rowCount >= this.settings.maxRows) ||
-                (this.settings.minRows && this.rowCount < this.settings.minRows)
-            ) {
+            if (!this.canAddRow()) {
                 this.$addRowBtn.css('opacity', '0.2');
                 this.$addRowBtn.css('pointer-events', 'none');
             } else {
@@ -12762,31 +12622,29 @@ Craft.EditableTable = Garnish.Base.extend(
             return (this.rowCount > this.settings.minRows);
         },
         deleteRow: function(row) {
-            if (this.settings.maxRows && this.settings.minRows) {
-                if (!this.canDeleteRow()) {
-                    return;
-                }
+            if (!this.canDeleteRow()) {
+                return;
             }
 
             this.sorter.removeItems(row.$tr);
             row.$tr.remove();
 
-            if (this.settings.minRows && this.settings.maxRows) {
-                this.rowCount--;
-            }
+            this.rowCount--;
 
             this.updateAddRowButton();
             // onDeleteRow callback
             this.settings.onDeleteRow(row.$tr);
         },
         canAddRow: function() {
-            return (this.rowCount < this.settings.maxRows);
+            if (this.settings.maxRows) {
+                return (this.rowCount < this.settings.maxRows);
+            }
+
+            return true;
         },
         addRow: function() {
-            if (this.settings.minRows && this.settings.maxRows) {
-                if (!this.canAddRow()) {
-                    return;
-                }
+            if (!this.canAddRow()) {
+                return;
             }
 
             var rowId = this.settings.rowIdPrefix + (this.biggestId + 1),
@@ -13290,6 +13148,7 @@ Craft.ElementThumbLoader.Worker = Garnish.Base.extend(
             var $container = $(container);
             if ($container.find('img').length) {
                 this.loadNext();
+                return;
             }
             var $img = $('<img/>', {
                 sizes: $container.attr('data-sizes'),
@@ -13631,7 +13490,7 @@ Craft.EntryIndex = Craft.BaseElementIndex.extend(
                 // If they are, show a primary "New entry" button, and a dropdown of the other sections (if any).
                 // Otherwise only show a menu button
                 if (selectedSection) {
-                    href = this._getSectionTriggerHref(selectedSection, true);
+                    href = this._getSectionTriggerHref(selectedSection);
                     label = (this.settings.context === 'index' ? Craft.t('app', 'New entry') : Craft.t('app', 'New {section} entry', {section: selectedSection.name}));
                     this.$newEntryBtn = $('<a class="btn submit add icon" ' + href + '>' + Craft.escapeHtml(label) + '</a>').appendTo(this.$newEntryBtnGroup);
 
@@ -13655,7 +13514,10 @@ Craft.EntryIndex = Craft.BaseElementIndex.extend(
                     for (i = 0; i < this.publishableSections.length; i++) {
                         var section = this.publishableSections[i];
 
-                        if (this.settings.context === 'index' || section !== selectedSection) {
+                        if (
+                            (this.settings.context === 'index' && $.inArray(this.siteId, section.sites) !== -1) ||
+                            (this.settings.context !== 'index' && section !== selectedSection)
+                        ) {
                             href = this._getSectionTriggerHref(section);
                             label = (this.settings.context === 'index' ? section.name : Craft.t('app', 'New {section} entry', {section: section.name}));
                             menuHtml += '<li><a ' + href + '">' + Craft.escapeHtml(label) + '</a></li>';
@@ -13691,10 +13553,10 @@ Craft.EntryIndex = Craft.BaseElementIndex.extend(
             }
         },
 
-        _getSectionTriggerHref: function(section, includeSite) {
+        _getSectionTriggerHref: function(section) {
             if (this.settings.context === 'index') {
                 var uri = 'entries/' + section.handle + '/new';
-                if (includeSite && this.siteId && this.siteId != Craft.primarySiteId) {
+                if (this.siteId && this.siteId != Craft.siteId) {
                     for (var i = 0; i < Craft.sites.length; i++) {
                         if (Craft.sites[i].id == this.siteId) {
                             uri += '/'+Craft.sites[i].handle;
@@ -13702,8 +13564,7 @@ Craft.EntryIndex = Craft.BaseElementIndex.extend(
                     }
                 }
                 return 'href="' + Craft.getUrl(uri) + '"';
-            }
-            else {
+            } else {
                 return 'data-id="' + section.id + '"';
             }
         },

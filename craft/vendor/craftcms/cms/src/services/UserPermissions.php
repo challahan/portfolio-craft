@@ -23,7 +23,7 @@ use yii\base\Component;
 
 /**
  * User Permissions service.
- * An instance of the User Permissions service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getUserPermissions()|<code>Craft::$app->userPermissions</code>]].
+ * An instance of the User Permissions service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getUserPermissions()|`Craft::$app->userPermissions`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -549,16 +549,16 @@ class UserPermissions extends Component
     /**
      * Returns the array source permissions.
      *
-     * @param int $sourceId
+     * @param int $volumeId
      * @return array
      */
-    private function _getVolumePermissions(int $sourceId): array
+    private function _getVolumePermissions(int $volumeId): array
     {
-        $suffix = ':'.$sourceId;
+        $suffix = ':'.$volumeId;
 
         return [
             "viewVolume{$suffix}" => [
-                'label' => Craft::t('app', 'View source'),
+                'label' => Craft::t('app', 'View volume'),
                 'nested' => [
                     "saveAssetInVolume{$suffix}" => [
                         'label' => Craft::t('app', 'Upload files'),

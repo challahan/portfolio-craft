@@ -22,6 +22,7 @@ use craft\elements\actions\RenameFile;
 use craft\elements\actions\ReplaceFile;
 use craft\elements\db\AssetQuery;
 use craft\elements\db\ElementQueryInterface;
+use craft\errors\AssetException;
 use craft\errors\AssetTransformException;
 use craft\errors\FileException;
 use craft\errors\VolumeObjectNotFoundException;
@@ -30,6 +31,7 @@ use craft\helpers\Assets as AssetsHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\Html;
 use craft\helpers\Image;
+use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use craft\models\AssetTransform;
@@ -184,7 +186,7 @@ class Asset extends Element
         $sourceList = self::_assembleSourceList($tree, $context !== 'settings');
 
         // Add the customized temporary upload source
-        if ($context !== 'settings') {
+        if ($context !== 'settings' && !Craft::$app->getRequest()->getIsConsoleRequest()) {
             $temporaryUploadFolder = Craft::$app->getAssets()->getCurrentUserTemporaryUploadFolder();
             $temporaryUploadFolder->name = Craft::t('app', 'Temporary Uploads');
             $sourceList[] = self::_assembleSourceInfoForFolder($temporaryUploadFolder, false);
@@ -281,8 +283,16 @@ class Asset extends Element
             'filename' => Craft::t('app', 'Filename'),
             'size' => Craft::t('app', 'File Size'),
             'dateModified' => Craft::t('app', 'File Modification Date'),
-            'elements.dateCreated' => Craft::t('app', 'Date Uploaded'),
-            'elements.dateUpdated' => Craft::t('app', 'Date Updated'),
+            [
+                'label' => Craft::t('app', 'Date Uploaded'),
+                'orderBy' => 'elements.dateCreated',
+                'attribute' => 'dateCreated'
+            ],
+            [
+                'label' => Craft::t('app', 'Date Updated'),
+                'orderBy' => 'elements.dateUpdated',
+                'attribute' => 'dateUpdated'
+            ],
         ];
     }
 
@@ -370,7 +380,7 @@ class Asset extends Element
     // =========================================================================
 
     /**
-     * @var int|null Source ID
+     * @var int|null Volume ID
      */
     public $volumeId;
 
@@ -487,7 +497,6 @@ class Asset extends Element
     /**
      * @inheritdoc
      */
-    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function __toString()
     {
         try {
@@ -502,6 +511,7 @@ class Asset extends Element
 
     /**
      * Checks if a property is set.
+     *
      * This method will check if $name is one of the following:
      * - a magic property supported by [[Element::__isset()]]
      * - an image transform handle
@@ -520,6 +530,7 @@ class Asset extends Element
 
     /**
      * Returns a property value.
+     *
      * This method will check if $name is one of the following:
      * - a magic property supported by [[Element::__get()]]
      * - an image transform handle
@@ -701,6 +712,10 @@ class Asset extends Element
 
         if (!$volume->hasUrls) {
             return null;
+        }
+
+        if ($this->getMimeType() === 'image/gif' && !Craft::$app->getConfig()->getGeneral()->transformGifs) {
+            return AssetsHelper::generateUrl($volume, $this);
         }
 
         // Normalize empty transform values
@@ -893,13 +908,27 @@ class Asset extends Element
     }
 
     /**
-     * Get a stream of the actual file.
+     * Returns a stream of the actual file.
      *
      * @return resource
+     * @throws InvalidConfigException if [[volumeId]] is missing or invalid
+     * @throws AssetException if a stream could not be created
      */
     public function getStream()
     {
         return $this->getVolume()->getFileStream($this->getPath());
+    }
+
+    /**
+     * Returns the file’s contents.
+     *
+     * @return string
+     * @throws InvalidConfigException if [[volumeId]] is missing or invalid
+     * @throws AssetException if a stream could not be created
+     */
+    public function getContents(): string
+    {
+        return stream_get_contents($this->getStream());
     }
 
     /**
@@ -951,7 +980,7 @@ class Asset extends Element
     /**
      * Returns the focal point represented as an array with `x` and `y` keys, or null if it's not an image.
      *
-     * @param bool whether the value should be returned in CSS syntax ("50% 25%") instead
+     * @param bool $asCss whether the value should be returned in CSS syntax ("50% 25%") instead
      * @return array|string|null
      */
     public function getFocalPoint(bool $asCss = false)

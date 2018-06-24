@@ -44,7 +44,7 @@ use yii\base\NotSupportedException;
 
 /**
  * Assets service.
- * An instance of the Assets service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getAssets()|<code>Craft::$app->assets</code>]].
+ * An instance of the Assets service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getAssets()|`Craft::$app->assets`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -133,6 +133,7 @@ class Assets extends Component
 
     /**
      * Replace an Asset's file.
+     *
      * Replace an Asset's file by it's id, a local file and the filename to use.
      *
      * @param Asset $asset
@@ -632,7 +633,7 @@ class Assets extends Component
         // Publish the thumb directory (if necessary) and return the thumb's published URL
         $dir = dirname($path);
         $name = pathinfo($path, PATHINFO_BASENAME);
-        return Craft::$app->getAssetManager()->getPublishedUrl($dir, false, $name);
+        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true, $name);
     }
 
     /**

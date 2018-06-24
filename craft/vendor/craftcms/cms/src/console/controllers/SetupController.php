@@ -83,6 +83,7 @@ class SetupController extends Controller
             $options[] = 'password';
             $options[] = 'database';
             $options[] = 'schema';
+            $options[] = 'tablePrefix';
         }
 
         return $options;
@@ -237,7 +238,7 @@ EOD;
             $dbConfig->password = $this->password;
         } else if ($this->interactive) {
             $this->stdout('Database password: ');
-            $dbConfig->password = CliPrompt::hiddenPrompt();
+            $dbConfig->password = CliPrompt::hiddenPrompt(true);
         }
 
         // database

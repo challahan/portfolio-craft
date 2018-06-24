@@ -145,7 +145,7 @@ class App
 
     /**
      * Sets PHP’s memory limit to the maximum specified by the
-     * [phpMaxMemoryLimit](http://craftcms.com/docs/config-settings#phpMaxMemoryLimit) config setting, and gives
+     * [[\craft\config\GeneralConfig::phpMaxMemoryLimit|phpMaxMemoryLimit]] config setting, and gives
      * the script an unlimited amount of time to execute.
      */
     public static function maxPowerCaptain()
@@ -168,19 +168,20 @@ class App
      */
     public static function licenseKey()
     {
-        $path = Craft::$app->getPath()->getLicenseKeyPath();
+        if (defined('CRAFT_LICENSE_KEY')) {
+            $licenseKey = CRAFT_LICENSE_KEY;
+        } else {
+            $path = Craft::$app->getPath()->getLicenseKeyPath();
 
-        // Check to see if the key exists and it's not a temp one.
-        if (!is_file($path)) {
-            return null;
+            // Check to see if the key exists
+            if (!is_file($path)) {
+                return null;
+            }
+
+            $licenseKey = file_get_contents($path);
         }
 
-        $contents = file_get_contents($path);
-        if (empty($contents) || $contents === 'temp') {
-            return null;
-        }
-
-        $licenseKey = trim(preg_replace('/[\r\n]+/', '', $contents));
+        $licenseKey = trim(preg_replace('/[\r\n]+/', '', $licenseKey));
 
         if (strlen($licenseKey) !== 250) {
             return null;

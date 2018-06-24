@@ -146,7 +146,7 @@ class ElementHelper
             $variables['id'] = $element->tempId = 'id-'.StringHelper::randomString(10);
         }
 
-        $uri = Craft::$app->getView()->renderObjectTemplate($uriFormat, $element);
+        $uri = Craft::$app->getView()->renderObjectTemplate($uriFormat, $element, $variables);
 
         // Remove any leading/trailing/double slashes
         $uri = preg_replace('/^\/+|(?<=\/)\/+|\/+$/', '', $uri);
@@ -186,14 +186,12 @@ class ElementHelper
      */
     public static function doesUriFormatHaveSlugTag(string $uriFormat): bool
     {
-        $element = (object)['slug' => StringHelper::randomString()];
-        $uri = Craft::$app->getView()->renderObjectTemplate($uriFormat, $element);
-
-        return StringHelper::contains($uri, $element->slug);
+        return (bool)preg_match('/\bslug\b/', $uriFormat);
     }
 
     /**
      * Returns a list of sites that a given element supports.
+     *
      * Each site is represented as an array with 'siteId' and 'enabledByDefault' keys.
      *
      * @param ElementInterface $element

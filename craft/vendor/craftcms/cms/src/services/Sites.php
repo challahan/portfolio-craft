@@ -33,7 +33,7 @@ use yii\db\Exception as DbException;
 
 /**
  * Sites service.
- * An instance of the Sites service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getSites()|<code>Craft::$app->sites</code>]].
+ * An instance of the Sites service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getSites()|`Craft::$app->sites`]].
  *
  * @property int[] $allSiteIds all of the site IDs
  * @property Site|null $currentSite the current site
@@ -96,6 +96,7 @@ class Sites extends Component
 
     /**
      * @event DeleteSiteEvent The event that is triggered before a site is deleted.
+     *
      * You may set [[SiteEvent::isValid]] to `false` to prevent the site from getting deleted.
      */
     const EVENT_BEFORE_DELETE_SITE = 'beforeDeleteSite';
@@ -1035,8 +1036,8 @@ class Sites extends Component
                     }
                 }
 
-                if (is_array($generalConfig->siteName) && isset($generalConfig->siteUrl[$site->handle])) {
-                    $site->overrideName($generalConfig->siteUrl[$site->handle]);
+                if (is_array($generalConfig->siteName) && isset($generalConfig->siteName[$site->handle])) {
+                    $site->overrideName($generalConfig->siteName[$site->handle]);
                 }
                 if (is_array($generalConfig->siteUrl) && isset($generalConfig->siteUrl[$site->handle])) {
                     $site->overrideBaseUrl($generalConfig->siteUrl[$site->handle]);

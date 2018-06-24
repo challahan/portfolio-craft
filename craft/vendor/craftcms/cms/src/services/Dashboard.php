@@ -29,7 +29,7 @@ use yii\base\Exception;
 
 /**
  * Dashboard service.
- * An instance of the Dashboard service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getDashboard()|<code>Craft::$app->dashboard</code>]].
+ * An instance of the Dashboard service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getDashboard()|`Craft::$app->dashboard`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -41,6 +41,23 @@ class Dashboard extends Component
 
     /**
      * @event RegisterComponentTypesEvent The event that is triggered when registering Dashboard widget types.
+     *
+     * Dashboard widgets must implement [[WidgetInterface]]. [[Widget]] provides a base implementation.
+     *
+     * See [Widget Types](https://docs.craftcms.com/v3/widget-types.html) for documentation on creating Dashboard widgets.
+     * ---
+     * ```php
+     * use craft\events\RegisterComponentTypesEvent;
+     * use craft\services\Dashboard;
+     * use yii\base\Event;
+     *
+     * Event::on(Dashboard::class,
+     *     Dashboard::EVENT_REGISTER_WIDGET_TYPES,
+     *     function(RegisterComponentTypesEvent $event) {
+     *         $event->types[] = MyWidgetType::class;
+     *     }
+     * );
+     * ```
      */
     const EVENT_REGISTER_WIDGET_TYPES = 'registerWidgetTypes';
 
@@ -127,7 +144,7 @@ class Dashboard extends Component
         $widgets = $this->_getUserWidgets();
 
         // If there are no widgets, this is the first time they've hit the dashboard.
-        if (empty($widgets)) {
+        if ($widgets === false) {
             // Add the defaults and try again
             $this->_addDefaultUserWidgets();
             $widgets = $this->_getUserWidgets();
@@ -148,7 +165,6 @@ class Dashboard extends Component
             ->where([
                 'userId' => Craft::$app->getUser()->getIdentity()->id,
                 'type' => $type,
-                'enabled' => true
             ])
             ->exists();
     }
@@ -206,9 +222,6 @@ class Dashboard extends Component
             $widgetRecord->settings = $widget->getSettings();
 
             if ($isNewWidget) {
-                // Enabled by default.
-                $widgetRecord->enabled = true;
-
                 // Set the sortOrder
                 $maxSortOrder = (new Query())
                     ->from(['{{%widgets}}'])
@@ -284,11 +297,8 @@ class Dashboard extends Component
         $transaction = Craft::$app->getDb()->beginTransaction();
         try {
             $widgetRecord = $this->_getUserWidgetRecordById($widget->id);
-            $widgetRecord->enabled = false;
-            $widgetRecord->save();
-
+            $widgetRecord->delete();
             $widget->afterDelete();
-
             $transaction->commit();
         } catch (\Throwable $e) {
             $transaction->rollBack();
@@ -363,22 +373,28 @@ class Dashboard extends Component
         // Recent Entries widget
         $this->saveWidget($this->createWidget(RecentEntriesWidget::class));
 
-        // Get Help widget
+        // Craft Support widget
         if ($user->admin) {
             $this->saveWidget($this->createWidget(CraftSupportWidget::class));
         }
 
         // Updates widget
-        if ($user->can('performupdates')) {
+        if ($user->can('performUpdates')) {
             $this->saveWidget($this->createWidget(UpdatesWidget::class));
         }
 
-        // Blog & Tonic feed widget
+        // Craft News feed widget
         $this->saveWidget($this->createWidget([
             'type' => FeedWidget::class,
             'url' => 'https://craftcms.com/news.rss',
             'title' => 'Craft News'
         ]));
+
+        // Update the user record
+        $user->hasDashboard = true;
+        Craft::$app->getDb()->createCommand()
+            ->update('{{%users}}', ['hasDashboard' => true], ['id' => $user->id])
+            ->execute();
     }
 
     /**
@@ -422,19 +438,23 @@ class Dashboard extends Component
     /**
      * Returns the widget records for the current user.
      *
-     * @return WidgetInterface[]
+     * @return WidgetInterface[]|false
      * @throws Exception if no user is logged-in
      */
-    private function _getUserWidgets(): array
+    private function _getUserWidgets()
     {
-        $userId = Craft::$app->getUser()->getId();
+        $user = Craft::$app->getUser()->getIdentity();
 
-        if (!$userId) {
+        if (!$user) {
             throw new Exception('No logged-in user');
         }
 
+        if (!$user->hasDashboard) {
+            return false;
+        }
+
         $results = $this->_createWidgetsQuery()
-            ->where(['userId' => $userId, 'enabled' => true])
+            ->where(['userId' => $user->id])
             ->orderBy(['sortOrder' => SORT_ASC])
             ->all();
 

@@ -101,6 +101,11 @@ class Assets extends BaseRelationField
      */
     public $allowedKinds;
 
+    /**
+     * @var array|null References for files uploaded as data strings for this field.
+     */
+    private $_uploadedDataFiles;
+
     // Public Methods
     // =========================================================================
 
@@ -265,6 +270,9 @@ class Assets extends BaseRelationField
     {
         // If data strings are passed along, make sure the array keys are retained.
         if (isset($value['data']) && !empty($value['data'])) {
+            $this->_uploadedDataFiles = ['data' => $value['data'], 'filename' => $value['filename']];
+            unset($value['data'], $value['filename']);
+
             /** @var Asset $class */
             $class = static::elementType();
             /** @var ElementQuery $query */
@@ -322,6 +330,8 @@ class Assets extends BaseRelationField
             // Were there any uploaded files?
             $uploadedFiles = $this->_getUploadedFiles($element);
 
+            $query = $element->getFieldValue($this->handle);
+            
             if (!empty($uploadedFiles)) {
                 $targetFolderId = $this->_determineUploadFolderId($element);
 
@@ -350,12 +360,17 @@ class Assets extends BaseRelationField
                     $assetIds[] = $asset->id;
                 }
 
-                // Override the field value with newly-uploaded assets' IDs
-                $query = $this->normalizeValue($assetIds, $element);
+                // Add the with newly uploaded IDs to the mix.
+                if (\is_array($query->id)) {
+                    $query = $this->normalizeValue(array_merge($query->id, $assetIds), $element);
+                } else {
+                    $query = $this->normalizeValue($assetIds, $element);    
+                }
+                
                 $element->setFieldValue($this->handle, $query);
-            } else {
-                // Just get the pre-normalized asset query
-                $query = $element->getFieldValue($this->handle);
+
+                // Make sure that all traces of processed files are removed.
+                $this->_uploadedDataFiles = null;
             }
 
             // Are there any related assets?
@@ -488,14 +503,10 @@ class Assets extends BaseRelationField
         /** @var Element $element */
         $uploadedFiles = [];
 
-        /** @var AssetQuery $query */
-        $query = $element->getFieldValue($this->handle);
-        $value = !empty($query->id) ? $query->id : [];
-
         // Grab data strings
-        if (isset($value['data']) && is_array($value['data'])) {
-            foreach ($value['data'] as $index => $dataString) {
-                if (preg_match('/^data:(?<type>[a-z0-9]+\/[a-z0-9]+);base64,(?<data>.+)/i',
+        if (isset($this->_uploadedDataFiles['data']) && is_array($this->_uploadedDataFiles['data'])) {
+            foreach ($this->_uploadedDataFiles['data'] as $index => $dataString) {
+                if (preg_match('/^data:(?<type>[a-z0-9]+\/[a-z0-9\+]+);base64,(?<data>.+)/i',
                     $dataString, $matches)) {
                     $type = $matches['type'];
                     $data = base64_decode($matches['data']);
@@ -504,8 +515,8 @@ class Assets extends BaseRelationField
                         continue;
                     }
 
-                    if (!empty($value['filenames'][$index])) {
-                        $filename = $value['filenames'][$index];
+                    if (!empty($this->_uploadedDataFiles['filenames'][$index])) {
+                        $filename = $this->_uploadedDataFiles['filenames'][$index];
                     } else {
                         $extensions = FileHelper::getExtensionsByMimeType($type);
 
@@ -524,9 +535,6 @@ class Assets extends BaseRelationField
                 }
             }
         }
-
-        // Remove these so they don't interfere.
-        unset($value['data'], $value['filenames']);
 
         // See if we have uploaded file(s).
         $paramName = $this->requestParamName($element);
@@ -650,7 +658,7 @@ class Assets extends BaseRelationField
      *
      * @param ElementInterface|null $element
      * @param bool $createDynamicFolders whether missing folders should be created in the process
-     * @return int if the folder subpath is not valid
+     * @return int
      * @throws InvalidSubpathException if the folder subpath is not valid
      * @throws InvalidVolumeException if there's a problem with the field's volume configuration
      */
@@ -658,40 +666,41 @@ class Assets extends BaseRelationField
     {
         /** @var Element $element */
         if ($this->useSingleFolder) {
-            $uploadSource = $this->singleUploadLocationSource;
+            $uploadVolume = $this->singleUploadLocationSource;
             $subpath = $this->singleUploadLocationSubpath;
+            $settingName = Craft::t('app', 'Upload Location');
         } else {
-            $uploadSource = $this->defaultUploadLocationSource;
+            $uploadVolume = $this->defaultUploadLocationSource;
             $subpath = $this->defaultUploadLocationSubpath;
-        }
-
-        if (!$uploadSource) {
-            throw new InvalidVolumeException(Craft::t('app', 'This field’s Volume configuration is invalid.'));
+            $settingName = Craft::t('app', 'Default Upload Location');
         }
 
         $assets = Craft::$app->getAssets();
 
         try {
-            $folderId = $this->_resolveVolumePathToFolderId($uploadSource, $subpath, $element, $createDynamicFolders);
-        } catch (InvalidVolumeException $exception) {
-            if ($this->useSingleFolder) {
-                $message = Craft::t('app', 'This field’s single upload location Volume is missing');
-            } else {
-                $message = Craft::t('app', 'This field’s default upload location Volume is missing');
+            if (!$uploadVolume) {
+                throw new InvalidVolumeException();
             }
-            throw new InvalidVolumeException($message);
-        } catch (InvalidSubpathException $exception) {
+            $folderId = $this->_resolveVolumePathToFolderId($uploadVolume, $subpath, $element, $createDynamicFolders);
+        } catch (InvalidVolumeException $e) {
+            throw new InvalidVolumeException(Craft::t('app', 'The {field} field’s {setting} setting is set to an invalid volume.', [
+                'field' => $this->name,
+                'setting' => $settingName,
+            ]), 0, $e);
+        } catch (InvalidSubpathException $e) {
             // If this is a new/disabled element, the subpath probably just contained a token that returned null, like {id}
             // so use the user's upload folder instead
             if ($element === null || !$element->id || !$element->enabled || !$createDynamicFolders) {
                 $userModel = Craft::$app->getUser()->getIdentity();
-
                 $userFolder = $assets->getUserTemporaryUploadFolder($userModel);
-
                 $folderId = $userFolder->id;
             } else {
                 // Existing element, so this is just a bad subpath
-                throw $exception;
+                throw new InvalidSubpathException($e->subpath, Craft::t('app', 'The {field} field’s {setting} setting has an invalid subpath (“{subpath}”).', [
+                    'field' => $this->name,
+                    'setting' => $settingName,
+                    'subpath' => $e->subpath,
+                ]), 0, $e);
             }
         }
 

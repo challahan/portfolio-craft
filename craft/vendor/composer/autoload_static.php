@@ -8,6 +8,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -48,6 +49,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         array (
             'enshrined\\svgSanitize\\' => 22,
         ),
+        'd' => 
+        array (
+            'dolphiq\\sitemap\\' => 16,
+        ),
         'c' => 
         array (
             'creocoder\\nestedsets\\' => 21,
@@ -71,6 +76,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
@@ -95,6 +101,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'Jaybizzle\\CrawlerDetect\\' => 24,
         ),
         'G' => 
         array (
@@ -119,7 +126,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
     public static $prefixDirsPsr4 = array (
         'yii\\swiftmailer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src',
         ),
         'yii\\queue\\sync\\' => 
         array (
@@ -189,6 +196,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
         ),
+        'dolphiq\\sitemap\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dolphiq/sitemap/src',
+        ),
         'creocoder\\nestedsets\\' => 
         array (
             0 => __DIR__ . '/..' . '/creocoder/yii2-nested-sets/src',
@@ -236,6 +247,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Symfony\\Component\\Process\\' => 
         array (
@@ -297,6 +312,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Jaybizzle\\CrawlerDetect\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -1170,6 +1189,11 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Imagine\\Imagick\\Imagick' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Imagick.php',
         'Imagine\\Imagick\\Imagine' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Imagine.php',
         'Imagine\\Imagick\\Layers' => __DIR__ . '/..' . '/pixelandtonic/imagine/lib/Imagine/Imagick/Layers.php',
+        'Jaybizzle\\CrawlerDetect\\CrawlerDetect' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/CrawlerDetect.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\AbstractProvider' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/AbstractProvider.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Crawlers' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Crawlers.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Exclusions' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Exclusions.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Headers' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Headers.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
         'JsonSchema\\Constraints\\Constraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/Constraint.php',
@@ -1348,6 +1372,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Console\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/console/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Console\\Exception\\InvalidOptionException' => __DIR__ . '/..' . '/symfony/console/Exception/InvalidOptionException.php',
         'Symfony\\Component\\Console\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/console/Exception/LogicException.php',
+        'Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException' => __DIR__ . '/..' . '/symfony/console/Exception/NamespaceNotFoundException.php',
         'Symfony\\Component\\Console\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/console/Exception/RuntimeException.php',
         'Symfony\\Component\\Console\\Formatter\\OutputFormatter' => __DIR__ . '/..' . '/symfony/console/Formatter/OutputFormatter.php',
         'Symfony\\Component\\Console\\Formatter\\OutputFormatterInterface' => __DIR__ . '/..' . '/symfony/console/Formatter/OutputFormatterInterface.php',
@@ -1368,6 +1393,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Console\\Helper\\SymfonyQuestionHelper' => __DIR__ . '/..' . '/symfony/console/Helper/SymfonyQuestionHelper.php',
         'Symfony\\Component\\Console\\Helper\\Table' => __DIR__ . '/..' . '/symfony/console/Helper/Table.php',
         'Symfony\\Component\\Console\\Helper\\TableCell' => __DIR__ . '/..' . '/symfony/console/Helper/TableCell.php',
+        'Symfony\\Component\\Console\\Helper\\TableRows' => __DIR__ . '/..' . '/symfony/console/Helper/TableRows.php',
         'Symfony\\Component\\Console\\Helper\\TableSeparator' => __DIR__ . '/..' . '/symfony/console/Helper/TableSeparator.php',
         'Symfony\\Component\\Console\\Helper\\TableStyle' => __DIR__ . '/..' . '/symfony/console/Helper/TableStyle.php',
         'Symfony\\Component\\Console\\Input\\ArgvInput' => __DIR__ . '/..' . '/symfony/console/Input/ArgvInput.php',
@@ -1384,6 +1410,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Console\\Output\\BufferedOutput' => __DIR__ . '/..' . '/symfony/console/Output/BufferedOutput.php',
         'Symfony\\Component\\Console\\Output\\ConsoleOutput' => __DIR__ . '/..' . '/symfony/console/Output/ConsoleOutput.php',
         'Symfony\\Component\\Console\\Output\\ConsoleOutputInterface' => __DIR__ . '/..' . '/symfony/console/Output/ConsoleOutputInterface.php',
+        'Symfony\\Component\\Console\\Output\\ConsoleSectionOutput' => __DIR__ . '/..' . '/symfony/console/Output/ConsoleSectionOutput.php',
         'Symfony\\Component\\Console\\Output\\NullOutput' => __DIR__ . '/..' . '/symfony/console/Output/NullOutput.php',
         'Symfony\\Component\\Console\\Output\\Output' => __DIR__ . '/..' . '/symfony/console/Output/Output.php',
         'Symfony\\Component\\Console\\Output\\OutputInterface' => __DIR__ . '/..' . '/symfony/console/Output/OutputInterface.php',
@@ -1397,6 +1424,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Console\\Terminal' => __DIR__ . '/..' . '/symfony/console/Terminal.php',
         'Symfony\\Component\\Console\\Tester\\ApplicationTester' => __DIR__ . '/..' . '/symfony/console/Tester/ApplicationTester.php',
         'Symfony\\Component\\Console\\Tester\\CommandTester' => __DIR__ . '/..' . '/symfony/console/Tester/CommandTester.php',
+        'Symfony\\Component\\Console\\Tester\\TesterTrait' => __DIR__ . '/..' . '/symfony/console/Tester/TesterTrait.php',
         'Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/ExceptionInterface.php',
         'Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/FileNotFoundException.php',
         'Symfony\\Component\\Filesystem\\Exception\\IOException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOException.php',
@@ -1426,6 +1454,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Process\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/process/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
         'Symfony\\Component\\Process\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessFailedException.php',
+        'Symfony\\Component\\Process\\Exception\\ProcessSignaledException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessSignaledException.php',
         'Symfony\\Component\\Process\\Exception\\ProcessTimedOutException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessTimedOutException.php',
         'Symfony\\Component\\Process\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/process/Exception/RuntimeException.php',
         'Symfony\\Component\\Process\\ExecutableFinder' => __DIR__ . '/..' . '/symfony/process/ExecutableFinder.php',
@@ -1438,6 +1467,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Symfony\\Component\\Process\\Pipes\\WindowsPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/WindowsPipes.php',
         'Symfony\\Component\\Process\\Process' => __DIR__ . '/..' . '/symfony/process/Process.php',
         'Symfony\\Component\\Process\\ProcessUtils' => __DIR__ . '/..' . '/symfony/process/ProcessUtils.php',
+        'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',
@@ -2007,6 +2037,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\behaviors\\FieldLayoutBehavior' => __DIR__ . '/..' . '/craftcms/cms/src/behaviors/FieldLayoutBehavior.php',
         'craft\\behaviors\\SessionBehavior' => __DIR__ . '/..' . '/craftcms/cms/src/behaviors/SessionBehavior.php',
         'craft\\cache\\AppPathDependency' => __DIR__ . '/..' . '/craftcms/cms/src/cache/AppPathDependency.php',
+        'craft\\composer\\Factory' => __DIR__ . '/..' . '/craftcms/cms/src/composer/Factory.php',
         'craft\\composer\\Installer' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/Installer.php',
         'craft\\composer\\InvalidPluginException' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/InvalidPluginException.php',
         'craft\\composer\\Plugin' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/Plugin.php',
@@ -2065,6 +2096,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\db\\QueryAbortedException' => __DIR__ . '/..' . '/craftcms/cms/src/db/QueryAbortedException.php',
         'craft\\db\\StructuredElementQuery' => __DIR__ . '/..' . '/craftcms/cms/src/db/StructuredElementQuery.php',
         'craft\\db\\TableSchema' => __DIR__ . '/..' . '/craftcms/cms/src/db/TableSchema.php',
+        'craft\\db\\mysql\\ColumnSchema' => __DIR__ . '/..' . '/craftcms/cms/src/db/mysql/ColumnSchema.php',
         'craft\\db\\mysql\\ColumnSchemaBuilder' => __DIR__ . '/..' . '/craftcms/cms/src/db/mysql/ColumnSchemaBuilder.php',
         'craft\\db\\mysql\\QueryBuilder' => __DIR__ . '/..' . '/craftcms/cms/src/db/mysql/QueryBuilder.php',
         'craft\\db\\mysql\\Schema' => __DIR__ . '/..' . '/craftcms/cms/src/db/mysql/Schema.php',
@@ -2280,6 +2312,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\helpers\\Stringy' => __DIR__ . '/..' . '/craftcms/cms/src/helpers/Stringy.php',
         'craft\\helpers\\Template' => __DIR__ . '/..' . '/craftcms/cms/src/helpers/Template.php',
         'craft\\helpers\\UrlHelper' => __DIR__ . '/..' . '/craftcms/cms/src/helpers/UrlHelper.php',
+        'craft\\i18n\\FormatConverter' => __DIR__ . '/..' . '/craftcms/cms/src/i18n/FormatConverter.php',
         'craft\\i18n\\Formatter' => __DIR__ . '/..' . '/craftcms/cms/src/i18n/Formatter.php',
         'craft\\i18n\\I18N' => __DIR__ . '/..' . '/craftcms/cms/src/i18n/I18N.php',
         'craft\\i18n\\Locale' => __DIR__ . '/..' . '/craftcms/cms/src/i18n/Locale.php',
@@ -2389,6 +2422,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\migrations\\m180404_182320_edition_changes' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m180404_182320_edition_changes.php',
         'craft\\migrations\\m180411_102218_fix_db_routes' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m180411_102218_fix_db_routes.php',
         'craft\\migrations\\m180416_205628_resourcepaths_table' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m180416_205628_resourcepaths_table.php',
+        'craft\\migrations\\m180418_205713_widget_cleanup' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m180418_205713_widget_cleanup.php',
         'craft\\models\\AssetIndexData' => __DIR__ . '/..' . '/craftcms/cms/src/models/AssetIndexData.php',
         'craft\\models\\AssetTransform' => __DIR__ . '/..' . '/craftcms/cms/src/models/AssetTransform.php',
         'craft\\models\\AssetTransformIndex' => __DIR__ . '/..' . '/craftcms/cms/src/models/AssetTransformIndex.php',
@@ -2488,9 +2522,11 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\redactor\\Plugin' => __DIR__ . '/..' . '/craftcms/redactor/src/Plugin.php',
         'craft\\redactor\\assets\\field\\FieldAsset' => __DIR__ . '/..' . '/craftcms/redactor/src/assets/field/FieldAsset.php',
         'craft\\redactor\\assets\\redactor\\RedactorAsset' => __DIR__ . '/..' . '/craftcms/redactor/src/assets/redactor/RedactorAsset.php',
+        'craft\\redactor\\controllers\\DefaultController' => __DIR__ . '/..' . '/craftcms/redactor/src/controllers/DefaultController.php',
         'craft\\redactor\\events\\RegisterLinkOptionsEvent' => __DIR__ . '/..' . '/craftcms/redactor/src/events/RegisterLinkOptionsEvent.php',
         'craft\\redactor\\events\\RegisterPluginPathsEvent' => __DIR__ . '/..' . '/craftcms/redactor/src/events/RegisterPluginPathsEvent.php',
         'craft\\redactor\\migrations\\Install' => __DIR__ . '/..' . '/craftcms/redactor/src/migrations/Install.php',
+        'craft\\redactor\\migrations\\m180430_204710_remove_old_plugins' => __DIR__ . '/..' . '/craftcms/redactor/src/migrations/m180430_204710_remove_old_plugins.php',
         'craft\\search\\SearchQuery' => __DIR__ . '/..' . '/craftcms/cms/src/search/SearchQuery.php',
         'craft\\search\\SearchQueryTerm' => __DIR__ . '/..' . '/craftcms/cms/src/search/SearchQueryTerm.php',
         'craft\\search\\SearchQueryTermGroup' => __DIR__ . '/..' . '/craftcms/cms/src/search/SearchQueryTermGroup.php',
@@ -2706,6 +2742,17 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craftcms\\oauth2\\client\\provider\\CraftIdUser' => __DIR__ . '/..' . '/craftcms/oauth2-craftid/src/provider/CraftIdUser.php',
         'creocoder\\nestedsets\\NestedSetsBehavior' => __DIR__ . '/..' . '/creocoder/yii2-nested-sets/src/NestedSetsBehavior.php',
         'creocoder\\nestedsets\\NestedSetsQueryBehavior' => __DIR__ . '/..' . '/creocoder/yii2-nested-sets/src/NestedSetsQueryBehavior.php',
+        'dolphiq\\sitemap\\Sitemap' => __DIR__ . '/..' . '/dolphiq/sitemap/src/Sitemap.php',
+        'dolphiq\\sitemap\\assetbundles\\Sitemap\\SitemapAsset' => __DIR__ . '/..' . '/dolphiq/sitemap/src/assetbundles/sitemap/SitemapAsset.php',
+        'dolphiq\\sitemap\\assetbundles\\indexcpsection\\IndexCPSectionAsset' => __DIR__ . '/..' . '/dolphiq/sitemap/src/assetbundles/indexcpsection/IndexCPSectionAsset.php',
+        'dolphiq\\sitemap\\controllers\\SettingsController' => __DIR__ . '/..' . '/dolphiq/sitemap/src/controllers/SettingsController.php',
+        'dolphiq\\sitemap\\controllers\\SitemapController' => __DIR__ . '/..' . '/dolphiq/sitemap/src/controllers/SitemapController.php',
+        'dolphiq\\sitemap\\migrations\\Install' => __DIR__ . '/..' . '/dolphiq/sitemap/src/migrations/Install.php',
+        'dolphiq\\sitemap\\migrations\\m171217_220906_c_crawler_visit_table' => __DIR__ . '/..' . '/dolphiq/sitemap/src/migrations/m171217_220906_c_crawler_visit_table.php',
+        'dolphiq\\sitemap\\models\\Settings' => __DIR__ . '/..' . '/dolphiq/sitemap/src/models/Settings.php',
+        'dolphiq\\sitemap\\records\\SitemapCrawlerVisit' => __DIR__ . '/..' . '/dolphiq/sitemap/src/records/SitemapCrawlerVisit.php',
+        'dolphiq\\sitemap\\records\\SitemapEntry' => __DIR__ . '/..' . '/dolphiq/sitemap/src/records/SitemapEntry.php',
+        'dolphiq\\sitemap\\services\\SitemapService' => __DIR__ . '/..' . '/dolphiq/sitemap/src/services/SitemapService.php',
         'enshrined\\svgSanitize\\Sanitizer' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Sanitizer.php',
         'enshrined\\svgSanitize\\data\\AllowedAttributes' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AllowedAttributes.php',
         'enshrined\\svgSanitize\\data\\AllowedTags' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AllowedTags.php',
@@ -3160,9 +3207,9 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'yii\\rest\\UpdateAction' => __DIR__ . '/..' . '/yiisoft/yii2/rest/UpdateAction.php',
         'yii\\rest\\UrlRule' => __DIR__ . '/..' . '/yiisoft/yii2/rest/UrlRule.php',
         'yii\\rest\\ViewAction' => __DIR__ . '/..' . '/yiisoft/yii2/rest/ViewAction.php',
-        'yii\\swiftmailer\\Logger' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/Logger.php',
-        'yii\\swiftmailer\\Mailer' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/Mailer.php',
-        'yii\\swiftmailer\\Message' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/Message.php',
+        'yii\\swiftmailer\\Logger' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src/Logger.php',
+        'yii\\swiftmailer\\Mailer' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src/Mailer.php',
+        'yii\\swiftmailer\\Message' => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src/Message.php',
         'yii\\test\\ActiveFixture' => __DIR__ . '/..' . '/yiisoft/yii2/test/ActiveFixture.php',
         'yii\\test\\ArrayFixture' => __DIR__ . '/..' . '/yiisoft/yii2/test/ArrayFixture.php',
         'yii\\test\\BaseActiveFixture' => __DIR__ . '/..' . '/yiisoft/yii2/test/BaseActiveFixture.php',

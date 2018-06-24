@@ -1,6 +1,12 @@
 Yii Framework 2 swiftmailer extension Change Log
 ================================================
 
+2.1.1 April 25, 2018
+--------------------
+
+- Bug #61: Fixed `yii\swiftmailer\Mailer::setTransport` has no effect after sending of first message (dmitry-kulikov)
+
+
 2.1.0 August 04, 2017
 ---------------------
 

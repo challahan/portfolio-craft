@@ -31,6 +31,7 @@ use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Component as ComponentHelper;
 use craft\helpers\DateTimeHelper;
+use craft\helpers\Db;
 use craft\helpers\ElementHelper;
 use craft\helpers\StringHelper;
 use craft\queue\jobs\FindAndReplace;
@@ -43,7 +44,7 @@ use yii\base\Exception;
 
 /**
  * The Elements service provides APIs for managing elements.
- * An instance of the Elements service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getElements()|<code>Craft::$app->elements</code>]].
+ * An instance of the Elements service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getElements()|`Craft::$app->elements`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -55,6 +56,23 @@ class Elements extends Component
 
     /**
      * @event RegisterComponentTypesEvent The event that is triggered when registering element types.
+     *
+     * Element types must implement [[ElementInterface]]. [[Element]] provides a base implementation.
+     *
+     * See [Element Types](https://docs.craftcms.com/v3/element-types.html) for documentation on creating element types.
+     * ---
+     * ```php
+     * use craft\events\RegisterComponentTypesEvent;
+     * use craft\services\Elements;
+     * use yii\base\Event;
+     *
+     * Event::on(Elements::class,
+     *     Elements::EVENT_REGISTER_ELEMENT_TYPES,
+     *     function(RegisterComponentTypesEvent $event) {
+     *         $event->types[] = MyElementType::class;
+     *     }
+     * );
+     * ```
      */
     const EVENT_REGISTER_ELEMENT_TYPES = 'registerElementTypes';
 
@@ -95,6 +113,7 @@ class Elements extends Component
 
     /**
      * @event ElementActionEvent The event that is triggered before an element action is performed.
+     *
      * You may set [[ElementActionEvent::isValid]] to `false` to prevent the action from being performed.
      */
     const EVENT_BEFORE_PERFORM_ACTION = 'beforePerformAction';
@@ -141,6 +160,7 @@ class Elements extends Component
 
     /**
      * Returns an element by its ID.
+     *
      * If no element type is provided, the method will first have to run a DB query to determine what type of element
      * the $id is, so you should definitely pass it if it’s known.
      * The element’s status will not be a factor when using this method.
@@ -290,6 +310,7 @@ class Elements extends Component
 
     /**
      * Handles all of the routine tasks that go along with saving elements.
+     *
      * Those tasks include:
      *
      * - Validating its content (if $validateContent is `true`, or it’s left as `null` and the element is enabled)
@@ -483,26 +504,24 @@ class Elements extends Component
 
         // Delete the rows that don't need to be there anymore
         if (!$isNewElement) {
-            Craft::$app->getDb()->createCommand()
-                ->delete(
-                    '{{%elements_sites}}',
+            Db::deleteIfExists(
+                '{{%elements_sites}}',
+                [
+                    'and',
+                    ['elementId' => $element->id],
+                    ['not', ['siteId' => $supportedSiteIds]]
+                ]
+            );
+
+            if ($element::hasContent()) {
+                Db::deleteIfExists(
+                    $element->getContentTable(),
                     [
                         'and',
                         ['elementId' => $element->id],
                         ['not', ['siteId' => $supportedSiteIds]]
-                    ])
-                ->execute();
-
-            if ($element::hasContent()) {
-                Craft::$app->getDb()->createCommand()
-                    ->delete(
-                        $element->getContentTable(),
-                        [
-                            'and',
-                            ['elementId' => $element->id],
-                            ['not', ['siteId' => $supportedSiteIds]]
-                        ])
-                    ->execute();
+                    ]
+                );
             }
         }
 
@@ -718,6 +737,7 @@ class Elements extends Component
 
     /**
      * Merges two elements together.
+     *
      * This method will update the following:
      * - Any relations involving the merged element
      * - Any structures that contain the merged element

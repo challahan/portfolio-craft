@@ -1,50 +1,40 @@
-if (!RedactorPlugins) var RedactorPlugins = {};
+(function($R) {
+    $R.add('plugin', 'pagebreak', {
+        translations: {
+            en: {
+                "insert-page-break": "Insert Page Break"
+            }
+        },
+        init: function(app) {
+            this.app = app;
+            this.lang = app.lang;
+            this.selection = app.selection;
+            this.editor = app.editor;
+        },
+        start: function() {
+            var $button = this.app.toolbar.addButton('pagebreak', {
+                title: this.lang.get('insert-page-break'),
+                api: 'plugin.pagebreak.insert'
+            });
+            $button.setIcon('<i class="re-icon-pagebreak"></i>');
+        },
+        insert: function() {
+            var $pagebreakNode = $('<hr class="redactor_pagebreak" style="display:none" unselectable="on" contenteditable="false" />'),
+                $currentBlock = $(this.selection.getBlock());
 
-RedactorPlugins.pagebreak = function()
-{
-	return {
-		langs: {
-			en: {
-				"insert-page-break": "Insert Page Break"
-			}
-		},
-		init: function()
-		{
-			var $btn = this.button.add('pagebreak', this.lang.get('insert-page-break'));
-			this.button.addCallback($btn, this.pagebreak.insertPageBreak);
-			this.button.setIcon($btn, '<i class="icon"></i>');
-		},
+            // debugger;
 
-		insertPageBreak: function()
-		{
-			var $pagebreakNode = $('<hr class="redactor_pagebreak" style="display:none" unselectable="on" contenteditable="false" />'),
-				$currentNode = $(this.selection.current());
+            if ($currentBlock.length) {
+                $pagebreakNode.insertAfter($currentBlock);
+            }
+            else {
+                $pagebreakNode.appendTo(this.editor.getElement().nodes[0]);
+            }
 
-			if ($currentNode.length && $.contains(this.$editor.get(0), $currentNode.get(0)))
-			{
-				// Find the closest element to div.redactor-editor
-				while ($currentNode.parent().length && !$currentNode.parent().is('div.redactor-layer'))
-				{
-					$currentNode = $currentNode.parent();
-				}
+            var $p = $('<p><br/></p>').insertAfter($pagebreakNode);
 
-				$pagebreakNode.insertAfter($currentNode);
-			}
-			else
-			{
-				// Just append it to the end
-				$pagebreakNode.appendTo(this.$editor);
-			}
-
-			var $p = $('<p><br/></p>').insertAfter($pagebreakNode);
-
-			this.$editor.focus();
-
-			Garnish.requestAnimationFrame($.proxy(function()
-			{
-				this.code.sync();
-			}, this));
-			//this.setSelection($p[0], 0, $p[0], 0);
-		}
-	};
-};
+            this.editor.focus();
+            this.selection.setAll($p[0]);
+        }
+    });
+})(Redactor);

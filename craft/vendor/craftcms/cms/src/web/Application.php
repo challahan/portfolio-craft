@@ -19,6 +19,7 @@ use craft\helpers\UrlHelper;
 use craft\queue\QueueLogBehavior;
 use yii\base\Component;
 use yii\base\ErrorException;
+use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidRouteException;
 use yii\db\Exception as DbException;
@@ -37,6 +38,8 @@ use yii\web\Response;
 
 /**
  * Craft Web Application class
+ *
+ * An instance of the Web Application class is globally accessible to web requests in Craft via [[\Craft::$app|`Craft::$app`]].
  *
  * @property Request $request The request component
  * @property \craft\web\Response $response The response component
@@ -90,10 +93,11 @@ class Application extends \yii\web\Application
      */
     public function init()
     {
+        $this->state = self::STATE_INIT;
+        $this->_preInit();
         parent::init();
-
-        $this->_init();
         $this->ensureResourcePathExists();
+        $this->_postInit();
         $this->debugBootstrap();
     }
 
@@ -206,7 +210,9 @@ class Application extends \yii\web\Application
 
             // Delete all compiled templates
             try {
-                FileHelper::clearDirectory(Craft::$app->getPath()->getCompiledTemplatesPath());
+                FileHelper::clearDirectory($this->getPath()->getCompiledTemplatesPath(false));
+            } catch (InvalidArgumentException $e) {
+                // the directory doesn't exist
             } catch (ErrorException $e) {
                 Craft::error('Could not delete compiled templates: '.$e->getMessage());
                 Craft::$app->getErrorHandler()->logException($e);
@@ -441,7 +447,7 @@ class Application extends \yii\web\Application
         }
 
         // Publish the directory
-        $filePath = substr($resourceUri, strlen($hash)+1);
+        $filePath = substr($resourceUri, strlen($hash) + 1);
         $publishedPath = $this->getAssetManager()->getPublishedPath(Craft::getAlias($sourcePath), true).DIRECTORY_SEPARATOR.$filePath;
         $this->getResponse()
             ->sendFile($publishedPath, null, ['inline' => true]);
@@ -522,24 +528,41 @@ class Application extends \yii\web\Application
     }
 
     /**
+     * Returns whether this is a special case request (something dealing with user sessions or updating)
+     * where system status / CP permissions shouldn't be taken into effect.
+     *
      * @param Request $request
      * @return bool
      */
     private function _isSpecialCaseActionRequest(Request $request): bool
     {
-        $segments = $request->getActionSegments();
+        $actionSegs = $request->getActionSegments();
+
+        if (empty($actionSegs)) {
+            return false;
+        }
 
         return (
-            $segments === ['app', 'migrate'] ||
-            $segments === ['users', 'login'] ||
-            $segments === ['users', 'logout'] ||
-            $segments === ['users', 'set-password'] ||
-            $segments === ['users', 'verify-email'] ||
-            $segments === ['users', 'forgot-password'] ||
-            $segments === ['users', 'send-password-reset-email'] ||
-            $segments === ['users', 'save-user'] ||
-            $segments === ['users', 'get-remaining-session-time'] ||
-            $segments[0] === 'updater'
+            $actionSegs === ['app', 'migrate'] ||
+            $actionSegs === ['users', 'login'] ||
+            $actionSegs === ['users', 'forgot-password'] ||
+            $actionSegs === ['users', 'send-password-reset-email'] ||
+            $actionSegs === ['users', 'get-remaining-session-time'] ||
+            (
+                $request->getIsSingleActionRequest() &&
+                (
+                    $actionSegs === ['users', 'logout'] ||
+                    $actionSegs === ['users', 'set-password'] ||
+                    $actionSegs === ['users', 'verify-email']
+                )
+            ) ||
+            (
+                $request->getIsCpRequest() &&
+                (
+                    $actionSegs[0] === 'update' ||
+                    $actionSegs[0] === 'manualupdate'
+                )
+            )
         );
     }
 
@@ -599,7 +622,11 @@ class Application extends \yii\web\Application
             }
 
             // Clear the template caches in case they've been compiled since this release was cut.
-            FileHelper::clearDirectory($this->getPath()->getCompiledTemplatesPath());
+            try {
+                FileHelper::clearDirectory($this->getPath()->getCompiledTemplatesPath(false));
+            } catch (InvalidArgumentException $e) {
+                // the directory doesn't exist
+            }
 
             // Show the manual update notification template
             return $this->runAction('templates/manual-update-notification');
@@ -630,7 +657,7 @@ class Application extends \yii\web\Application
      */
     private function _enforceSystemStatusPermissions(Request $request)
     {
-        if (!$this->_checkSystemStatusPermissions()) {
+        if (!$this->_checkSystemStatusPermissions($request)) {
             $error = null;
 
             if (!$this->getUser()->getIsGuest()) {
@@ -659,55 +686,16 @@ class Application extends \yii\web\Application
     /**
      * Returns whether the user has permission to be accessing the site/CP while it's offline, if it is.
      *
+     * @param Request $request
      * @return bool
      */
-    private function _checkSystemStatusPermissions(): bool
+    private function _checkSystemStatusPermissions(Request $request): bool
     {
-        if ($this->getIsSystemOn()) {
+        if ($this->getIsSystemOn() || $this->_isSpecialCaseActionRequest($request)) {
             return true;
         }
 
-        $request = $this->getRequest();
-        $actionTrigger = $this->getConfig()->getGeneral()->actionTrigger;
-
-        if ($request->getIsCpRequest() ||
-
-            // Special case because we hide the cpTrigger in emails.
-            $request->getPathInfo() === $actionTrigger.'/users/set-password' ||
-            $request->getPathInfo() === $actionTrigger.'/users/verify-email' ||
-            // Special case because this might be a request with a user that has "Access the site when the system is off"
-            // permissions and is in the process of logging in while the system is off.
-            $request->getActionSegments() == ['users', 'login']
-        ) {
-            if ($this->getUser()->checkPermission('accessCpWhenSystemIsOff')) {
-                return true;
-            }
-
-            if ($request->getSegment(1) === 'manualupdate') {
-                return true;
-            }
-
-            $actionSegs = $request->getActionSegments();
-            $singleAction = $request->getIsSingleActionRequest();
-
-            if ($actionSegs && (
-                    $actionSegs === ['users', 'login'] ||
-                    ($actionSegs === ['users', 'logout'] && $singleAction) ||
-                    ($actionSegs === ['users', 'verify-email'] && $singleAction) ||
-                    ($actionSegs === ['users', 'set-password'] && $singleAction) ||
-                    $actionSegs === ['users', 'forgot-password'] ||
-                    $actionSegs === ['users', 'send-password-reset-email'] ||
-                    $actionSegs[0] === 'update'
-                )
-            ) {
-                return true;
-            }
-        } else {
-            if ($this->getUser()->checkPermission('accessSiteWhenSystemIsOff')) {
-                return true;
-            }
-        }
-
-        return false;
+        $permission = $request->getIsCpRequest() ? 'accessCpWhenSystemIsOff' : 'accessSiteWhenSystemIsOff';
+        return $this->getUser()->checkPermission($permission);
     }
 }

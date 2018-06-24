@@ -48,6 +48,9 @@ class AppController extends Controller
     // Public Methods
     // =========================================================================
 
+    /**
+     * @inheritdoc
+     */
     public function beforeAction($action)
     {
         if ($action->id === 'migrate') {
@@ -111,6 +114,7 @@ class AppController extends Controller
 
     /**
      * Creates a DB backup (if configured to do so) and runs any pending Craft, plugin, & content migrations in one go.
+     *
      * This action can be used as a post-deploy webhook with site deployment services (like [DeployBot](https://deploybot.com/))
      * to minimize site downtime after a deployment.
      *
@@ -323,7 +327,7 @@ class AppController extends Controller
         $licenseInfo = Craft::$app->getApi()->getLicenseInfo(['plugins']);
         $result = [];
         if (!empty($licenseInfo['pluginLicenses'])) {
-            $defaultIconUrl = Craft::$app->getAssetManager()->getPublishedUrl('@app/icons/default-plugin.svg');
+            $defaultIconUrl = Craft::$app->getAssetManager()->getPublishedUrl('@app/icons/default-plugin.svg', true);
             foreach ($licenseInfo['pluginLicenses'] as $pluginLicenseInfo) {
                 if (isset($pluginLicenseInfo['plugin'])) {
                     $pluginInfo = $pluginLicenseInfo['plugin'];
@@ -398,6 +402,7 @@ class AppController extends Controller
 
     /**
      * Transforms an update for inclusion in [[actionCheckForUpdates()]] response JSON.
+     *
      * Also sets an `allowed` key on the given update's releases, based on the `allowUpdates` config setting.
      *
      * @param bool $allowUpdates Whether updates are allowed

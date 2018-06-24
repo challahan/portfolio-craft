@@ -25,7 +25,7 @@ use yii\base\Exception;
 
 /**
  * Categories service.
- * An instance of the Categories service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getCategories()|<code>Craft::$app->categories</code>]].
+ * An instance of the Categories service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getCategories()|`Craft::$app->categories`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -385,9 +385,13 @@ class Categories extends Component
                     $siteSettingsRecord->siteId = $siteId;
                 }
 
-                $siteSettingsRecord->hasUrls = $siteSettings->hasUrls;
-                $siteSettingsRecord->uriFormat = $siteSettings->uriFormat;
-                $siteSettingsRecord->template = $siteSettings->template;
+                if ($siteSettingsRecord->hasUrls = $siteSettings->hasUrls) {
+                    $siteSettingsRecord->uriFormat = $siteSettings->uriFormat;
+                    $siteSettingsRecord->template = $siteSettings->template;
+                } else {
+                    $siteSettingsRecord->uriFormat = $siteSettings->uriFormat = null;
+                    $siteSettingsRecord->template = $siteSettings->template = null;
+                }
 
                 if (!$siteSettingsRecord->getIsNewRecord()) {
                     // Did it used to have URLs, but not anymore?
@@ -487,7 +491,7 @@ class Categories extends Component
     /**
      * Deletes a category group by its ID.
      *
-     * @param int $groupId
+     * @param int $groupId The category group's ID
      * @return bool Whether the category group was deleted successfully
      * @throws \Throwable if reasons
      */
@@ -503,6 +507,17 @@ class Categories extends Component
             return false;
         }
 
+        return $this->deleteGroup($group);
+    }
+
+    /**
+     * Deletes a category group.
+     *
+     * @param CategoryGroup $group The category group
+     * @return bool Whether the category group was deleted successfully
+     */
+    public function deleteGroup(CategoryGroup $group): bool
+    {
         // Fire a 'beforeDeleteGroup' event
         if ($this->hasEventHandlers(self::EVENT_BEFORE_DELETE_GROUP)) {
             $this->trigger(self::EVENT_BEFORE_DELETE_GROUP, new CategoryGroupEvent([
@@ -516,7 +531,7 @@ class Categories extends Component
             $fieldLayoutId = (new Query())
                 ->select(['fieldLayoutId'])
                 ->from(['{{%categorygroups}}'])
-                ->where(['id' => $groupId])
+                ->where(['id' => $group->id])
                 ->scalar();
 
             if ($fieldLayoutId) {
@@ -527,7 +542,7 @@ class Categories extends Component
             $categories = Category::find()
                 ->status(null)
                 ->enabledForSite(false)
-                ->groupId($groupId)
+                ->groupId($group->id)
                 ->all();
 
             foreach ($categories as $category) {
@@ -537,7 +552,7 @@ class Categories extends Component
             Craft::$app->getDb()->createCommand()
                 ->delete(
                     '{{%categorygroups}}',
-                    ['id' => $groupId])
+                    ['id' => $group->id])
                 ->execute();
 
             $transaction->commit();

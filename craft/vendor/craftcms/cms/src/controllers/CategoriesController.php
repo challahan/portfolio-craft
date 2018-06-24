@@ -159,14 +159,10 @@ class CategoriesController extends Controller
 
             $siteSettings = new CategoryGroup_SiteSettings();
             $siteSettings->siteId = $site->id;
-            $siteSettings->hasUrls = !empty($postedSettings['uriFormat']);
 
-            if ($siteSettings->hasUrls) {
+            if ($siteSettings->hasUrls = !empty($postedSettings['uriFormat'])) {
                 $siteSettings->uriFormat = $postedSettings['uriFormat'];
                 $siteSettings->template = $postedSettings['template'];
-            } else {
-                $siteSettings->uriFormat = null;
-                $siteSettings->template = null;
             }
 
             $allSiteSettings[$site->id] = $siteSettings;
@@ -391,15 +387,14 @@ class CategoriesController extends Controller
         }
 
         // Set the base CP edit URL
-        $variables['baseCpEditUrl'] = 'categories/'.$variables['group']->handle.'/{id}-{slug}';
+        $variables['baseCpEditUrl'] = "categories/{$variables['group']->handle}/{id}-{slug}";
 
         // Set the "Continue Editing" URL
-        $variables['continueEditingUrl'] = $variables['baseCpEditUrl'];
+        $siteSegment = Craft::$app->getIsMultiSite() && Craft::$app->getSites()->getCurrentSite()->id != $site->id ? "/{$site->handle}" : '';
+        $variables['continueEditingUrl'] = $variables['baseCpEditUrl'].$siteSegment;
 
-        /** @noinspection PhpUnhandledExceptionInspection */
-        if (Craft::$app->getIsMultiSite() && Craft::$app->getSites()->getCurrentSite()->id != $site->id) {
-            $variables['continueEditingUrl'] .= '/'.$site->handle;
-        }
+        // Set the "Save and add another" URL
+        $variables['nextCategoryUrl'] = "categories/{$variables['group']->handle}/new{$siteSegment}";
 
         // Render the template!
         $this->getView()->registerAssetBundle(EditCategoryAsset::class);
@@ -507,6 +502,7 @@ class CategoriesController extends Controller
                 'success' => true,
                 'id' => $category->id,
                 'title' => $category->title,
+                'slug' => $category->slug,
                 'status' => $category->getStatus(),
                 'url' => $category->getUrl(),
                 'cpEditUrl' => $category->getCpEditUrl()

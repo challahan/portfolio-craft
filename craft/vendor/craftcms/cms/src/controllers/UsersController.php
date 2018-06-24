@@ -207,6 +207,7 @@ class UsersController extends Controller
 
     /**
      * Starts an elevated user session.
+     *
      * return Response
      */
     public function actionStartElevatedSession()
@@ -722,7 +723,7 @@ class UsersController extends Controller
 
                 $tabs['profile'.$index] = [
                     'label' => Craft::t('site', $tab->name),
-                    'url' => '#'.$tab->getHtmlId(),
+                    'url' => '#profile-'.$tab->getHtmlId(),
                     'class' => $hasErrors ? 'error' : null
                 ];
             }
@@ -792,10 +793,11 @@ class UsersController extends Controller
         }
 
         try {
-            $client = Craft::$app->getPluginStore()->getClient();
+            $client = Craft::$app->getApi()->client;
 
             if ($craftIdToken) {
-                $craftIdAccountResponse = $client->request('GET', 'account');
+                $options = Craft::$app->getPluginStore()->getApiRequestOptions();
+                $craftIdAccountResponse = $client->get('account', $options);
                 $craftIdAccount = json_decode($craftIdAccountResponse->getBody(), true);
 
                 if (isset($craftIdAccount['error'])) {
@@ -836,6 +838,7 @@ class UsersController extends Controller
 
     /**
      * Provides an endpoint for saving a user account.
+     *
      * This action accounts for the following scenarios:
      * - An admin registering a new user account.
      * - An admin editing an existing user account.

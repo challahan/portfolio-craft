@@ -15,6 +15,7 @@ use craft\errors\MigrationException;
 use craft\helpers\ArrayHelper;
 use craft\helpers\FileHelper;
 use yii\base\ErrorException;
+use yii\base\InvalidArgumentException;
 use yii\console\controllers\BaseMigrateController;
 use yii\console\Exception;
 use yii\console\ExitCode;
@@ -47,6 +48,7 @@ class MigrateController extends BaseMigrateController
 
     /**
      * @var string|null The type of migrations we're dealing with here. Can be 'app', 'plugin', or 'content'.
+     *
      * If --plugin is passed, this will automatically be set to 'plugin'. Otherwise defaults to 'content'.
      */
     public $type = MigrationManager::TYPE_CONTENT;
@@ -75,7 +77,16 @@ class MigrateController extends BaseMigrateController
     }
 
     /**
-     * @inheritdoc
+     * Returns the names of valid options for the action (id)
+     * An option requires the existence of a public member variable whose
+     * name is the option name.
+     * Child classes may override this method to specify possible options.
+     *
+     * Note that the values setting via options are not available
+     * until [[beforeAction()]] is being called.
+     *
+     * @param string $actionID the action id of the current request
+     * @return string[] the names of the options valid for the action
      */
     public function options($actionID)
     {
@@ -287,7 +298,9 @@ class MigrateController extends BaseMigrateController
 
             // Delete all compiled templates
             try {
-                FileHelper::clearDirectory(Craft::$app->getPath()->getCompiledTemplatesPath());
+                FileHelper::clearDirectory(Craft::$app->getPath()->getCompiledTemplatesPath(false));
+            } catch (InvalidArgumentException $e) {
+                // the directory doesn't exist
             } catch (ErrorException $e) {
                 Craft::error('Could not delete compiled templates: '.$e->getMessage());
                 Craft::$app->getErrorHandler()->logException($e);

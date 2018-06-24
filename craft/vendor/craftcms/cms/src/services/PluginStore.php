@@ -19,7 +19,7 @@ use yii\base\Component;
 
 /**
  * Plugin Store service.
- * An instance of the Plugin Store service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getPluginStore()|<code>Craft::$app->pluginStore</code>]].
+ * An instance of the Plugin Store service is globally accessible in Craft via [[\craft\base\ApplicationTrait::getPluginStore()|`Craft::$app->pluginStore`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
@@ -66,8 +66,9 @@ class PluginStore extends Component
             return null;
         }
 
-        $client = $this->getClient();
-        $craftIdAccountResponse = $client->request('GET', 'account');
+        $client = Craft::$app->getApi()->client;
+        $options = $this->getApiRequestOptions();
+        $craftIdAccountResponse = $client->get('account', $options);
         $craftIdAccount = json_decode($craftIdAccountResponse->getBody(), true);
 
         if (isset($craftIdAccount['error'])) {
@@ -78,23 +79,20 @@ class PluginStore extends Component
     }
 
     /**
-     * Returns the authenticated Guzzle client.
+     * Returns the options for authenticated API requests.
      *
-     * @return Client
+     * @return array
      */
-    public function getClient()
+    public function getApiRequestOptions(): array
     {
-        $options = [
-            'base_uri' => $this->craftApiEndpoint.'/',
-        ];
+        $options = [];
 
         $token = $this->getToken();
-
-        if ($token && isset($token->accessToken)) {
+        if ($token && $token->accessToken !== null) {
             $options['headers']['Authorization'] = 'Bearer '.$token->accessToken;
         }
 
-        return Craft::createGuzzleClient($options);
+        return $options;
     }
 
     /**

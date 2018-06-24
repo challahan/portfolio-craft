@@ -32,6 +32,11 @@ class Schema extends \yii\db\mysql\Schema
     // =========================================================================
 
     /**
+     * @inheritdoc
+     */
+    public $columnSchemaClass = ColumnSchema::class;
+
+    /**
      * @var int The maximum length that objects' names can be.
      */
     public $maxObjectNameLength = 64;
@@ -54,6 +59,7 @@ class Schema extends \yii\db\mysql\Schema
 
     /**
      * Creates a query builder for the database.
+     *
      * This method may be overridden by child classes to create a DBMS-specific query builder.
      *
      * @return QueryBuilder query builder instance
@@ -117,7 +123,13 @@ class Schema extends \yii\db\mysql\Schema
     }
 
     /**
-     * @inheritdoc
+     * Create a column schema builder instance giving the type and value precision.
+     *
+     * This method may be overridden by child classes to create a DBMS-specific column schema builder.
+     *
+     * @param string $type type of the column. See [[ColumnSchemaBuilder::$type]].
+     * @param int|string|array $length length or precision of the column. See [[ColumnSchemaBuilder::$length]].
+     * @return ColumnSchemaBuilder column schema builder instance
      */
     public function createColumnSchemaBuilder($type, $length = null)
     {
@@ -128,6 +140,8 @@ class Schema extends \yii\db\mysql\Schema
      * Returns the default backup command to execute.
      *
      * @return string The command to execute
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\NotSupportedException
      */
     public function getDefaultBackupCommand(): string
     {
@@ -179,6 +193,7 @@ class Schema extends \yii\db\mysql\Schema
      * Returns the default database restore command to execute.
      *
      * @return string The command to execute
+     * @throws \yii\base\ErrorException
      */
     public function getDefaultRestoreCommand(): string
     {
@@ -200,6 +215,7 @@ class Schema extends \yii\db\mysql\Schema
      *
      * @param string $tableName The name of the table to get the indexes for.
      * @return array All indexes for the given table.
+     * @throws \yii\base\NotSupportedException
      */
     public function findIndexes(string $tableName): array
     {
@@ -228,6 +244,7 @@ class Schema extends \yii\db\mysql\Schema
      *
      * @param string $name table name
      * @return TableSchema|null driver dependent table metadata. Null if the table does not exist.
+     * @throws \Exception
      */
     protected function loadTableSchema($name)
     {
@@ -247,6 +264,7 @@ class Schema extends \yii\db\mysql\Schema
      * Collects extra foreign key information details for the given table.
      *
      * @param TableSchema $table the table metadata
+     * @throws Exception
      */
     protected function findConstraints($table)
     {
@@ -292,6 +310,7 @@ SQL;
      * Creates a temporary my.cnf file based on the DB config settings.
      *
      * @return string The path to the my.cnf file
+     * @throws \yii\base\ErrorException
      */
     private function _createDumpConfigFile(): string
     {
@@ -303,6 +322,10 @@ SQL;
             'password="'.addslashes($dbConfig->password).'"'.PHP_EOL.
             'host='.$dbConfig->server.PHP_EOL.
             'port='.$dbConfig->port;
+
+        if ($dbConfig->unixSocket) {
+            $contents .= PHP_EOL.'socket='.$dbConfig->unixSocket;
+        }
 
         FileHelper::writeToFile($filePath, $contents);
 

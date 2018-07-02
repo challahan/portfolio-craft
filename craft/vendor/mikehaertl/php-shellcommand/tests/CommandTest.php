@@ -224,5 +224,27 @@ class CommandTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($command->getExecuted());
         $this->assertEquals($tmpDir, $command->getOutput());
     }
+    public function testCanRunCommandWithStandardInput()
+    {
+        $command = new Command('/bin/cat');
+        $command->addArg('-T');
+        $command->setStdIn("\t");
+        $this->assertTrue($command->execute());
+        $this->assertTrue($command->getExecuted());
+        $this->assertEquals("^I", $command->getOutput());
+    }
+    public function testCanRunCommandWithStandardInputStream()
+    {
+        $tmpfile = tmpfile();
+        fwrite($tmpfile, "\t");
+        fseek($tmpfile, 0);
+        $command = new Command('/bin/cat');
+        $command->addArg('-T');
+        $command->setStdIn($tmpfile);
+        $this->assertTrue($command->execute());
+        $this->assertTrue($command->getExecuted());
+        $this->assertEquals("^I", $command->getOutput());
+        fclose($tmpfile);
+    }
 
 }

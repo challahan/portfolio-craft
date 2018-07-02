@@ -8,11 +8,10 @@
 namespace yii\queue\gearman;
 
 use yii\base\NotSupportedException;
-use yii\queue\cli\LoopInterface;
 use yii\queue\cli\Queue as CliQueue;
 
 /**
- * Gearman Queue
+ * Gearman Queue.
  *
  * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
@@ -37,7 +36,7 @@ class Queue extends CliQueue
      */
     public function run($repeat)
     {
-        return $this->runWorker(function (LoopInterface $loop) use ($repeat) {
+        return $this->runWorker(function (callable $canContinue) use ($repeat) {
             $worker = new \GearmanWorker();
             $worker->addServer($this->host, $this->port);
             $worker->addFunction($this->channel, function (\GearmanJob $payload) {
@@ -45,7 +44,7 @@ class Queue extends CliQueue
                 $this->handleMessage($payload->handle(), $message, $ttr, 1);
             });
             $worker->setTimeout($repeat ? 1000 : 1);
-            while ($loop->canContinue()) {
+            while ($canContinue()) {
                 $result = $worker->work();
                 if (!$result && !$repeat) {
                     break;

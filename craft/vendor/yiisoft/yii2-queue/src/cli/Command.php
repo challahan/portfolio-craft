@@ -7,18 +7,27 @@
 
 namespace yii\queue\cli;
 
-use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
 use yii\console\Controller;
-use yii\console\ExitCode;
 
 /**
- * Class Command
+ * Base Command.
  *
  * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
 abstract class Command extends Controller
 {
+    /**
+     * The exit code of the exec action which is returned when job was done.
+     */
+    const EXEC_DONE = 0;
+    /**
+     * The exit code of the exec action which is returned when job wasn't done and wanted next attempt.
+     */
+    const EXEC_RETRY = 3;
+
     /**
      * @var Queue
      */
@@ -39,6 +48,12 @@ abstract class Command extends Controller
      * @var bool isolate mode. It executes a job in a child process.
      */
     public $isolate = true;
+    /**
+     * @var string path to php interpreter that uses to run child processes.
+     * If it is undefined, PHP_BINARY will be used.
+     * @since 2.0.3
+     */
+    public $phpBinary;
 
 
     /**
@@ -52,6 +67,7 @@ abstract class Command extends Controller
         }
         if ($this->canIsolate($actionID)) {
             $options[] = 'isolate';
+            $options[] = 'phpBinary';
         }
 
         return $options;
@@ -102,11 +118,12 @@ abstract class Command extends Controller
         }
 
         if ($this->canIsolate($action->id) && $this->isolate) {
+            if ($this->phpBinary === null) {
+                $this->phpBinary = PHP_BINARY;
+            }
             $this->queue->messageHandler = function ($id, $message, $ttr, $attempt) {
                 return $this->handleMessage($id, $message, $ttr, $attempt);
             };
-        } else {
-            $this->queue->messageHandler = null;
         }
 
         return parent::beforeAction($action);
@@ -126,10 +143,9 @@ abstract class Command extends Controller
     public function actionExec($id, $ttr, $attempt, $pid)
     {
         if ($this->queue->execute($id, file_get_contents('php://stdin'), $ttr, $attempt, $pid)) {
-            return ExitCode::OK;
+            return self::EXEC_DONE;
         }
-
-        return ExitCode::UNSPECIFIED_ERROR;
+        return self::EXEC_RETRY;
     }
 
     /**
@@ -145,9 +161,9 @@ abstract class Command extends Controller
      */
     protected function handleMessage($id, $message, $ttr, $attempt)
     {
-        // Executes child process        
+        // Executes child process
         $cmd = strtr('php yii queue/exec "id" "ttr" "attempt" "pid"', [
-            'php' => PHP_BINARY,
+            'php' => $this->phpBinary,
             'yii' => $_SERVER['SCRIPT_FILENAME'],
             'queue' => $this->uniqueId,
             'id' => $id,
@@ -166,18 +182,20 @@ abstract class Command extends Controller
 
         $process = new Process($cmd, null, null, $message, $ttr);
         try {
-            $process->run(function ($type, $buffer) {
+            $result = $process->run(function ($type, $buffer) {
                 if ($type === Process::ERR) {
                     $this->stderr($buffer);
                 } else {
                     $this->stdout($buffer);
                 }
             });
-        } catch (ProcessTimedOutException $error) {
+            if (!in_array($result, [self::EXEC_DONE, self::EXEC_RETRY])) {
+                throw new ProcessFailedException($process);
+            }
+            return $result === self::EXEC_DONE;
+        } catch (ProcessRuntimeException $error) {
             $job = $this->queue->serializer->unserialize($message);
             return $this->queue->handleError($id, $job, $ttr, $attempt, $error);
         }
-
-        return $process->isSuccessful();
     }
 }

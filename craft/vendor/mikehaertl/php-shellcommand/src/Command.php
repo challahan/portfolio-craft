@@ -60,6 +60,11 @@ class Command
     public $locale;
 
     /**
+     * @var null|string|resource to pipe to standard input
+     */
+    protected $_stdIn;
+
+    /**
      * @var string the command to execute
      */
     protected $_command;
@@ -154,7 +159,7 @@ class Command
             } elseif (isset($command[2]) && $command[2]===':') {
                 $position = 2;
             } else {
-                $position = false;    
+                $position = false;
             }
 
             // Absolute path. If it's a relative path, let it slide.
@@ -163,6 +168,18 @@ class Command
             }
         }
         $this->_command = $command;
+        return $this;
+    }
+
+    /**
+     * @param string|resource $stdIn If set, the string will be piped to the command via standard input.
+     * This enables the same functionality as piping on the command line.
+     * It can also be a resource like a file handle or a stream in which case its content will be piped
+     * into the command like an input redirection.
+     * @return static for method chaining
+     */
+    public function setStdIn($stdIn) {
+        $this->_stdIn = $stdIn;
         return $this;
     }
 
@@ -322,10 +339,23 @@ class Command
                 1   => array('pipe','w'),
                 2   => array('pipe', $this->getIsWindows() ? 'a' : 'w'),
             );
+            if ($this->_stdIn!==null) {
+                $descriptors[0] = array('pipe', 'r');
+            }
+
             $process = proc_open($command, $descriptors, $pipes, $this->procCwd, $this->procEnv, $this->procOptions);
 
             if (is_resource($process)) {
 
+                if ($this->_stdIn!==null) {
+                    if (is_resource($this->_stdIn) &&
+                        in_array(get_resource_type($this->_stdIn), array('file', 'stream'), true)) {
+                        stream_copy_to_stream($this->_stdIn, $pipes[0]);
+                    } else {
+                        fwrite($pipes[0], $this->_stdIn);
+                    }
+                    fclose($pipes[0]);
+                }
                 $this->_stdOut = stream_get_contents($pipes[1]);
                 $this->_stdErr = stream_get_contents($pipes[2]);
                 fclose($pipes[1]);

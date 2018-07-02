@@ -23,6 +23,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         array (
             'yii\\swiftmailer\\' => 16,
             'yii\\queue\\sync\\' => 15,
+            'yii\\queue\\sqs\\' => 14,
             'yii\\queue\\redis\\' => 16,
             'yii\\queue\\gearman\\' => 18,
             'yii\\queue\\file\\' => 15,
@@ -131,6 +132,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'yii\\queue\\sync\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sync',
+        ),
+        'yii\\queue\\sqs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sqs',
         ),
         'yii\\queue\\redis\\' => 
         array (
@@ -1299,6 +1304,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'League\\OAuth2\\Client\\Tool\\ArrayAccessorTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/ArrayAccessorTrait.php',
         'League\\OAuth2\\Client\\Tool\\BearerAuthorizationTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/BearerAuthorizationTrait.php',
         'League\\OAuth2\\Client\\Tool\\MacAuthorizationTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/MacAuthorizationTrait.php',
+        'League\\OAuth2\\Client\\Tool\\ProviderRedirectTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/ProviderRedirectTrait.php',
         'League\\OAuth2\\Client\\Tool\\QueryBuilderTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/QueryBuilderTrait.php',
         'League\\OAuth2\\Client\\Tool\\RequestFactory' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/RequestFactory.php',
         'League\\OAuth2\\Client\\Tool\\RequiredParameterTrait' => __DIR__ . '/..' . '/league/oauth2-client/src/Tool/RequiredParameterTrait.php',
@@ -1863,6 +1869,8 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Zend\\Feed\\Reader\\Extension\\CreativeCommons\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/CreativeCommons/Feed.php',
         'Zend\\Feed\\Reader\\Extension\\DublinCore\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/DublinCore/Entry.php',
         'Zend\\Feed\\Reader\\Extension\\DublinCore\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/DublinCore/Feed.php',
+        'Zend\\Feed\\Reader\\Extension\\GooglePlayPodcast\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/GooglePlayPodcast/Entry.php',
+        'Zend\\Feed\\Reader\\Extension\\GooglePlayPodcast\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/GooglePlayPodcast/Feed.php',
         'Zend\\Feed\\Reader\\Extension\\Podcast\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/Podcast/Entry.php',
         'Zend\\Feed\\Reader\\Extension\\Podcast\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/Podcast/Feed.php',
         'Zend\\Feed\\Reader\\Extension\\Slash\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Reader/Extension/Slash/Entry.php',
@@ -1901,6 +1909,10 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'Zend\\Feed\\Writer\\Extension\\Content\\Renderer\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/Content/Renderer/Entry.php',
         'Zend\\Feed\\Writer\\Extension\\DublinCore\\Renderer\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/DublinCore/Renderer/Entry.php',
         'Zend\\Feed\\Writer\\Extension\\DublinCore\\Renderer\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/DublinCore/Renderer/Feed.php',
+        'Zend\\Feed\\Writer\\Extension\\GooglePlayPodcast\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/GooglePlayPodcast/Entry.php',
+        'Zend\\Feed\\Writer\\Extension\\GooglePlayPodcast\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/GooglePlayPodcast/Feed.php',
+        'Zend\\Feed\\Writer\\Extension\\GooglePlayPodcast\\Renderer\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/GooglePlayPodcast/Renderer/Entry.php',
+        'Zend\\Feed\\Writer\\Extension\\GooglePlayPodcast\\Renderer\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/GooglePlayPodcast/Renderer/Feed.php',
         'Zend\\Feed\\Writer\\Extension\\ITunes\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/ITunes/Entry.php',
         'Zend\\Feed\\Writer\\Extension\\ITunes\\Feed' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/ITunes/Feed.php',
         'Zend\\Feed\\Writer\\Extension\\ITunes\\Renderer\\Entry' => __DIR__ . '/..' . '/zendframework/zend-feed/src/Writer/Extension/ITunes/Renderer/Entry.php',
@@ -2000,6 +2012,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'cebe\\markdown\\tests\\TestParser' => __DIR__ . '/..' . '/cebe/markdown/tests/ParserTest.php',
         'craft\\app\\web\\UrlRule' => __DIR__ . '/..' . '/craftcms/cms/src/app/web/UrlRule.php',
         'craft\\base\\ApplicationTrait' => __DIR__ . '/..' . '/craftcms/cms/src/base/ApplicationTrait.php',
+        'craft\\base\\ClonefixTrait' => __DIR__ . '/..' . '/craftcms/cms/src/base/ClonefixTrait.php',
         'craft\\base\\Component' => __DIR__ . '/..' . '/craftcms/cms/src/base/Component.php',
         'craft\\base\\ComponentInterface' => __DIR__ . '/..' . '/craftcms/cms/src/base/ComponentInterface.php',
         'craft\\base\\EagerLoadingFieldInterface' => __DIR__ . '/..' . '/craftcms/cms/src/base/EagerLoadingFieldInterface.php',
@@ -2194,6 +2207,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\events\\CategoryGroupEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/CategoryGroupEvent.php',
         'craft\\events\\DefineBehaviorsEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DefineBehaviorsEvent.php',
         'craft\\events\\DefineComponentsEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DefineComponentsEvent.php',
+        'craft\\events\\DefineUserContentSummaryEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DefineUserContentSummaryEvent.php',
         'craft\\events\\DeleteSiteEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DeleteSiteEvent.php',
         'craft\\events\\DeleteTemplateCachesEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DeleteTemplateCachesEvent.php',
         'craft\\events\\DraftEvent' => __DIR__ . '/..' . '/craftcms/cms/src/events/DraftEvent.php',
@@ -2470,6 +2484,7 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'craft\\queue\\jobs\\FindAndReplace' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/FindAndReplace.php',
         'craft\\queue\\jobs\\GeneratePendingTransforms' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/GeneratePendingTransforms.php',
         'craft\\queue\\jobs\\LocalizeRelations' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/LocalizeRelations.php',
+        'craft\\queue\\jobs\\PropagateElements' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/PropagateElements.php',
         'craft\\queue\\jobs\\ResaveElements' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/ResaveElements.php',
         'craft\\queue\\jobs\\UpdateElementSlugsAndUris' => __DIR__ . '/..' . '/craftcms/cms/src/queue/jobs/UpdateElementSlugsAndUris.php',
         'craft\\records\\Asset' => __DIR__ . '/..' . '/craftcms/cms/src/records/Asset.php',
@@ -3185,6 +3200,8 @@ class ComposerStaticInit7fe129106450a8d7dff745a1d3113176
         'yii\\queue\\serializers\\PhpSerializer' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/serializers/PhpSerializer.php',
         'yii\\queue\\serializers\\Serializer' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/serializers/Serializer.php',
         'yii\\queue\\serializers\\SerializerInterface' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/serializers/SerializerInterface.php',
+        'yii\\queue\\sqs\\Command' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sqs/Command.php',
+        'yii\\queue\\sqs\\Queue' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sqs/Queue.php',
         'yii\\queue\\sync\\Queue' => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sync/Queue.php',
         'yii\\rbac\\Assignment' => __DIR__ . '/..' . '/yiisoft/yii2/rbac/Assignment.php',
         'yii\\rbac\\BaseManager' => __DIR__ . '/..' . '/yiisoft/yii2/rbac/BaseManager.php',

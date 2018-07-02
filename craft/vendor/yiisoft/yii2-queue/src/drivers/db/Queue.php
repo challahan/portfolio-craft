@@ -8,16 +8,15 @@
 namespace yii\queue\db;
 
 use yii\base\Exception;
-use yii\base\InvalidParamException;
+use yii\base\InvalidArgumentException;
 use yii\db\Connection;
 use yii\db\Query;
 use yii\di\Instance;
 use yii\mutex\Mutex;
-use yii\queue\cli\LoopInterface;
 use yii\queue\cli\Queue as CliQueue;
 
 /**
- * Db Queue
+ * Db Queue.
  *
  * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
@@ -44,7 +43,7 @@ class Queue extends CliQueue
      */
     public $channel = 'queue';
     /**
-     * @var boolean ability to delete released messages from table
+     * @var bool ability to delete released messages from table
      */
     public $deleteReleased = true;
     /**
@@ -67,15 +66,15 @@ class Queue extends CliQueue
      * Listens queue and runs each job.
      *
      * @param bool $repeat whether to continue listening when queue is empty.
-     * @param int $delay number of seconds to sleep before next iteration.
+     * @param int $timeout number of seconds to sleep before next iteration.
      * @return null|int exit code.
      * @internal for worker command only
      * @since 2.0.2
      */
-    public function run($repeat, $delay = 0)
+    public function run($repeat, $timeout = 0)
     {
-        return $this->runWorker(function (LoopInterface $loop) use ($repeat, $delay) {
-            while ($loop->canContinue()) {
+        return $this->runWorker(function (callable $canContinue) use ($repeat, $timeout) {
+            while ($canContinue()) {
                 if ($payload = $this->reserve()) {
                     if ($this->handleMessage(
                         $payload['id'],
@@ -87,8 +86,8 @@ class Queue extends CliQueue
                     }
                 } elseif (!$repeat) {
                     break;
-                } elseif ($delay) {
-                    sleep($delay);
+                } elseif ($timeout) {
+                    sleep($timeout);
                 }
             }
         });
@@ -109,7 +108,7 @@ class Queue extends CliQueue
                 return self::STATUS_DONE;
             }
 
-            throw new InvalidParamException("Unknown message ID: $id.");
+            throw new InvalidArgumentException("Unknown message ID: $id.");
         }
 
         if (!$payload['reserved_at']) {
@@ -124,7 +123,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Clears the queue
+     * Clears the queue.
      *
      * @since 2.0.1
      */
@@ -136,7 +135,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Removes a job by ID
+     * Removes a job by ID.
      *
      * @param int $id of a job
      * @return bool
@@ -175,9 +174,8 @@ class Queue extends CliQueue
     protected function reserve()
     {
         return $this->db->useMaster(function () {
-
             if (!$this->mutex->acquire(__CLASS__ . $this->channel, $this->mutexTimeout)) {
-                throw new Exception("Has not waited the lock.");
+                throw new Exception('Has not waited the lock.');
             }
 
             try {
@@ -187,17 +185,19 @@ class Queue extends CliQueue
                 $payload = (new Query())
                     ->from($this->tableName)
                     ->andWhere(['channel' => $this->channel, 'reserved_at' => null])
-                    ->andWhere('[[pushed_at]] <= :time - delay', [':time' => time()])
+                    ->andWhere('[[pushed_at]] <= :time - [[delay]]', [':time' => time()])
                     ->orderBy(['priority' => SORT_ASC, 'id' => SORT_ASC])
                     ->limit(1)
                     ->one($this->db);
                 if (is_array($payload)) {
                     $payload['reserved_at'] = time();
-                    $payload['attempt'] = (int)$payload['attempt'] + 1;
+                    $payload['attempt'] = (int) $payload['attempt'] + 1;
                     $this->db->createCommand()->update($this->tableName, [
-                        'reserved_at' => $payload['reserved_at'], 'attempt' => $payload['attempt']],
-                        ['id' => $payload['id']]
-                    )->execute();
+                        'reserved_at' => $payload['reserved_at'],
+                        'attempt' => $payload['attempt'],
+                    ], [
+                        'id' => $payload['id'],
+                    ])->execute();
 
                     // pgsql
                     if (is_resource($payload['job'])) {
@@ -243,7 +243,7 @@ class Queue extends CliQueue
             $this->db->createCommand()->update(
                 $this->tableName,
                 ['reserved_at' => null],
-                '[[reserved_at]] < :time - [[ttr]] and [[done_at]] is null',
+                '[[reserved_at]] < :time - [[ttr]] and [[reserved_at]] is not null and [[done_at]] is null',
                 [':time' => $this->reserveTime]
             )->execute();
         }

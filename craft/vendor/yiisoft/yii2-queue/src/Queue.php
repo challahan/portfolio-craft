@@ -9,14 +9,14 @@ namespace yii\queue;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidParamException;
+use yii\base\InvalidArgumentException;
 use yii\di\Instance;
 use yii\helpers\VarDumper;
 use yii\queue\serializers\PhpSerializer;
 use yii\queue\serializers\SerializerInterface;
 
 /**
- * Base Queue
+ * Base Queue.
  *
  * @property null|int $workerPid
  * @since 2.0.2
@@ -92,7 +92,7 @@ abstract class Queue extends Component
     }
 
     /**
-     * Sets TTR for job execute
+     * Sets TTR for job execute.
      *
      * @param int|mixed $value
      * @return $this
@@ -104,7 +104,7 @@ abstract class Queue extends Component
     }
 
     /**
-     * Sets delay for later execute
+     * Sets delay for later execute.
      *
      * @param int|mixed $value
      * @return $this
@@ -116,7 +116,7 @@ abstract class Queue extends Component
     }
 
     /**
-     * Sets job priority
+     * Sets job priority.
      *
      * @param mixed $value
      * @return $this
@@ -128,7 +128,7 @@ abstract class Queue extends Component
     }
 
     /**
-     * Pushes job into queue
+     * Pushes job into queue.
      *
      * @param JobInterface|mixed $job
      * @return string|null id of a job message
@@ -137,9 +137,11 @@ abstract class Queue extends Component
     {
         $event = new PushEvent([
             'job' => $job,
-            'ttr' => $job instanceof RetryableJobInterface
-                ? $job->getTtr()
-                : ($this->pushTtr ?: $this->ttr),
+            'ttr' => $this->pushTtr ?: (
+                $job instanceof RetryableJobInterface
+                    ? $job->getTtr()
+                    : $this->ttr
+            ),
             'delay' => $this->pushDelay ?: 0,
             'priority' => $this->pushPriority,
         ]);
@@ -153,7 +155,7 @@ abstract class Queue extends Component
         }
 
         if ($this->strictJobType && !($event->job instanceof JobInterface)) {
-            throw new InvalidParamException('Job must be instance of JobInterface.');
+            throw new InvalidArgumentException('Job must be instance of JobInterface.');
         }
 
         $message = $this->serializer->serialize($event->job);
@@ -175,7 +177,6 @@ abstract class Queue extends Component
     /**
      * Uses for CLI drivers and gets process ID of a worker.
      *
-     * @return null
      * @since 2.0.2
      */
     public function getWorkerPid()
@@ -195,7 +196,7 @@ abstract class Queue extends Component
         $job = $this->serializer->unserialize($message);
         if (!($job instanceof JobInterface)) {
             $dump = VarDumper::dumpAsString($job);
-            throw new InvalidParamException("Job $id must be a JobInterface instance instead of $dump.");
+            throw new InvalidArgumentException("Job $id must be a JobInterface instance instead of $dump.");
         }
 
         $event = new ExecEvent([
@@ -253,7 +254,7 @@ abstract class Queue extends Component
      */
     public function isWaiting($id)
     {
-        return $this->status($id) === Queue::STATUS_WAITING;
+        return $this->status($id) === self::STATUS_WAITING;
     }
 
     /**
@@ -262,7 +263,7 @@ abstract class Queue extends Component
      */
     public function isReserved($id)
     {
-        return $this->status($id) === Queue::STATUS_RESERVED;
+        return $this->status($id) === self::STATUS_RESERVED;
     }
 
     /**
@@ -271,7 +272,7 @@ abstract class Queue extends Component
      */
     public function isDone($id)
     {
-        return $this->status($id) === Queue::STATUS_DONE;
+        return $this->status($id) === self::STATUS_DONE;
     }
 
     /**

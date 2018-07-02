@@ -8,15 +8,14 @@
 namespace yii\queue\file;
 
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
-use yii\base\InvalidParamException;
 use yii\base\NotSupportedException;
 use yii\helpers\FileHelper;
-use yii\queue\cli\LoopInterface;
 use yii\queue\cli\Queue as CliQueue;
 
 /**
- * File Queue
+ * File Queue.
  *
  * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
@@ -64,15 +63,15 @@ class Queue extends CliQueue
      * Listens queue and runs each job.
      *
      * @param bool $repeat whether to continue listening when queue is empty.
-     * @param int $delay number of seconds to sleep before next iteration.
+     * @param int $timeout number of seconds to sleep before next iteration.
      * @return null|int exit code.
      * @internal for worker command only.
      * @since 2.0.2
      */
-    public function run($repeat, $delay = 0)
+    public function run($repeat, $timeout = 0)
     {
-        return $this->runWorker(function (LoopInterface $loop) use ($repeat, $delay) {
-            while ($loop->canContinue()) {
+        return $this->runWorker(function (callable $canContinue) use ($repeat, $timeout) {
+            while ($canContinue()) {
                 if (($payload = $this->reserve()) !== null) {
                     list($id, $message, $ttr, $attempt) = $payload;
                     if ($this->handleMessage($id, $message, $ttr, $attempt)) {
@@ -80,8 +79,8 @@ class Queue extends CliQueue
                     }
                 } elseif (!$repeat) {
                     break;
-                } elseif ($delay) {
-                    sleep($delay);
+                } elseif ($timeout) {
+                    sleep($timeout);
                 }
             }
         });
@@ -93,7 +92,7 @@ class Queue extends CliQueue
     public function status($id)
     {
         if (!is_numeric($id) || $id <= 0) {
-            throw new InvalidParamException("Unknown message ID: $id.");
+            throw new InvalidArgumentException("Unknown message ID: $id.");
         }
 
         if (file_exists("$this->path/job$id.data")) {
@@ -104,7 +103,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Clears the queue
+     * Clears the queue.
      *
      * @since 2.0.1
      */
@@ -119,7 +118,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Removes a job by ID
+     * Removes a job by ID.
      *
      * @param int $id of a job
      * @return bool
@@ -165,7 +164,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Reserves message for execute
+     * Reserves message for execute.
      *
      * @return array|null payload
      */
@@ -187,7 +186,7 @@ class Queue extends CliQueue
             }
 
             if (!empty($data['delayed']) && $data['delayed'][0][2] <= time()) {
-                list($id, $ttr,) = array_shift($data['delayed']);
+                list($id, $ttr, $time) = array_shift($data['delayed']);
             } elseif (!empty($data['waiting'])) {
                 list($id, $ttr) = array_shift($data['waiting']);
             }
@@ -205,7 +204,7 @@ class Queue extends CliQueue
     }
 
     /**
-     * Deletes reserved message
+     * Deletes reserved message.
      *
      * @param array $payload
      */
@@ -247,10 +246,18 @@ class Queue extends CliQueue
             } else {
                 $data['delayed'][] = [$id, $ttr, time() + $delay];
                 usort($data['delayed'], function ($a, $b) {
-                    if ($a[2] < $b[2]) return -1;
-                    if ($a[2] > $b[2]) return 1;
-                    if ($a[0] < $b[0]) return -1;
-                    if ($a[0] > $b[0]) return 1;
+                    if ($a[2] < $b[2]) {
+                        return -1;
+                    }
+                    if ($a[2] > $b[2]) {
+                        return 1;
+                    }
+                    if ($a[0] < $b[0]) {
+                        return -1;
+                    }
+                    if ($a[0] > $b[0]) {
+                        return 1;
+                    }
                     return 0;
                 });
             }

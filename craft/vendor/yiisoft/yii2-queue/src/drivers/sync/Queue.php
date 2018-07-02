@@ -9,11 +9,11 @@ namespace yii\queue\sync;
 
 use Yii;
 use yii\base\Application;
-use yii\base\InvalidParamException;
+use yii\base\InvalidArgumentException;
 use yii\queue\Queue as BaseQueue;
 
 /**
- * Sync Queue
+ * Sync Queue.
  *
  * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
@@ -86,17 +86,17 @@ class Queue extends BaseQueue
     public function status($id)
     {
         if (!is_int($id) || $id <= 0 || $id > $this->pushedId) {
-            throw new InvalidParamException("Unknown messages ID: $id.");
+            throw new InvalidArgumentException("Unknown messages ID: $id.");
         }
 
         if ($id <= $this->finishedId) {
-            return Queue::STATUS_DONE;
+            return self::STATUS_DONE;
         }
 
         if ($id === $this->startedId) {
-            return Queue::STATUS_RESERVED;
+            return self::STATUS_RESERVED;
         }
 
-        return Queue::STATUS_WAITING;
+        return self::STATUS_WAITING;
     }
 }

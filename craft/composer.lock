@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ada6d3b821f55e54f418f609aaff5f10",
+    "content-hash": "16fd1edfa7b85d5ef474df95f37f66e7",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -294,11 +294,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.0.13.2",
+            "version": "3.0.17.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/cadc71477c3e64a93038a900ea34877163d0af51",
-                "reference": "cadc71477c3e64a93038a900ea34877163d0af51",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/7619e6fd236dfdbbbbcc0006113c6796dd7d95ed",
+                "reference": "7619e6fd236dfdbbbbcc0006113c6796dd7d95ed",
                 "shasum": ""
             },
             "require": {
@@ -325,7 +325,8 @@
                 "php": ">=7.0.0",
                 "pixelandtonic/imagine": "~0.7.1.2",
                 "seld/cli-prompt": "^1.0.3",
-                "twig/twig": "^2.4.4",
+                "true/punycode": "^2.1.0",
+                "twig/twig": "^2.5.0",
                 "yiisoft/yii2": "~2.0.15.1",
                 "yiisoft/yii2-debug": "^2.0.10",
                 "yiisoft/yii2-queue": "^2.0.1",
@@ -368,7 +369,7 @@
                 "docs": "https://github.com/craftcms/docs",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2018-06-27T13:28:26+00:00"
+            "time": "2018-07-24T20:54:02+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
@@ -454,11 +455,11 @@
         },
         {
             "name": "craftcms/redactor",
-            "version": "2.1.0",
+            "version": "2.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/redactor/zipball/7d72a873e12ea7c92a8a6d00e025e303089d504e",
-                "reference": "7d72a873e12ea7c92a8a6d00e025e303089d504e",
+                "url": "https://api.github.com/repos/craftcms/redactor/zipball/3ba43bd591c7246220859e8e36838e5deede80f3",
+                "reference": "3ba43bd591c7246220859e8e36838e5deede80f3",
                 "shasum": ""
             },
             "require": {
@@ -500,15 +501,15 @@
                 "docs": "https://github.com/craftcms/redactor",
                 "rss": "https://github.com/craftcms/redactor/commits/master.atom"
             },
-            "time": "2018-05-15T21:58:54+00:00"
+            "time": "2018-07-25T09:56:15+00:00"
         },
         {
             "name": "craftcms/server-check",
-            "version": "1.1.1",
+            "version": "1.1.4",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/server-check/zipball/a39dea7f05c66751532a0ad09d51cae46da3f9cf",
-                "reference": "a39dea7f05c66751532a0ad09d51cae46da3f9cf",
+                "url": "https://api.github.com/repos/craftcms/server-check/zipball/5d6a2c6033db666fd775c301b6c92b9a86487ace",
+                "reference": "5d6a2c6033db666fd775c301b6c92b9a86487ace",
                 "shasum": ""
             },
             "type": "library",
@@ -517,7 +518,6 @@
                     "server/requirements"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -529,7 +529,7 @@
                 "requirements",
                 "yii2"
             ],
-            "time": "2017-12-15T16:00:57+00:00"
+            "time": "2018-07-25T19:16:43+00:00"
         },
         {
             "name": "craftcms/vue-asset",
@@ -861,11 +861,11 @@
         },
         {
             "name": "elvanto/litemoji",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elvanto/litemoji/zipball/7c0276dd0e5004bc78b7865e12030f3d2b6b8d0e",
-                "reference": "7c0276dd0e5004bc78b7865e12030f3d2b6b8d0e",
+                "url": "https://api.github.com/repos/elvanto/litemoji/zipball/b30d679cad29531ec16ca1afadebc78c4495fa10",
+                "reference": "b30d679cad29531ec16ca1afadebc78c4495fa10",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
                 "emoji",
                 "php-emoji"
             ],
-            "time": "2018-05-25T04:37:05+00:00"
+            "time": "2018-07-24T06:21:15+00:00"
         },
         {
             "name": "embed/embed",
@@ -1393,12 +1393,15 @@
         },
         {
             "name": "mikehaertl/php-shellcommand",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikehaertl/php-shellcommand/zipball/727e2143578796c714a50c0a350459758ff16c43",
-                "reference": "727e2143578796c714a50c0a350459758ff16c43",
+                "url": "https://api.github.com/repos/mikehaertl/php-shellcommand/zipball/903ee95d3ee8f65ebbe4c6e17705d1d91760521a",
+                "reference": "903ee95d3ee8f65ebbe4c6e17705d1d91760521a",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.4.0"
             },
             "type": "library",
             "autoload": {
@@ -1419,7 +1422,7 @@
             "keywords": [
                 "shell"
             ],
-            "time": "2018-02-16T07:02:50+00:00"
+            "time": "2018-07-07T07:35:36+00:00"
         },
         {
             "name": "mikestecker/craft-videoembedder",
@@ -1474,11 +1477,11 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.15",
+            "version": "v2.0.17",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/29af24f25bab834fcbb38ad2a69fa93b867e070d",
+                "reference": "29af24f25bab834fcbb38ad2a69fa93b867e070d",
                 "shasum": ""
             },
             "require": {
@@ -1510,7 +1513,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-08T15:26:40+00:00"
+            "time": "2018-07-04T16:31:37+00:00"
         },
         {
             "name": "php-science/textrank",
@@ -1869,25 +1872,25 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.0.2",
+            "version": "v6.1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/412333372fb6c8ffb65496a2bbd7321af75733fc",
-                "reference": "412333372fb6c8ffb65496a2bbd7321af75733fc",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
+                "reference": "7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
                 "shasum": ""
             },
             "require": {
                 "egulias/email-validator": "~2.0",
                 "php": ">=7.0.0"
             },
-            "require-dev": {
-                "mockery/mockery": "~0.9.1",
-                "symfony/phpunit-bridge": "~3.3@dev"
+            "suggest": {
+                "ext-intl": "Needed to support internationalized email addresses",
+                "true/punycode": "Needed to support internationalized email addresses, if ext-intl is not installed"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "6.1-dev"
                 }
             },
             "autoload": {
@@ -1895,7 +1898,6 @@
                     "lib/swift_required.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1909,21 +1911,21 @@
                 }
             ],
             "description": "Swiftmailer, free feature-rich PHP mailer",
-            "homepage": "http://swiftmailer.symfony.com",
+            "homepage": "https://swiftmailer.symfony.com",
             "keywords": [
                 "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2017-09-30T22:39:41+00:00"
+            "time": "2018-07-13T07:04:35+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/70591cda56b4b47c55776ac78e157c4bb6c8b43f",
-                "reference": "70591cda56b4b47c55776ac78e157c4bb6c8b43f",
+                "url": "https://api.github.com/repos/symfony/console/zipball/5c31f6a97c1c240707f6d786e7e59bfacdbc0219",
+                "reference": "5c31f6a97c1c240707f6d786e7e59bfacdbc0219",
                 "shasum": ""
             },
             "require": {
@@ -1969,11 +1971,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-31T10:17:53+00:00"
+            "time": "2018-07-16T14:05:40+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/filesystem/zipball/562bf7005b55fd80d26b582d28e3e10f2dd5ae9c",
@@ -2017,7 +2019,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/finder/zipball/84714b8417d19e4ba02ea78a41a975b3efaafddb",
@@ -2162,7 +2164,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/process/zipball/1d1677391ecf00d1c5b9482d6050c0c27aa3ac3a",
@@ -2204,27 +2206,59 @@
             "time": "2018-05-31T10:17:53+00:00"
         },
         {
-            "name": "twig/twig",
-            "version": "v2.4.8",
+            "name": "true/punycode",
+            "version": "v2.1.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7b604c89da162034bdf4bb66310f358d313dd16d",
-                "reference": "7b604c89da162034bdf4bb66310f358d313dd16d",
+                "url": "https://api.github.com/repos/true/php-punycode/zipball/a4d0c11a36dd7f4e7cd7096076cab6d3378a071e",
+                "reference": "a4d0c11a36dd7f4e7cd7096076cab6d3378a071e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/polyfill-mbstring": "^1.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TrueBV\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Renan Gonçalves",
+                    "email": "renan.saddam@gmail.com"
+                }
+            ],
+            "description": "A Bootstring encoding of Unicode for Internationalized Domain Names in Applications (IDNA)",
+            "homepage": "https://github.com/true/php-punycode",
+            "keywords": [
+                "idna",
+                "punycode"
+            ],
+            "time": "2016-11-16T10:37:54+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v2.5.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6a5f676b77a90823c2d4eaf76137b771adf31323",
+                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
+                "symfony/polyfill-ctype": "^1.8",
                 "symfony/polyfill-mbstring": "~1.0"
-            },
-            "require-dev": {
-                "psr/container": "^1.0",
-                "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -2235,7 +2269,6 @@
                     "Twig\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2253,16 +2286,16 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "http://twig.sensiolabs.org",
+            "homepage": "https://twig.symfony.com",
             "keywords": [
                 "templating"
             ],
-            "time": "2018-04-02T09:24:19+00:00"
+            "time": "2018-07-13T07:18:09+00:00"
         },
         {
             "name": "wbrowar/adminbar",
@@ -2470,18 +2503,15 @@
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/163419f1f197e02f015713b0d4f85598d8f8aa80",
-                "reference": "163419f1f197e02f015713b0d4f85598d8f8aa80",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/1439e78be1218c492e6cde251ed87d3f128b9534",
+                "reference": "1439e78be1218c492e6cde251ed87d3f128b9534",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -2495,7 +2525,6 @@
                     "yii\\composer\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2515,7 +2544,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2018-03-21T16:15:55+00:00"
+            "time": "2018-07-05T15:44:47+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",

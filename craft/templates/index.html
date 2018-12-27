@@ -52,7 +52,7 @@
     	</div>
       <div class="highlight highlight-projects">
 		<h3>Work</h3>
-    {% set projects = craft.entries.section('project').limit(2) %}
+    {% set projects = craft.entries.section('project').hiddenItem('not 1').limit(2) %}
 		{% for project in projects %}
 			<div class="project">
           <figure class="project-image">

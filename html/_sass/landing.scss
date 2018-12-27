@@ -14,7 +14,7 @@
 }
 
 .landing-banner {
-	background-image: url("ui/grid-background.svg");
+	background-image: url("/css/ui/grid-background.svg");
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	background-position: top center;
@@ -33,7 +33,7 @@
 .landing-banner__heading {
 	&:before {
 		transition: .3s background-image ease;
-		background-image: url('ui/smartphone.svg');
+		background-image: url('/css/ui/smartphone.svg');
 		content: '';
 		display: block;
 		//position: absolute;
@@ -48,10 +48,10 @@
 		@media screen and (min-width: 50em) {
 			width: 90px;
 			height: 115px;
-			background-image: url('ui/tablet.svg');
+			background-image: url('/css/ui/tablet.svg');
 		}
 		@media screen and (min-width: 1000px) {
-			background-image: url('ui/computer-blue.svg');
+			background-image: url('/css/ui/computer-blue.svg');
 			position: absolute;
 			margin: 0;
 			left: -1.15em;

@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="S3JpRmacKSwxJ1d6aArAKYrfQZG7JKnFxGB6cJdL-zI" />
   <title>{% if entry.title is defined %}{{ entry.title }} - {% endif %}{{ siteName }}</title>
+  <meta name="Description" content="Website/portfolio for Christopher Hallahan, a web and UX designer in Cleveland, Ohio">
   {% if entry is defined %}
     {% if entry.section.handle == 'landingPage' or entry.hiddenItem %}
       <meta name="robots" content="noindex">
@@ -33,8 +34,6 @@
   <link rel="canonical" href="{{ siteUrl }}">
   <link rel="alternate" type="application/rss+xml" title="Title goes here" href="{{siteUrl}}/feed.xml" />
   {% endcache %}
-  <!-- Render SEO Metatags -->
-  {% hook 'seomaticRender' %}
       {% block critical %}
       <style type="text/css">
         {% if entry is defined %}

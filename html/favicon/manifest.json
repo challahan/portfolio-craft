@@ -1,5 +1,8 @@
 {
-	"name": "My app",
+	"short_name": "Chris Hallahan",
+	"name": "Christopher Hallahan's Portfolio",
+	"start_url": "/",
+	"display": "standalone",
 	"icons": [
 		{
 			"src": "\/android-chrome-36x36.png",

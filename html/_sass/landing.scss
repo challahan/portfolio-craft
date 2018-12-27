@@ -14,7 +14,7 @@
 }
 
 .landing-banner {
-	background-image: url("/css/ui/grid-background.svg");
+	background-image: url("/css/ui/hexagon-background.svg");
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	background-position: top center;
@@ -27,6 +27,7 @@
 	}
 	@media screen and (min-width: 1000px) {
 		min-height: 350px;
+		background-position: -5px center;
 	}
 }
 

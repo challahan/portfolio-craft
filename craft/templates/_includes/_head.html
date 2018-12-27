@@ -27,7 +27,7 @@
   <link rel="icon" type="image/png" href="{{siteUrl}}/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="manifest" href="{{siteUrl}}/favicon/manifest.json">
   {% if not craft.config.devMode %}
-  <meta http-equiv="Content-Security-Policy" content="default-src hallahan.web chris.web www.youtube.com; script-src 'self' https://chrishallahan.com www.chrishallahan.com www.challahan.com challahan.com chris.web chrishallahan.com www.google-analytics.com ajax.googleapis.com; connect-src 'self'; img-src 'self' chrishallahan.com https://chrishallahan.com www.google-analytics.com; style-src 'self' https://chrishallahan.com fonts.googleapis.com 'unsafe-inline'; font-src 'self' fonts.gstatic.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src hallahan.web chris.web www.youtube.com; manifest-src 'self'; script-src 'self' https://chrishallahan.com www.chrishallahan.com www.challahan.com challahan.com chris.web chrishallahan.com www.google-analytics.com ajax.googleapis.com; connect-src 'self'; img-src 'self' chrishallahan.com https://chrishallahan.com www.google-analytics.com; style-src 'self' https://chrishallahan.com fonts.googleapis.com 'unsafe-inline'; font-src 'self' fonts.gstatic.com;">
   {% endif %}
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="msapplication-TileImage" content="{{siteUrl}}/favicon/mstile-144x144.png">

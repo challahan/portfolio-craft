@@ -56,11 +56,16 @@
 		<img class="landing-icon" src="{{siteUrl}}/css/ui/contact-card.svg" alt="Contact Card" />
 		<h2>Find Me on the Web</h2>
 		<p>{{entry.workIntroduction}}</p>
-		<ul class="landing-list">
-			<li><a href="#">CodePen</a></li>
-			<li><a href="#">CodePen</a></li>
-			<li><a href="#">CodePen</a></li>
-			<li><a href="#">CodePen</a></li>
+  		<ul class="landing-list">
+        {% for network in entry.socialMedia %}
+          {% if network.type == "social" %}
+            <li>
+              <a href="{{ network.socialUrl }}">
+              {{ network.socialName }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
 		</ul>
 		<p class="landing-closing">Thanks for reading and please get in touch if you have any questions!</p>
 	</section>

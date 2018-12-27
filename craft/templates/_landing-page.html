@@ -34,7 +34,7 @@
 			<ul class="owl-carousel project-card-list">
         {% for project in entry.selectedWork %}
 				<li>
-					<a class="project-card" href="#">
+					<a class="project-card" href="{{project.url}}">
 						<div class="project-card__image">
             {% for image in project.featureImage %}
 						      <img src="{{image.url('postLarge')}}" alt="{{image.title}}" />

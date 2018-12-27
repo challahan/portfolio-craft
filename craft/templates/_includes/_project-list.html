@@ -1,6 +1,7 @@
 <section class="work-list">
   <ul class="project-posts-grid">
-    {% for post in pageEntries %}
+    {% set posts = pageEntries %}
+    {% for post in posts %}
     <li>
       <h2><a href="{{post.url}}">{{post.title}}</a></h2>
       {% if post.projectType | length %}

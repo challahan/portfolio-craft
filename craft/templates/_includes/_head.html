@@ -4,6 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="S3JpRmacKSwxJ1d6aArAKYrfQZG7JKnFxGB6cJdL-zI" />
   <title>{% if entry.title is defined %}{{ entry.title }} - {% endif %}{{ siteName }}</title>
+  {% if entry is defined %}
+    {% if entry.section.handle == 'landingPage' or entry.hiddenItem %}
+      <meta name="robots" content="noindex">
+    {% endif %}
+  {% endif %}
   {% cache globally %}
   <link rel="mask-icon" href="{{siteUrl}}/favicon/website_icon.svg" color="rgb(2,79,105)">
   <link rel="apple-touch-icon" sizes="57x57" href="{{siteUrl}}/favicon/apple-touch-icon-57x57.png">
@@ -32,26 +37,33 @@
   {% hook 'seomaticRender' %}
       {% block critical %}
       <style type="text/css">
-        {% if entry.section.handle == 'work' %}
-          /* Critical CSS for Work */
-          {% include '_includes/critical-work.css' %}
-        {% elseif entry.section.handle == 'project' %}
-          /* Critical CSS for Projects */
-          {% include '_includes/critical-project.css' %}
-        {% elseif entry.section.handle == 'landingPage' %}
+        {% if entry is defined %}
+          {% if entry.section.handle == 'work' %}
+            /* Critical CSS for Work */
+            {% include '_includes/critical-work.css' %}
+          {% elseif entry.section.handle == 'project' %}
             /* Critical CSS for Projects */
-            {% include '_includes/critical-landing.css' %}
-        {% else %}
-          /* Critical CSS for Home */
-          {% include '_includes/critical-home.css' %}
+            {% include '_includes/critical-project.css' %}
+          {% elseif entry.section.handle == 'landingPage' %}
+              /* Critical CSS for Projects */
+              {% include '_includes/critical-landing.css' %}
+          {% else %}
+            /* Critical CSS for Home */
+            {% include '_includes/critical-home.css' %}
+          {% endif %}
         {% endif %}
       </style>
       {% endblock %}
-  {% if entry.section.handle == 'landingPage' %}
-    <script async src="{{ siteUrl }}/scripts/min/loadcss-landing-min.js"></script>
-    <noscript><link href="{{ siteUrl }}/css/landing.css" rel="stylesheet"></noscript>
-    {% else %}
-    <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
-    <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+  {% if entry is defined %}
+    {% if entry.section.handle == 'landingPage' %}
+      <script async src="{{ siteUrl }}/scripts/min/loadcss-landing-min.js"></script>
+      <noscript><link href="{{ siteUrl }}/css/landing.css" rel="stylesheet"></noscript>
+      {% else %}
+      <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
+      <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+    {% endif %}
+      {% else %}
+      <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
+      <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
   {% endif %}
 </head>

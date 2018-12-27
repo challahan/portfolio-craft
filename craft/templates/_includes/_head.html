@@ -52,6 +52,11 @@
             {% include '_includes/critical-home.css' %}
           {% endif %}
         {% endif %}
+        {% if category is defined %}
+          {% if craft.categories.group('projectType') %}
+            {% include '_includes/critical-work.css' %}
+          {% endif %}
+        {% endif %}
       </style>
       {% endblock %}
   {% if entry is defined %}

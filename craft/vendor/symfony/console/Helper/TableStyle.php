@@ -40,6 +40,8 @@ class TableStyle
     private $crossingTopLeftBottomChar = '+';
     private $crossingTopMidBottomChar = '+';
     private $crossingTopRightBottomChar = '+';
+    private $headerTitleFormat = '<fg=black;bg=white;options=bold> %s </>';
+    private $footerTitleFormat = '<fg=black;bg=white;options=bold> %s </>';
     private $cellHeaderFormat = '<info>%s</info>';
     private $cellRowFormat = '%s';
     private $cellRowContentFormat = ' %s ';
@@ -276,7 +278,7 @@ class TableStyle
     /**
      * Gets crossing character.
      *
-     * @return string $crossingChar
+     * @return string
      */
     public function getCrossingChar()
     {
@@ -411,7 +413,7 @@ class TableStyle
      */
     public function setPadType($padType)
     {
-        if (!in_array($padType, array(STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH), true)) {
+        if (!\in_array($padType, array(STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH), true)) {
             throw new InvalidArgumentException('Invalid padding type. Expected one of (STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH).');
         }
 
@@ -428,5 +430,29 @@ class TableStyle
     public function getPadType()
     {
         return $this->padType;
+    }
+
+    public function getHeaderTitleFormat(): string
+    {
+        return $this->headerTitleFormat;
+    }
+
+    public function setHeaderTitleFormat(string $format): self
+    {
+        $this->headerTitleFormat = $format;
+
+        return $this;
+    }
+
+    public function getFooterTitleFormat(): string
+    {
+        return $this->footerTitleFormat;
+    }
+
+    public function setFooterTitleFormat(string $format): self
+    {
+        $this->footerTitleFormat = $format;
+
+        return $this;
     }
 }

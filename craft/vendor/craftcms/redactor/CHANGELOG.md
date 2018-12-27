@@ -1,10 +1,44 @@
-# Release Notes for Redactor
+# Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.1.7 - 2018-12-17
 
-### 2.1.3 - 2018-07-25
+### Changed
+- Updated Redactor to 3.1.4
+- Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
+- Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82)) 
 
-- Fixed a bug where the fixed toolbar was not working. ([#9]((https://github.com/craftcms/redactor/issues/9))
+### Fixed
+- Fixed a bug where image editor would be unavailable for inserted assets. ([#95](https://github.com/craftcms/redactor/issues/95))
+- Fixed a bug where Redactor was not getting translated properly for Norwegian languages. ([#99](https://github.com/craftcms/redactor/issues/99))
+
+## 2.1.6 - 2018-08-21
+
+### Changed
+- Updated Redactor to 3.1.1
+
+### Fixed
+- Updating Redactor fixed a bug where inserting links to entries would not work in Firefox. ([#61](https://github.com/craftcms/redactor/issues/61))
+- Updating Redactor fixed a bug where using "inlinestyle" plugin would overwrite tags. ([#58](https://github.com/craftcms/redactor/issues/58))
+
+## 2.1.5 - 2018-07-30
+
+### Added
+- The plugin is now translated into Hungarian. ([#73](https://github.com/craftcms/redactor/pull/73))
+
+### Fixed
+- Fixed a PHP error that could occur when editing elements with Redactor fields. ([#74](https://github.com/craftcms/redactor/issues/74))
+
+## 2.1.4 - 2018-07-27
+
+### Added
+- The plugin is now translated into Dutch. ([#55](https://github.com/craftcms/redactor/pull/55))
+
+### Fixed
+- Fixed a bug where the fixed toolbar wan’t working. ([#9](https://github.com/craftcms/redactor/issues/9))
+
+## 2.1.3 - 2018-07-25
+
+- Fixed a bug where the fixed toolbar was not working. ([#9](https://github.com/craftcms/redactor/issues/9))
 - Fixed a bug where it was impossible to define translation overrides. ([#63](https://github.com/craftcms/redactor/issues/63))
 
 ## 2.1.2 - 2018-07-14

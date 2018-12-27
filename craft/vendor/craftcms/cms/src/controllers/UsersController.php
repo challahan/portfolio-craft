@@ -104,6 +104,7 @@ class UsersController extends Controller
      * Displays the login template, and handles login post requests.
      *
      * @return Response|null
+     * @throws BadRequestHttpException
      */
     public function actionLogin()
     {
@@ -120,8 +121,8 @@ class UsersController extends Controller
         // First, a little house-cleaning for expired, pending users.
         Craft::$app->getUsers()->purgeExpiredPendingUsers();
 
-        $loginName = Craft::$app->getRequest()->getBodyParam('loginName');
-        $password = Craft::$app->getRequest()->getBodyParam('password');
+        $loginName = (string)Craft::$app->getRequest()->getRequiredBodyParam('loginName');
+        $password = (string)Craft::$app->getRequest()->getRequiredBodyParam('password');
         $rememberMe = (bool)Craft::$app->getRequest()->getBodyParam('rememberMe');
 
         // Does a user exist with that username/email?
@@ -174,9 +175,10 @@ class UsersController extends Controller
         $request = Craft::$app->getRequest();
 
         $userId = $request->getBodyParam('userId');
-        $originalUserId = $userService->getId();
 
-        $session->set(User::IMPERSONATE_KEY, $originalUserId);
+        // Save the original user ID to the session now so User::findIdentity()
+        // knows not to worry if the user isn't active yet
+        $session->set(User::IMPERSONATE_KEY, $userService->getId());
 
         if (!$userService->loginByUserId($userId)) {
             $session->remove(User::IMPERSONATE_KEY);
@@ -307,6 +309,11 @@ class UsersController extends Controller
             }
         }
 
+        // If no one is logged in and preventUserEnumeration is enabled, clear out the login errors
+        if (!$existingUser && Craft::$app->getConfig()->getGeneral()->preventUserEnumeration) {
+            $errors = [];
+        }
+
         if (!empty($user)) {
             try {
                 $emailSent = Craft::$app->getUsers()->sendPasswordResetEmail($user);
@@ -319,9 +326,7 @@ class UsersController extends Controller
             }
         }
 
-        // If there haven't been any errors, or there were, and it's not one logged in user editing another
-        // and we want to pretend like there wasn't any errors...
-        if (empty($errors) || (count($errors) > 0 && !$existingUser && Craft::$app->getConfig()->getGeneral()->preventUserEnumeration)) {
+        if (empty($errors)) {
             if (Craft::$app->getRequest()->getAcceptsJson()) {
                 return $this->asJson(['success' => true]);
             }
@@ -428,8 +433,7 @@ class UsersController extends Controller
             return $this->redirect($url);
         }
 
-        Craft::$app->getSession()->setNotice(Craft::t('app',
-            'Couldn’t update password.'));
+        Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t update password.'));
 
         $errors = $userToProcess->getErrors('newPassword');
 
@@ -510,12 +514,17 @@ class UsersController extends Controller
      *
      * @param int|string|null $userId The user’s ID, if any, or a string that indicates the user to be edited ('current' or 'client').
      * @param User|null $user The user being edited, if there were any validation errors.
+     * @param array|null $errors Any errors that occurred as a result of the previous action.
      * @return Response
      * @throws NotFoundHttpException if the requested user cannot be found
      * @throws BadRequestHttpException if there’s a mismatch between|null $userId and|null $user
      */
-    public function actionEditUser($userId = null, User $user = null): Response
+    public function actionEditUser($userId = null, User $user = null, array $errors = null): Response
     {
+        if (!empty($errors)) {
+            Craft::$app->getSession()->setError(reset($errors));
+        }
+
         // Determine which user account we're editing
         // ---------------------------------------------------------------------
 
@@ -594,7 +603,7 @@ class UsersController extends Controller
         if ($edition === Craft::Pro && !$isNewUser) {
             switch ($user->getStatus()) {
                 case User::STATUS_PENDING:
-                    $statusLabel = Craft::t('app', 'Unverified');
+                    $statusLabel = Craft::t('app', 'Pending');
                     $statusActions[] = [
                         'action' => 'users/send-activation-email',
                         'label' => Craft::t('app', 'Send activation email')
@@ -703,8 +712,10 @@ class UsersController extends Controller
         if (!$isNewUser) {
             if ($user->getIsCurrent()) {
                 $title = Craft::t('app', 'My Account');
+            } else if ($name = trim($user->getName())) {
+                $title = Craft::t('app', '{user}’s Account', ['user' => $name]);
             } else {
-                $title = Craft::t('app', '{user}’s Account', ['user' => $user->getName()]);
+                $title = Craft::t('app', 'Edit User');
             }
         } else {
             $title = Craft::t('app', 'Register a new user');
@@ -719,32 +730,29 @@ class UsersController extends Controller
             ]
         ];
 
-        // Only show custom fields if it's Craft Pro
-        if ($edition === Craft::Pro) {
-            foreach ($user->getFieldLayout()->getTabs() as $index => $tab) {
-                // Skip if the tab doesn't have any fields
-                if (empty($tab->getFields())) {
-                    continue;
-                }
+        foreach ($user->getFieldLayout()->getTabs() as $index => $tab) {
+            // Skip if the tab doesn't have any fields
+            if (empty($tab->getFields())) {
+                continue;
+            }
 
-                // Do any of the fields on this tab have errors?
-                $hasErrors = false;
+            // Do any of the fields on this tab have errors?
+            $hasErrors = false;
 
-                if ($user->hasErrors()) {
-                    foreach ($tab->getFields() as $field) {
-                        /** @var Field $field */
-                        if ($hasErrors = $user->hasErrors($field->handle)) {
-                            break;
-                        }
+            if ($user->hasErrors()) {
+                foreach ($tab->getFields() as $field) {
+                    /** @var Field $field */
+                    if ($hasErrors = $user->hasErrors($field->handle . '.*')) {
+                        break;
                     }
                 }
-
-                $tabs['profile' . $index] = [
-                    'label' => Craft::t('site', $tab->name),
-                    'url' => '#profile-' . $tab->getHtmlId(),
-                    'class' => $hasErrors ? 'error' : null
-                ];
             }
+
+            $tabs['profile' . $index] = [
+                'label' => Craft::t('site', $tab->name),
+                'url' => '#profile-' . $tab->getHtmlId(),
+                'class' => $hasErrors ? 'error' : null
+            ];
         }
 
         // Show the permission tab for the users that can change them on Craft Pro editions
@@ -831,6 +839,9 @@ class UsersController extends Controller
         // Load the resources and render the page
         // ---------------------------------------------------------------------
 
+        // Body class
+        $bodyClass = 'edit-user';
+
         $this->getView()->registerAssetBundle(EditUserAsset::class);
 
         $userIdJs = Json::encode($user->id);
@@ -845,6 +856,7 @@ class UsersController extends Controller
             'isNewUser',
             'statusLabel',
             'actions',
+            'bodyClass',
             'title',
             'tabs',
             'selectedTab',
@@ -874,7 +886,6 @@ class UsersController extends Controller
     {
         $this->requirePostRequest();
 
-        $edition = Craft::$app->getEdition();
         $request = Craft::$app->getRequest();
         $userComponent = Craft::$app->getUser();
         $currentUser = $userComponent->getIdentity();
@@ -998,9 +1009,9 @@ class UsersController extends Controller
         $user->firstName = $request->getBodyParam('firstName', $user->firstName);
         $user->lastName = $request->getBodyParam('lastName', $user->lastName);
 
-        // If email verification is required, then new users will be saved in a pending state,
+        // New users should always be initially saved in a pending state,
         // even if an admin is doing this and opted to not send the verification email
-        if ($isNewUser && $requireEmailVerification) {
+        if ($isNewUser) {
             $user->pending = true;
         }
 
@@ -1036,7 +1047,11 @@ class UsersController extends Controller
             $user->setScenario(Element::SCENARIO_LIVE);
         }
 
-        if (!$user->validate(null, false)) {
+        // Manually validate the user so we can pass $clearErrors=false
+        if (
+            !$user->validate(null, false) ||
+            !Craft::$app->getElements()->saveElement($user, false)
+        ) {
             Craft::info('User not saved due to validation error.', __METHOD__);
 
             if ($thisIsPublicRegistration) {
@@ -1061,8 +1076,11 @@ class UsersController extends Controller
             return null;
         }
 
-        // Save the user (but no need to re-validate)
-        Craft::$app->getElements()->saveElement($user, false);
+        // If this is a new user and email verification isn't required,
+        // go ahead and activate them now.
+        if ($isNewUser && !$requireEmailVerification) {
+            Craft::$app->getUsers()->activateUser($user);
+        }
 
         // Save their preferences too
         $preferences = [

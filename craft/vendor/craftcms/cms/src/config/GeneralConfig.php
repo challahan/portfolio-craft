@@ -11,6 +11,7 @@ use Craft;
 use craft\helpers\ConfigHelper;
 use craft\helpers\Localization;
 use craft\helpers\StringHelper;
+use craft\services\Config;
 use yii\base\BaseObject;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -51,7 +52,7 @@ class GeneralConfig extends BaseObject
      */
     public $addTrailingSlashesToUrls = false;
     /**
-     * @var array Any custom Yii [aliases](http://www.yiiframework.com/doc-2.0/guide-concept-aliases.html) that should be defined for every request.
+     * @var array Any custom Yii [aliases](https://www.yiiframework.com/doc/guide/2.0/en/concept-aliases) that should be defined for every request.
      */
     public $aliases = [];
     /**
@@ -62,7 +63,7 @@ class GeneralConfig extends BaseObject
      * @var string[] The file extensions Craft should allow when a user is uploading files.
      * @see extraAllowedFileExtensions
      */
-    public $allowedFileExtensions = ['7z', 'aiff', 'asf', 'avi', 'bmp', 'csv', 'doc', 'docx', 'fla', 'flv', 'gif', 'gz', 'gzip', 'htm', 'html', 'jp2', 'jpeg', 'jpg', 'jpx', 'js', 'm2t', 'mid', 'mov', 'mp3', 'mp4', 'm4a', 'm4v', 'mpc', 'mpeg', 'mpg', 'ods', 'odt', 'ogg', 'ogv', 'pdf', 'png', 'potx', 'pps', 'ppsm', 'ppsx', 'ppt', 'pptm', 'pptx', 'ppz', 'pxd', 'qt', 'ram', 'rar', 'rm', 'rmi', 'rmvb', 'rtf', 'sdc', 'sitd', 'svg', 'swf', 'sxc', 'sxw', 'tar', 'tgz', 'tif', 'tiff', 'txt', 'vob', 'vsd', 'wav', 'webm', 'wma', 'wmv', 'xls', 'xlsx', 'zip'];
+    public $allowedFileExtensions = ['7z', 'aiff', 'asf', 'avi', 'bmp', 'csv', 'doc', 'docx', 'fla', 'flv', 'gif', 'gz', 'gzip', 'htm', 'html', 'jp2', 'jpeg', 'jpg', 'jpx', 'js', 'json', 'm2t', 'mid', 'mov', 'mp3', 'mp4', 'm4a', 'm4v', 'mpc', 'mpeg', 'mpg', 'ods', 'odt', 'ogg', 'ogv', 'pdf', 'png', 'potx', 'pps', 'ppsm', 'ppsx', 'ppt', 'pptm', 'pptx', 'ppz', 'pxd', 'qt', 'ram', 'rar', 'rm', 'rmi', 'rmvb', 'rtf', 'sdc', 'sitd', 'svg', 'swf', 'sxc', 'sxw', 'tar', 'tgz', 'tif', 'tiff', 'txt', 'vob', 'vsd', 'wav', 'webm', 'webp', 'wma', 'wmv', 'xls', 'xlsx', 'zip'];
     /**
      * @var bool Whether users should be allowed to create similarly-named tags.
      */
@@ -99,8 +100,13 @@ class GeneralConfig extends BaseObject
      */
     public $backupCommand;
     /**
-     * @var string|null The base URL that Craft should use when generating Control Panel URLs. This will be determined
-     * automatically if left blank.
+     * @var string|null The base URL that Craft should use when generating Control Panel URLs.
+     *
+     * It will be determined automatically if left blank.
+     *
+     * ::: tip
+     * The base CP URL should **not** include the [[cpTrigger|CP trigger word]] (e.g. `/admin`).
+     * :::
      */
     public $baseCpUrl;
     /**
@@ -232,7 +238,7 @@ class GeneralConfig extends BaseObject
      * @var bool By default, Craft will require a 'password' field to be submitted on front-end, public
      * user registrations. Setting this to `true` will no longer require it on the initial registration form.
      *
-     * If you have email verification enabled, the will set their password once they've clicked on the
+     * If you have email verification enabled, new users will set their password once they've clicked on the
      * verification link in the email. If you don't, the only way they can set their password is to go
      * through your "forgot password" workflow.
      */
@@ -280,6 +286,13 @@ class GeneralConfig extends BaseObject
      * @see allowedFileExtensions
      */
     public $extraAllowedFileExtensions;
+    /**
+     * @var string[]|null List of extra locale IDs that the application should support, and users should be able to select as their Preferred Language.
+     *
+     * Only use this setting if your server has the Intl PHP extension, or if you’ve saved the corresponding
+     * [locale data](https://github.com/craftcms/locales) into your `config/locales/` folder.
+     */
+    public $extraAppLocales;
     /**
      * @var string|bool The string to use to separate words when uploading Assets. If set to `false`, spaces will be left alone.
      */
@@ -400,7 +413,7 @@ class GeneralConfig extends BaseObject
      * @var string The maximum amount of memory Craft will try to reserve during memory intensive operations such as zipping,
      * unzipping and updating. Defaults to an empty string, which means it will use as much memory as it possibly can.
      *
-     * See http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes for a list of acceptable values.
+     * See <http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes> for a list of acceptable values.
      */
     public $phpMaxMemoryLimit = '';
     /**
@@ -544,6 +557,12 @@ class GeneralConfig extends BaseObject
      * where PHP’s [flush()](http://php.net/manual/en/function.flush.php) method won’t work.
      *
      * If disabled, an alternate queue runner *must* be set up separately.
+     *
+     * Here is an example of how you would setup a queue runner from a cron job that ran every minute:
+     *
+     * ```text
+     * /1 * * * * /path/to/project/root/craft queue/run
+     * ```
      */
     public $runQueueAutomatically = true;
     /**
@@ -740,9 +759,11 @@ class GeneralConfig extends BaseObject
             'validationKey' => 'securityKey',
         ];
 
+        $configFilePath = null;
         foreach ($renamedSettings as $old => $new) {
             if (array_key_exists($old, $config)) {
-                Craft::$app->getDeprecator()->log($old, "The {$old} config setting has been renamed to {$new}.");
+                $configFilePath = $configFilePath ?? Craft::$app->getConfig()->getConfigFilePath(Config::CATEGORY_GENERAL);
+                Craft::$app->getDeprecator()->log($old, "The {$old} config setting has been renamed to {$new}.", $configFilePath);
                 $config[$new] = $config[$old];
                 unset($config[$old]);
             }
@@ -832,9 +853,16 @@ class GeneralConfig extends BaseObject
             } catch (InvalidArgumentException $e) {
                 throw new InvalidConfigException($e->getMessage(), 0, $e);
             }
+        }
 
-            if (!in_array($this->defaultCpLanguage, Craft::$app->getI18n()->getAppLocaleIds())) {
-                throw new InvalidConfigException('Unsupported language: ' . $this->defaultCpLanguage);
+        // Normalize the extra app locales
+        if (!empty($this->extraAppLocales)) {
+            foreach ($this->extraAppLocales as $i => $localeId) {
+                try {
+                    $this->extraAppLocales[$i] = Localization::normalizeLanguage($localeId);
+                } catch (InvalidArgumentException $e) {
+                    throw new InvalidConfigException($e->getMessage(), 0, $e);
+                }
             }
         }
     }

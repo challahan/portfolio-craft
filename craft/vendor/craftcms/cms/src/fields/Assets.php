@@ -124,6 +124,20 @@ class Assets extends BaseRelationField
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        $rules = parent::rules();
+
+        $rules[] = [['allowedKinds'], 'required', 'when' => function(self $field): bool {
+            return (bool)$field->restrictFiles;
+        }];
+
+        return $rules;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getSourceOptions(): array
     {
         $sourceOptions = [];
@@ -585,7 +599,7 @@ class Assets extends BaseRelationField
             try {
                 $renderedSubpath = Craft::$app->getView()->renderObjectTemplate($subpath, $element);
             } catch (\Throwable $e) {
-                throw new InvalidSubpathException($subpath);
+                throw new InvalidSubpathException($subpath, null, 0, $e);
             }
 
             // Did any of the tokens return null?

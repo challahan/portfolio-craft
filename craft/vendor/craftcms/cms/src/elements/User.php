@@ -349,9 +349,9 @@ class User extends Element implements IdentityInterface
     public static function findIdentity($id)
     {
         $user = static::find()
+            ->addSelect(['users.password'])
             ->id($id)
             ->anyStatus()
-            ->addSelect(['users.password'])
             ->one();
 
         if ($user === null) {
@@ -363,11 +363,14 @@ class User extends Element implements IdentityInterface
             return $user;
         }
 
-        // If the previous user was an admin and we're impersonating the current user.
+        // If the current user is being impersonated by an admin, ignore their status
         if ($previousUserId = Craft::$app->getSession()->get(self::IMPERSONATE_KEY)) {
-            $previousUser = Craft::$app->getUsers()->getUserById($previousUserId);
+            $previousUser = static::find()
+                ->id($previousUserId)
+                ->admin()
+                ->one();
 
-            if ($previousUser && $previousUser->admin) {
+            if ($previousUser) {
                 return $user;
             }
         }
@@ -571,7 +574,7 @@ class User extends Element implements IdentityInterface
     public function __toString()
     {
         try {
-            return $this->getName();
+            return $this->getName() ?: static::class;
         } catch (\Exception $e) {
             ErrorHandler::convertExceptionToError($e);
         }
@@ -621,6 +624,22 @@ class User extends Element implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        $labels['currentPassword'] = Craft::t('app', 'Current Password');
+        $labels['email'] = Craft::t('app', 'Email');
+        $labels['firstName'] = Craft::t('app', 'First Name');
+        $labels['lastName'] = Craft::t('app', 'Last Name');
+        $labels['newPassword'] = Craft::t('app', 'New Password');
+        $labels['password'] = Craft::t('app', 'Password');
+        $labels['username'] = Craft::t('app', 'Username');
+        return $labels;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         $rules = parent::rules();
@@ -637,7 +656,8 @@ class User extends Element implements IdentityInterface
             $rules[] = [
                 ['username', 'email'],
                 UniqueValidator::class,
-                'targetClass' => UserRecord::class
+                'targetClass' => UserRecord::class,
+                'caseInsensitive' => true,
             ];
 
             $rules[] = [['unverifiedEmail'], 'validateUnverifiedEmail'];
@@ -674,8 +694,18 @@ class User extends Element implements IdentityInterface
     public function validateUnverifiedEmail(string $attribute, $params, InlineValidator $validator)
     {
         $query = self::find()
-            ->where(['email' => $this->unverifiedEmail])
             ->anyStatus();
+
+        if (Craft::$app->getDb()->getIsMysql()) {
+            $query->where([
+                'email' => $this->unverifiedEmail,
+            ]);
+        } else {
+            // Postgres is case-sensitive
+            $query->where([
+                'lower([[email]])' => mb_strtolower($this->unverifiedEmail),
+            ]);
+        }
 
         if ($this->id) {
             $query->andWhere(['not', ['elements.id' => $this->id]]);
@@ -1292,6 +1322,10 @@ class User extends Element implements IdentityInterface
      */
     public function beforeDelete(): bool
     {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+
         // Do all this stuff within a transaction
         $db = Craft::$app->getDb();
         $transaction = $db->beginTransaction();
@@ -1317,7 +1351,7 @@ class User extends Element implements IdentityInterface
                 ];
 
                 foreach ($userRefs as $table => $column) {
-                    Craft::$app->getDb()->createCommand()
+                    $db->createCommand()
                         ->update(
                             $table,
                             [
@@ -1344,11 +1378,6 @@ class User extends Element implements IdentityInterface
                 foreach ($results as $result) {
                     Craft::$app->getElements()->deleteElementById($result['id'], Entry::class, $result['siteId']);
                 }
-            }
-
-            if (!parent::beforeDelete()) {
-                $transaction->rollBack();
-                return false;
             }
 
             $transaction->commit();

@@ -31,8 +31,12 @@ footer {
 }
 
 .footer-supplemental {
-	@include clearfix;
 	margin-top: 1em;
+	&:after {
+			content: "";
+			display: table;
+			clear: both;
+	}
 }
 
 .footer-bottom {

@@ -243,7 +243,7 @@ class Field extends \craft\base\Field
         $view = Craft::$app->getView();
         /** @var RedactorAsset $bundle */
         $bundle = $view->getAssetManager()->getBundle(RedactorAsset::class);
-        $redactorLang = $bundle->redactorLang ?? 'en';
+        $redactorLang = $bundle::$redactorLanguage ?? 'en';
 
         // register plugins
         $redactorConfig = $this->_getRedactorConfig();
@@ -693,6 +693,7 @@ class Field extends \craft\base\Field
         // Default config
         return [
             'Attr.AllowedFrameTargets' => ['_blank'],
+            'Attr.EnableID' => true,
             'HTML.AllowedComments' => ['pagebreak'],
         ];
     }

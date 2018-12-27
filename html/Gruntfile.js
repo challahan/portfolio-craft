@@ -12,6 +12,8 @@ module.exports = function(grunt) {
         files: {
         'css/style.css': '_sass/main.scss',
         'css/resume.css': '_sass/resume.scss',
+        'css/landing.css': '_sass/landing.scss',
+        '../craft/templates/_includes/critical-landing.css': 'css/critical-landing.scss',
         '../craft/templates/_includes/critical-home.css': '../craft/templates/_includes/critical-home.css',
         '../craft/templates/_includes/critical-work.css': '../craft/templates/_includes/critical-work.css',
         '../craft/templates/_includes/critical-project.css': '../craft/templates/_includes/critical-project.css'
@@ -58,6 +60,7 @@ module.exports = function(grunt) {
         files: {
           'scripts/min/scripts-min.js': ['scripts/priority.js','scripts/analytics.js', 'scripts/lightgallery.js', 'scripts/lg-zoom.js', 'scripts/scripts.js'],
           'scripts/min/loadcss-min.js': ['scripts/loadcss.js'],
+          'scripts/min/loadcss-resume-min.js': ['scripts/loadcss-resume.js'],
           'scripts/min/loadcss-resume-min.js': ['scripts/loadcss-resume.js']
         }
       }

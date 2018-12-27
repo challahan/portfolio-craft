@@ -9,6 +9,7 @@ namespace craft\mail\transportadapters;
 
 use Craft;
 use craft\helpers\StringHelper;
+use craft\validators\StringValidator;
 use yii\base\Exception;
 
 /**
@@ -82,7 +83,7 @@ class Smtp extends BaseTransportAdapter
             try {
                 $this->password = StringHelper::decdec($this->password);
             } catch (Exception $e) {
-                Craft::error('Could not decode SMTP password: '.$e->getMessage());
+                Craft::error('Could not decode SMTP password: ' . $e->getMessage());
                 Craft::$app->getErrorHandler()->logException($e);
                 $this->password = null;
             }
@@ -111,6 +112,7 @@ class Smtp extends BaseTransportAdapter
     public function rules()
     {
         return [
+            [['host'], 'trim'],
             [['host', 'port', 'timeout'], 'required'],
             [
                 ['username', 'password'],

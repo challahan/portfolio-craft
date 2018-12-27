@@ -51,7 +51,6 @@ use craft\records\FieldGroup as FieldGroupRecord;
 use craft\records\FieldLayout as FieldLayoutRecord;
 use craft\records\FieldLayoutField as FieldLayoutFieldRecord;
 use craft\records\FieldLayoutTab as FieldLayoutTabRecord;
-use yii\base\Application;
 use yii\base\Component;
 use yii\base\Exception;
 
@@ -206,12 +205,6 @@ class Fields extends Component
      * @var
      */
     private $_layoutsByType;
-
-    /**
-     * @var bool Whether we've already updated the field version in this request
-     * @see updateFieldVersion()
-     */
-    private $_updatedFieldVersion = false;
 
     // Public Methods
     // =========================================================================
@@ -867,7 +860,7 @@ class Fields extends Component
         // Tell the current ContentBehavior class about the field
         ContentBehavior::$fieldHandles[$field->handle] = true;
 
-        // Update the field version at the end of the request
+        // Update the field version
         $this->updateFieldVersion();
 
         // Fire an 'afterSaveField' event
@@ -957,7 +950,7 @@ class Fields extends Component
             throw $e;
         }
 
-        // Update the field version at the end of the request
+        // Update the field version
         $this->updateFieldVersion();
 
         // Fire an 'afterDeleteField' event
@@ -968,6 +961,23 @@ class Fields extends Component
         }
 
         return true;
+    }
+
+    /**
+     * Refreshes the internal field cache.
+     *
+     * This should be called whenever a field is updated or deleted directly in
+     * the database, rather than going through this service.
+     */
+    public function refreshFields()
+    {
+        $this->_fieldRecordsById = null;
+        $this->_fieldsById = null;
+        $this->_allFieldHandlesByContext = null;
+        $this->_allFieldsInContext = null;
+        $this->_fieldsByContextAndHandle = null;
+        $this->_fieldsWithContent = null;
+        $this->updateFieldVersion();
     }
 
     // Layouts
@@ -1032,7 +1042,12 @@ class Fields extends Component
             ->where(['layoutId' => $layoutId])
             ->all();
 
+        $isMysql = Craft::$app->getDb()->getIsMysql();
+
         foreach ($tabs as $key => $value) {
+            if ($isMysql) {
+                $value['name'] = html_entity_decode($value['name'], ENT_QUOTES | ENT_HTML5);
+            }
             $tabs[$key] = new FieldLayoutTab($value);
         }
 
@@ -1239,8 +1254,12 @@ class Fields extends Component
         foreach ($layout->getTabs() as $tab) {
             $tabRecord = new FieldLayoutTabRecord();
             $tabRecord->layoutId = $layout->id;
-            $tabRecord->name = $tab->name;
             $tabRecord->sortOrder = $tab->sortOrder;
+            if (Craft::$app->getDb()->getIsMysql()) {
+                $tabRecord->name = StringHelper::encodeMb4($tab->name);
+            } else {
+                $tabRecord->name = $tab->name;
+            }
             $tabRecord->save(false);
             $tab->id = $tabRecord->id;
 
@@ -1336,15 +1355,9 @@ class Fields extends Component
     /**
      * Sets a new field version, so the ContentBehavior and ElementQueryBehavior classes
      * will get regenerated on the next request.
-     *
-     * This will only have an effect once per request. Subsequent calls will be ignored.
      */
     public function updateFieldVersion()
     {
-        if ($this->_updatedFieldVersion) {
-            return;
-        }
-
         // Make sure that ContentBehavior and ElementQueryBehavior have already been loaded,
         // so the field version change won't be detected until the next request
         class_exists(ContentBehavior::class);
@@ -1353,8 +1366,6 @@ class Fields extends Component
         $info = Craft::$app->getInfo();
         $info->fieldVersion = StringHelper::randomString(12);
         Craft::$app->saveInfo($info);
-
-        $this->_updatedFieldVersion = true;
     }
 
     // Private Methods

@@ -19,8 +19,6 @@ use craft\helpers\Assets;
 use craft\helpers\Db;
 use craft\helpers\FileHelper;
 use craft\helpers\Image;
-use craft\helpers\Path as PathHelper;
-use craft\helpers\StringHelper;
 use craft\image\Raster;
 use craft\models\VolumeFolder;
 use craft\web\Controller;
@@ -28,7 +26,6 @@ use craft\web\UploadedFile;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\web\BadRequestHttpException;
-use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -685,7 +682,7 @@ class AssetsController extends Controller
 
             // TODO Is this hacky? It seems hacky.
             // We're rasterizing SVG, we have to make sure that the filename change does not get lost
-            if (StringHelper::toLowerCase($asset->getExtension()) === 'svg') {
+            if (strtolower($asset->getExtension()) === 'svg') {
                 unlink($imageCopy);
                 $imageCopy = preg_replace('/(svg)$/i', 'png', $imageCopy);
                 $asset->filename = preg_replace('/(svg)$/i', 'png', $asset->filename);

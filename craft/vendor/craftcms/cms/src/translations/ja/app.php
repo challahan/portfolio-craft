@@ -349,7 +349,7 @@ return [
     'Delete {site}' => '{site} を削除',
     'Delete…' => '削除中...',
     'Deleting stale template caches' => '古いテンプレートキャッシュを削除中',
-    'Deprecation Errors' => '非推奨エラー',
+    'Deprecation Warnings' => '非推奨エラー',
     'Descending' => '降順',
     'Description' => '説明',
     'Deselect All' => 'すべての選択を解除',
@@ -1196,7 +1196,7 @@ return [
 
  {{siteName}}のアカウントを作成してくださりありがとうございます！アカウントを有効にするには、以下のリンクをクリックしてください：
 
-{{link}}
+<{{link}}>
 
 このメールに心当たりがない場合は無視してください。',
     'account_activation_heading' => '誰かがアカウントを作成する時：',
@@ -1214,7 +1214,7 @@ return [
 
 {{siteName}}を再設定するには、このリンクをクリックしてください：
 
-{{link}}
+<{{link}}>
 
 このメールに心当たりがない場合は無視してください。',
     'forgot_password_heading' => '誰かがパスワードを忘れた場合：',
@@ -1248,7 +1248,7 @@ return [
 
 このリンクをクリックして新しいメールアドレスを確認してください：
 
-{{link}}
+<{{link}}>
 
 このメールに心当たりがない場合は無視してください。',
     'verify_new_email_heading' => '誰かがメールアドレスを変更する時：',

@@ -71,11 +71,13 @@ class ElementIndexesController extends BaseElementsController
     // =========================================================================
 
     /**
-     * Initializes the application component.
+     * @inheritdoc
      */
-    public function init()
+    public function beforeAction($action)
     {
-        parent::init();
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
 
         $this->_elementType = $this->elementType();
         $this->_context = $this->context();
@@ -87,6 +89,8 @@ class ElementIndexesController extends BaseElementsController
         if ($this->_context === 'index' && $this->_sourceKey !== null) {
             $this->_actions = $this->_availableActions();
         }
+
+        return true;
     }
 
     /**
@@ -308,26 +312,23 @@ class ElementIndexesController extends BaseElementsController
         $collapsedElementIds = $request->getParam('collapsedElementIds');
 
         if ($collapsedElementIds) {
-            // Get the actual elements
-            $collapsedElementQuery = clone $query;
-            /** @var Element[] $collapsedElements */
-            $collapsedElements = $collapsedElementQuery
-                ->id($collapsedElementIds)
-                ->offset(0)
-                ->orderBy(['lft' => SORT_ASC])
+            $descendantQuery = (clone $query)
+                ->offset(null)
+                ->limit(null)
+                ->orderBy(null)
                 ->positionedAfter(null)
                 ->positionedBefore(null)
+                ->anyStatus();
+
+            // Get the actual elements
+            /** @var Element[] $collapsedElements */
+            $collapsedElements = (clone $descendantQuery)
+                ->id($collapsedElementIds)
+                ->orderBy(['lft' => SORT_ASC])
                 ->all();
 
             if (!empty($collapsedElements)) {
                 $descendantIds = [];
-
-                $descendantQuery = clone $query;
-                $descendantQuery
-                    ->offset(0)
-                    ->orderBy(null)
-                    ->positionedAfter(null)
-                    ->positionedBefore(null);
 
                 foreach ($collapsedElements as $element) {
                     // Make sure we haven't already excluded this one, because its ancestor is collapsed as well
@@ -335,10 +336,11 @@ class ElementIndexesController extends BaseElementsController
                         continue;
                     }
 
-                    $descendantQuery->descendantOf($element);
-                    foreach ($descendantQuery->ids() as $id) {
-                        $descendantIds[] = $id;
-                    }
+                    $elementDescendantIds = (clone $descendantQuery)
+                        ->descendantOf($element)
+                        ->ids();
+
+                    $descendantIds = array_merge($descendantIds, $elementDescendantIds);
                 }
 
                 if (!empty($descendantIds)) {
@@ -415,6 +417,9 @@ class ElementIndexesController extends BaseElementsController
                     unset($actions[$i]);
                 }
             }
+
+            /** @var ElementActionInterface $action */
+            $action->setElementType($elementType);
         }
 
         return array_values($actions);

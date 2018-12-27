@@ -1,0 +1,68 @@
+{% extends "_layout" %}
+  {% block content %}
+  <section class="landing-banner">
+	<div class="landing-banner__container">
+		<h1 class="landing-banner__heading">Hello <span>
+      {% for category in entry.businessName %}
+        {{ category.title }}
+      {% endfor %}
+    </span></h1>
+	</div>
+</section>
+<main>
+	<section class="landing-intro">
+		<div class="landing-intro__text">
+		    {{entry.introduction}}
+		</div>
+		<div class="landing-intro__aside">
+			<a href="{% for link in entry.coverLetterLink %} {{link.url}} {%endfor %}" class="button__round">
+        {% for category in entry.businessName %}{{ category.title }}{% endfor %} Resume</a>
+			<a href="{% for link in entry.resumeLink %} {{link.url}} {%endfor %}" class="button__round button__round--reverse">{% for category in entry.businessName %}{{ category.title }}{% endfor %} Cover Letter</a>
+		</div>
+	</section>
+	<section class="landing-work">
+		<div class="landing-work__inner">
+			<div class="landing-work__inner__text">
+				<div class="inner__text-wrapper">
+			<img class="landing-icon" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/259273/lightbulb.svg" alt="Portfolio" />
+			<h2>Selected Work</h2>
+			<p>{{entry.workIntroduction}}</p>
+					<a href="#" class="button__round button__round--secondary">Check Out More Work</a>
+				</div>
+			</div>
+			<div class="landing-work__inner__projects">
+			<ul class="owl-carousel project-card-list">
+        {% for project in entry.selectedWork %}
+				<li>
+					<a class="project-card" href="#">
+						<div class="project-card__image">
+            {% for image in project.featureImage %}
+						      <img src="{{image.url}}" alt="{{image.title}}" />
+            {% endfor %}
+						</div>
+						<div class="project-card__info">
+							<h3 class="project-card__title">{{project.title}}</h3>
+							<p class="project-card__description">{{project.shortDescription}}</p>
+							<span class="read-more-link project-card__link">Project Details</span>
+						</div>
+					</a>
+				</li>
+        {% endfor %}
+			</ul>
+		</div>
+	</div>
+	</section>
+	<section class="landing-contact">
+		<img class="landing-icon" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/259273/contact-card.svg" alt="Contact Card" />
+		<h2>Find Me on the Web</h2>
+		<p>{{entry.workIntroduction}}</p>
+		<ul class="landing-list">
+			<li><a href="#">CodePen</a></li>
+			<li><a href="#">CodePen</a></li>
+			<li><a href="#">CodePen</a></li>
+			<li><a href="#">CodePen</a></li>
+		</ul>
+		<p class="landing-closing">Thanks for reading and please get in touch if you have any questions!</p>
+	</section>
+</main>
+{% endblock content %}

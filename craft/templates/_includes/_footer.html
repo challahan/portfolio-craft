@@ -33,3 +33,6 @@
 {% endcache %}
 <!--Stuff for After the Footer -->
 <script async src="{{ siteUrl }}/scripts/min/scripts-min.js"></script>
+{% if entry.section.handle == 'landingPage' %}
+  <script async src="{{ siteUrl }}/scripts/scripts-landing.js"></script>
+{% endif %}

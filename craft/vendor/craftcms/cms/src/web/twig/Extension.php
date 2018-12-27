@@ -15,6 +15,7 @@ use craft\helpers\ArrayHelper;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Db;
 use craft\helpers\FileHelper;
+use craft\helpers\Sequence;
 use craft\helpers\StringHelper;
 use craft\helpers\Template as TemplateHelper;
 use craft\helpers\UrlHelper;
@@ -43,6 +44,7 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use enshrined\svgSanitize\Sanitizer;
+use yii\base\Exception;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\helpers\Markdown;
@@ -292,70 +294,70 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     /**
      * Uppercases the first character of a multibyte string.
      *
-     * @param string $string The multibyte string.
+     * @param mixed $string The multibyte string.
      * @return string The string with the first character converted to upercase.
      */
-    public function ucfirstFilter(string $string): string
+    public function ucfirstFilter($string): string
     {
-        return StringHelper::upperCaseFirst($string);
+        return StringHelper::upperCaseFirst((string)$string);
     }
 
     /**
      * Lowercases the first character of a multibyte string.
      *
-     * @param string $string The multibyte string.
+     * @param mixed $string The multibyte string.
      * @return string The string with the first character converted to lowercase.
      */
-    public function lcfirstFilter(string $string): string
+    public function lcfirstFilter($string): string
     {
-        return StringHelper::lowercaseFirst($string);
+        return StringHelper::lowercaseFirst((string)$string);
     }
 
     /**
      * kebab-cases a string.
      *
-     * @param string $string The string
+     * @param mixed $string The string
      * @param string $glue The string used to glue the words together (default is a hyphen)
      * @param bool $lower Whether the string should be lowercased (default is true)
      * @param bool $removePunctuation Whether punctuation marks should be removed (default is true)
      * @return string The kebab-cased string
      */
-    public function kebabFilter(string $string, string $glue = '-', bool $lower = true, bool $removePunctuation = true): string
+    public function kebabFilter($string, string $glue = '-', bool $lower = true, bool $removePunctuation = true): string
     {
-        return StringHelper::toKebabCase($string, $glue, $lower, $removePunctuation);
+        return StringHelper::toKebabCase((string)$string, $glue, $lower, $removePunctuation);
     }
 
     /**
      * camelCases a string.
      *
-     * @param string $string The string
+     * @param mixed $string The string
      * @return string
      */
-    public function camelFilter(string $string): string
+    public function camelFilter($string): string
     {
-        return StringHelper::toCamelCase($string);
+        return StringHelper::toCamelCase((string)$string);
     }
 
     /**
      * PascalCases a string.
      *
-     * @param string $string The string
+     * @param mixed $string The string
      * @return string
      */
-    public function pascalFilter(string $string): string
+    public function pascalFilter($string): string
     {
-        return StringHelper::toPascalCase($string);
+        return StringHelper::toPascalCase((string)$string);
     }
 
     /**
      * snake_cases a string.
      *
-     * @param string $string The string
+     * @param mixed $string The string
      * @return string
      */
-    public function snakeFilter(string $string): string
+    public function snakeFilter($string): string
     {
-        return StringHelper::toSnakeCase($string);
+        return StringHelper::toSnakeCase((string)$string);
     }
 
 
@@ -386,12 +388,14 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     /**
      * Returns an array without certain values.
      *
-     * @param array $arr
+     * @param mixed $arr
      * @param mixed $exclude
      * @return array
      */
-    public function withoutFilter(array $arr, $exclude): array
+    public function withoutFilter($arr, $exclude): array
     {
+        $arr = (array)$arr;
+
         if (!is_array($exclude)) {
             $exclude = [$exclude];
         }
@@ -406,13 +410,13 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     /**
      * Parses a string for reference tags.
      *
-     * @param string $str
+     * @param mixed $str
      * @param int|null $siteId
      * @return \Twig_Markup
      */
-    public function parseRefsFilter(string $str, int $siteId = null): \Twig_Markup
+    public function parseRefsFilter($str, int $siteId = null): \Twig_Markup
     {
-        $str = Craft::$app->getElements()->parseRefs($str, $siteId);
+        $str = Craft::$app->getElements()->parseRefs((string)$str, $siteId);
 
         return TemplateHelper::raw($str);
     }
@@ -565,12 +569,12 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     /**
      * Encrypts and base64-encodes a string.
      *
-     * @param string $str the string
+     * @param mixed $str the string
      * @return string
      */
-    public function encencFilter(string $str): string
+    public function encencFilter($str): string
     {
-        return StringHelper::encenc($str);
+        return StringHelper::encenc((string)$str);
     }
 
     /**
@@ -640,30 +644,30 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
      * Escapes commas and asterisks in a string so they are not treated as special characters in
      * [[Db::parseParam()]].
      *
-     * @param string $value The param value.
+     * @param mixed $value The param value.
      * @return string The escaped param value.
      */
-    public function literalFilter(string $value): string
+    public function literalFilter($value): string
     {
-        return Db::escapeParam($value);
+        return Db::escapeParam((string)$value);
     }
 
     /**
      * Parses text through Markdown.
      *
-     * @param string $markdown The markdown text to parse
+     * @param mixed $markdown The markdown text to parse
      * @param string|null $flavor The markdown flavor to use. Can be 'original', 'gfm' (GitHub-Flavored Markdown),
      * 'gfm-comment' (GFM with newlines converted to `<br>`s),
      * or 'extra' (Markdown Extra). Default is 'original'.
      * @param bool $inlineOnly Whether to only parse inline elements, omitting any `<p>` tags.
      * @return \Twig_Markup
      */
-    public function markdownFilter(string $markdown, string $flavor = null, bool $inlineOnly = false): \Twig_Markup
+    public function markdownFilter($markdown, string $flavor = null, bool $inlineOnly = false): \Twig_Markup
     {
         if ($inlineOnly) {
-            $html = Markdown::processParagraph($markdown, $flavor);
+            $html = Markdown::processParagraph((string)$markdown, $flavor);
         } else {
-            $html = Markdown::process($markdown, $flavor);
+            $html = Markdown::process((string)$markdown, $flavor);
         }
 
         return TemplateHelper::raw($html);
@@ -672,7 +676,7 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     /**
      * Duplicates an array and sorts it with [[\craft\helpers\ArrayHelper::multisort()]].
      *
-     * @param array $array the array to be sorted. The array will be modified after calling this method.
+     * @param mixed $array the array to be sorted. The array will be modified after calling this method.
      * @param string|\Closure|array $key the key(s) to be sorted by. This refers to a key name of the sub-array
      * elements, a property name of the objects, or an anonymous function returning the values for comparison
      * purpose. The anonymous function signature should be: `function($item)`.
@@ -687,7 +691,7 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
      * @throws InvalidArgumentException if the $direction or $sortFlag parameters do not have
      * correct number of elements as that of $key.
      */
-    public function multisortFilter(array $array, $key, $direction = SORT_ASC, $sortFlag = SORT_REGULAR): array
+    public function multisortFilter($array, $key, $direction = SORT_ASC, $sortFlag = SORT_REGULAR): array
     {
         // Prevent multisort() from modifying the original array
         $array = array_merge($array);
@@ -704,6 +708,7 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     {
         return [
             new \Twig_SimpleFunction('alias', [Craft::class, 'getAlias']),
+            new \Twig_SimpleFunction('actionInput', [$this, 'actionInputFunction']),
             new \Twig_SimpleFunction('actionUrl', [UrlHelper::class, 'actionUrl']),
             new \Twig_SimpleFunction('cpUrl', [UrlHelper::class, 'cpUrl']),
             new \Twig_SimpleFunction('ceil', 'ceil'),
@@ -715,6 +720,7 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
             new \Twig_SimpleFunction('redirectInput', [$this, 'redirectInputFunction']),
             new \Twig_SimpleFunction('renderObjectTemplate', [$this, 'renderObjectTemplate']),
             new \Twig_SimpleFunction('round', [$this, 'roundFunction']),
+            new \Twig_SimpleFunction('seq', [$this, 'seqFunction']),
             new \Twig_SimpleFunction('shuffle', [$this, 'shuffleFunction']),
             new \Twig_SimpleFunction('siteUrl', [UrlHelper::class, 'siteUrl']),
             new \Twig_SimpleFunction('svg', [$this, 'svgFunction']),
@@ -769,6 +775,16 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     }
 
     /**
+     * Returns an action input wrapped in a \Twig_Markup object, suitable for use in a front-end form.
+     *
+     * @return \Twig_Markup|null
+     */
+    public function actionInputFunction($actionPath)
+    {
+        return TemplateHelper::raw('<input type="hidden" name="action" value="' . $actionPath . '">');
+    }
+
+    /**
      * Rounds the given value.
      *
      * @param int|float $value
@@ -782,6 +798,25 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
         Craft::$app->getDeprecator()->log('round()', 'The round() function has been deprecated. Use Twig’s |round filter instead.');
 
         return round($value, $precision, $mode);
+    }
+
+    /**
+     * Returns the next number in a given sequence, or the current number in the sequence.
+     *
+     * @param string $name The sequence name.
+     * @param int|null $length The minimum string length that should be returned. (Numbers that are too short will be left-padded with `0`s.)
+     * @param bool $next Whether the next number in the sequence should be returned (and the sequence should be incremented).
+     * If set to `false`, the current number in the sequence will be returned instead.
+     * @return integer|string
+     * @throws \Throwable if reasons
+     * @throws \yii\db\Exception
+     */
+    public function seqFunction(string $name, int $length = null, bool $next = true)
+    {
+        if ($next) {
+            return Sequence::next($name, $length);
+        }
+        return Sequence::current($name, $length);
     }
 
     /**
@@ -814,13 +849,18 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
     }
 
     /**
-     * Returns the (sanitized) contents of a given SVG file, namespacing any of its IDs in the process.
+     * Returns the contents of a given SVG file.
      *
-     * @param string|Asset $svg An SVG asset, a file path, or XML data
-     * @param bool $sanitize Whether the file should be sanitized first
+     * @param string|Asset $svg An SVG asset, a file path, or raw SVG markup
+     * @param bool|null $sanitize Whether the SVG should be sanitized of potentially
+     * malicious scripts. By default the SVG will only be sanitized if an asset
+     * or markup is passed in. (File paths are assumed to be safe.)
+     * @param bool|null $namespace Whether class names and IDs within the SVG
+     * should be namespaced to avoid conflicts with other elements in the DOM.
+     * By default the SVG will only be namespaced if an asset or markup is passed in.
      * @return \Twig_Markup|string
      */
-    public function svgFunction($svg, bool $sanitize = true)
+    public function svgFunction($svg, bool $sanitize = null, bool $namespace = null)
     {
         if ($svg instanceof Asset) {
             try {
@@ -838,7 +878,15 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
                 return '';
             }
             $svg = file_get_contents($svg);
+
+            // This came from a file path, so pretty good chance that the SVG can be trusted.
+            $sanitize = $sanitize ?? false;
+            $namespace = $namespace ?? false;
         }
+
+        // Sanitize and namespace the SVG by default
+        $sanitize = $sanitize ?? true;
+        $namespace = $namespace ?? true;
 
         // Sanitize?
         if ($sanitize) {
@@ -848,17 +896,33 @@ class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterf
         // Remove the XML declaration
         $svg = preg_replace('/<\?xml.*?\?>/', '', $svg);
 
-        // Namespace any IDs
-        if (strpos($svg, 'id=') !== false) {
-            $namespace = StringHelper::randomStringWithChars('abcdefghijklmnopqrstuvwxyz', 10) . '-';
+        // Namespace class names and IDs
+        if (
+            $namespace && (
+            strpos($svg, 'id=') !== false || strpos($svg, 'class=') !== false)
+        ) {
+            $ns = StringHelper::randomStringWithChars('abcdefghijklmnopqrstuvwxyz', 10) . '-';
             $ids = [];
-            $svg = preg_replace_callback('/\bid=([\'"])([^\'"]+)\\1/i', function($matches) use ($namespace, &$ids) {
+            $classes = [];
+            $svg = preg_replace_callback('/\bid=([\'"])([^\'"]+)\\1/i', function($matches) use ($ns, &$ids) {
                 $ids[] = $matches[2];
-                return "id={$matches[1]}{$namespace}{$matches[2]}{$matches[1]}";
+                return "id={$matches[1]}{$ns}{$matches[2]}{$matches[1]}";
+            }, $svg);
+            $svg = preg_replace_callback('/\bclass=([\'"])([^\'"]+)\\1/i', function($matches) use ($ns, &$classes) {
+                $newClasses = [];
+                foreach (preg_split('/\s+/', $matches[2]) as $class) {
+                    $classes[] = $class;
+                    $newClasses[] = $ns . $class;
+                }
+                return 'class=' . $matches[1] . implode(' ', $newClasses) . $matches[1];
             }, $svg);
             foreach ($ids as $id) {
                 $quotedId = preg_quote($id, '\\');
-                $svg = preg_replace("/#{$quotedId}\b(?!\-)/", "#{$namespace}{$id}", $svg);
+                $svg = preg_replace("/#{$quotedId}\b(?!\-)/", "#{$ns}{$id}", $svg);
+            }
+            foreach ($classes as $class) {
+                $quotedClass = preg_quote($class, '\\');
+                $svg = preg_replace("/\.{$quotedClass}\b(?!\-)/", ".{$ns}{$class}", $svg);
             }
         }
 

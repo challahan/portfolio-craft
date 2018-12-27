@@ -25,7 +25,7 @@
                         <th>
                             <div class="plugin-infos">
                                 <div class="icon">
-                                    {{ svg(craft.app.plugins.getPluginIconSvg(handle)) }}
+                                    {{ svg(craft.app.plugins.getPluginIconSvg(handle), sanitize=true, namespace=true) }}
                                     {% if config.licenseKeyStatus == 'valid' or config.hasIssues %}
                                         <span class="license-key-status {{ config.licenseKeyStatus }}"></span>
                                     {% endif %}
@@ -42,12 +42,12 @@
                                         <p class="links">
                                             {%- spaceless %}
                                             {#{% if config.developerUrl %}#}
-                                                {#<a href="{{ config.developerUrl }}" target="_blank">{{ config.developer ?: config.developerUrl }}</a>#}
+                                                {#<a href="{{ config.developerUrl }}" rel="noopener" target="_blank">{{ config.developer ?: config.developerUrl }}</a>#}
                                             {#{% elseif config.developer %}#}
                                                 {#{{ config.developer }}#}
                                             {#{% endif %}#}
                                             {% if config.documentationUrl %}
-                                                <a href="{{ config.documentationUrl }}" target="_blank">{{ "Documentation"|t('app') }}</a>
+                                                <a href="{{ config.documentationUrl }}" rel="noopener" target="_blank">{{ "Documentation"|t('app') }}</a>
                                             {% endif %}
                                             {% if config.hasCpSettings %}
                                                 <a href="{{ url('settings/plugins/'~config.moduleId) }}"><span data-icon="settings"></span>{{ "Settings"|t('app') }}</a>

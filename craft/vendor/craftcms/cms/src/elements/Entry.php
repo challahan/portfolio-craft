@@ -11,7 +11,9 @@ use Craft;
 use craft\base\Element;
 use craft\controllers\ElementIndexesController;
 use craft\db\Query;
+use craft\elements\actions\DeepDuplicate;
 use craft\elements\actions\Delete;
+use craft\elements\actions\Duplicate;
 use craft\elements\actions\Edit;
 use craft\elements\actions\NewChild;
 use craft\elements\actions\SetStatus;
@@ -225,6 +227,18 @@ class Entry extends Element
      */
     protected static function defineActions(string $source = null): array
     {
+        // Get the selected site
+        $controller = Craft::$app->controller;
+        if ($controller instanceof ElementIndexesController) {
+            /** @var ElementQuery $elementQuery */
+            $elementQuery = $controller->getElementQuery();
+        } else {
+            $elementQuery = null;
+        }
+        $site = $elementQuery && $elementQuery->siteId
+            ? Craft::$app->getSites()->getSiteById($elementQuery->siteId)
+            : Craft::$app->getSites()->getCurrentSite();
+
         // Get the section(s) we need to check permissions on
         switch ($source) {
             case '*':
@@ -249,6 +263,7 @@ class Entry extends Element
         if (!empty($sections)) {
             $userSessionService = Craft::$app->getUser();
             $canSetStatus = true;
+            $allowDisabledForSite = true;
             $canEdit = false;
 
             foreach ($sections as $section) {
@@ -263,6 +278,10 @@ class Entry extends Element
                     $canSetStatus = false;
                 }
 
+                if (!$section->getHasMultiSiteEntries()) {
+                    $allowDisabledForSite = false;
+                }
+
                 // Show the Edit action if they can publish changes to *any* of the sections
                 // (the trigger will disable itself for entries that aren't editable)
                 if ($canPublishEntries) {
@@ -272,7 +291,10 @@ class Entry extends Element
 
             // Set Status
             if ($canSetStatus) {
-                $actions[] = SetStatus::class;
+                $actions[] = [
+                    'type' => SetStatus::class,
+                    'allowDisabledForSite' => $allowDisabledForSite,
+                ];
             }
 
             // Edit
@@ -288,12 +310,8 @@ class Entry extends Element
 
             if (!$showViewAction) {
                 // They are viewing a specific section. See if it has URLs for the requested site
-                $controller = Craft::$app->controller;
-                if ($controller instanceof ElementIndexesController) {
-                    $siteId = $controller->getElementQuery()->siteId ?: Craft::$app->getSites()->getCurrentSite()->id;
-                    if (isset($sections[0]->siteSettings[$siteId]) && $sections[0]->siteSettings[$siteId]->hasUrls) {
-                        $showViewAction = true;
-                    }
+                if (isset($sections[0]->siteSettings[$site->id]) && $sections[0]->siteSettings[$site->id]->hasUrls) {
+                    $showViewAction = true;
                 }
             }
 
@@ -317,12 +335,27 @@ class Entry extends Element
                     $structure = Craft::$app->getStructures()->getStructureById($section->structureId);
 
                     if ($structure) {
+                        $newChildUrl = 'entries/' . $section->handle . '/new';
+
+                        if (Craft::$app->getIsMultiSite()) {
+                            $newChildUrl .= '/' . $site->handle;
+                        }
+
                         $actions[] = Craft::$app->getElements()->createAction([
                             'type' => NewChild::class,
                             'label' => Craft::t('app', 'Create a new child entry'),
                             'maxLevels' => $structure->maxLevels,
-                            'newChildUrl' => 'entries/' . $section->handle . '/new',
+                            'newChildUrl' => $newChildUrl,
                         ]);
+                    }
+                }
+
+                // Duplicate
+                if ($userSessionService->checkPermission('publishEntries:' . $section->id)) {
+                    $actions[] = Duplicate::class;
+
+                    if ($section->type === Section::TYPE_STRUCTURE && $section->maxLevels != 1) {
+                        $actions[] = DeepDuplicate::class;
                     }
                 }
 
@@ -931,6 +964,8 @@ EOD;
     {
         $entryType = $this->getType();
         if (!$entryType->hasTitleField) {
+            // Make sure that the locale has been loaded in case the title format has any Date/Time fields
+            Craft::$app->getLocale();
             // Set Craft to the entry's site's language, in case the title format has any static translations
             $language = Craft::$app->language;
             Craft::$app->language = $this->getSite()->language;
@@ -968,6 +1003,11 @@ EOD;
             throw new Exception("The section '{$section->name}' is not enabled for the site '{$this->siteId}'");
         }
 
+        // Set the structure ID for Element::attributes() and afterSave()
+        if ($section->type === Section::TYPE_STRUCTURE) {
+            $this->structureId = $section->structureId;
+        }
+
         // Has the entry been assigned to a new parent?
         if ($this->_hasNewParent()) {
             if ($this->newParentId) {
@@ -993,7 +1033,7 @@ EOD;
 
         if ($this->enabled && !$this->postDate) {
             // Default the post date to the current date/time
-            $this->postDate = DateTimeHelper::currentUTCDateTime();
+            $this->postDate = new \DateTime();
             // ...without the seconds
             $this->postDate->setTimestamp($this->postDate->getTimestamp() - ($this->postDate->getTimestamp() % 60));
         }
@@ -1032,9 +1072,9 @@ EOD;
             // Has the parent changed?
             if ($this->_hasNewParent()) {
                 if (!$this->newParentId) {
-                    Craft::$app->getStructures()->appendToRoot($section->structureId, $this);
+                    Craft::$app->getStructures()->appendToRoot($this->structureId, $this);
                 } else {
-                    Craft::$app->getStructures()->append($section->structureId, $this, $this->getParent());
+                    Craft::$app->getStructures()->append($this->structureId, $this, $this->getParent());
                 }
             }
 

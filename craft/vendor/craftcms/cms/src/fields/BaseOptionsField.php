@@ -205,7 +205,7 @@ abstract class BaseOptionsField extends Field implements PreviewableFieldInterfa
                 /** @var OptionData $selectedValue */
                 $serialized[] = $selectedValue->value;
             }
-            return Json::encode($serialized);
+            return $serialized;
         }
 
         return parent::serializeValue($value, $element);
@@ -315,7 +315,7 @@ abstract class BaseOptionsField extends Field implements PreviewableFieldInterfa
     {
         if ($this->options) {
             foreach ($this->options as $option) {
-                if ($option['value'] == $value) {
+                if ((string)$option['value'] === $value) {
                     return $option['label'];
                 }
             }

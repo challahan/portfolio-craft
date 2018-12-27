@@ -273,7 +273,7 @@ class Search extends Component
      */
     private function _indexElementKeywords(int $elementId, string $attribute, string $fieldId, int $siteId = null, string $dirtyKeywords)
     {
-        $attribute = StringHelper::toLowerCase($attribute);
+        $attribute = strtolower($attribute);
         $driver = Craft::$app->getDb()->getDriverName();
 
         if ($siteId !== null) {
@@ -687,6 +687,12 @@ class Search extends Component
                     $temp = implode(' & ', $temp);
                     $val[$key] = $temp;
                 }
+            }
+        } else {
+            // If where here, it's a single string with punctuation that's been stripped out (i.e. "multi-site").
+            // We can assume "and".
+            if (StringHelper::contains($val, ' ')) {
+                $val = StringHelper::replace($val, ' ', ' & ');
             }
         }
 

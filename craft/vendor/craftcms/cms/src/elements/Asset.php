@@ -31,7 +31,6 @@ use craft\helpers\Assets as AssetsHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\Html;
 use craft\helpers\Image;
-use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use craft\models\AssetTransform;
@@ -500,8 +499,8 @@ class Asset extends Element
     public function __toString()
     {
         try {
-            if ($this->_transform !== null) {
-                return (string)$this->getUrl();
+            if ($this->_transform !== null && ($url = (string)$this->getUrl())) {
+                return $url;
             }
             return parent::__toString();
         } catch (\Exception $e) {

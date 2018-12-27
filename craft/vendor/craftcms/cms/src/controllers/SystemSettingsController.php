@@ -10,9 +10,11 @@ namespace craft\controllers;
 use Craft;
 use craft\elements\GlobalSet;
 use craft\errors\MissingComponentException;
+use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 use craft\helpers\MailerHelper;
 use craft\helpers\UrlHelper;
+use craft\mail\Mailer;
 use craft\mail\transportadapters\BaseTransportAdapter;
 use craft\mail\transportadapters\Sendmail;
 use craft\mail\transportadapters\TransportAdapterInterface;
@@ -254,7 +256,8 @@ class SystemSettingsController extends Controller
         $adapterIsValid = $adapter->validate();
 
         if ($settingsIsValid && $adapterIsValid) {
-            $mailer = MailerHelper::createMailer($settings);
+            /** @var Mailer $mailer */
+            $mailer = Craft::createObject(App::mailerConfig($settings));
 
             // Compose the settings list as HTML
             $settingsList = '';
@@ -331,7 +334,7 @@ class SystemSettingsController extends Controller
         }
 
         if ($globalSet->id) {
-            $title = $globalSet->name;
+            $title = trim($globalSet->name) ?: Craft::t('app', 'Edit Global Set');
         } else {
             $title = Craft::t('app', 'Create a new global set');
         }

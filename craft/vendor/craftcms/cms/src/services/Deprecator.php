@@ -34,7 +34,7 @@ class Deprecator extends Component
      * @var string|false Whether deprecation errors should be logged in the database ('db'),
      * error logs ('logs'), or not at all (false).
      *
-     * Changing this will prevent deprecation errors from showing up in the "Deprecation Errors" utility
+     * Changing this will prevent deprecation errors from showing up in the "Deprecation Warnings" utility
      * or in the "Deprecated" panel in the Debug Toolbar.
      */
     public $logTarget = 'db';
@@ -62,21 +62,33 @@ class Deprecator extends Component
      *
      * @param string $key
      * @param string $message
+     * @param string|null $file
+     * @param int|null $line
      */
-    public function log(string $key, string $message)
+    public function log(string $key, string $message, string $file = null, int $line = null)
     {
         if ($this->logTarget === false) {
             return;
         }
 
-        if ($this->logTarget === 'logs' || !Craft::$app->getIsInstalled()) {
+        // todo: maybe remove the Craft version check after the next breakpoint
+        // (depending on whether the minimum version warning shows up before any config deprecation errors)
+        if (
+            $this->logTarget === 'logs' ||
+            !Craft::$app->getIsInstalled() ||
+            version_compare(Craft::$app->getInfo()->version, '3.0.0-alpha.2910', '<')
+        ) {
             Craft::warning($message, 'deprecation-error');
             return;
         }
 
         // Get the debug backtrace
         $traces = debug_backtrace();
-        list($file, $line) = $this->_findOrigin($traces);
+
+        if ($file === null) {
+            list($file, $line) = $this->_findOrigin($traces);
+        }
+
         $fingerprint = $file . ($line ? ':' . $line : '');
         $index = $key . '-' . $fingerprint;
 

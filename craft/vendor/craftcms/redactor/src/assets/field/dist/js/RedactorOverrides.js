@@ -36,6 +36,7 @@ imageResizeClass.prototype._build = function (e) {
 
         this.$resizer = $R.dom('<span>');
         this.$resizer.attr('id', 'redactor-image-resizer');
+        this.$resizer.css({'z-index': 100});
 
         this.$target.append(this.$resizer);
 
@@ -84,7 +85,7 @@ toolbarFixedClass.prototype._doFixed = function() {
 
     // Fix figuring out when to pin the toolbar and when not.
     var toolbarHeight = $toolbar.height();
-    var toleranceEnd = 60;
+    var toleranceEnd = 100;
     var containerOffset = $container.offset();
     var boxOffset = containerOffset.top;
     var scrollOffset = this.$fixedTarget.scrollTop();

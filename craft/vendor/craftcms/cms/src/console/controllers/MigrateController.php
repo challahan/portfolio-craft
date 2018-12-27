@@ -210,7 +210,7 @@ class MigrateController extends BaseMigrateController
      * @return int
      * @throws MigrateException
      */
-    public function actionAll()
+    public function actionAll(): int
     {
         $updatesService = Craft::$app->getUpdates();
         $db = Craft::$app->getDb();
@@ -279,13 +279,25 @@ class MigrateController extends BaseMigrateController
     }
 
     /**
-     * @inheritdoc
+     * Upgrades the application by applying new migrations.
+     *
+     * For example,
+     *
+     * ```
+     * craft migrate     # apply all new migrations
+     * craft migrate 3   # apply the first 3 new migrations
+     * ```
+     *
+     * @param int $limit the number of new migrations to be applied. If 0, it means
+     * applying all available new migrations.
+     *
+     * @return int the status of the action execution. 0 means normal, other values mean abnormal.
      */
     public function actionUp($limit = 0)
     {
-        $res = parent::actionUp($limit);
+        $res = parent::actionUp($limit) ?? ExitCode::OK;
 
-        if (in_array($res, [ExitCode::OK, null], true) && empty($this->getNewMigrations())) {
+        if ($res === ExitCode::OK && empty($this->getNewMigrations())) {
             // Update any schema versions.
             switch ($this->type) {
                 case MigrationManager::TYPE_APP:
@@ -380,5 +392,13 @@ class MigrateController extends BaseMigrateController
     protected function removeMigrationHistory($version)
     {
         $this->getMigrator()->removeMigrationHistory($version);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function truncateDatabase()
+    {
+        $this->getMigrator()->truncateHistory();
     }
 }

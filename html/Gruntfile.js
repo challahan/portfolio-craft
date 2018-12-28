@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           'scripts/min/scripts-min.js': ['scripts/priority.js','scripts/analytics.js', 'scripts/lightgallery.js', 'scripts/lg-zoom.js', 'scripts/scripts.js'],
           'scripts/min/loadcss-min.js': ['scripts/loadcss.js'],
           'scripts/min/loadcss-resume-min.js': ['scripts/loadcss-resume.js'],
-          'scripts/min/loadcss-resume-min.js': ['scripts/loadcss-resume.js']
+          'scripts/min/loadcss-landing-min.js': ['scripts/loadcss-landing.js']
         }
       }
     },

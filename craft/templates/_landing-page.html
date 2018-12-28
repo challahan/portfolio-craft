@@ -36,9 +36,8 @@
 				<li>
 					<a class="project-card" href="{{project.url}}">
 						<div class="project-card__image">
-            {% for image in project.featureImage %}
-						      <img src="{{image.url('projectCard')}}" alt="{{image.title}}" />
-            {% endfor %}
+            {% set image = project.featureImage.one() %}
+						<img src="{{image.url('projectCard')}}" alt="{{image.title}}" />
 						</div>
 						<div class="project-card__info">
 							<h3 class="project-card__title">{{project.title}}</h3>

@@ -17,6 +17,7 @@ $(".owl-carousel").owlCarousel({
       		loop: true,
       		stagePadding: 50,
       		margin: 25,
+          lazyLoad: true,
       		responsive:{
               0:{
                   items:1

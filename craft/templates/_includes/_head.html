@@ -61,6 +61,7 @@
       {% endblock %}
   {% if entry is defined %}
     {% if entry.section.handle == 'landingPage' %}
+      <script src="{{ siteUrl }}/scripts/delighters.js"></script>
       <script async src="{{ siteUrl }}/scripts/min/loadcss-landing-min.js"></script>
       <noscript><link href="{{ siteUrl }}/css/landing.css" rel="stylesheet"></noscript>
       {% else %}

@@ -1,7 +1,7 @@
 // Load Google Fonts
 
 WebFontConfig = {
-    google: { families: [ 'Roboto+Condensed:300,400,700', 'Roboto:300,700' ] }
+    google: { families: [ 'Roboto+Condensed:300,400,700', 'Roboto:300,300i,700' ] }
   };
   (function() {
     var wf = document.createElement('script');

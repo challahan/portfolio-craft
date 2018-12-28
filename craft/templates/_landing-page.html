@@ -42,7 +42,11 @@
 						</div>
 						<div class="project-card__info">
 							<h3 class="project-card__title">{{project.title}}</h3>
-							<p class="project-card__description">{{project.shortDescription}}</p>
+              {% if project.shortDescription | length %}
+							       <p class="project-card__description">{{project.shortDescription}}</p>
+              {% elseif project.summary | length %}
+                    <p class="project-card__description">{{project.summary}}</p>
+              {% endif %}
 							<span class="read-more-link project-card__link">Project Details</span>
 						</div>
 					</a>

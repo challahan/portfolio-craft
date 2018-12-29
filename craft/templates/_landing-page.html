@@ -17,7 +17,7 @@
 		</div>
 		<div class="landing-intro__aside">
 			<a href="{% for link in entry.resumeLink %} {{link.url}} {%endfor %}" class="button__round">
-        {% for category in entry.businessName %}{{ category.title }}{% endfor %} Resume</a>
+        {% for category in entry.businessName %}{{ category.title }}{% endfor %} Resumé</a>
 			<a href="{% for link in entry.coverLetterLink %} {{link.url}} {%endfor %}" class="button__round button__round--reverse">{% for category in entry.businessName %}{{ category.title }}{% endfor %} Cover Letter</a>
 		</div>
 	</section>

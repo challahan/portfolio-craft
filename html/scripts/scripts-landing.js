@@ -20,10 +20,12 @@ $(".owl-carousel").owlCarousel({
       		stagePadding: 50,
       		margin: 25,
           dots: true,
+          dotsEach: false,
           lazyLoad: true,
       		responsive:{
               0:{
-                  items:1
+                  items:1,
+                  dots: false
               },
               600:{
                   items:2

@@ -430,11 +430,6 @@ main {
 	margin-left: 1em;
 }
 
-.owl-nav {
-	position: absolute;
-	right: 3px;
-}
-
 .owl-item{
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -445,6 +440,15 @@ main {
 .owl-stage {
 	 display: flex;
 	 flex-wrap: wrap;
+}
+
+.owl-nav {
+	position: absolute;
+	left: 0;
+	@media screen and (min-width: 600px) {
+		right: 3px;
+		left: inherit;
+	}
 }
 
 .owl-dots {

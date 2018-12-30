@@ -92,6 +92,20 @@ p {
 	}
 }
 
+.interior-introduction {
+	@media screen and (min-width: 700px) {
+		font-size: 1.1em;
+		p {
+			line-height: 1.5;
+		}
+	}
+	@media screen and (min-width: 1000px) {
+		font-size: 1.2em;
+		padding-top: .5em;
+		padding-bottom: 1.5em;
+	}
+}
+
 article {
 	@include clearfix;
 	p {

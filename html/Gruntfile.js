@@ -15,7 +15,8 @@ module.exports = function(grunt) {
         'css/landing.css': '_sass/landing.scss',
         '../craft/templates/_includes/critical-landing.css': 'css/critical-landing.scss',
         '../craft/templates/_includes/critical-home.css': '../craft/templates/_includes/critical-home.css',
-        '../craft/templates/_includes/critical-work.css': '../craft/templates/_includes/critical-work.css',
+        '../craft/templates/_includes/critical-work.css': 'css/critical-work.scss',
+        '../craft/templates/_includes/critical-blog.css': 'css/critical-blog.scss',
         '../craft/templates/_includes/critical-project.css': '../craft/templates/_includes/critical-project.css'
         }
       }
@@ -58,7 +59,7 @@ module.exports = function(grunt) {
     uglify: {
       my_target: {
         files: {
-          'scripts/min/scripts-min.js': ['scripts/priority.js','scripts/analytics.js', 'scripts/lightgallery.js', 'scripts/lg-zoom.js', 'scripts/scripts.js'],
+          'scripts/min/scripts-min.js': ['scripts/analytics.js', 'scripts/lightgallery.js', 'scripts/lg-zoom.js', 'scripts/scripts.js'],
           'scripts/min/loadcss-min.js': ['scripts/loadcss.js'],
           'scripts/min/loadcss-resume-min.js': ['scripts/loadcss-resume.js'],
           'scripts/min/loadcss-landing-min.js': ['scripts/loadcss-landing.js']

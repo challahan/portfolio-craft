@@ -722,3 +722,21 @@
     return priorityNav;
 
 });
+
+// Call the Priority Plugin //
+
+(function() {
+  var nTimer = setInterval(function() {
+    if (window.jQuery) {
+      $(window).on('load', function (){
+        var nav = priorityNav.init({
+                        breakPoint: 450,
+                        navDropdownBreakpointLabel: "Filter",
+                        mainNavWrapper: 'nav.filter',
+                        throttleDelay: '50'
+                    });
+      });
+      clearInterval(nTimer);
+    }
+  }, 100);
+})();

@@ -47,6 +47,9 @@
           {% elseif entry.section.handle == 'landingPage' %}
               /* Critical CSS for Projects */
               {% include '_includes/critical-landing.css' %}
+          {% elseif entry.section.handle == 'blog' or entry.section.handle == 'blogIndex' %}
+                  /* Critical CSS for Projects */
+              {% include '_includes/critical-blog.css' %}
           {% else %}
             /* Critical CSS for Home */
             {% include '_includes/critical-home.css' %}

@@ -34,17 +34,6 @@ $(window).scroll(function() {
   }
 });
 
-// Call the Priority Plugin //
-
-$(window).on('load', function (){
-  var nav = priorityNav.init({
-                  breakPoint: 450,
-                  navDropdownBreakpointLabel: "Filter",
-                  mainNavWrapper: 'nav.filter',
-                  throttleDelay: '50'
-              });
-});
-
 // Call the Lightbox Plugin //
 
 $(window).on('load', function (){
@@ -52,4 +41,4 @@ $(window).on('load', function (){
       preload: 2,
       speed: 400
   });
-});  
+});

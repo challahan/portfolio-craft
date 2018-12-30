@@ -29,9 +29,10 @@
   <meta name="msapplication-TileImage" content="{{siteUrl}}/favicon/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="noindex">
+  <style type="text/css">
+    {% include '_includes/critical-resume.css' %}
+  </style>
   {% endcache %}
-  <!-- Render SEO Metatags -->
-  {% hook 'seomaticRender' %}
 </head>
   <body>
     {% block content %}

@@ -16,6 +16,7 @@ module.exports = function(grunt) {
         '../craft/templates/_includes/critical-landing.css': 'css/critical-landing.scss',
         '../craft/templates/_includes/critical-home.css': '../craft/templates/_includes/critical-home.css',
         '../craft/templates/_includes/critical-work.css': 'css/critical-work.scss',
+        '../craft/templates/_includes/critical-resume.css': 'css/critical-resume.scss',
         '../craft/templates/_includes/critical-blog.css': 'css/critical-blog.scss',
         '../craft/templates/_includes/critical-project.css': '../craft/templates/_includes/critical-project.css'
         }

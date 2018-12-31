@@ -29,9 +29,11 @@
   <meta name="msapplication-TileImage" content="{{siteUrl}}/favicon/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="noindex">
+  {% if not craft.config.devMode %}
   <style type="text/css">
     {% include '_includes/critical-resume.css' %}
   </style>
+  {% endif %}
   {% endcache %}
 </head>
   <body>

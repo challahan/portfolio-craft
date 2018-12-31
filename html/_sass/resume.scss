@@ -127,7 +127,7 @@ header {
   }
   @media #{$default} {
     margin-top: 1.5em;
-    margin-bottom: 2.5em;
+    margin-bottom: 2em;
   }
 }
 
@@ -209,7 +209,7 @@ h3 {
   color: $light-blue;
   margin-top: .25em;
   line-height: 1.2;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 0;
 }
 
@@ -251,22 +251,11 @@ main li {
   font-size: .85em;
 }
 
-.section__experience__block.first {
-  page-break-after: always;
-  @media print {
-    border-bottom: none;
-  }
-}
-
 .section__experience__block {
   padding-bottom: .5em;
-  margin-bottom: .5em;
+  margin-bottom: 0;
   margin-top:1em;
-  page-break-inside: avoid;
-  border-bottom: 1px solid lighten($gray,60%);
-  &:last-child {
-    border-bottom: none;
-  }
+  //page-break-inside: avoid;
 }
 
 .resume__contact-footer {

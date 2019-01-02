@@ -1,9 +1,10 @@
 {
 	"short_name": "Hallahan",
 	"name": "Christopher Hallahan's Portfolio",
-	"start_url": "/index.html?source=pwa",
+	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#024F69",
+	"background_color": "#024F69",
 	"icons": [
 		{
 			"src": "android-chrome-36x36.png",

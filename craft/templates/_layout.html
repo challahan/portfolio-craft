@@ -16,12 +16,5 @@
   <!-- Live Reload - For local environment only -->
   <script src="//localhost:35729/livereload.js"></script>
   {% endif %}
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('{{siteUrl}}scripts/service-worker.js');
-      });
-    }
-  </script>
   </body>
 </html>

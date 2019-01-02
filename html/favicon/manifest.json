@@ -1,7 +1,7 @@
 {
 	"short_name": "Hallahan",
 	"name": "Christopher Hallahan's Portfolio",
-	"start_url": "/",
+	"start_url": "/index.php?utm_source=homescreen",
 	"display": "standalone",
 	"theme_color": "#024F69",
 	"background_color": "#024F69",

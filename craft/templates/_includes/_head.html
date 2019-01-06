@@ -74,4 +74,8 @@
         <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
       {% endif %}
   {% endif %}
+  {% if category is defined %}
+    <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
+    <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+  {% endif %}
 </head>

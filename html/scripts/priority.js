@@ -738,5 +738,5 @@
       });
       clearInterval(nTimer);
     }
-  }, 100);
+  }, 10);
 })();

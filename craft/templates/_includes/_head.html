@@ -64,17 +64,23 @@
       </style>
       {% endif %}
       {% endblock %}
+  {% if category is defined %}
+    <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
+    <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+    <script src="{{ siteUrl }}/scripts/priority.js"></script>
+  {% endif %}
   {% if entry is defined %}
     {% if entry.section.handle == 'landingPage' %}
       <script src="{{ siteUrl }}/scripts/delighters.js"></script>
       <script async src="{{ siteUrl }}/scripts/min/loadcss-landing-min.js"></script>
       <noscript><link href="{{ siteUrl }}/css/landing.css" rel="stylesheet"></noscript>
-      {% else %}
+    {% elseif entry.section.handle == 'work' %}
+        <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
+        <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+        <script src="{{ siteUrl }}/scripts/priority.js"></script>
+    {% else %}
       <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
       <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
-    {% endif %}
-      {% else %}
-      <script async src="{{ siteUrl }}/scripts/min/loadcss-min.js"></script>
-      <noscript><link href="{{ siteUrl }}/css/style.css" rel="stylesheet"></noscript>
+  {% endif %}
   {% endif %}
 </head>

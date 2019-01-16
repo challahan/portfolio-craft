@@ -1,6 +1,6 @@
 {
     "require": {
-        "craftcms/cms": "3.0.36",
+        "craftcms/cms": "3.1.0",
         "craftcms/redactor": "2.1.7",
         "wbrowar/adminbar": "3.1.6",
         "mikestecker/craft-videoembedder": "1.0.9",

@@ -21,7 +21,7 @@ use craft\models\CraftSupport;
 use craft\web\assets\dashboard\DashboardAsset;
 use craft\web\Controller;
 use craft\web\UploadedFile;
-use DateTime;
+use Symfony\Component\Yaml\Yaml;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
@@ -269,19 +269,36 @@ class DashboardController extends Controller
         $url = $request->getRequiredParam('url');
         $limit = $request->getParam('limit');
 
-        $items = Craft::$app->getFeeds()->getFeedItems($url, $limit);
+        $feed = Craft::$app->getFeeds()->getFeed($url);
 
-        foreach ($items as &$item) {
-            if (isset($item['date'])) {
-                /** @var DateTime $date */
-                $date = $item['date'];
-                $item['date'] = $formatter->asTimestamp($date, Locale::LENGTH_SHORT);
+        $locale = null;
+        if ($feed['language'] !== null) {
+            try {
+                $locale = new Locale($feed['language']);
+            } catch (InvalidArgumentException $e) {
+            }
+        }
+        if ($locale === null) {
+            $locale = new Locale('en-US');
+        }
+
+
+        if ($limit) {
+            $feed['items'] = array_slice($feed['items'], 0, $limit);
+        }
+
+        foreach ($feed['items'] as &$item) {
+            if ($item['date'] !== null) {
+                $item['date'] = $formatter->asTimestamp($item['date'], Locale::LENGTH_SHORT);
             } else {
                 unset($item['date']);
             }
         }
 
-        return $this->asJson(['items' => $items]);
+        return $this->asJson([
+            'dir' => $locale->getOrientation(),
+            'items' => $feed['items'],
+        ]);
     }
 
     /**
@@ -375,6 +392,18 @@ class DashboardController extends Controller
             } catch (Exception $e) {
                 // that's fine
             }
+
+            // project.yaml
+            $projectConfig = Craft::$app->getProjectConfig()->get();
+            $projectConfig = Craft::$app->getSecurity()->redactIfSensitive('', $projectConfig);
+            $zip->addFromString('project.yaml', Yaml::dump($projectConfig, 20, 2));
+
+            // project.yaml backups
+            $configBackupPath = Craft::$app->getPath()->getConfigBackupPath(false);
+            $zip->addGlob($configBackupPath . '/*', 0, [
+                'remove_all_path' => true,
+                'add_path' => 'config-backups/',
+            ]);
 
             // Logs
             if ($getHelpModel->attachLogs) {

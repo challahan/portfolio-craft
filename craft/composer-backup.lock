@@ -2328,6 +2328,60 @@
             "time": "2019-01-14T15:00:48+00:00"
         },
         {
+            "name": "wbrowar/adminbar",
+            "version": "3.1.6",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wbrowar/craft-3-adminbar/zipball/1915c2dbb7e1759faea053ed0e40e41d52e8b562",
+                "reference": "1915c2dbb7e1759faea053ed0e40e41d52e8b562",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^3.0.7"
+            },
+            "type": "craft-plugin",
+            "extra": {
+                "name": "Admin Bar",
+                "handle": "admin-bar",
+                "schemaVersion": "3.1.0",
+                "hasCpSettings": true,
+                "hasCpSection": false,
+                "changelogUrl": "https://raw.githubusercontent.com/wbrowar/craft-3-adminbar/master/CHANGELOG.md",
+                "components": {
+                    "bar": "wbrowar\\adminbar\\services\\Bar",
+                    "editLinks": "wbrowar\\adminbar\\services\\EditLinks"
+                },
+                "class": "wbrowar\\adminbar\\AdminBar"
+            },
+            "autoload": {
+                "psr-4": {
+                    "wbrowar\\adminbar\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will Browar",
+                    "homepage": "https://wbrowar.com/plugins/adminbar"
+                }
+            ],
+            "description": "Front-end shortcuts for clients logged into Craft CMS.",
+            "keywords": [
+                "admin bar",
+                "cms",
+                "craft",
+                "craft-plugin",
+                "craftcms"
+            ],
+            "support": {
+                "docs": "https://github.com/wbrowar/craft-3-adminbar/blob/master/README.md",
+                "issues": "https://github.com/wbrowar/craft-3-adminbar/issues"
+            },
+            "time": "2018-05-11T01:46:55+00:00"
+        },
+        {
             "name": "yii2tech/ar-softdelete",
             "version": "1.0.2",
             "dist": {

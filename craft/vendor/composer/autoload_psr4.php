@@ -22,7 +22,6 @@ return array(
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap/src'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'yii2tech\\ar\\softdelete\\' => array($vendorDir . '/yii2tech/ar-softdelete/src'),
-    'wbrowar\\adminbar\\' => array($vendorDir . '/wbrowar/adminbar/src'),
     'mmikkel\\cpfieldinspect\\' => array($vendorDir . '/mmikkel/cp-field-inspect/src'),
     'mikestecker\\videoembedder\\' => array($vendorDir . '/mikestecker/craft-videoembedder/src'),
     'mikehaertl\\shellcommand\\' => array($vendorDir . '/mikehaertl/php-shellcommand/src'),

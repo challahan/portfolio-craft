@@ -53,6 +53,10 @@
                     {% endfor %}
                     </ul>
                   </div>
+                  {% elseif block.type == "pageBreak" %}
+                    {% if block.insertPageBreakHere %}
+                      <div class="page-break"></div>
+                    {% endif %}
                   {% endif %}
         {% endfor %}
 

@@ -258,6 +258,10 @@ main li {
   //page-break-inside: avoid;
 }
 
+.page-break {
+  page-break-after: always;
+}
+
 .resume__contact-footer {
   margin-bottom: 1em;
 }

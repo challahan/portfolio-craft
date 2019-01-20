@@ -996,12 +996,11 @@ class Install extends Migration
         echo "done\n";
 
         $generalConfig = Craft::$app->getConfig()->getGeneral();
+        $projectConfig = Craft::$app->getProjectConfig();
         $applyExistingProjectConfig = false;
 
         if ($generalConfig->useProjectConfigFile) {
-            $configDir = Craft::$app->getPath()->getConfigPath();
-            $configFile = $configDir . '/' . ProjectConfig::CONFIG_FILENAME;
-
+            $configFile = Craft::$app->getPath()->getProjectConfigFilePath();
             if (file_exists($configFile)) {
                 try {
                     $this->_installPlugins();
@@ -1013,8 +1012,11 @@ class Install extends Migration
                     // Rename project.yaml so we can create a new one
                     $backupFile = ProjectConfig::CONFIG_FILENAME . '.' . StringHelper::randomString(10);
                     echo "    > renaming project.yaml to {$backupFile} ... ";
-                    rename($configFile, $configDir . '/' . $backupFile);
+                    rename($configFile, dirname($configFile) . '/' . $backupFile);
                     echo "done\n";
+
+                    // Forget everything we knew about the old config
+                    $projectConfig->reset();
                 }
             }
         }
@@ -1022,13 +1024,13 @@ class Install extends Migration
         if ($applyExistingProjectConfig) {
             // Save the existing system settings
             echo '    > applying existing project config ... ';
-            Craft::$app->getProjectConfig()->applyYamlChanges();
+            $projectConfig->applyYamlChanges();
             echo "done\n";
         } else {
             // Save the default system settings
             echo '    > saving default site data ... ';
             $configData = $this->_generateInitialConfig();
-            Craft::$app->getProjectConfig()->applyConfigChanges($configData);
+            $projectConfig->applyConfigChanges($configData);
             echo "done\n";
         }
 
@@ -1040,7 +1042,6 @@ class Install extends Migration
             $sitesService = Craft::$app->getSites();
             $site = $sitesService->getPrimarySite();
             $site->baseUrl = $this->site->baseUrl;
-            $site->handle = $this->site->handle;
             $site->hasUrls = $this->site->hasUrls;
             $site->language = $this->site->language;
             $site->name = $this->site->name;
@@ -1093,7 +1094,7 @@ class Install extends Migration
             $expectedSchemaVersion = $projectConfig->get(Plugins::CONFIG_PLUGINS_KEY . '.' . $handle . '.schemaVersion', true);
 
             /** @var Plugin|null $plugin */
-            if ($plugin->schemaVersion != $expectedSchemaVersion) {
+            if ($plugin->schemaVersion && $expectedSchemaVersion && $plugin->schemaVersion != $expectedSchemaVersion) {
                 throw new InvalidPluginException($handle, "{$handle} is installed at the wrong schema version ({$plugin->schemaVersion}, but project.yaml lists {$expectedSchemaVersion}).");
             }
         }

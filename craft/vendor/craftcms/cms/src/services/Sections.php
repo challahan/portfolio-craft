@@ -954,7 +954,7 @@ class Sections extends Component
     public function getEntryTypesBySectionId(int $sectionId): array
     {
         $results = $this->_createEntryTypeQuery()
-            ->where(['sectionId' => $sectionId])
+            ->andWhere(['sectionId' => $sectionId])
             ->orderBy(['sortOrder' => SORT_ASC])
             ->all();
 
@@ -988,7 +988,7 @@ class Sections extends Component
         }
 
         $result = $this->_createEntryTypeQuery()
-            ->where(['id' => $entryTypeId])
+            ->andWhere(['id' => $entryTypeId])
             ->one();
 
         return $this->_entryTypesById[$entryTypeId] = $result ? new EntryType($result) : null;
@@ -1009,7 +1009,7 @@ class Sections extends Component
     public function getEntryTypesByHandle(string $entryTypeHandle): array
     {
         $results = $this->_createEntryTypeQuery()
-            ->where(['handle' => $entryTypeHandle])
+            ->andWhere(['handle' => $entryTypeHandle])
             ->all();
 
         foreach ($results as $key => $result) {
@@ -1401,6 +1401,18 @@ class Sections extends Component
      */
     private function _createSectionQuery(): Query
     {
+        // todo: remove schema version condition after next beakpoint
+        $condition = null;
+        $joinCondition = '[[structures.id]] = [[sections.structureId]]';
+        $schemaVersion = Craft::$app->getProjectConfig()->get('system.schemaVersion');
+        if (version_compare($schemaVersion, '3.1.19', '>=')) {
+            $condition = ['sections.dateDeleted' => null];
+            $joinCondition = ['and',
+                $joinCondition,
+                ['structures.dateDeleted' => null]
+            ];
+        }
+
         return (new Query())
             ->select([
                 'sections.id',
@@ -1413,8 +1425,9 @@ class Sections extends Component
                 'sections.uid',
                 'structures.maxLevels',
             ])
-            ->leftJoin('{{%structures}} structures', '[[structures.id]] = [[sections.structureId]]')
+            ->leftJoin('{{%structures}} structures', $joinCondition)
             ->from(['{{%sections}} sections'])
+            ->where($condition)
             ->orderBy(['name' => SORT_ASC]);
     }
 
@@ -1561,7 +1574,7 @@ class Sections extends Component
      */
     private function _createEntryTypeQuery()
     {
-        return (new Query())
+        $query = (new Query())
             ->select([
                 'id',
                 'sectionId',
@@ -1574,6 +1587,14 @@ class Sections extends Component
                 'uid',
             ])
             ->from([Table::ENTRYTYPES]);
+
+        // todo: remove schema version condition after next beakpoint
+        $schemaVersion = Craft::$app->getProjectConfig()->get('system.schemaVersion');
+        if (version_compare($schemaVersion, '3.1.19', '>=')) {
+            $query->where(['dateDeleted' => null]);
+        }
+
+        return $query;
     }
 
     /**

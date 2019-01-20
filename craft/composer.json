@@ -1,7 +1,7 @@
 {
     "require": {
-        "craftcms/cms": "3.1.0",
-        "craftcms/redactor": "2.1.7",
+        "craftcms/cms": "3.1.2.2",
+        "craftcms/redactor": "2.2.1",
         "mikestecker/craft-videoembedder": "1.0.9",
         "dolphiq/sitemap": "v1.0.9",
         "mmikkel/cp-field-inspect": "1.0.5"

@@ -5,7 +5,9 @@ namespace craft\migrations;
 use Craft;
 use craft\db\Migration;
 use craft\db\Query;
+use craft\db\Table;
 use craft\fields\Assets;
+use craft\helpers\Json;
 use craft\services\Fields;
 use craft\services\Matrix;
 
@@ -41,13 +43,23 @@ class m190108_113000_asset_field_setting_change extends Migration
 
         // Get the field data from the project config
         $fields = $projectConfig->get(Fields::CONFIG_FIELDS_KEY) ?? [];
+        $projectConfig->muteEvents = true;
 
         foreach ($fields as $fieldUid => $fieldData) {
             if ($fieldData['type'] === Assets::class) {
-                $fieldData['settings']['singleUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['singleUploadLocationSource']);
-                $fieldData['settings']['defaultUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['defaultUploadLocationSource']);
+                if (!empty($fieldData['settings']['singleUploadLocationSource'])) {
+                    $fieldData['settings']['singleUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['singleUploadLocationSource']);
+                }
+
+                if (!empty($fieldData['settings']['defaultUploadLocationSource'])) {
+                    $fieldData['settings']['defaultUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['defaultUploadLocationSource']);
+                }
 
                 $projectConfig->set(Fields::CONFIG_FIELDS_KEY . '.' . $fieldUid, $fieldData);
+
+                if (!empty($fieldData['settings'])) {
+                    $this->update(Table::FIELDS, ['settings' => Json::encode($fieldData['settings'])], ['uid' => $fieldUid]);
+                }
             }
         }
 
@@ -57,15 +69,28 @@ class m190108_113000_asset_field_setting_change extends Migration
         foreach ($matrixBlockTypes as $matrixBlockTypeUid => $matrixBlockType) {
             $fields = &$matrixBlockType['fields'];
 
-            foreach ($fields as $fieldUid => &$fieldData) {
-                if ($fieldData['type'] === Assets::class) {
-                    $fieldData['settings']['singleUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['singleUploadLocationSource']);
-                    $fieldData['settings']['defaultUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['defaultUploadLocationSource']);
+            if (is_array($fields)) {
+                foreach ($fields as $fieldUid => &$fieldData) {
+                    if ($fieldData['type'] === Assets::class) {
+                        if (!empty($fieldData['settings']['singleUploadLocationSource'])) {
+                            $fieldData['settings']['singleUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['singleUploadLocationSource']);
+                        }
+
+                        if (!empty($fieldData['settings']['defaultUploadLocationSource'])) {
+                            $fieldData['settings']['defaultUploadLocationSource'] = $this->_normalizeSourceKey((string)$fieldData['settings']['defaultUploadLocationSource']);
+                        }
+                    }
                 }
             }
 
             $projectConfig->set(Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid, $matrixBlockType);
+
+            if (!empty($fieldData['settings'])) {
+                $this->update(Table::FIELDS, ['settings' => Json::encode($fieldData['settings'])], ['uid' => $fieldUid]);
+            }
         }
+
+        $projectConfig->muteEvents = false;
     }
 
     /**

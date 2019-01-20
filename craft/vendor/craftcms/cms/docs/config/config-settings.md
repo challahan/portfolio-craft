@@ -139,6 +139,10 @@ the Craft edition and Craft/plugin versions will be locked, and the project conf
 Therefore you should only disable this in production environments when [$useProjectConfigFile](https://docs.craftcms.com/api/v3/craft-config-generalconfig.html#property-useprojectconfigfile) is enabled,
 and you have a deployment workflow that runs `composer install` automatically on deploy.
 
+::: warning
+Don’t disable this setting until **all** environments have been updated to Craft 3.1.0 or later.
+:::
+
 
 ### `allowSimilarTags`
 
@@ -177,7 +181,7 @@ Defined by
 
 Whether Craft should allow system and plugin updates in the Control Panel, and plugin installation from the Plugin Store.
 
-This setting will automatically be disabled if [$allowAdminChanges](https://docs.craftcms.com/api/v3/craft-config-generalconfig.html#property-allowadminchanges) is enabled.
+This setting will automatically be disabled if [$allowAdminChanges](https://docs.craftcms.com/api/v3/craft-config-generalconfig.html#property-allowadminchanges) is disabled.
 
 
 ### `allowUppercaseInSlug`

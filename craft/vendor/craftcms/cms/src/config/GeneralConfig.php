@@ -63,12 +63,16 @@ class GeneralConfig extends BaseObject
      *
      * Therefore you should only disable this in production environments when [[useProjectConfigFile]] is enabled,
      * and you have a deployment workflow that runs `composer install` automatically on deploy.
+     *
+     * ::: warning
+     * Don’t disable this setting until **all** environments have been updated to Craft 3.1.0 or later.
+     * :::
      */
     public $allowAdminChanges = true;
     /**
      * @var bool Whether Craft should allow system and plugin updates in the Control Panel, and plugin installation from the Plugin Store.
      *
-     * This setting will automatically be disabled if [[allowAdminChanges]] is enabled.
+     * This setting will automatically be disabled if [[allowAdminChanges]] is disabled.
      */
     public $allowUpdates = true;
     /**

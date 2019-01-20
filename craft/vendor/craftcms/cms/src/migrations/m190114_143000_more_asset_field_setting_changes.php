@@ -5,7 +5,9 @@ namespace craft\migrations;
 use Craft;
 use craft\db\Migration;
 use craft\db\Query;
+use craft\db\Table;
 use craft\fields\Assets;
+use craft\helpers\Json;
 use craft\services\Fields;
 use craft\services\Matrix;
 
@@ -41,9 +43,10 @@ class m190114_143000_more_asset_field_setting_changes extends Migration
 
         // Get the field data from the project config
         $fields = $projectConfig->get(Fields::CONFIG_FIELDS_KEY) ?? [];
+        $projectConfig->muteEvents = true;
 
         foreach ($fields as $fieldUid => $fieldData) {
-            if ($fieldData['type'] === Assets::class) {
+            if ($fieldData['type'] === Assets::class && !empty($fieldData['settings']['sources'])) {
                 $sources = &$fieldData['settings']['sources'];
 
                 if (is_array($sources)) {
@@ -54,6 +57,10 @@ class m190114_143000_more_asset_field_setting_changes extends Migration
                 }
 
                 $projectConfig->set(Fields::CONFIG_FIELDS_KEY . '.' . $fieldUid, $fieldData);
+
+                if (!empty($fieldData['settings'])) {
+                    $this->update(Table::FIELDS, ['settings' => Json::encode($fieldData['settings'])], ['uid' => $fieldUid]);
+                }
             }
         }
 
@@ -62,9 +69,13 @@ class m190114_143000_more_asset_field_setting_changes extends Migration
 
         foreach ($matrixBlockTypes as $matrixBlockTypeUid => $matrixBlockType) {
             $fields = &$matrixBlockType['fields'];
+            
+            if (!is_array($fields)) {
+                continue;
+            }
 
             foreach ($fields as $fieldUid => &$fieldData) {
-                if ($fieldData['type'] === Assets::class) {
+                if ($fieldData['type'] === Assets::class && !empty($fieldData['settings']['sources'])) {
                     $sources = &$fieldData['settings']['sources'];
 
                     if (is_array($sources)) {
@@ -75,10 +86,15 @@ class m190114_143000_more_asset_field_setting_changes extends Migration
                     }
                 }
             }
-            unset($fieldData);
 
             $projectConfig->set(Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid, $matrixBlockType);
+
+            if (!empty($fieldData['settings'])) {
+                $this->update(Table::FIELDS, ['settings' => Json::encode($fieldData['settings'])], ['uid' => $fieldUid]);
+            }
         }
+
+        $projectConfig->muteEvents = false;
     }
 
     /**

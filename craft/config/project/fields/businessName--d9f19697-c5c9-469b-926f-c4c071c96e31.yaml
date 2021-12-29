@@ -1,0 +1,14 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: businessName
+instructions: ''
+name: 'Business Name'
+searchable: '1'
+settings:
+  branchLimit: ''
+  localizeRelations: false
+  selectionLabel: ''
+  source: 'group:66aeda91-5beb-4571-a060-96aa144a70a2'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Categories

@@ -1,0 +1,43 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: metadataBlog
+instructions: ''
+name: 'Metadata - Blog'
+searchable: '1'
+settings:
+  assetSources: '*'
+  openGraphType: article
+  openGraphTypeChangeable: '1'
+  robots: all
+  robotsChangeable: '1'
+  seoDescription: ''
+  seoDescriptionSource: field
+  seoDescriptionSourceChangeable: '1'
+  seoDescriptionSourceField: summary
+  seoFacebookImageIdSource: field
+  seoFacebookImageIdSourceChangeable: '1'
+  seoFacebookImageIdSourceField: featureImage
+  seoFacebookImageTransform: postLarge
+  seoImageIdSource: field
+  seoImageIdSourceChangeable: '1'
+  seoImageIdSourceField: featureImage
+  seoImageTransform: postLarge
+  seoKeywords: ''
+  seoKeywordsSource: field
+  seoKeywordsSourceChangeable: '1'
+  seoKeywordsSourceField: tags
+  seoMainEntityCategory: CreativeWork
+  seoMainEntityOfPage: TechArticle
+  seoTitle: ''
+  seoTitleSource: field
+  seoTitleSourceChangeable: '1'
+  seoTitleSourceField: title
+  seoTwitterImageIdSource: field
+  seoTwitterImageIdSourceChangeable: '1'
+  seoTwitterImageIdSourceField: featureImage
+  seoTwitterImageTransform: postLarge
+  twitterCardType: summary_large_image
+  twitterCardTypeChangeable: '1'
+translationKeyFormat: null
+translationMethod: none
+type: nystudio107\seomatic\fields\Seomatic_Meta

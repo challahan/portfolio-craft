@@ -1,0 +1,10 @@
+handle: projectType
+name: 'Project Type'
+siteSettings:
+  831a6d2e-df54-465d-9476-ea529c12f2c3:
+    hasUrls: '1'
+    template: projects/category.html
+    uriFormat: '{% if object.level == 1 %}work/type/{slug}{% else %}{parent.uri}/{slug}{% endif %}'
+structure:
+  maxLevels: null
+  uid: 515baaac-c0bc-4d4c-9bd0-0dd178e83ab8

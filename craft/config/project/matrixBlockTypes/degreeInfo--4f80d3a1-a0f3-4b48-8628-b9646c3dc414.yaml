@@ -1,0 +1,69 @@
+field: 843b94e6-6b0a-48e9-b671-a22468da78e0
+fieldLayouts:
+  7fdd65f2-9e19-49dd-b32d-41b51aa78a61:
+    tabs:
+      -
+        fields:
+          9ccd779d-1e9b-4816-9029-1e57c522e297:
+            required: '0'
+            sortOrder: '3'
+          699d6b87-31d9-48de-8c24-5a87c5f204bd:
+            required: '0'
+            sortOrder: '1'
+          c606573e-2864-4c1d-ab45-f43c9230196a:
+            required: '0'
+            sortOrder: '2'
+        name: Content
+        sortOrder: '1'
+fields:
+  9ccd779d-1e9b-4816-9029-1e57c522e297:
+    contentColumnType: text
+    fieldGroup: null
+    handle: schoolName
+    instructions: ''
+    name: 'School Name'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  699d6b87-31d9-48de-8c24-5a87c5f204bd:
+    contentColumnType: text
+    fieldGroup: null
+    handle: graduationMonthYear
+    instructions: ''
+    name: 'Graduation Month/Year'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  c606573e-2864-4c1d-ab45-f43c9230196a:
+    contentColumnType: text
+    fieldGroup: null
+    handle: degreeName
+    instructions: ''
+    name: 'Degree Name'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: degreeInfo
+name: 'Degree Information'
+sortOrder: '1'

@@ -1,0 +1,88 @@
+dateModified: 1640807070
+email:
+  fromEmail: challahan@gmail.com
+  fromName: 'Chris Hallahan'
+  template: null
+  transportType: craft\mail\transportadapters\Sendmail
+graphql:
+  publicToken:
+    enabled: false
+    expiryDate: null
+meta:
+  __names__:
+    1db200a7-176d-46c4-b11b-4d4a47b5092f: Work # Work
+    5d829c87-8e34-4fe7-8bc5-a5613a15c9ad: 'Blog Post' # Blog Post
+    5e94db61-fb6f-4ff3-8a54-2aa2ca203fcf: Header # Header
+    6c88ea43-16db-4135-8bfb-08b989f9d4b7: 'Job Apps' # Job Apps
+    8fcb0860-52a7-42fb-84bc-da527b66890f: Project # Project
+    9feb5e35-7a17-4030-a707-5c7bdc2d02ed: Resume # Resume
+    28df5094-e03b-44d5-9e98-498abbdc5f14: Work # Work
+    76a8367f-dd90-4164-bd32-86ea7ecc106c: 'Writing & Talks' # Writing & Talks
+    295ae0ec-10ea-4b42-b016-ce815c18412a: Contact # Contact
+    448e75e6-b0cf-43cc-8eda-9c4096a2c109: 'Landing Page' # Landing Page
+    78655d6a-d7e5-4e30-96a6-e486b0201626: Homepage # Homepage
+    61210522-cbdb-43f7-a52a-772e84f6e206: 'Blog Post' # Blog Post
+    b0198e41-223a-4587-be36-fe5f5a9d4c60: Project # Project
+    b86eba29-dace-40f0-8633-3e7ae622e8e0: Footer # Footer
+    b23124bd-6a3c-4f10-afd6-bd626ea93873: Contact # Contact
+    b7627226-da98-45e7-a07c-65490448b10a: About # About
+    bca5843a-1c27-4c47-a901-8493272f89cd: About # About
+    be6b46f4-3292-4630-adc6-311f126ccb03: 'Landing Page' # Landing Page
+    cc42ede9-0c21-469b-8673-dcfa87d049ca: 'Cover Letter' # Cover Letter
+    d836e3cd-681d-4a61-8c2a-6d7359469ec5: Homepage # Homepage
+    efe095bb-1c4c-4442-bdcc-d5bc587629d8: 'Writing & Talks' # Writing & Talks
+plugins:
+  admin-bar:
+    enabled: false
+    licenseKey: null
+    schemaVersion: 3.1.0
+    settings: null
+  cp-nav:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 1.1.0
+    settings: null
+  imager:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 1.0.0
+    settings: null
+  redactor:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 2.3.0
+    settings: null
+  retour:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 1.0.5
+    settings:
+      pluginNameOverride: Redirects
+  seomatic:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 3.0.4
+    settings:
+      pluginNameOverride: Search
+  sitemap:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 1.0.2
+    settings: null
+  video-embed-utility:
+    enabled: '1'
+    licenseKey: null
+    schemaVersion: 1.0.0
+    settings: null
+system:
+  edition: solo
+  live: true
+  name: 'Christopher Hallahan'
+  schemaVersion: 3.7.8
+  timeZone: America/New_York
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: ''
+  photoVolumeUid: b001f1f9-1682-47c6-afdd-6b1eb7d8e65a
+  requireEmailVerification: true

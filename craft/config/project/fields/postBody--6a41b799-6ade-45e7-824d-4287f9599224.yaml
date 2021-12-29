@@ -1,0 +1,13 @@
+contentColumnType: string
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: postBody
+instructions: ''
+name: 'Post Body'
+searchable: '1'
+settings:
+  contentTable: '{{%matrixcontent_postbody}}'
+  localizeBlocks: false
+  maxBlocks: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Matrix

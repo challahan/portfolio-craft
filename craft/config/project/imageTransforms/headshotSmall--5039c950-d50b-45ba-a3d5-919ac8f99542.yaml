@@ -1,0 +1,9 @@
+format: null
+handle: headshotSmall
+height: '300'
+interlace: line
+mode: crop
+name: 'Headshot Small'
+position: center-center
+quality: '82'
+width: '300'

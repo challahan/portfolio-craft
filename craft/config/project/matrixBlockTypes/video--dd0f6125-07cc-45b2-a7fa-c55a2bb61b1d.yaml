@@ -1,0 +1,31 @@
+field: 6a41b799-6ade-45e7-824d-4287f9599224
+fieldLayouts:
+  ba2060b7-4779-42a0-a115-017f49ad9c57:
+    tabs:
+      -
+        fields:
+          4fc66c99-0f60-47e1-bfc9-c3cc57176fcf:
+            required: '0'
+            sortOrder: '1'
+        name: Content
+        sortOrder: '1'
+fields:
+  4fc66c99-0f60-47e1-bfc9-c3cc57176fcf:
+    contentColumnType: text
+    fieldGroup: null
+    handle: videoUrl
+    instructions: 'Paste the YouTube or Video Link'
+    name: 'Video URL'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: video
+name: Video
+sortOrder: '2'

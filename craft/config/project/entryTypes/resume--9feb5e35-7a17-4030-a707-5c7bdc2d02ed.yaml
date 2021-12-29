@@ -1,0 +1,57 @@
+fieldLayouts:
+  32fbbab0-700f-4589-907e-0364239ac448:
+    tabs:
+      -
+        elements:
+          -
+            instructions: null
+            label: Title
+            type: craft\fieldlayoutelements\EntryTitleField
+          -
+            fieldUid: d9f19697-c5c9-469b-926f-c4c071c96e31
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 2280838c-2993-4e82-afcd-35ac735550ab
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: f179aa41-2ba7-4090-b6dc-d5cf79811025
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: c1868469-2fc2-456b-8585-ca5c5fbdfd83
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 3cebb20a-d93c-47d3-bb23-a697c0e5043c
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: bdf5d2ce-5de9-4fdf-b369-69b23ff48318
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: ce0d1712-1e96-4ce6-85be-bd6892f73a9d
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 843b94e6-6b0a-48e9-b671-a22468da78e0
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 33bb6d9d-2e5b-4300-bade-ec9fbb95a77b
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 2be98f0d-19aa-4db4-aa69-9e642449b57a
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: Resume
+        sortOrder: '1'
+handle: resume
+hasTitleField: '1'
+name: Resume
+section: 6c88ea43-16db-4135-8bfb-08b989f9d4b7 # Job Apps
+sortOrder: '1'
+titleFormat: null

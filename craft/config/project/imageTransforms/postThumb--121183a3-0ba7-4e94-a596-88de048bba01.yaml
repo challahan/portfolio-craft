@@ -1,0 +1,9 @@
+format: jpg
+handle: postThumb
+height: '100'
+interlace: none
+mode: crop
+name: 'Post Thumb'
+position: top-left
+quality: '60'
+width: '150'

@@ -1,0 +1,27 @@
+field: 33bb6d9d-2e5b-4300-bade-ec9fbb95a77b
+fieldLayouts:
+  4d8e9a98-b2ca-4393-85ef-eb5d35cb3aed:
+    tabs:
+      -
+        fields:
+          243efa3b-5307-4f78-aa3c-f05b53806cd7:
+            required: false
+            sortOrder: 1
+        name: Content
+        sortOrder: 1
+fields:
+  243efa3b-5307-4f78-aa3c-f05b53806cd7:
+    contentColumnType: boolean
+    fieldGroup: null
+    handle: insertPageBreakHere
+    instructions: ''
+    name: 'Insert Page Break Here'
+    searchable: true
+    settings:
+      default: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Lightswitch
+handle: pageBreak
+name: 'Page Break'
+sortOrder: 3

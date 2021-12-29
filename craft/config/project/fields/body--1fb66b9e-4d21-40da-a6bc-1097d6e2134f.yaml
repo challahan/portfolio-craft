@@ -1,0 +1,15 @@
+contentColumnType: text
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: body
+instructions: null
+name: Body
+searchable: '1'
+settings:
+  columnType: text
+  redactorConfig: Standard.json
+  removeEmptyTags: false
+  removeInlineStyles: false
+  removeNbsp: false
+translationKeyFormat: null
+translationMethod: site
+type: craft\redactor\Field

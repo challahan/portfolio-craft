@@ -1,0 +1,7 @@
+handle: blogIndex
+hasTitleField: '0'
+name: 'Writing & Talks'
+section: 76a8367f-dd90-4164-bd32-86ea7ecc106c # Writing & Talks
+sortOrder: '1'
+titleFormat: '{section.name|raw}'
+titleLabel: null

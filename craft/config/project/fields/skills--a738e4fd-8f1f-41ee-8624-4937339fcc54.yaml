@@ -1,0 +1,14 @@
+contentColumnType: string
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: skills
+instructions: ''
+name: Skills
+searchable: '1'
+settings:
+  branchLimit: ''
+  localizeRelations: false
+  selectionLabel: ''
+  source: 'group:40f238cd-24c4-4fec-b392-743af9ae3e87'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Categories

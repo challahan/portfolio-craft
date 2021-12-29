@@ -1,0 +1,16 @@
+contentColumnType: text
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: contactIntroduction
+instructions: ''
+name: 'Contact Introduction'
+searchable: '1'
+settings:
+  charLimit: ''
+  code: ''
+  columnType: text
+  initialRows: '4'
+  multiline: ''
+  placeholder: ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

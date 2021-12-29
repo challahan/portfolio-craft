@@ -1,0 +1,61 @@
+fieldLayouts:
+  f37f275f-5b65-47b1-9f1f-bbdbbc10c820:
+    tabs:
+      -
+        elements:
+          -
+            instructions: null
+            label: Title
+            type: craft\fieldlayoutelements\EntryTitleField
+          -
+            fieldUid: d9f19697-c5c9-469b-926f-c4c071c96e31
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 794943d7-6fb0-4b2e-8bb0-0a2bb7911e59
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 2280838c-2993-4e82-afcd-35ac735550ab
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: f179aa41-2ba7-4090-b6dc-d5cf79811025
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 3cebb20a-d93c-47d3-bb23-a697c0e5043c
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: c1868469-2fc2-456b-8585-ca5c5fbdfd83
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: bdf5d2ce-5de9-4fdf-b369-69b23ff48318
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: dab16f0d-0897-488d-9b2c-616182deaf89
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 1e7ec144-58a6-4a53-9005-76589f7f137e
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: fa368f34-9edb-4b98-8833-c76c70d3b721
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 2be98f0d-19aa-4db4-aa69-9e642449b57a
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: 'Cover Letter'
+        sortOrder: '1'
+handle: letter
+hasTitleField: '1'
+name: 'Cover Letter'
+section: 6c88ea43-16db-4135-8bfb-08b989f9d4b7 # Job Apps
+sortOrder: '2'
+titleFormat: null

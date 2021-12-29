@@ -1,0 +1,9 @@
+format: null
+handle: postLarge
+height: '550'
+interlace: none
+mode: crop
+name: 'Post Large'
+position: center-center
+quality: '60'
+width: '900'

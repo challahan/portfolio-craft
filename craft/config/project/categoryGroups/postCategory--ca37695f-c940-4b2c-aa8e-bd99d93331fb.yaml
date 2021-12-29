@@ -1,0 +1,10 @@
+handle: postCategory
+name: 'Post Category'
+siteSettings:
+  831a6d2e-df54-465d-9476-ea529c12f2c3:
+    hasUrls: '1'
+    template: ''
+    uriFormat: '{% if object.level == 1 %}post-category/{slug}{% else %}{parent.uri}/{slug}{% endif %}'
+structure:
+  maxLevels: null
+  uid: 9ba3882e-28e1-497a-9142-3197c5d91781

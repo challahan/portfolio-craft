@@ -1,0 +1,10 @@
+handle: businessName
+name: 'Business Name'
+siteSettings:
+  831a6d2e-df54-465d-9476-ea529c12f2c3:
+    hasUrls: '0'
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: null
+  uid: 2f6fe73c-4de0-482a-848b-f422c23d5db0

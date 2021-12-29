@@ -1,0 +1,14 @@
+contentColumnType: string
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: projectType
+instructions: ''
+name: 'Project Type'
+searchable: '1'
+settings:
+  branchLimit: ''
+  localizeRelations: false
+  selectionLabel: 'Add Project Type'
+  source: 'group:014c2ac6-e075-48a9-9391-60225adbb4fa'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Categories

@@ -1,0 +1,49 @@
+fieldLayouts:
+  e470cdb0-aa5c-484a-a95b-91f13797720a:
+    tabs:
+      -
+        elements:
+          -
+            instructions: null
+            label: Title
+            type: craft\fieldlayoutelements\EntryTitleField
+          -
+            fieldUid: b073a49d-a59a-4777-adc7-153d0e7a84b4
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 6a41b799-6ade-45e7-824d-4287f9599224
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 0603333f-14dc-4846-90db-7448b5979b34
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 92fd92c5-ce11-4d07-a55d-7b3fbf445cc7
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: f8b4cba4-62a5-4740-b5e2-f26b2a5ded2c
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 8fe169b3-59b3-4121-82cd-1d7441449230
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: 'Blog Content'
+        sortOrder: '1'
+      -
+        elements:
+          -
+            fieldUid: 7d44e255-5c08-4490-8480-8f0ae121b926
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: Metadata
+        sortOrder: '2'
+handle: blog
+hasTitleField: '1'
+name: 'Blog Post'
+section: 5d829c87-8e34-4fe7-8bc5-a5613a15c9ad # Blog Post
+sortOrder: '1'
+titleFormat: null

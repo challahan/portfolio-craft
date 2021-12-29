@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: coverLetterText
+instructions: ''
+name: 'Cover Letter Text'
+searchable: '1'
+settings:
+  availableTransforms: '*'
+  availableVolumes: '*'
+  columnType: text
+  purifyHtml: '1'
+  redactorConfig: ''
+  removeEmptyTags: '1'
+  removeInlineStyles: '1'
+  removeNbsp: '1'
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

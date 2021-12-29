@@ -1,0 +1,57 @@
+field: 33bb6d9d-2e5b-4300-bade-ec9fbb95a77b
+fieldLayouts:
+  318cbfc5-936f-4e16-b8e7-9a9124162f52:
+    tabs:
+      -
+        fields:
+          c260d0f3-4753-4c58-9715-4d753af36a9f:
+            required: false
+            sortOrder: 1
+        name: Content
+        sortOrder: 1
+fields:
+  c260d0f3-4753-4c58-9715-4d753af36a9f:
+    contentColumnType: text
+    fieldGroup: null
+    handle: description
+    instructions: ''
+    name: Description
+    searchable: true
+    settings:
+      addRowLabel: 'Add a row'
+      columnType: text
+      columns:
+        __assoc__:
+          -
+            - col1
+            -
+              __assoc__:
+                -
+                  - heading
+                  - 'Bullet Item'
+                -
+                  - handle
+                  - bulletPoint
+                -
+                  - width
+                  - ''
+                -
+                  - type
+                  - singleline
+      defaults:
+        __assoc__:
+          -
+            - row1
+            -
+              __assoc__:
+                -
+                  - col1
+                  - ''
+      maxRows: ''
+      minRows: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Table
+handle: positionDescription
+name: 'Position Description'
+sortOrder: 2

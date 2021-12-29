@@ -1,0 +1,72 @@
+field: 33bb6d9d-2e5b-4300-bade-ec9fbb95a77b
+fieldLayouts:
+  5d406bc7-ff56-4da8-98a5-722f4fb86f91:
+    tabs:
+      -
+        fields:
+          73f77d46-316f-40b1-bab9-fabc5390bec7:
+            required: false
+            sortOrder: 1
+          a12888d7-7644-47e1-9bf0-ea5c2dc8938c:
+            required: false
+            sortOrder: 2
+          e410fa9e-ac39-4e1b-80d5-02ac147b0e6a:
+            required: false
+            sortOrder: 3
+        name: Content
+        sortOrder: 1
+fields:
+  73f77d46-316f-40b1-bab9-fabc5390bec7:
+    contentColumnType: text
+    fieldGroup: null
+    handle: positionMonthYear
+    instructions: ''
+    name: Month/Year
+    searchable: true
+    settings:
+      charLimit: ''
+      code: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  a12888d7-7644-47e1-9bf0-ea5c2dc8938c:
+    contentColumnType: text
+    fieldGroup: null
+    handle: jobTitle
+    instructions: ''
+    name: 'Job Title'
+    searchable: true
+    settings:
+      charLimit: ''
+      code: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  e410fa9e-ac39-4e1b-80d5-02ac147b0e6a:
+    contentColumnType: text
+    fieldGroup: null
+    handle: company
+    instructions: ''
+    name: Company
+    searchable: true
+    settings:
+      charLimit: ''
+      code: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: positionInformation
+name: 'Position Information'
+sortOrder: 1

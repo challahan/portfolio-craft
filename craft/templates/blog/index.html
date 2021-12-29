@@ -17,7 +17,7 @@
                 <a href="{{ post.url }}">
                   <h4>{{ post.title }}</h4>
                   <span class="post-date">{{ post.postDate | date("M d, Y") }}</span>
-                  {% if post.author %}<span class="post-author">By {{ post.author.fullName }}</span>{% endif %}
+                  {% if post.author %}<span class="post-author">By Christopher Hallahan</span>{% endif %}
                   <p>{{ post.summary }}</p>
                 </a>
                 <a class="read-more-link" href="{{ post.url }}">Continue Reading</a>

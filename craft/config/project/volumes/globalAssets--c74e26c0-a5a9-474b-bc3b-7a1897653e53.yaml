@@ -1,0 +1,9 @@
+handle: globalAssets
+hasUrls: '1'
+name: 'Global Assets'
+settings:
+  path: assets/global/
+  url: 'https://chrishallahan.com/assets/global/'
+sortOrder: '1'
+type: craft\volumes\Local
+url: null

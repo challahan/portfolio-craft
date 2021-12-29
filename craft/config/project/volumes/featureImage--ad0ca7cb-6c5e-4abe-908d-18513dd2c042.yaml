@@ -1,0 +1,9 @@
+handle: featureImage
+hasUrls: '1'
+name: 'Feature Image'
+settings:
+  path: /var/www/html/assets/feature/
+  url: 'https://chrishallahan.com/assets/feature/'
+sortOrder: '3'
+type: craft\volumes\Local
+url: null

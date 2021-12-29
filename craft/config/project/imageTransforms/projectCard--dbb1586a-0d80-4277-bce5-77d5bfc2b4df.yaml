@@ -1,0 +1,9 @@
+format: jpg
+handle: projectCard
+height: '200'
+interlace: none
+mode: crop
+name: 'Project Card'
+position: center-center
+quality: '100'
+width: '300'

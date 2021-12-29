@@ -1,0 +1,25 @@
+fieldLayouts:
+  c2fc3fae-0bd7-4d6f-befc-889e0bca46ac:
+    tabs:
+      -
+        elements:
+          -
+            instructions: null
+            label: ''
+            type: craft\fieldlayoutelements\EntryTitleField
+          -
+            fieldUid: fdedcd5a-8c64-4a5f-bc76-7375a568726b
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 1fb66b9e-4d21-40da-a6bc-1097d6e2134f
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: 'Tab 1'
+        sortOrder: '1'
+handle: about
+hasTitleField: '1'
+name: About
+section: b7627226-da98-45e7-a07c-65490448b10a # About
+sortOrder: '1'
+titleFormat: null

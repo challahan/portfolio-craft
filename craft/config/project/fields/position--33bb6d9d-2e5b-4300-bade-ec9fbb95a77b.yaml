@@ -1,0 +1,14 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: position
+instructions: ''
+name: Position
+searchable: true
+settings:
+  contentTable: '{{%matrixcontent_position}}'
+  localizeBlocks: false
+  maxBlocks: ''
+  minBlocks: ''
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

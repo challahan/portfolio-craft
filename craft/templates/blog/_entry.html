@@ -8,7 +8,7 @@
 
 {% block title %}{{ entry.title }}{% endblock %}
 {% block date %}{{ entry.postDate | date("M d, Y") }}{%endblock %}
-{% block author %}{{ entry.author.fullName }}{% endblock author %}
+{% block author %}{{ entry.author.firstName }}{% endblock author %}
 {% block more %}<a href="{{siteUrl}}blog">See More Posts</a>{% endblock more %}
 {% block pagecontent %}
   <main class="blog-post">

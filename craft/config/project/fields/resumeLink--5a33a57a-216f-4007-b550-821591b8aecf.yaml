@@ -1,0 +1,17 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: resumeLink
+instructions: ''
+name: 'Resume Link'
+searchable: '1'
+settings:
+  limit: ''
+  localizeRelations: false
+  selectionLabel: 'Add Resume'
+  source: null
+  sources: '*'
+  targetSiteId: null
+  viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

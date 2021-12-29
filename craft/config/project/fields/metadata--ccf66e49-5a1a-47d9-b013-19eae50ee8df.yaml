@@ -1,0 +1,43 @@
+contentColumnType: string
+fieldGroup: 51e75449-f4f5-49e1-a25f-544590496679
+handle: metadata
+instructions: ''
+name: Metadata
+searchable: '1'
+settings:
+  assetSources: '*'
+  openGraphType: website
+  openGraphTypeChangeable: '1'
+  robots: all
+  robotsChangeable: '1'
+  seoDescription: ''
+  seoDescriptionSource: field
+  seoDescriptionSourceChangeable: '1'
+  seoDescriptionSourceField: introduction
+  seoFacebookImageIdSource: custom
+  seoFacebookImageIdSourceChangeable: '1'
+  seoFacebookImageIdSourceField: closingSignature
+  seoFacebookImageTransform: postLarge
+  seoImageIdSource: field
+  seoImageIdSourceChangeable: '1'
+  seoImageIdSourceField: featureImage
+  seoImageTransform: postLarge
+  seoKeywords: ''
+  seoKeywordsSource: custom
+  seoKeywordsSourceChangeable: '1'
+  seoKeywordsSourceField: title
+  seoMainEntityCategory: CreativeWork
+  seoMainEntityOfPage: WebPage
+  seoTitle: ''
+  seoTitleSource: field
+  seoTitleSourceChangeable: '1'
+  seoTitleSourceField: title
+  seoTwitterImageIdSource: custom
+  seoTwitterImageIdSourceChangeable: '1'
+  seoTwitterImageIdSourceField: closingSignature
+  seoTwitterImageTransform: postLarge
+  twitterCardType: ''
+  twitterCardTypeChangeable: '1'
+translationKeyFormat: null
+translationMethod: none
+type: nystudio107\seomatic\fields\Seomatic_Meta

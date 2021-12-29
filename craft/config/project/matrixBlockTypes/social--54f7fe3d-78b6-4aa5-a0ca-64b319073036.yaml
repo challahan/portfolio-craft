@@ -1,0 +1,75 @@
+field: bf497251-2a53-4aed-b4fa-75fc013d1529
+fieldLayouts:
+  172a8bfc-5c54-4cbc-a5ae-af28fe2cb575:
+    tabs:
+      -
+        fields:
+          1f314e6b-5f9b-471b-aa66-c36208bab1fa:
+            required: '0'
+            sortOrder: '1'
+          2e9060ce-cfd3-41e2-9dc6-8c93bdd5f9e1:
+            required: '0'
+            sortOrder: '3'
+          459c416d-c4fd-46e1-8dd0-3f703a5cd61c:
+            required: '0'
+            sortOrder: '2'
+        name: Content
+        sortOrder: '1'
+fields:
+  1f314e6b-5f9b-471b-aa66-c36208bab1fa:
+    contentColumnType: text
+    fieldGroup: null
+    handle: socialName
+    instructions: ''
+    name: 'Social Name'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  2e9060ce-cfd3-41e2-9dc6-8c93bdd5f9e1:
+    contentColumnType: string
+    fieldGroup: null
+    handle: socialIcon
+    instructions: ''
+    name: 'Social Icon'
+    searchable: '1'
+    settings:
+      defaultUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+      defaultUploadLocationSubpath: ''
+      limit: '1'
+      localizeRelations: false
+      restrictFiles: ''
+      selectionLabel: ''
+      singleUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+      singleUploadLocationSubpath: ''
+      sources: '*'
+      useSingleFolder: '1'
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Assets
+  459c416d-c4fd-46e1-8dd0-3f703a5cd61c:
+    contentColumnType: text
+    fieldGroup: null
+    handle: socialUrl
+    instructions: ''
+    name: 'Social URL'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: social
+name: Social
+sortOrder: '1'

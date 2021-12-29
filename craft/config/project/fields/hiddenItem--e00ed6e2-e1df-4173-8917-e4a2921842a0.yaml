@@ -1,0 +1,11 @@
+contentColumnType: boolean
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: hiddenItem
+instructions: 'Hide this item from search engines and listing pages'
+name: 'Hidden Item'
+searchable: '1'
+settings:
+  default: ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

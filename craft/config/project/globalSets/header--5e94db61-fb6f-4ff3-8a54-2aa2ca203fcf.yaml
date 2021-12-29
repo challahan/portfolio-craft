@@ -1,0 +1,16 @@
+fieldLayouts:
+  cefd556e-bae5-4e21-8060-9fb8e130f0fb:
+    tabs:
+      -
+        fields:
+          50318d9c-3844-4f46-9f8a-e2e28ef03b7e:
+            required: '0'
+            sortOrder: '1'
+          67094c6f-e45f-4f65-ba9c-7042c6b33d1f:
+            required: '0'
+            sortOrder: '2'
+        name: Content
+        sortOrder: '1'
+handle: header
+name: Header
+sortOrder: 2

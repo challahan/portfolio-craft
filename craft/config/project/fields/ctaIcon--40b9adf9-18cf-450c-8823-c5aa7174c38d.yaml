@@ -1,0 +1,21 @@
+contentColumnType: string
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: ctaIcon
+instructions: ''
+name: 'CTA Icon'
+searchable: '1'
+settings:
+  defaultUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+  defaultUploadLocationSubpath: ''
+  limit: '1'
+  localizeRelations: false
+  restrictFiles: ''
+  selectionLabel: ''
+  singleUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+  singleUploadLocationSubpath: ''
+  sources: '*'
+  useSingleFolder: '1'
+  viewMode: list
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Assets

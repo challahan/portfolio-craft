@@ -1,0 +1,56 @@
+field: 6a41b799-6ade-45e7-824d-4287f9599224
+fieldLayouts:
+  b0a1ee5d-6093-42b4-b25b-c284f58e2ac9:
+    tabs:
+      -
+        fields:
+          78629b80-c6aa-4cfc-a78d-488c5a482589:
+            required: '0'
+            sortOrder: '1'
+          a0788c2d-29cb-46ab-b0b7-910d69a49e80:
+            required: '0'
+            sortOrder: '2'
+        name: Content
+        sortOrder: '1'
+fields:
+  78629b80-c6aa-4cfc-a78d-488c5a482589:
+    contentColumnType: string
+    fieldGroup: null
+    handle: image
+    instructions: ''
+    name: Image
+    searchable: '1'
+    settings:
+      defaultUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+      defaultUploadLocationSubpath: ''
+      limit: ''
+      localizeRelations: false
+      restrictFiles: ''
+      selectionLabel: ''
+      singleUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+      singleUploadLocationSubpath: ''
+      sources: '*'
+      useSingleFolder: ''
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Assets
+  a0788c2d-29cb-46ab-b0b7-910d69a49e80:
+    contentColumnType: text
+    fieldGroup: null
+    handle: imageCaption
+    instructions: ''
+    name: 'Image Caption'
+    searchable: '1'
+    settings:
+      charLimit: ''
+      columnType: text
+      initialRows: '4'
+      multiline: ''
+      placeholder: ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: image
+name: Image
+sortOrder: '3'

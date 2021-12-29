@@ -1,0 +1,49 @@
+fieldLayouts:
+  4a4cbab8-a563-45c9-b68e-7c3df8100417:
+    tabs:
+      -
+        elements:
+          -
+            instructions: null
+            label: Title
+            type: craft\fieldlayoutelements\EntryTitleField
+          -
+            fieldUid: d9f19697-c5c9-469b-926f-c4c071c96e31
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: fdedcd5a-8c64-4a5f-bc76-7375a568726b
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: f1489368-85b3-4e7d-8f8c-2dc5aedffa35
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 5a33a57a-216f-4007-b550-821591b8aecf
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 0799742e-15a1-49e5-a927-523b756b6a24
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: 574e61f2-fa34-49a6-8564-9b5c3650e9a2
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: e82e4400-6de0-4c30-8904-6524940dee03
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+          -
+            fieldUid: bf497251-2a53-4aed-b4fa-75fc013d1529
+            required: false
+            type: craft\fieldlayoutelements\CustomField
+        name: 'Tab 1'
+        sortOrder: '1'
+handle: landingPage
+hasTitleField: '1'
+name: 'Landing Page'
+section: be6b46f4-3292-4630-adc6-311f126ccb03 # Landing Page
+sortOrder: '1'
+titleFormat: null

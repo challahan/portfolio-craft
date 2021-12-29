@@ -1,0 +1,9 @@
+handle: headshot
+hasUrls: '1'
+name: Headshot
+settings:
+  path: /var/www/html/assets/headshot/
+  url: 'https://chrishallahan.com/assets/headshot/'
+sortOrder: '2'
+type: craft\volumes\Local
+url: null

@@ -1,0 +1,21 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: closingSignature
+instructions: ''
+name: 'Closing Signature'
+searchable: '1'
+settings:
+  defaultUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+  defaultUploadLocationSubpath: ''
+  limit: ''
+  localizeRelations: false
+  restrictFiles: ''
+  selectionLabel: ''
+  singleUploadLocationSource: 'volume:c74e26c0-a5a9-474b-bc3b-7a1897653e53'
+  singleUploadLocationSubpath: ''
+  sources: '*'
+  useSingleFolder: ''
+  viewMode: list
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Assets

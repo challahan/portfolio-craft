@@ -1,0 +1,15 @@
+contentColumnType: text
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: relatedUrl
+instructions: ''
+name: 'Related URL'
+searchable: '1'
+settings:
+  charLimit: ''
+  columnType: text
+  initialRows: '4'
+  multiline: ''
+  placeholder: ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

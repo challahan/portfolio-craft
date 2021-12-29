@@ -1,0 +1,31 @@
+fieldLayouts:
+  7568a541-65d1-407a-b4cf-59ea0931ebed:
+    tabs:
+      -
+        fields:
+          8bf111a3-09da-43a6-8048-efdb6e369027:
+            required: '0'
+            sortOrder: '5'
+          40b9adf9-18cf-450c-8823-c5aa7174c38d:
+            required: '0'
+            sortOrder: '3'
+          b3a38d92-dd41-49e2-b378-116982504589:
+            required: '0'
+            sortOrder: '6'
+          bf497251-2a53-4aed-b4fa-75fc013d1529:
+            required: '0'
+            sortOrder: '7'
+          c64994bf-ee7f-4552-8ccc-a944962322b2:
+            required: '0'
+            sortOrder: '2'
+          df3dfa3c-2f45-4181-9703-e1010ff9af66:
+            required: '0'
+            sortOrder: '4'
+          e4636bcf-4447-43d6-8c15-f0a0c2ef89be:
+            required: '0'
+            sortOrder: '1'
+        name: Content
+        sortOrder: '1'
+handle: footer
+name: Footer
+sortOrder: 1

@@ -1,0 +1,13 @@
+contentColumnType: string
+fieldGroup: 09cad4a2-7922-4b56-a787-f592dbab755b
+handle: education
+instructions: ''
+name: Education
+searchable: '1'
+settings:
+  contentTable: '{{%matrixcontent_education}}'
+  localizeBlocks: false
+  maxBlocks: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Matrix

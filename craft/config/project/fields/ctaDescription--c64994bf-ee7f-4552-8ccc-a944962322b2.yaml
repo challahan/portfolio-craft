@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: b8b97f8e-826c-4337-92cb-658228f33b21
+handle: ctaDescription
+instructions: ''
+name: 'CTA Description'
+searchable: '1'
+settings:
+  availableTransforms: '*'
+  availableVolumes: '*'
+  columnType: text
+  purifyHtml: '1'
+  redactorConfig: Standard.json
+  removeEmptyTags: '1'
+  removeInlineStyles: '1'
+  removeNbsp: '1'
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

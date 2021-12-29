@@ -32,3 +32,4 @@ node_modules
 /html/package-lock.json
 /html/cpresources
 /craft/storage/logs/web.log
+/craft/vendor

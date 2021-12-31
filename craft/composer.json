@@ -5,7 +5,8 @@
         "mikestecker/craft-videoembedder": "1.0.9",
         "dolphiq/sitemap": "1.3.2",
         "mmikkel/cp-field-inspect": "1.0.5",
-        "verbb/knock-knock": "1.2.16"
+        "verbb/knock-knock": "1.2.16",
+        "jorenvanhee/craft-template-guard": "1.0.0"
     },
     "config": {
         "platform": {

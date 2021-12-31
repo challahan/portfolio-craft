@@ -1,9 +1,40 @@
+fieldLayouts:
+  98ba5e3c-2b74-4b88-8b31-aed0fb5e4c80:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\AssetTitleField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
 handle: featureImage
-hasUrls: '1'
+hasUrls: true
 name: 'Feature Image'
 settings:
-  path: /var/www/html/assets/feature/
-  url: 'https://chrishallahan.com/assets/feature/'
-sortOrder: '3'
+  path: assets/feature/
+sortOrder: 3
+titleTranslationKeyFormat: null
+titleTranslationMethod: null
 type: craft\volumes\Local
-url: null
+url: 'https://chrishallahan.com/assets/feature/'

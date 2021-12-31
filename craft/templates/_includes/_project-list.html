@@ -10,6 +10,9 @@
           <a href="{{category.url}}" class="work-category work-category-{{category.slug}}">{{category.title}}</a>
         {% endfor %}
       {% endif %}
+      {% if post.section.handle == 'protectedProject' %}
+      <p><i>Password-Protected</i></p>
+      {% endif %}
       <p>{{post.shortDescription}}</p>
       <dl class="work-stats">
         <dt>Completed:</dt>

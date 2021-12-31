@@ -1,0 +1,12 @@
+defaultPlacement: end
+enableVersioning: true
+handle: protectedProject
+name: 'Protected Project'
+propagationMethod: all
+siteSettings:
+  831a6d2e-df54-465d-9476-ea529c12f2c3:
+    enabledByDefault: true
+    hasUrls: true
+    template: projects/_entry-protected
+    uriFormat: 'projects/{slug}'
+type: channel

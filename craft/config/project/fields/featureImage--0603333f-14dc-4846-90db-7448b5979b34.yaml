@@ -12,7 +12,7 @@ settings:
   localizeRelations: false
   restrictFiles: ''
   selectionLabel: 'Add Image'
-  singleUploadLocationSource: 'volume:ad0ca7cb-6c5e-4abe-908d-18513dd2c042'
+  singleUploadLocationSource: 'volume:ad0ca7cb-6c5e-4abe-908d-18513dd2c042' # Feature Image
   singleUploadLocationSubpath: ''
   source: null
   sources: '*'

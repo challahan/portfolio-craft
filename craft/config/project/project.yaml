@@ -1,4 +1,4 @@
-dateModified: 1640807070
+dateModified: 1640981889
 email:
   fromEmail: challahan@gmail.com
   fromName: 'Chris Hallahan'
@@ -14,14 +14,17 @@ meta:
     5d829c87-8e34-4fe7-8bc5-a5613a15c9ad: 'Blog Post' # Blog Post
     5e94db61-fb6f-4ff3-8a54-2aa2ca203fcf: Header # Header
     6c88ea43-16db-4135-8bfb-08b989f9d4b7: 'Job Apps' # Job Apps
+    6ddb2d80-1063-4729-b898-10331b83c275: 'Protected Project' # Protected Project
     8fcb0860-52a7-42fb-84bc-da527b66890f: Project # Project
     9feb5e35-7a17-4030-a707-5c7bdc2d02ed: Resume # Resume
     28df5094-e03b-44d5-9e98-498abbdc5f14: Work # Work
     76a8367f-dd90-4164-bd32-86ea7ecc106c: 'Writing & Talks' # Writing & Talks
+    255bc603-7225-4db8-9790-a8b4019f304d: 'Protected Project' # Protected Project
     295ae0ec-10ea-4b42-b016-ce815c18412a: Contact # Contact
     448e75e6-b0cf-43cc-8eda-9c4096a2c109: 'Landing Page' # Landing Page
     78655d6a-d7e5-4e30-96a6-e486b0201626: Homepage # Homepage
     61210522-cbdb-43f7-a52a-772e84f6e206: 'Blog Post' # Blog Post
+    ad0ca7cb-6c5e-4abe-908d-18513dd2c042: 'Feature Image' # Feature Image
     b0198e41-223a-4587-be36-fe5f5a9d4c60: Project # Project
     b86eba29-dace-40f0-8633-3e7ae622e8e0: Footer # Footer
     b23124bd-6a3c-4f10-afd6-bd626ea93873: Contact # Contact
@@ -47,6 +50,39 @@ plugins:
     licenseKey: null
     schemaVersion: 1.0.0
     settings: null
+  knock-knock:
+    edition: standard
+    enabled: false
+    schemaVersion: 1.1.1
+    settings:
+      allowIps: ''
+      checkInvalidLogins: ''
+      denyIps: ''
+      enabled: '1'
+      forcedRedirect: null
+      invalidLoginWindowDuration: '3600'
+      loginPath: login
+      maxInvalidLogins: '10'
+      password: hallahan2022
+      protectedUrls: 'https://chris.web/projects/protected-password-protected-project'
+      siteSettings:
+        __assoc__:
+          -
+            - en_us
+            -
+              __assoc__:
+                -
+                  - enabled
+                  - ''
+                -
+                  - password
+                  - ''
+                -
+                  - template
+                  - ''
+      template: ''
+      unprotectedUrls: ''
+      useRemoteIp: ''
   redactor:
     enabled: '1'
     licenseKey: null
@@ -69,6 +105,14 @@ plugins:
     licenseKey: null
     schemaVersion: 1.0.2
     settings: null
+  template-guard:
+    edition: standard
+    enabled: true
+    licenseKey: 9KX46C1KQXGG3SVWY49LSUS3
+    schemaVersion: 1.0.0
+    settings:
+      loginRoute: projects/login
+      template: ''
   video-embed-utility:
     enabled: '1'
     licenseKey: null

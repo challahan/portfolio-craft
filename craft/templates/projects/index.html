@@ -6,7 +6,7 @@
 
 {% extends "_page" %}
   {% block title %}Work{% endblock %}
-  {% paginate craft.entries.section('project').hiddenItem('not 1').limit(12) as pageInfo, pageEntries %}
+  {% paginate craft.entries.section(['project', 'protectedProject']).hiddenItem('not 1').limit(12) as pageInfo, pageEntries %}
   {% block filter %}
     {% include '_includes/_filter.html' %}
   {% endblock %}

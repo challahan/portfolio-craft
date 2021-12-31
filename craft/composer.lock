@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c450c21fbfb52d21b5501c1e95a43a2c",
+    "content-hash": "b0440e83bd464aef4d75495dedf62395",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -3507,6 +3507,87 @@
                 "templating"
             ],
             "time": "2021-11-25T13:38:06+00:00"
+        },
+        {
+            "name": "verbb/base",
+            "version": "1.0.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/verbb/verbb-base/zipball/71cee53e766100d5c50652feb675dfa004c8ace5",
+                "reference": "71cee53e766100d5c50652feb675dfa004c8ace5",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^3.0.0"
+            },
+            "type": "yii-module",
+            "autoload": {
+                "psr-4": {
+                    "verbb\\base\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verbb",
+                    "homepage": "https://verbb.io"
+                }
+            ],
+            "description": "Common utilities and building-blocks for Verbb plugins for Craft CMS.",
+            "time": "2021-11-03T03:07:00+00:00"
+        },
+        {
+            "name": "verbb/knock-knock",
+            "version": "1.2.16",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/verbb/knock-knock/zipball/6db044b3916c5a1895e01c2216dd3664c3c35823",
+                "reference": "6db044b3916c5a1895e01c2216dd3664c3c35823",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^3.4.0",
+                "verbb/base": "^1.0.2"
+            },
+            "type": "craft-plugin",
+            "extra": {
+                "name": "Knock Knock",
+                "handle": "knock-knock",
+                "changelogUrl": "https://raw.githubusercontent.com/verbb/knock-knock/craft-3/CHANGELOG.md",
+                "class": "verbb\\knockknock\\KnockKnock"
+            },
+            "autoload": {
+                "psr-4": {
+                    "verbb\\knockknock\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verbb",
+                    "homepage": "https://verbb.io"
+                }
+            ],
+            "description": "Password protect your public facing Craft website with a single password.",
+            "keywords": [
+                "cms",
+                "craft",
+                "craft-plugin",
+                "craftcms",
+                "knock-knock"
+            ],
+            "support": {
+                "email": "support@verbb.io",
+                "issues": "https://github.com/verbb/knock-knock/issues?state=open",
+                "source": "https://github.com/verbb/knock-knock",
+                "docs": "https://github.com/verbb/knock-knock",
+                "rss": "https://github.com/verbb/knock-knock/commits/v2.atom"
+            },
+            "time": "2021-09-17T11:43:15+00:00"
         },
         {
             "name": "voku/anti-xss",
